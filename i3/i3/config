@@ -5,20 +5,27 @@ set $mod Mod4
 font pango:Fira Code Retina 8
 
 # Wallpaper
-#exec feh --bg-scale //TODO: Add wallpaper location
+exec feh --bg-scale /home/jobo/Pictures/Icescape.jpg
+
+# start dmenu (a program launcher)
+bindsym $mod+d exec dmenu_run
+bindsym $mod+Control+l exec --no-startup-id ~/.config/i3scripts/i3exit lock
 
 # Program Management
 bindsym $mod+Shift+q kill
 bindsym $mod+t exec thunderbird
+bindsym $mod+e exec dmenu_run_aliases
 
 # Terminals
 bindsym $mod+Return exec urxvt
 bindsym $mod+Shift+Return exec gnome-terminal
 
 # Apps
+exec --no-startup-id /usr/bin/urxvtd -q -f -o       # urxvtd
 exec --no-startup-id /usr/bin/NetworkManager        # network manager
 exec --no-startup-id /usr/bin/pasystray             # volume control
 exec --no-startup-id /usr/bin/blueman-applet        # bluetooth manager
+exec --no-startup-id /usr/bin/protonmail-bridge     # protonmail
 
 # Focus
 bindsym $mod+Left focus left
@@ -31,8 +38,8 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # Split
-bindsym $mod+d split h
-bindsym $mod+k split v
+bindsym $mod+h split h
+bindsym $mod+v split v
 
 # Fullscreen
 bindsym $mod+u fullscreen
@@ -93,6 +100,6 @@ mode "resize" {
 
 bar {
     position top
-    status_command conky
+    status_command i3status 
     mode hide
 }
