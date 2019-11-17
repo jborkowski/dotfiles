@@ -1,0 +1,4 @@
+.vim/.netrwhist
+nvim/nvim/.netrwhist
+.xmonad/*.state
+nvim/nvim/plugged/*

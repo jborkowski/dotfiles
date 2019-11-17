@@ -1,0 +1,37 @@
+[user]
+	email = jonatan.borkowski@pm.me
+	user  = jborkowski
+  name  = Jonatan Borkowski
+[push]
+  default = tracking
+[apply]
+  whitespace = nowarn
+[core]
+  pager = less -r
+  editor = vim
+	autocrlf = input
+[help]
+  autocorrect = 1 
+[diff]
+  tool = meld
+[alias]
+  #wish i knew
+  whois = "!sh -c 'git log -i -1 --pretty=\"format::%an <%ae>\n\" --author=\"$1\"' -"
+  whatis = show -s --pretty='tformat::%h (%s, %ad)' --date=short
+  howmany = "!sh -c 'git log -a --pretty=oneline | wc -l'"
+  howmanybywhom = shortlog -sn
+
+  anychanges = !sh -c 'git fetch' && git log --oneline HEAD..origin/$1
+  anychangesonmaster = !sh -c 'git fetch' && git log --oneline HEAD..origin/master
+  whoischanging = !sh -c 'git shortlog HEAD..origin/$0'
+  whoischangingmaster = !sh -c 'git shortlog HEAD..origin/master'
+
+  # fix .gitignore
+  fixgitignore = !git rm -r --cached . && git add . && git commit -m \"Just a .gitignore fix \"
+
+  # Gets the current branch name (not so useful in itself, but used in other aliases)
+  branch-name = "!git rev-parse --abbrev-ref HEAD"
+  # Pushes the current branch to the remote "origin", and set it to track the upstream branch
+  publish = "!git push -u origin $(git branch-name)"
+  # Deletes the remote version of the current branch
+  unpublish = "!git push origin :$(git branch-name)"
