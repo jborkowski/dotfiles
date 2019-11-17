@@ -1,0 +1,11 @@
+#include ".Xresources.d/rxvt-unicode"
+#include ".Xresources.d/fonts"
+#include ".Xresources.d/xterm"
+
+Xft.antialias: true
+Xft.rgba: rgb
+Xft.hinting: true
+Xft.hintstyle: hintslight
+Xft.dpi: 120
+Xcursor.theme: whiteglass
+Xcursor.size: 14
