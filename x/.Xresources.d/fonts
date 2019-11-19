@@ -2,8 +2,10 @@
 ! Xft settings
 !-------------------------------------------------------------------------------
 
-Xft.dpi:                    96
+Xft.dpi:                    220
 Xft.antialias:              false
 Xft.rgba:                   rgb
 Xft.hinting:                true
 Xft.hintstyle:              hintslight
+Xcursor.theme:              whiteglass
+Xcursor.size:               14

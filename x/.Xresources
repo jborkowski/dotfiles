@@ -2,10 +2,3 @@
 #include ".Xresources.d/fonts"
 #include ".Xresources.d/xterm"
 
-Xft.antialias: false 
-Xft.rgba: rgb
-Xft.hinting: true
-Xft.hintstyle: hintslight
-Xft.dpi: 220 
-Xcursor.theme: whiteglass
-Xcursor.size: 14
