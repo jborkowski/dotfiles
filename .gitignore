@@ -3,3 +3,14 @@ nvim/nvim/.netrwhist
 .xmonad/*.state
 nvim/nvim/plugged/*
 my_emacs_d/.emacs.d/elpa/*
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+my_emacs_d/.emacs.d/.last-package-update-day
+my_emacs_d/.emacs.d/projectile-bookmarks.eld
+my_emacs_d/.emacs.d/recentf
