@@ -22,7 +22,8 @@ ZSH_THEME="robbyrussell"
 ZSH_TMUX_AUTOQUIT=false
 ZSH_TMUX_AUTOCONNECT=false
 
-plugins=(git zsh-autosuggestions rbenv gitignore sbt scala mvn cp battery history rsync tmux vagrant vi-mode vim-interaction web-search systemd)
+#vi-mode vim-interaction
+plugins=(emacs git zsh-autosuggestions rbenv gitignore sbt scala mvn cp history rsync tmux vagrant vim-interaction web-search systemd)
 
 source $ZSH/oh-my-zsh.sh
 

@@ -2,3 +2,4 @@
 nvim/nvim/.netrwhist
 .xmonad/*.state
 nvim/nvim/plugged/*
+my_emacs_d/.emacs.d/elpa/*

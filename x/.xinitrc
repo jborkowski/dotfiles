@@ -13,12 +13,16 @@ export LANG=en_US.utf8
 export LC_MESSAGES=en_US.utf8
 
 # {{{ Resource and keymap settings
+usermodmap="${HOME}/.Xmodmap"
 userresources="${HOME}/.Xresources"
+sysmodmap="/etc/X11/xinit/.Xmodmap"
 sysresources="/etc/X11/xinit/.Xresources"
 
 # Merge system and user resources and keymaps
 [[ -r "${sysresources}" ]]  && xrdb -merge "${sysresources}"
+[[ -r "${sysmodmap}" ]]     && xmodmap "${sysmodmap}"
 [[ -r "${userresources}" ]] && xrdb -merge "${userresources}"
+[[ -r "${usermodmap}" ]]    && xmodmap "${usermodmap}"
 # }}}
 
 # {{{ Input settings
