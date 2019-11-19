@@ -37,7 +37,7 @@ echo "Active profile : $profile"
 stow --override=* -R -v -t ~/ -d git $profile
 stow -R -v -t ~/ tmux vim zsh xmonad x
 stow -R -v -t ~/.urxvt urxvt
-stow -R -v -t ~/.config i3 nvim
+stow -R -v -t ~/.config i3 nvim rofi zathura
 
 vim +PlugInstall +qall
 nvim +PlugInstall +qall

@@ -5,13 +5,11 @@
 ! http://pod.tst.eu/http://cvs.schmorp.de/rxvt-unicode/doc/rxvt.1.pod
 !-------------------------------------------------------------------------------
 
-URxvt*termName: rxvt-unicode
+URxvt*termName:             rxvt-unicode
 URxvt.depth:                32
 URxvt.geometry:             90x30
 URxvt.transparent:          false
 URxvt.fading:               0
-! URxvt.urgentOnBell:         true
-! URxvt.visualBell:           true
 URxvt.loginShell:           true
 URxvt.saveLines:            50
 URxvt.internalBorder:       3
@@ -19,24 +17,28 @@ URxvt.lineSpace:            0
 
 ! Fonts
 URxvt.allow_bold:           false
-/* URxvt.font:                 -*-terminus-medium-r-normal-*-12-120-72-72-c-60-iso8859-1 */
-URxvt*font: xft:Monospace:pixelsize=16
-! URxvt*font: xft:Source\ Code\ Pro\ for\ Powerline,Source\ Code\ Pro\ Medium:pixelsize=16
-! URxvt*font: xft:DejaVu\ Sans\ Mono\ for\ Powerline:pixelsize=17
-URxvt*boldFont: xft:Monospace:pixelsize=16
+URxvt*font:                 xft:Monospace:pixelsize=28
+URxvt*boldFont:             xft:Monospace:pixelsize=28
 
 ! Fix font space
-URxvt*letterSpace: -1
+URxvt*letterSpace:          -1
+
+! Resize font
+URxvt.keysym.C-minus:     resize-font:smaller
+URxvt.keysym.C-plus:      resize-font:bigger
+URxvt.keysym.C-equal:     resize-font:reset
+URxvt.keysym.C-question:  resize-font:show
 
 ! Scrollbar
 URxvt.scrollStyle:          rxvt
 URxvt.scrollBar:            false
+URxvt.secondaryScreen:      1
+URxvt.secondaryScroll:      0
 
 ! Perl extensions
-! URxvt.perl-ext-common:      default,matcher,font-size
-URxvt.perl-ext-common:      default,font-size
+URxvt.perl-ext-common:      default,size-font,matcher
 URxvt.matcher.button:       1
-URxvt.urlLauncher:          firefox
+URxvt.urlLauncher:          /usr/bin/xdg-open
 
 ! Cursor
 URxvt.cursorBlink:          true
@@ -47,7 +49,6 @@ URxvt.cursorUnderline:      false
 URxvt.pointerBlank:         true
 
 !!Source http://github.com/altercation/solarized
-
 
 *background: #002b36
 *foreground: #657b83
