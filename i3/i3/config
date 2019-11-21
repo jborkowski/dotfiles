@@ -34,6 +34,8 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
+bindsym $mod+m move workspace to output right
+
 # Split
 bindsym $mod+h split h
 bindsym $mod+v split v
@@ -69,15 +71,15 @@ set $ws9 "9"
 set $ws10 "10"
 
 # switch to workspace
-bindsym $mod+1 workspace $ws1
+bindsym $mod+1 workspace $ws1 
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
 bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
+bindsym $mod+5 workspace $ws5 
+bindsym $mod+6 workspace $ws6 
 bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
+bindsym $mod+8 workspace $ws8  
+bindsym $mod+9 workspace $ws9 
 bindsym $mod+0 workspace $ws10
 
 # move focused container to workspace
@@ -91,6 +93,17 @@ bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
+
+workspace $ws1 output primary
+workspace $ws2 output primary
+workspace $ws3 output primary
+workspace $ws4 output primary
+workspace $ws5 output primary
+workspace $ws6 output secondary
+workspace $ws7 output secondary
+workspace $ws8 output secondary
+workspace $ws9 output secondary
+
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -133,26 +146,54 @@ bindsym $mod+Shift+i exec emacs -ib 16
 # assign programs to workspaces
 for_window [class="Zathura"] move to workspace $ws3
 for_window [class="Nautilus"] move to workspace $ws4
-for_window [class="code"] move to workspace $ws5
-for_window [class="jetbrains*"] move to workspace $ws5
-for_window [class="LibreOffice*"] move to workspace $ws7
-for_window [class="Emacs"] move to workspace $ws8
-for_window [class="Spotify"] move to workspace $ws9
-for_window [class="Thunderbird"] move to workspace $ws3 
-for_window [class="ProtonMail"] move to workspace $ws3 
-for_window [class="Slack"] move to workspace $ws4
-for_window [class="discord"] move to workspace $ws4 
-for_window [class="whats-app"] move to workspace $ws4 
+for_window [class="code"] move to workspace $ws3
+for_window [class="jetbrains*"] move to workspace $ws3
+for_window [class="LibreOffice*"] move to workspace $ws3
+for_window [class="Emacs"] move to workspace $ws2
+for_window [class="Spotify"] move to workspace $ws8
+for_window [class="Thunderbird"] move to workspace $ws7 
+for_window [class="ProtonMail"] move to workspace $ws7 
+for_window [class="Slack"] move to workspace $ws6
+for_window [class="discord"] move to workspace $ws6 
+for_window [class="whats-app"] move to workspace $ws6 
 
 # floating settings
 for_window [class="mpv"] floating enable
 for_window [class="calculator"] floating enable
 for_window [window_role="pop-up"] floating enable
+for_window [window_role="nextcloud"] floating enable
 
 # Media Keys
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
+
+#Pulse Audio controls
+bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ '-5%'
+bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ '+5%'
+bindsym XF86AudioMute exec /usr/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle'
+#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+#bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+#bindsym XF86AudioMicMute exec --no-startup-id amixer set Capture toggle # mute Mic
+
+
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+
+mode "$mode_system" {
+    bindsym l exec --no-startup-id ~/.config/i3scripts/i3exit lock, mode "default"
+    bindsym e exec --no-startup-id ~/.config/i3scripts/i3exit logout, mode "default"
+    bindsym s exec --no-startup-id  ~/.config/i3scripts/i3exit suspend, mode "default"
+    bindsym h exec --no-startup-id ~/.config/i3scripts/i3exit hibernate, mode "default"
+    bindsym r exec --no-startup-id ~/.config/i3scripts/i3exit  reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id ~/.config/i3scripts/i3exit shutdown, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+BackSpace mode "$mode_system"
 
 # i3 Gaps
 for_window [class="^.*"] border pixel 0
@@ -169,6 +210,7 @@ smart_gaps on
 #border_radius 4 
 
 #autostart programs on specific workspace
+exec --no-startup-id /usr/bin/nextcloud
 exec --no-startup-id /usr/bin/urxvtd -q -f -o       # urxvtd
 exec --no-startup-id /usr/bin/NetworkManager        # network manager
 exec --no-startup-id /usr/bin/pasystray             # volume control

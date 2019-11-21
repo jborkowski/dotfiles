@@ -7,3 +7,9 @@
 [submodule "zsh/.oh-my-zsh"]
 	path = zsh/.oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh
+[submodule "org/org/.org-html-themes"]
+	path = org/org/.org-html-themes
+	url = https://github.com/fniessen/org-html-themes.git
+[submodule "org/.org-html-themes"]
+	path = org/.org-html-themes
+	url = https://github.com/fniessen/org-html-themes.git
