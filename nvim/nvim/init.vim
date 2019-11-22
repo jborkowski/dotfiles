@@ -5,6 +5,10 @@ if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+
+" enable mouse
+set mouse=a
+
 " theme
 syntax enable
 set termguicolors

@@ -50,6 +50,20 @@ xsetroot -cursor_name left_ptr
 syndaemon -k -i 2 -d &
 # }}}
 
+#TODO: host switch
 #xrandr --output DP-3 --mode 1920x1080 --pos 0x255  --auto --output DP-2 --mode 1920x1080 --pos 1920x0 --auto --rotate left
 #xrandr --dpi 331 --fb 7680x4320 --output DP-3 --mode 3840x2160 --output DP-2 --scale 2x2 --pos 3840x0 --panning 3240x2160+3240+0
-xrandr --dpi 331 --fb 6000x6000 --output DP-3 --mode 3840x2160  --pos 0x1920 --primary --output DP-2 --scale 2x2  --panning 3840x0+0+0 --right-of DP-3 --rotate left
+#xrandr --dpi 331 --fb 6000x6000 --output DP-3 --mode 3840x2160  --pos 0x1920 --primary --output DP-2 --scale 2x2  --panning 3840x0+0+0 --right-of DP-3 --rotate lefti
+
+# {{{ Display settings
+case "$(hostname)" in
+  bpol1486)
+    # add correct params
+    #xrandr --output eDP-1 --mode 1600x900 --primary
+    ;;
+  MonadicWorker)
+    #xrandr --output DP-3 --mode 1920x1080 --pos 0x255  --auto --output DP-2 --mode 1920x1080 --pos 1920x0 --auto --rotate left
+    #xrandr --dpi 331 --fb 7680x4320 --output DP-3 --mode 3840x2160 --output DP-2 --scale 2x2 --pos 3840x0 --panning 3240x2160+3240+0
+    xrandr --dpi 331 --fb 6000x6000 --output DP-3 --mode 3840x2160  --pos 0x1920 --primary --output DP-2 --scale 2x2  --panning 3840x0+0+0 --right-of DP-3 --rotate left
+    ;;
+esac
