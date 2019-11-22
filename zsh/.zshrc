@@ -12,8 +12,8 @@ export PATH=/home/jobo/.local/bin:/usr/local/bin:$PATH
 export PATH=$PATH:$VIMCONFIG/pack/minpac/start/fzf/bin
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/jobo/.oh-my-zsh"
-export ZSH_CUSTOM="/home/jobo/.oh-my-zsh-custom"
+export ZSH=$HOME/.oh-my-zsh
+export ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
 
 ZSH_THEME="robbyrussell"
 
