@@ -221,7 +221,11 @@ exec --no-startup-id i3-msg 'workspace 3; exec thunderbird'
 exec --no-startup-id i3-msg 'workspace 4; exec slack'
 exec --no-startup-id i3-msg 'workspace 4; exec discord'
 exec --no-startup-id i3-msg 'workspace 4; exec whatsapp-nativefier'
+exec --no-startup-id i3-msg 'workspace 8; exec Spotify'
 exec --no-startup-id emacs --daemon
+
+
+## exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 bar {
     position top

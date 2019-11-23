@@ -1,0 +1,19 @@
+;; -*- mode: emacs-lisp; coding: emacs-mule; -*-
+;; --------------------------------------------------------------------------
+;; Desktop File for Emacs
+;; --------------------------------------------------------------------------
+;; Created Sat Nov 23 21:25:18 2019
+;; Desktop file format version 208
+;; Emacs version 26.3
+
+;; Global section:
+(setq desktop-saved-frameset [frameset 1 (24025 38318 355476 585000) (desktop . "208") "jobo@MonadicKiller" nil nil ((((minibuffer . t) (undecorated) (override-redirect) (font-backend xft x) (font . "-PfEd-DejaVu Sans Mono-normal-normal-normal-*-30-*-*-*-m-0-iso10646-1") (font-parameter . "monospace-10") (border-width . 0) (internal-border-width . 0) (right-divider-width . 0) (bottom-divider-width . 0) (vertical-scroll-bars) (horizontal-scroll-bars) (foreground-color . "#c6c6c6") (background-color . "#303030") (mouse-color . "black") (border-color . "black") (screen-gamma) (line-spacing) (left-fringe . 8) (right-fringe . 8) (no-special-glyphs) (scroll-bar-foreground . "#657b83") (scroll-bar-background . "#657b83") (menu-bar-lines . 0) (tool-bar-lines . 0) (title) (wait-for-wm . t) (tool-bar-position . top) (inhibit-double-buffering) (icon-type . t) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 0) (scroll-bar-height . 0) (alpha) (no-focus-on-map) (no-accept-focus) (fullscreen . fullboth) (visibility . t) (skip-taskbar) (z-group) (display-type . color) (background-mode . dark) (cursor-color . "#eeeeee") (sticky) (environment) (fullscreen-restore) (frameset--id . "EEC8-93A0-992F-7AC0") (frameset--mini t . t) (height . 60) (width . 212) (modeline . t) (unsplittable) (left . 0) (top . 0) (icon-name) (display . ":0") (explicit-name)) ((min-height . 4) (min-width . 10) (min-height-ignore . 2) (min-width-ignore . 4) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 144) (min-pixel-width . 180) (min-pixel-height-ignore . 72) (min-pixel-width-ignore . 72) (min-pixel-height-safe . 36) (min-pixel-width-safe . 36)) leaf (pixel-width . 3840) (pixel-height . 2124) (total-width . 213) (total-height . 59) (normal-height . 1.0) (normal-width . 1.0) (buffer "*scratch*" (selected . t) (hscroll . 0) (fringes 8 8 nil) (margins 1) (scroll-bars nil 0 t nil 0 t) (vscroll . 0) (dedicated) (point . 145) (start . 1))))])
+(setq desktop-missing-file-warning nil)
+(setq tags-file-name nil)
+(setq tags-table-list nil)
+(setq search-ring nil)
+(setq regexp-search-ring nil)
+(setq register-alist nil)
+(setq file-name-history '("~/Documents/org/orgy.org" "~/projects/dotfiles/my_emacs_d/.emacs.d/configs/org.el" "~/.emacs.d/configs/org.el" "~/.emacs.d/elpa/ob-sql-mode-20190421.1539/ob-sql-mode-autoloads.el" "~/projects/dotfiles/my_emacs_d/.emacs.d/init.el" "~/.emacs.d/elpa/ob-rust-20180911.1535/ob-rust-autoloads.el" "~/.emacs.d/elpa/ob-go-20190201.2040/ob-go-autoloads.el" "~/.emacs.d/elpa/ob-http-20180707.1448/ob-http-autoloads.el" "~/.emacs.d/elpa/ob-ammonite-20190813.59/ob-ammonite-autoloads.el" "~/.emacs.d/elpa/ammonite-term-repl-20190618.1517/ammonite-term-repl-autoloads.el" "~/.emacs.d/recentf" "~/.emacs.d/elpa/zoom-window-20170302.827/zoom-window-autoloads.el" "~/.emacs.d/elpa/ace-window-20191022.1203/ace-window-autoloads.el"))
+
+;; Buffer section -- buffers listed in same order as in buffer list:

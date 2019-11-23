@@ -1,5 +1,5 @@
 
-(packages-conditional-install '(org org-bullets))
+(packages-conditional-install '(org org-bullets ob-ammonite ob-http ob-go ob-rust ob-sql-mode))
 
 (require 'org)
 (require 'org-bullets)
@@ -63,6 +63,38 @@
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-cb" 'org-iswitchb)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+
+ 
+(org-babel-do-load-languages 'org-babel-load-languages
+ '(
+   (ammonite . t)
+   (awk . t)
+   (calc .t)
+   (C . t)
+   (emacs-lisp . t)
+   (haskell . t)
+   (gnuplot . t)
+   (go . t)
+   (js . t)
+   (rust . t)
+   (haskell . t)
+   (http . t)
+   (python . t)
+   (shell . t)
+   (sql . t)
+   ))
+
+(defun ck/org-confirm-babel-evaluate (lang body)
+  (not (or (string= lang "amm")
+           (string= lang "shell")
+           (string= lang "ledger")
+           (string= lang "python")
+           (string= lang "emacs-lisp")
+           (string= lang "http")
+           (string= lang "calc")
+           (string= lang "js")
+           (string= lang "go"))))
+(setq-default org-confirm-babel-evaluate 'ck/org-confirm-babel-evaluate)  
 
 ;; (add-hook 'org-shiftup-final-hook 'windmove-up)
 ;; (add-hook 'org-shiftleft-final-hook 'windmove-left)
