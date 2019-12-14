@@ -1,12 +1,5 @@
-export SBT_OPTS="-Xmx12G -Xss2M -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:ReservedCodeCacheSize=256m -Xverify:none"
-
 export VIMCONFIG=$HOME/.vim
 export VIMDATA=$HOME/.vim
-
-# auto java home
-JAVA_HOME=$(dirname $( readlink -f $(which java) ))
-JAVA_HOME=$(realpath "$JAVA_HOME"/../)
-export JAVA_HOME
 
 export PATH=/home/jobo/.local/bin:/usr/local/bin:$PATH
 export PATH=$PATH:$VIMCONFIG/pack/minpac/start/fzf/bin
@@ -31,3 +24,5 @@ source $ZSH/oh-my-zsh.sh
 
 export VISUAL=nvim
 alias vim=nvim
+export NIX_IGNORE_SYMLINK_STORE=1
+. $HOME/.nix-profile/etc/profile.d/nix.sh
