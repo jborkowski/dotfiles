@@ -8,7 +8,20 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
+(global-linum-mode t)     ;; show line numbers
+(tool-bar-mode 0)         ;; no tool bar
+(menu-bar-mode 0)         ;; no menu bar
+(toggle-frame-fullscreen) ;; start with fullscreen
+(scroll-bar-mode 0)       ;; turn off scroll bar
+(show-paren-mode 1)        ;; highlight matchin paranthesis
+
+(fset `yes-or-no-p `y-or-n-p)
+
 (global-auto-revert-mode t)
+
+(use-package moe-theme
+  :ensure t)
+(load-theme 'moe-dark t)
 
 ;; order matter
 (load "~/.emacs.d/configs/install_first")
@@ -27,11 +40,26 @@
 (load "~/.emacs.d/configs/greek")
 (load "~/.emacs.d/configs/fira")
 
+;; macOS specific configutation
+;; needed for PATH recognition
+(use-package exec-path-from-shell)
+
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
+(exec-path-from-shell-initialize)
+
+;; bind meta and super to cmd and option
+(when (eq system-type 'darwin)
+  (setq mac-command-modifier 'meta)
+  (setq mac-option-modifier 'super)
+  )
+
 ;Polish characters
 (setq mac-right-option-modifier nil)
 
-;DISABLE BELL
+; Disable notifier
 (setq visible-bell 1)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

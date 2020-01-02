@@ -1,7 +1,7 @@
 export VIMCONFIG=$HOME/.vim
 export VIMDATA=$HOME/.vim
 
-export PATH=/home/jobo/.local/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.local/bin:/usr/local/bin:$PATH
 export PATH=$PATH:$VIMCONFIG/pack/minpac/start/fzf/bin
 
 # Path to your oh-my-zsh installation.
@@ -16,7 +16,7 @@ ZSH_TMUX_AUTOQUIT=false
 ZSH_TMUX_AUTOCONNECT=false
 
 #vi-mode vim-interaction
-plugins=(emacs git zsh-autosuggestions rbenv gitignore sbt scala mvn cp history rsync tmux vagrant vim-interaction web-search systemd)
+plugins=(emacs git zsh-autosuggestions rbenv gitignore sbt scala mvn cp history rsync vagrant vim-interaction web-search systemd)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -25,4 +25,5 @@ source $ZSH/oh-my-zsh.sh
 export VISUAL=nvim
 alias vim=nvim
 export NIX_IGNORE_SYMLINK_STORE=1
-. $HOME/.nix-profile/etc/profile.d/nix.sh
+export PATH=$PATH:/nix/var/nix/profiles/default/bin
+#. $HOME/.nix-profile/etc/profile.d/nix.sh
