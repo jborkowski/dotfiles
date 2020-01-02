@@ -23,6 +23,13 @@
   :ensure t)
 (load-theme 'moe-dark t)
 
+;; zoom
+(load "~/.emacs.d/configs/frame-fns.el")
+(load "~/.emacs.d/configs/frame-cmds.el")
+(load "~/.emacs.d/configs/zoom-frm.el")
+(global-set-key (kbd "C-=") 'zoom-frm-in)
+(global-set-key (kbd "C--") 'zoom-frm-out)
+
 ;; order matter
 (load "~/.emacs.d/configs/install_first")
 (load "~/.emacs.d/configs/hydras")
