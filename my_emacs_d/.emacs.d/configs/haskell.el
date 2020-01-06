@@ -1,7 +1,15 @@
-(packages-conditional-install '(haskell-mode lsp-ui eglot hasky-stack))
-(require 'hasky-stack)
+(packages-conditional-install '(haskell-mode lsp-ui lsp-haskell flycheck company-lsp lsp-treemacs helm-lsp dap-mode))
+
+(add-hook 'lsp-mode-hook 'lsp-ui-mode)
 
 ;; LSP
+(use-package company-lsp
+  :commands company-lsp)
+(use-package helm-lsp
+  :commands helm-lsp-workspace-symbol)
+(use-package lsp-treemacs
+  :commands lsp-treemacs-errors-list)
+(use-package dap-mode)
 (use-package flycheck
   :ensure t
   :init
@@ -18,18 +26,10 @@
 (use-package lsp-haskell
  :ensure t
  :config
- (setq lsp-haskell-process-path-hie "ghcide")
+ (setq lsp-haskell-process-path-hie "hie-wrapper")
  (setq lsp-haskell-process-args-hie '())
  ;; Comment/uncomment this line to see interactions between lsp client/server.
  ;;(setq lsp-log-io t)
  )
-
-;; EGLOT
-;; (add-hook 'haskell-mode-hook 'intero-mode)
-
-;; (use-package eglot
-;;   :ensure t
-;;   :config
-;;   (add-to-list 'eglot-server-programs '(haskell-mode . ("ghcide" "--lsp"))))
 
 (add-to-list 'exec-path "/usr/local/bin/")
