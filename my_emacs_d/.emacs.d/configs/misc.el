@@ -31,7 +31,7 @@
 ;; company modes provides magic text completion
 (global-company-mode)
 
-(setq org-reveal-root "file:///home/jborkowski/projects/reveal.js/js/reveal.js")
+(setq org-reveal-root "file:///Users/jobo/projects/reveal.js/js/reveal.js")
 
 ;; jumping betweetn TODOs
 (defhydra hydra-todo (:pre
