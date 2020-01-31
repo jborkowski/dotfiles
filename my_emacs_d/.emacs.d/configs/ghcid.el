@@ -25,7 +25,7 @@ To configure where the new buffer should appear, customize your
         display-buffer-pop-up-window) ;; Otherwise show a pop-up
        (window-height . 18)      ;; New window will be 18 lines
        ))
-If the window that shows ghcid changes size, the process will not
+Ifthe window that shows ghcid changes size, the process will not
 recognize the new height until you manually restart it by calling
 `ghcid' again.
 "

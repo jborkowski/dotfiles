@@ -26,18 +26,13 @@
    (org-agenda-files :maxlevel . 2) ; refile to any of these files
    ))
 
-;; (setq org-capture-templates
-;;       '(("n"  "Notes" entry (file+headline "~/org/notes.org" "Notes")
-;;          "* %^{Title} %U \n %i")
-;;         ("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
-;;          "* TODO %?\n  %i\n  %a")
-;;         ))
 (setq org-capture-templates
- '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
-    "* TODO %?\n  %i")
-   ("n" "Notes" entry (file+datetree "~/org/notes.org")
-    "* %? %U")))
-
+      '(("n"  "Notes" entry (file+headline "~/org/notes.org" "Notes")
+         "* %^{Title} %U \n %i")
+        ("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
+         "* TODO %?\n  %i\n  %a")
+        ))
+        
 (defun markdown-convert-buffer-to-org ()
     "Convert the current buffer's content from markdown to orgmode format and save it with the current buffer's file name but with .org extension."
     (interactive)
