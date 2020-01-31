@@ -1,4 +1,4 @@
-(packages-conditional-install '(smartparens projectile recentf ag helm-ag helm helm-projectile))
+(packages-conditional-install '(smartparens projectile projectile-direnv recentf ag helm-ag helm helm-projectile))
 
 (require 'recentf)
 (require 'projectile)
@@ -32,6 +32,7 @@
               (eshell-cmpl-initialize)
               (define-key eshell-mode-map [remap pcomplete] 'helm-esh-pcomplete)
               (define-key eshell-mode-map (kbd "M-p") 'helm-eshell-history)))
+;;(add-hook 'projectile-mode-hook 'projectile-direnv-export-variables)
 
 (show-paren-mode 1)
 (column-number-mode 1)
