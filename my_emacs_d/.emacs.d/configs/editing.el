@@ -1,9 +1,4 @@
-(packages-conditional-install '(goto-chg multiple-cursors avy undo-tree string-edit highlight-symbol))
-
-(key-chord-define-global "kw" 'kill-word)
-(key-chord-define-global "bw" 'backward-kill-word)
-(key-chord-define-global "mw" 'mark-word)
-(key-chord-define-global "ms" 'mark-sexp)
+(packages-conditional-install '(helm-swoop goto-chg multiple-cursors avy undo-tree string-edit highlight-symbol))
 
 (require 'eno)
 (key-chord-define-global "wj" 'eno-word-goto)
@@ -11,24 +6,20 @@
 (key-chord-define-global "cj" 'avy-goto-subword-1)
 (global-set-key (kbd "C-c j") 'avy-goto-subword-1)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; With helm-swoop searching through buffer is lot easier then with the default
+;; isearch.
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(global-set-key (kbd "C-s") 'helm-swoop)
+(global-set-key (kbd "C-r") 'helm-swoop)
+
 ;; highlight
 (add-hook 'prog-mode-hook 'highlight-symbol-mode)
 
-;; disable tab indent
-(setq-default indent-tabs-mode nil)
-
-;; show white spaces
-; (Set nobreak-char-display t)
-
-(global-set-key
- (kbd "C-h")
- (defhydra hydra-highlight ()
-   "highlight"
-   ("n" highlight-symbol-next "next")
-   ("p" highlight-symbol-prev "previous")
-   ("q" nil "quit")
-
-   ))
+;; remove whitespaces at the end of the line
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (defun delete-file-and-buffer ()
   "Kill the current buffer and deletes the file it is visiting."
@@ -42,48 +33,17 @@
           (message "Deleted file %s" filename)
           (kill-buffer))))))
 
-;; mini-vi
-(defhydra hydra-vi (:pre (set-cursor-color "#40e0d0")
-                    :post (progn
-                            (set-cursor-color "#ffffff")
-                            (message
-                             "Thank you, come again.")))
-  "vi"
-  ("l" forward-char "forward")
-  ("h" backward-char "backward")
-  ("j" next-line "next")
-  ("k" previous-line "previous")
-  ("o" sp-backward-sexp "back_paren")
-  ("p" sp-forward-sexp "forward_paren")
-  ("q" nil "quit"))
-
-
-;; zoom
-(defhydra hydra-zoom (global-map "<f2>")
-    "zoom"
-    ("g" text-scale-increase "in")
-    ("l" text-scale-decrease "out"))
-
-(global-set-key (kbd "C-c g") 'goto-line)
-
-(defun uncomment-block ()
-  "uncomments the /* block */"
+(defun delete-file-and-buffer ()
+  "Kill the current buffer and deletes the file it is visiting."
   (interactive)
-  (isearch-forward nil 1)
-  (isearch-printing-char 42 1)
-  (isearch-printing-char 47 1)
-  (isearch-exit)
-  (delete-backward-char 1 nil)
-  (delete-backward-char 1 nil)
-  (isearch-backward nil 1)
-  (isearch-printing-char 47 1)
-  (isearch-printing-char 42 1)
-  (isearch-exit)
-  (delete-forward-char 1 nil)
-  (delete-forward-char 1 nil)
-  (kmacro-end-or-call-macro nil))
-
-
+  (let ((filename (buffer-file-name)))
+    (when filename
+      (if (vc-backend filename)
+          (vc-delete-file filename)
+        (progn
+          (delete-file filename)
+          (message "Deleted file %s" filename)
+          (kill-buffer))))))
 
 (defun toggle-comment-on-line ()
   "comment or uncomment current line"

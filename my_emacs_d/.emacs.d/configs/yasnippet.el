@@ -1,11 +1,9 @@
 ;; all yasnippet configs + functions used
-(packages-conditional-install '(yasnippet yasnippet-snippets yasnippet-classic-snippets))
+(packages-conditional-install '(yasnippet))
 (require 'yasnippet)
 
-(setq yas-snippet-dirs
-      '("~/.emacs.d/snippets"
-        "~/.emacs.d/my_snippets"
-	))
+(setq yas-snippet-dirs (append yas-snippet-dirs
+                               '("~/.emacs.d/my_snippets")))
 
 (yas-global-mode 1)
 
@@ -15,8 +13,6 @@
     (if (file-exists-p (expand-file-name ".git/" dir))
         dir
       (find-git-repo (expand-file-name "../" dir)))))
-
-
 
 (defun find-project-root ()
   (interactive)

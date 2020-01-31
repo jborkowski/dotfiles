@@ -221,6 +221,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package haskell-mode)
 (load "~/.emacs.d/configs/ghcid.el")
+(load "~/.emacs.d/configs/haskell.el")
 (use-package haskell-snippets)
 (require 'haskell-snippets)
 
@@ -255,6 +256,7 @@ import Data.Set (Set)
    (("i" haskell-imports-helm  "imports")
     ("y" yas-describe-tables "snippets")
     ("g" ghcid "ghcid")
+    ("l" lsp "hie")
     )
    "Documentation"
    (("h" hoogle "hoogle"))))
@@ -292,7 +294,7 @@ import Data.Set (Set)
 ;; needed for PATH recognition
 (use-package exec-path-from-shell)
 
-(when (string= system-type "darwin")       
+(when (string= system-type "darwin")
   (setq dired-use-ls-dired nil))
 
 (when (memq window-system '(mac ns))
@@ -341,23 +343,23 @@ import Data.Set (Set)
     (lambda
       (args)
       (let
-          ((sandbox
-            (nix-current-sandbox))
-           (nix-shell "nix-shell"))
-        (if
-            (and
-             (executable-find nix-shell)
-             (file-exists-p sandbox)
-             (not
-              (file-directory-p sandbox)))
-            (append
-             (list nix-shell "-I" "." "--command")
-             (list
-              (mapconcat
-               (quote identity)
-               args " "))
-             (list sandbox))
-          args))) t)
+	  ((sandbox
+	    (nix-current-sandbox))
+	   (nix-shell "nix-shell"))
+	(if
+	    (and
+	     (executable-find nix-shell)
+	     (file-exists-p sandbox)
+	     (not
+	      (file-directory-p sandbox)))
+	    (append
+	     (list nix-shell "-I" "." "--command")
+	     (list
+	      (mapconcat
+	       (quote identity)
+	       args " "))
+	     (list sandbox))
+	  args))) t)
  '(haskell-completion-backend (quote lsp) t)
  '(haskell-enable-hlint t t)
  '(haskell-process-type (quote cabal-new-repl))
@@ -366,23 +368,23 @@ import Data.Set (Set)
    (lambda
      (args)
      (let
-         ((sandbox
-           (nix-current-sandbox))
-          (nix-shell "nix-shell"))
+	 ((sandbox
+	   (nix-current-sandbox))
+	  (nix-shell "nix-shell"))
        (if
-           (and
-            (executable-find nix-shell)
-            (file-exists-p sandbox)
-            (not
-             (file-directory-p sandbox)))
-           (append
-            (list nix-shell "-I" "." "--command")
-            (list
-             (mapconcat
-              (quote identity)
-              args " "))
-            (list sandbox))
-         args))))
+	   (and
+	    (executable-find nix-shell)
+	    (file-exists-p sandbox)
+	    (not
+	     (file-directory-p sandbox)))
+	   (append
+	    (list nix-shell "-I" "." "--command")
+	    (list
+	     (mapconcat
+	      (quote identity)
+	      args " "))
+	    (list sandbox))
+	 args))))
  '(package-selected-packages
    (quote
     (git-gutter-fringe+ git-timemachine evil-org evil-nerd-commenter evil-surround evil-magit evil-ledger evil-mc evil-leader evil duplicate-thing dumb-jump eyebrowse ormolu nix-haskell-mode nix-sandbox hie-nix direnv dap-mode helm-lsp lsp-treemacs ob-sql-mode ob-rust ob-go ob-http ob-ammonite org-kindle org-blog lsp-haskell flycheck-haskell smartparens ace-window avy bash-completion csv-mode eglot emojify flymake ghub git-commit graphql-mode hl-todo htmlize hydra jsonrpc lsp-ui lv magit sbt-mode scala-mode transient treepy which-key with-editor yasnippet-snippets helm-ag helm-ag-r helm-etags-plus helm-projectile zoom-window zoom yasnippet-classic-snippets yaml-mode wttrin use-package-hydra use-package-ensure-system-package use-package-el-get use-package-chords terraform-mode terminal-here string-edit stack-mode react-snippets purescript-mode org-bullets nyan-mode neotree multiple-cursors monokai-theme moe-theme keyfreq json-mode idris-mode highlight-symbol hasky-stack goto-chg exec-path-from-shell etags-select eno encourage-mode elmacro ebdb ctags company-lsp auto-package-update auto-highlight-symbol annoying-arrows-mode angular-mode ag))))
