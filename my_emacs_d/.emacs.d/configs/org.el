@@ -30,11 +30,11 @@
       '(("n"  "Notes" entry (file+headline "~/org/notes.org" "Notes")
          "* %^{Title} %U \n %i")
         ("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
-         "* TODO %?\n  %i\n  %a")
+         "* TODO %?\n  %i")
         ))
-        
+
 (defun markdown-convert-buffer-to-org ()
-    "Convert the current buffer's content from markdown to orgmode format and save it with the current buffer's file name but with .org extension."
+   "Convert the current buffer's content from markdown to orgmode format and save it with the current buffer's file name but with .org extension."
     (interactive)
     (shell-command-on-region (point-min) (point-max)
                              (format "pandoc -f markdown -t org -o %s"
@@ -46,7 +46,7 @@
 (global-set-key "\C-cb" 'org-iswitchb)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 
- 
+
 (org-babel-do-load-languages 'org-babel-load-languages
  '(
    (ammonite . t)
@@ -76,4 +76,4 @@
            (string= lang "calc")
            (string= lang "js")
            (string= lang "go"))))
-(setq-default org-confirm-babel-evaluate 'ck/org-confirm-babel-evaluate)  
+(setq-default org-confirm-babel-evaluate 'ck/org-confirm-babel-evaluate)
