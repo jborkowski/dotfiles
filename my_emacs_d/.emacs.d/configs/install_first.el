@@ -11,7 +11,7 @@
     (package-conditional-install (car packages))
     (packages-conditional-install (cdr packages))))
 
-(packages-conditional-install '(key-chord hydra auto-package-update etags-select helm-etags-plus ctags eglot emojify json-mode purescript-mode terraform-mode yaml-mode wttrin which-key use-package-hydra use-package-ensure-system-package use-package-el-get use-package-chords terminal-here string-edit stack-mode smartparens react-snippets org-bullets nyan-mode neotree multiple-cursors monokai-theme moe-theme magit lsp-ui keyfreq intero idris-mode hydra htmlize hl-todo highlight-symbol helm-projectile helm-ag hasky-stack graphql-mode goto-chg ghub exec-path-from-shell eno encourage-mode elmacro ebdb csv-mode bash-completion auto-package-update auto-highlight-symbol annoying-arrows-mode angular-mode))
+(packages-conditional-install '(key-chord hydra auto-package-update etags-select helm-etags-plus ctags eglot emojify json-mode purescript-mode terraform-mode yaml-mode wttrin which-key use-package-hydra use-package-ensure-system-package use-package-el-get use-package-chords terminal-here string-edit smartparens react-snippets org-bullets nyan-mode neotree multiple-cursors moe-theme magit lsp-ui keyfreq idris-mode hydra htmlize hl-todo highlight-symbol helm-projectile helm-ag goto-chg ghub exec-path-from-shell eno encourage-mode elmacro ebdb csv-mode bash-completion auto-package-update auto-highlight-symbol annoying-arrows-mode angular-mode))
 
 
 ;; updated all packages on startup

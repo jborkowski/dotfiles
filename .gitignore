@@ -14,3 +14,8 @@ tramp
 my_emacs_d/.emacs.d/.last-package-update-day
 my_emacs_d/.emacs.d/projectile-bookmarks.eld
 my_emacs_d/.emacs.d/recentf
+my_emacs_d/.emacs.d/.lsp-session-v1
+my_emacs_d/.emacs.d/bookmarks
+my_emacs_d/.emacs.d/coursier
+my_emacs_d/.emacs.d/nix-buffer/trusted-exprs
+my_emacs_d/.emacs.d/transient/history.el

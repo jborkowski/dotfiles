@@ -395,65 +395,11 @@ import Data.Sequence (Seq)
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(company-lsp-async t)
- '(company-lsp-cache-candidates (quote auto))
- '(company-lsp-enable-recompletion t)
- '(company-lsp-enable-snippet t)
- '(custom-safe-themes
-   (quote
-    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
- '(default-nix-wrapper
-    (lambda
-      (args)
-      (let
-	  ((sandbox
-	    (nix-current-sandbox))
-	   (nix-shell "nix-shell"))
-	(if
-	    (and
-	     (executable-find nix-shell)
-	     (file-exists-p sandbox)
-	     (not
-	      (file-directory-p sandbox)))
-	    (append
-	     (list nix-shell "-I" "." "--command")
-	     (list
-	      (mapconcat
-	       (quote identity)
-	       args " "))
-	     (list sandbox))
-	  args))) t)
- '(haskell-completion-backend (quote lsp) t)
- '(haskell-enable-hlint t t)
- '(haskell-process-type (quote cabal-new-repl))
  '(inhibit-startup-screen t)
- '(lsp-haskell-process-path-hie "hie-wrapper")
- '(lsp-haskell-process-wrapper-function
-   (lambda
-     (args)
-     (let
-	 ((sandbox
-	   (nix-current-sandbox))
-	  (nix-shell "nix-shell"))
-       (if
-	   (and
-	    (executable-find nix-shell)
-	    (file-exists-p sandbox)
-	    (not
-	     (file-directory-p sandbox)))
-	   (append
-	    (list nix-shell "-I" "." "--command")
-	    (list
-	     (mapconcat
-	      (quote identity)
-	      args " "))
-	    (list sandbox))
-	 args))))
- '(lsp-prefer-flymake nil t)
  '(package-selected-packages
    (quote
     ((tide)
-     treemacs-projectile treemacs-evil spacemacs-theme ox-epub ox-pandoc python-mode ## all-the-icons-dired all-the-icons git-gutter-fringe+ git-timemachine evil-org evil-nerd-commenter evil-surround evil-magit evil-ledger evil-mc evil-leader evil duplicate-thing dumb-jump eyebrowse ormolu nix-haskell-mode nix-sandbox hie-nix direnv dap-mode helm-lsp lsp-treemacs ob-sql-mode ob-rust ob-go ob-http ob-ammonite org-kindle org-blog flycheck-haskell smartparens ace-window avy bash-completion csv-mode eglot emojify flymake ghub git-commit graphql-mode hl-todo htmlize hydra jsonrpc lsp-ui lv magit sbt-mode scala-mode transient treepy which-key with-editor yasnippet-snippets helm-ag helm-ag-r helm-etags-plus helm-projectile zoom-window zoom yasnippet-classic-snippets yaml-mode wttrin use-package-hydra use-package-ensure-system-package use-package-el-get use-package-chords terraform-mode terminal-here string-edit stack-mode react-snippets purescript-mode org-bullets nyan-mode neotree multiple-cursors monokai-theme moe-theme keyfreq json-mode idris-mode highlight-symbol hasky-stack goto-chg exec-path-from-shell etags-select eno encourage-mode elmacro ebdb ctags company-lsp auto-package-update auto-highlight-symbol annoying-arrows-mode angular-mode ag))))
+     treemacs-projectile treemacs-evil spacemacs-theme ox-epub ox-pandoc python-mode ## all-the-icons-dired all-the-icons git-gutter-fringe+ git-timemachine evil-org evil-nerd-commenter evil-surround evil-magit evil-ledger evil-mc evil-leader evil duplicate-thing dumb-jump eyebrowse nix-haskell-mode nix-sandbox hie-nix direnv dap-mode helm-lsp lsp-treemacs ob-sql-mode ob-rust ob-go ob-http ob-ammonite org-kindle org-blog flycheck-haskell smartparens ace-window avy bash-completion csv-mode eglot emojify flymake ghub git-commit graphql-mode hl-todo htmlize hydra jsonrpc lsp-ui lv magit sbt-mode scala-mode transient treepy which-key with-editor yasnippet-snippets helm-ag helm-ag-r helm-etags-plus helm-projectile zoom-window zoom yasnippet-classic-snippets yaml-mode wttrin use-package-hydra use-package-ensure-system-package use-package-el-get use-package-chords terraform-mode terminal-here string-edit stack-mode react-snippets purescript-mode org-bullets nyan-mode neotree multiple-cursors moe-theme keyfreq json-mode idris-mode highlight-symbol goto-chg exec-path-from-shell etags-select eno encourage-mode elmacro ebdb ctags company-lsp auto-package-update auto-highlight-symbol annoying-arrows-mode angular-mode ag))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
