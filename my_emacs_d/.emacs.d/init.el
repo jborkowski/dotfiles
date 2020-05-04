@@ -10,6 +10,13 @@
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
 (package-initialize)
 
+
+(when (memq window-system '(mac ns))
+  (setenv "SHELL" "/bin/zsh")
+  (exec-path-from-shell-initialize)
+  (exec-path-from-shell-copy-envs
+   '("PATH")))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Add use-package
@@ -23,9 +30,10 @@
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Global UI configs
+;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (global-linum-mode t)     ;; show line numbers
@@ -33,16 +41,33 @@
 (menu-bar-mode 0)         ;; no menu bar
 (toggle-frame-fullscreen) ;; start with fullscreen
 (scroll-bar-mode 0)       ;; turn off scroll bar
-(show-paren-mode 1)        ;; highlight matchin paranthesis
+(show-paren-mode 1)       ;; highlight matchin paranthesis
 
 (fset `yes-or-no-p `y-or-n-p)
 
 (global-auto-revert-mode t)
 
-(use-package moe-theme
-  :ensure t)
-(load-theme 'moe-dark t)
+(use-package all-the-icons)
+(use-package spacemacs-common
+    :ensure spacemacs-theme
+    :config (load-theme 'spacemacs-dark t))
+;;(load-theme 'spacemacs-dark)
 
+;; quick-switch-themes allows to quickly toggle between defined themes
+(defvar quick-switch-themes
+  (let ((themes-list (list 'spacemacs-dark
+                           'spacemacs-light )))
+    (nconc themes-list themes-list)))
+(defun quick-switch-themes* ()
+  (interactive)
+  (if-let* ((next-theme (cadr quick-switch-themes)))
+      (progn (when-let* ((current-theme (car quick-switch-themes)))
+               (disable-theme (car quick-switch-themes)))
+             (load-theme next-theme t)
+             (message "Loaded theme: %s" next-theme))
+    ;; Always have the dark mode-line theme
+    (mapc #'disable-theme (delq 'smart-mode-line-dark custom-enabled-themes)))
+  (setq quick-switch-themes (cdr quick-switch-themes)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Zoom window
@@ -213,6 +238,16 @@
   :bind
   ("M-C-SPC" . major-mode-hydra))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; Spell-checking
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package flyspell)
+(use-package flyspell-correct-helm
+  :bind ("C-M-;" . flyspell-correct-wrapper)
+  :init
+  (setq flyspell-correct-interface #'flyspell-correct-helm))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -220,20 +255,42 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package haskell-mode)
-(load "~/.emacs.d/configs/ghcid.el")
-(load "~/.emacs.d/configs/haskell.el")
+(load "~/.emacs.d/configs/haskell")
 (use-package haskell-snippets)
 (require 'haskell-snippets)
 
 (setq haskell-import-mapping
-        '(("Data.Text" . "import qualified Data.Text as T
+      '(("Data.Text" . "import qualified Data.Text as T
 import Data.Text (Text)
 ")
-        ("Data.Map" . "import qualified Data.Map.Strict as M
-import Data.Map.Strict (Map)
+        ("Data.Text.Lazy" . "import qualified Data.Text.Lazy as LT
+")
+        ("Data.ByteString" . "import qualified Data.ByteString as S
+import Data.ByteString (ByteString)
+")
+        ("Data.ByteString.Lazy" . "import qualified Data.ByteString.Lazy as L
+")
+        ("Data.Map" . "import qualified Data.Map as M
+import Data.Map (Map)
+")
+        ("Data.HashMap" . "import qualified Data.HashMap.Strict as HM
+import Data.HashMap.Strict (HashMap)
 ")
         ("Data.Set" . "import qualified Data.Set as Set
 import Data.Set (Set)
+")
+        ("Data.Vector" . "import qualified Data.Vector as V
+import Data.Vector (Vector)
+")
+        ("Data.List.NonEmpty" . "import qualified Data.List.NonEmpty as NE
+import Data.List.NonEmpty (NonEmpty(..))
+")
+        ("Data.Conduit.List" . "import qualified Data.Conduit.List as CL
+")
+        ("Data.Conduit.Binary" . "import qualified Data.Conduit.Binary as CB
+")
+        ("Data.Sequence" . "import qualified Data.Sequence as Seq
+import Data.Sequence (Seq)
 ")))
 
 (setq haskell-imports-helm-source
@@ -255,7 +312,6 @@ import Data.Set (Set)
    "Editing"
    (("i" haskell-imports-helm  "imports")
     ("y" yas-describe-tables "snippets")
-    ("g" ghcid "ghcid")
     ("l" lsp "hie")
     )
    "Documentation"
@@ -321,7 +377,6 @@ import Data.Set (Set)
 (load "~/.emacs.d/configs/install_first")
 (load "~/.emacs.d/configs/hydras")
 (load "~/.emacs.d/configs/yasnippet")
-;;(load "~/.emacs.d/configs/haskell")
 (load "~/.emacs.d/configs/scala")
 (load "~/.emacs.d/configs/misc")
 (load "~/.emacs.d/configs/ui")
@@ -332,6 +387,7 @@ import Data.Set (Set)
 (load "~/.emacs.d/configs/org")
 (load "~/.emacs.d/configs/greek")
 (load "~/.emacs.d/configs/fira")
+(load "~/.emacs.d/configs/javascript")
 
 
 (custom-set-variables
@@ -339,6 +395,13 @@ import Data.Set (Set)
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(company-lsp-async t)
+ '(company-lsp-cache-candidates (quote auto))
+ '(company-lsp-enable-recompletion t)
+ '(company-lsp-enable-snippet t)
+ '(custom-safe-themes
+   (quote
+    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
  '(default-nix-wrapper
     (lambda
       (args)
@@ -363,6 +426,7 @@ import Data.Set (Set)
  '(haskell-completion-backend (quote lsp) t)
  '(haskell-enable-hlint t t)
  '(haskell-process-type (quote cabal-new-repl))
+ '(inhibit-startup-screen t)
  '(lsp-haskell-process-path-hie "hie-wrapper")
  '(lsp-haskell-process-wrapper-function
    (lambda
@@ -385,9 +449,11 @@ import Data.Set (Set)
 	      args " "))
 	    (list sandbox))
 	 args))))
+ '(lsp-prefer-flymake nil t)
  '(package-selected-packages
    (quote
-    (git-gutter-fringe+ git-timemachine evil-org evil-nerd-commenter evil-surround evil-magit evil-ledger evil-mc evil-leader evil duplicate-thing dumb-jump eyebrowse ormolu nix-haskell-mode nix-sandbox hie-nix direnv dap-mode helm-lsp lsp-treemacs ob-sql-mode ob-rust ob-go ob-http ob-ammonite org-kindle org-blog lsp-haskell flycheck-haskell smartparens ace-window avy bash-completion csv-mode eglot emojify flymake ghub git-commit graphql-mode hl-todo htmlize hydra jsonrpc lsp-ui lv magit sbt-mode scala-mode transient treepy which-key with-editor yasnippet-snippets helm-ag helm-ag-r helm-etags-plus helm-projectile zoom-window zoom yasnippet-classic-snippets yaml-mode wttrin use-package-hydra use-package-ensure-system-package use-package-el-get use-package-chords terraform-mode terminal-here string-edit stack-mode react-snippets purescript-mode org-bullets nyan-mode neotree multiple-cursors monokai-theme moe-theme keyfreq json-mode idris-mode highlight-symbol hasky-stack goto-chg exec-path-from-shell etags-select eno encourage-mode elmacro ebdb ctags company-lsp auto-package-update auto-highlight-symbol annoying-arrows-mode angular-mode ag))))
+    ((tide)
+     treemacs-projectile treemacs-evil spacemacs-theme ox-epub ox-pandoc python-mode ## all-the-icons-dired all-the-icons git-gutter-fringe+ git-timemachine evil-org evil-nerd-commenter evil-surround evil-magit evil-ledger evil-mc evil-leader evil duplicate-thing dumb-jump eyebrowse ormolu nix-haskell-mode nix-sandbox hie-nix direnv dap-mode helm-lsp lsp-treemacs ob-sql-mode ob-rust ob-go ob-http ob-ammonite org-kindle org-blog flycheck-haskell smartparens ace-window avy bash-completion csv-mode eglot emojify flymake ghub git-commit graphql-mode hl-todo htmlize hydra jsonrpc lsp-ui lv magit sbt-mode scala-mode transient treepy which-key with-editor yasnippet-snippets helm-ag helm-ag-r helm-etags-plus helm-projectile zoom-window zoom yasnippet-classic-snippets yaml-mode wttrin use-package-hydra use-package-ensure-system-package use-package-el-get use-package-chords terraform-mode terminal-here string-edit stack-mode react-snippets purescript-mode org-bullets nyan-mode neotree multiple-cursors monokai-theme moe-theme keyfreq json-mode idris-mode highlight-symbol hasky-stack goto-chg exec-path-from-shell etags-select eno encourage-mode elmacro ebdb ctags company-lsp auto-package-update auto-highlight-symbol annoying-arrows-mode angular-mode ag))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

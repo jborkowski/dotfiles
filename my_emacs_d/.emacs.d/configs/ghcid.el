@@ -1,7 +1,7 @@
 ;; Use M-x ghcid to launch
 
 (require 'term)
-(require 'ormolu)
+;(require 'ormolu)
 
 ;; Set ghcid-target to change the stack target
 (setq ghcid-target "")
@@ -125,15 +125,14 @@ you ran this command from."
 (provide 'ghcid)
 
 
-(use-package ormolu
-  :hook (haskell-mode . ormolu-format-on-save-mode)
+;(use-package ormolu
+ ; :hook (haskell-mode . ormolu-format-on-save-mode)
 ;;  :config
   ;; (nmap 'haskell-mode-map
   ;;       ("C-c r" 'ormolu-format-buffer))
 ;;   (nmap haskell-mode-map
 ;;       ("C-c r" . ormolu-format-buffer))
-)
+;;)
 
 
 (add-to-list 'exec-path "/usr/local/bin/")
-
