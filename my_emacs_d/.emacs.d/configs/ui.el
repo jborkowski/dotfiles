@@ -5,8 +5,8 @@
 (global-set-key (kbd "s-<down>") 'shrink-window)
 (global-set-key (kbd "s-<up>") 'enlarge-window)
 
-(global-set-key (kbd "M-o M-t t") 'treemacs)
-(global-set-key (kbd "M-o M-t f") 'treemacs-find-file)
+(global-set-key (kbd "M-o M-t t") 'treemacs:)
+;; (global-set-key (kbd "M-o M-t f") 'treemacs-find-file)
 
 (use-package treemacs
   :ensure t
@@ -69,14 +69,7 @@
        (treemacs-git-mode 'deferred))
       (`(t . _)
        (treemacs-git-mode 'simple))))
-  :bind
-  (:map global-map
-        ("M-0"       . treemacs-select-window)
-        ("C-x t 1"   . treemacs-delete-other-windows)
-        ("C-x t t"   . treemacs)
-        ("C-x t B"   . treemacs-bookmark)
-        ("C-x t C-t" . treemacs-find-file)
-        ("C-x t M-t" . treemacs-find-tag)))
+  )
 
 (use-package treemacs-evil
   :after treemacs evil

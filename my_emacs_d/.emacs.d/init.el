@@ -130,8 +130,9 @@
 (global-evil-leader-mode)
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key
-  "y" 'helm-show-kill-ring
-  "u" 'undo-tree-visualize
+  "y"  'helm-show-kill-ring
+  "u"  'undo-tree-visualize
+  "r"  'redo-tree-visualize
   "bb" 'helm-mini
   "bp" 'helm-projectile-find-file
   "br" 'helm-projectile-recentf
@@ -143,10 +144,10 @@
   "wv" 'split-window-horizontally
   "wh" 'split-window-vertically
   "wx" 'ace-delete-window
-  "k" 'kill-buffer
-  "g" 'hydra-git/body
-  "m" 'major-mode-hydra
-  "p" 'helm-projectile-switch-project
+  "k"  'kill-buffer
+  "g"  'hydra-git/body
+  "m"  'major-mode-hydra
+  "p"  'helm-projectile-switch-project
   "nn" 'eno-word-goto
   "n]" 'sp-backward-sexp
   "n[" 'sp-forward-sexp
@@ -156,7 +157,12 @@
   "jj" 'dumb-jump-go
   "jb" 'dumb-jump-back
   "jw" 'dumb-jump-go-prompt
-  )
+  "0"  'treemacs-select-window
+  "do" 'treemacs-delete-other-windows
+  "tt" 'treemacs
+  "tb" 'treemacs-bookmark
+  "tf" 'treemacs-find-file
+  "ff" 'treemacs-find-tag)
 
 (key-chord-define-global "fj" 'evil-normal-state)
 
