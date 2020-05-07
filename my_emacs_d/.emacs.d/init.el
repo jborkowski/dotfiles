@@ -39,9 +39,16 @@
 (global-linum-mode t)     ;; show line numbers
 (tool-bar-mode 0)         ;; no tool bar
 (menu-bar-mode 0)         ;; no menu bar
-(toggle-frame-fullscreen) ;; start with fullscreen
 (scroll-bar-mode 0)       ;; turn off scroll bar
 (show-paren-mode 1)       ;; highlight matchin paranthesis
+
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+(require 'hl-line)
+(add-hook 'prog-mode-hook #'hl-line-mode)
+
+(use-package diminish
+  :config (diminish 'eldoc-mode))
 
 (fset `yes-or-no-p `y-or-n-p)
 
@@ -68,6 +75,7 @@
     ;; Always have the dark mode-line theme
     (mapc #'disable-theme (delq 'smart-mode-line-dark custom-enabled-themes)))
   (setq quick-switch-themes (cdr quick-switch-themes)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Zoom window
@@ -176,29 +184,66 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
+;; Company mode
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package company
+  :diminish
+  :bind (("C-." . #'company-complete))
+  :hook (prog-mode . company-mode)
+  :custom
+  (company-idle-delay 0 "Faster!")
+  (company-echo-delay 0 "Zero waste")
+  (company-minimum-prefix-length 2)
+  (company-dabbrev-downcase nil "Don't downcase returned candidates.")
+  (company-show-numbers t "Numbers are helpful.")
+  (company-tooltip-limit 20 "The more the merrier.")
+  (company-async-timeout 20 "Some requests can take a long time. That's fine.")
+  (company-transformers '(company-sort-by-o))
+  (company-selection-wrap-around t)
+  (company-transformers '(company-sort-by-occurrence
+                             company-sort-by-backend-importance))
+
+
+  :config
+  ;;(add-to-list 'company-backends 'company-etags)
+  ;;(add-to-list 'company-backends 'company-lsp)
+  (global-company-mode t)
+  ;; numberic helper to select company completition candidates
+  (let ((map company-active-map))
+    (mapc (lambda (x) (define-key map (format "%d" x)
+			`(lambda () (interactive) (company-complete-number ,x))))
+	  (number-sequence 0 9))
+    )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 ;; Git
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; magit is a powerful interface to git
 (use-package pretty-hydra)
-(use-package magit
-  :bind ("C-x G" . magit-status))
 
-;; time machine allows inspecting changes on a single file
-;; we can move back and forth to see the progress on a given file
+(use-package magit
+  :diminish magit-auto-revert-mode
+  :diminish auto-revert-mode
+  :bind (("C-x G" . #'magit-status))
+  :config
+  (add-to-list 'magit-no-confirm 'stage-all-changes))
+
+
+(use-package libgit)
+
+(use-package magit-libgit
+  :after (magit libgit))
+
 (use-package git-timemachine)
 
-;; By default ediff pops out a separate frame for navigation during the difff.
-;; This change below keeps the ediff in the same frame.
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
-;; this will refresh buffer if file changed on a disk e.g loaded new branch
-(global-auto-revert-mode t)
-
-;; show which lines were added/modfied/removed
-;; git-gutter-fringe+ words perfectly with linum-mode but only in
-;; graphical environment (this will not work in terminal)
 (use-package git-gutter-fringe+)
 (global-git-gutter+-mode t)
 ;; refresh gutter when staged by magit
@@ -262,8 +307,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package haskell-mode)
 (load "~/.emacs.d/configs/haskell")
-(use-package haskell-snippets)
-(require 'haskell-snippets)
+(use-package haskell-snippets
+  :after (haskell-mode yasnippet)
+  :defer)
 
 (setq haskell-import-mapping
       '(("Data.Text" . "import qualified Data.Text as T
@@ -401,11 +447,39 @@ import Data.Sequence (Seq)
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(company-async-timeout 20 t)
+ '(company-dabbrev-downcase nil)
+ '(company-echo-delay 0 t)
+ '(company-idle-delay 0)
+ '(company-lsp-enable-snippet t)
+ '(company-minimum-prefix-length 2)
+ '(company-selection-wrap-around t)
+ '(company-show-numbers t)
+ '(company-tooltip-limit 20)
+ '(company-transformers
+   (quote
+    (company-sort-by-occurrence company-sort-by-backend-importance)))
  '(inhibit-startup-screen t)
+ '(lsp-diagnostics-modeline-scope :project)
+ '(lsp-file-watch-threshold 5000)
+ '(lsp-log-io t)
+ '(lsp-print-performance t)
+ '(lsp-ui-doc-delay 0.75)
+ '(org-agenda-files
+   (quote
+    ("/Users/jobo/org/weekly/23July2019.org" "/Users/jobo/org/MAM.org" "/Users/jobo/org/adform_interview.org" "/Users/jobo/org/alfa.org" "/Users/jobo/org/books-notes.org" "/Users/jobo/org/check_n_times_bash.org" "/Users/jobo/org/citi.org" "/Users/jobo/org/configure-emacs.org" "/Users/jobo/org/diving.org" "/Users/jobo/org/english.org" "/Users/jobo/org/ex.org" "/Users/jobo/org/gtd.org" "/Users/jobo/org/haskell-thoughts.org" "/Users/jobo/org/haskell.org" "/Users/jobo/org/inbox.org" "/Users/jobo/org/index.org" "/Users/jobo/org/itm-panel.org" "/Users/jobo/org/japanese.org" "/Users/jobo/org/journal.org" "/Users/jobo/org/mobileorg.org" "/Users/jobo/org/norway.org" "/Users/jobo/org/notes.org" "/Users/jobo/org/orgy.org" "/Users/jobo/org/personal.org" "/Users/jobo/org/risk_analysis.org" "/Users/jobo/org/todo.org" "/Users/jobo/org/uczenie-indukcyjne.org" "/Users/jobo/org/work.org")))
+ '(org-default-notes-file "~/org/notes.org")
+ '(org-directory "~/org")
+ '(org-footnote-section "")
+ '(org-refile-targets (quote ((org-agenda-files :maxlevel . 3))))
+ '(org-return-follows-link t)
+ '(org-src-ask-before-returning-to-edit-buffer nil)
+ '(org-src-window-setup (quote split-window-below))
  '(package-selected-packages
    (quote
-    ((tide)
-     treemacs-projectile treemacs-evil spacemacs-theme ox-epub ox-pandoc python-mode ## all-the-icons-dired all-the-icons git-gutter-fringe+ git-timemachine evil-org evil-nerd-commenter evil-surround evil-magit evil-ledger evil-mc evil-leader evil duplicate-thing dumb-jump eyebrowse nix-haskell-mode nix-sandbox hie-nix direnv dap-mode helm-lsp lsp-treemacs ob-sql-mode ob-rust ob-go ob-http ob-ammonite org-kindle org-blog flycheck-haskell smartparens ace-window avy bash-completion csv-mode eglot emojify flymake ghub git-commit graphql-mode hl-todo htmlize hydra jsonrpc lsp-ui lv magit sbt-mode scala-mode transient treepy which-key with-editor yasnippet-snippets helm-ag helm-ag-r helm-etags-plus helm-projectile zoom-window zoom yasnippet-classic-snippets yaml-mode wttrin use-package-hydra use-package-ensure-system-package use-package-el-get use-package-chords terraform-mode terminal-here string-edit stack-mode react-snippets purescript-mode org-bullets nyan-mode neotree multiple-cursors moe-theme keyfreq json-mode idris-mode highlight-symbol goto-chg exec-path-from-shell etags-select eno encourage-mode elmacro ebdb ctags company-lsp auto-package-update auto-highlight-symbol annoying-arrows-mode angular-mode ag))))
+    (toml-mode dockerfile-mode vterm-toggle vterm ace-mc diminish
+	       (tide)
+	       treemacs-projectile treemacs-evil spacemacs-theme ox-epub ox-pandoc python-mode ## all-the-icons-dired all-the-icons git-gutter-fringe+ git-timemachine evil-org evil-nerd-commenter evil-surround evil-magit evil-ledger evil-mc evil-leader evil duplicate-thing dumb-jump eyebrowse nix-haskell-mode nix-sandbox hie-nix direnv dap-mode helm-lsp lsp-treemacs ob-sql-mode ob-rust ob-go ob-http ob-ammonite org-kindle org-blog flycheck-haskell smartparens ace-window avy bash-completion csv-mode eglot emojify flymake ghub git-commit graphql-mode hl-todo htmlize hydra jsonrpc lsp-ui lv magit sbt-mode scala-mode transient treepy which-key with-editor yasnippet-snippets helm-ag helm-ag-r helm-etags-plus helm-projectile zoom-window zoom yasnippet-classic-snippets yaml-mode wttrin use-package-hydra use-package-ensure-system-package use-package-el-get use-package-chords terraform-mode terminal-here string-edit stack-mode react-snippets purescript-mode org-bullets nyan-mode neotree multiple-cursors moe-theme keyfreq json-mode idris-mode highlight-symbol goto-chg exec-path-from-shell etags-select eno encourage-mode elmacro ebdb ctags company-lsp auto-package-update auto-highlight-symbol annoying-arrows-mode angular-mode ag))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -3,48 +3,39 @@
 ;; Org Mode
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(packages-conditional-install '(org org-bullets org-autolist ob-ammonite ob-http ob-go ob-rust ob-sql-mode))
+(use-package org
+  :hook ((org-mode . visual-line-mode))
+  :bind (:map org-mode-map
+              ("C-c c" . #'org-mode-insert-code)
+              ("C-c a f" . #'org-shifttab))
+  :custom
 
-(require 'org)
-(require 'org-bullets)
+  (org-directory "~/org")
+  (org-default-notes-file (concat org-directory "/notes.org"))
+  (org-return-follows-link t)
+  (org-refile-targets '((org-agenda-files :maxlevel . 3)))
+  (org-src-ask-before-returning-to-edit-buffer nil "org-src is kinda needy out of the box")
+  (org-src-window-setup 'split-window-below)
+  (org-footnote-section "" "Footnotes don't get their own section.")
+  (org-agenda-files (directory-files-recursively "~/org/" "\.org$"))
 
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+  :config
 
-(use-package org-autolist
-  :ensure)
-(add-hook 'org-mode-hook (lambda () (org-autolist-mode)))
+  (global-set-key "\C-cl" 'org-store-link)
+  (global-set-key "\C-ca" 'org-agenda)
+  (global-set-key "\C-cc" 'org-capture)
+  (global-set-key "\C-cb" 'org-iswitchb)
+  (unbind-key "C-," org-mode-map)
+  (unbind-key "C-c ;" org-mode-map)
+  (unbind-key "C-c ," org-mode-map)
 
-(setq org-directory "~/org")
-(setq org-default-notes-file (concat org-directory "/notes.org"))
-
-(setq org-agenda-files (directory-files-recursively "~/org/" "\.org$"))
-
-(setq org-return-follows-link t)
-
-(setq org-refile-targets '(
-   (nil :maxlevel . 2)             ; refile to headings in the current buffer
-   (org-agenda-files :maxlevel . 2) ; refile to any of these files
-   ))
-
-(setq org-capture-templates
-      '(("n"  "Notes" entry (file+headline "~/org/notes.org" "Notes")
-         "* %^{Title} %U \n %i")
-        ("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
-         "* TODO %?\n  %i")
-        ))
-
-(defun markdown-convert-buffer-to-org ()
-   "Convert the current buffer's content from markdown to orgmode format and save it with the current buffer's file name but with .org extension."
+  (defun org-mode-insert-code ()
     (interactive)
-    (shell-command-on-region (point-min) (point-max)
-                             (format "pandoc -f markdown -t org -o %s"
-                                     (concat (file-name-sans-extension (buffer-file-name)) ".org"))))
+   (org-emphasize ?~))
+  )
 
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-cb" 'org-iswitchb)
-(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+(use-package org-bullets
+  :hook (org-mode . org-bullets-mode))
 
 
 (org-babel-do-load-languages 'org-babel-load-languages
