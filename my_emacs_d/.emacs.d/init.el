@@ -207,8 +207,8 @@
 
 
   :config
-  ;;(add-to-list 'company-backends 'company-etags)
-  ;;(add-to-list 'company-backends 'company-lsp)
+  (add-to-list 'company-backends 'company-etags)
+
   (global-company-mode t)
   ;; numberic helper to select company completition candidates
   (let ((map company-active-map))
