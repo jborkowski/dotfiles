@@ -28,11 +28,6 @@
         (clipboard-kill-region (point-min) (point-max)))
       (message filename))))
 
-;; company modes provides magic text completion
-(global-company-mode)
-
-(setq org-reveal-root "file:///Users/jobo/projects/reveal.js/js/reveal.js")
-
 ;; jumping betweetn TODOs
 (defhydra hydra-todo (:pre
                   (hl-todo-mode 1)
@@ -48,7 +43,7 @@
 (setq wttrin-default-accept-language '("Accept-Language" . "en-US"))
 
 (defun toggle-mode-line () "toggles the modeline on and off"
-  (interactive) 
+  (interactive)
   (setq mode-line-format
     (if (equal mode-line-format nil)
         (default-value 'mode-line-format)) )

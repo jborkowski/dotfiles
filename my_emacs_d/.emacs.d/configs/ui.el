@@ -5,9 +5,6 @@
 (global-set-key (kbd "s-<down>") 'shrink-window)
 (global-set-key (kbd "s-<up>") 'enlarge-window)
 
-(global-set-key (kbd "M-o M-t t") 'treemacs:)
-;; (global-set-key (kbd "M-o M-t f") 'treemacs-find-file)
-
 (use-package treemacs
   :ensure t
   :defer t

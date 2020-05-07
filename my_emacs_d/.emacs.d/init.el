@@ -132,7 +132,7 @@
 (evil-leader/set-key
   "y"  'helm-show-kill-ring
   "u"  'undo-tree-visualize
-  "r"  'redo-tree-visualize
+;; "r"  'undo-tree-visualize-redo
   "bb" 'helm-mini
   "bp" 'helm-projectile-find-file
   "br" 'helm-projectile-recentf

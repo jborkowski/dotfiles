@@ -1,6 +1,8 @@
 
 (packages-conditional-install '(tide prettier-js))
 
+(setq js-indent-level 2)
+
 (use-package tide
   :ensure t
   :config
@@ -13,12 +15,12 @@
    :hook (js-mode . prettier-js-mode)
    :init
    (setq prettier-js-args '(
-;;   "--trailing-comma" "none"
-;;   "--bracket-spacing" "true"
-;;   "--single-quote" "true"
+   "--trailing-comma" "none"
+   "--bracket-spacing" "true"
+   "--single-quote" "true"
 ;;--no-semi" "true"
-;;   "--jsx-single-quote" "true"
-;;   "--jsx-bracket-same-line" "true"
+   "--jsx-single-quote" "true"
+   "--jsx-bracket-same-line" "true"
    "--print-width" "100")))
 
 (defun setup-tide-mode ()
