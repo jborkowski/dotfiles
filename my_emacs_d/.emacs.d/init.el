@@ -5,9 +5,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives '("marmalade" . "http://marmalade.ferrier.me.uk/packages/"))
-(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
+(add-to-list 'package-archives
+	     '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives
+	     '("marmalade" . "https://marmalade.ferrier.me.uk/packages/") t)
+(add-to-list 'package-archives
+	     '("gnu" . "https://elpa.gnu.org/packages/") t)
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (package-initialize)
 
@@ -171,7 +174,8 @@
   "tt" 'treemacs
   "tb" 'treemacs-bookmark
   "tf" 'treemacs-find-file
-  "ff" 'treemacs-find-tag)
+  "ff" 'treemacs-find-tag
+  "st" 'vterm-toggle)
 
 (key-chord-define-global "fj" 'evil-normal-state)
 
@@ -218,6 +222,17 @@
 	  (number-sequence 0 9))
     )
   )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; Direnv
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package direnv
+  :config
+  (direnv-mode))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -441,7 +456,7 @@ import Data.Sequence (Seq)
 (load "~/.emacs.d/configs/greek")
 (load "~/.emacs.d/configs/fira")
 (load "~/.emacs.d/configs/javascript")
-;;(load "~/.emacs.d/configs/java")
+(load "~/.emacs.d/configs/java")
 
 
 (custom-set-variables
@@ -459,29 +474,27 @@ import Data.Sequence (Seq)
  '(company-show-numbers t)
  '(company-tooltip-limit 20)
  '(company-transformers
-   (quote
-    (company-sort-by-occurrence company-sort-by-backend-importance)))
+   '(company-sort-by-occurrence company-sort-by-backend-importance))
  '(inhibit-startup-screen t)
- '(lsp-diagnostics-modeline-scope :project)
+ '(lsp-diagnostics-modeline-scope :project t)
  '(lsp-file-watch-threshold 5000)
  '(lsp-log-io t)
+ '(lsp-modeline-diagnostics-scope :project t)
  '(lsp-print-performance t)
  '(lsp-ui-doc-delay 0.75)
  '(org-agenda-files
-   (quote
-    ("/Users/jobo/org/weekly/23July2019.org" "/Users/jobo/org/MAM.org" "/Users/jobo/org/adform_interview.org" "/Users/jobo/org/alfa.org" "/Users/jobo/org/books-notes.org" "/Users/jobo/org/check_n_times_bash.org" "/Users/jobo/org/citi.org" "/Users/jobo/org/configure-emacs.org" "/Users/jobo/org/diving.org" "/Users/jobo/org/english.org" "/Users/jobo/org/ex.org" "/Users/jobo/org/gtd.org" "/Users/jobo/org/haskell-thoughts.org" "/Users/jobo/org/haskell.org" "/Users/jobo/org/inbox.org" "/Users/jobo/org/index.org" "/Users/jobo/org/itm-panel.org" "/Users/jobo/org/japanese.org" "/Users/jobo/org/journal.org" "/Users/jobo/org/mobileorg.org" "/Users/jobo/org/norway.org" "/Users/jobo/org/notes.org" "/Users/jobo/org/orgy.org" "/Users/jobo/org/personal.org" "/Users/jobo/org/risk_analysis.org" "/Users/jobo/org/todo.org" "/Users/jobo/org/uczenie-indukcyjne.org" "/Users/jobo/org/work.org")))
+   '("/Users/jobo/org/weekly/23July2019.org" "/Users/jobo/org/.#inbox.org" "/Users/jobo/org/.#orgy.org" "/Users/jobo/org/.#todo.org" "/Users/jobo/org/MAM.org" "/Users/jobo/org/adform_interview.org" "/Users/jobo/org/advent-of-code-in-haskell.org" "/Users/jobo/org/alfa.org" "/Users/jobo/org/bidder-stats.org" "/Users/jobo/org/books-notes.org" "/Users/jobo/org/check_n_times_bash.org" "/Users/jobo/org/citi.org" "/Users/jobo/org/configure-emacs.org" "/Users/jobo/org/diving.org" "/Users/jobo/org/driver-lic-a.org" "/Users/jobo/org/english.org" "/Users/jobo/org/ex.org" "/Users/jobo/org/gtd.org" "/Users/jobo/org/haskell-thoughts.org" "/Users/jobo/org/haskell.org" "/Users/jobo/org/inbox.org" "/Users/jobo/org/index.org" "/Users/jobo/org/itm-panel.org" "/Users/jobo/org/japanese.org" "/Users/jobo/org/journal.org" "/Users/jobo/org/mobileorg.org" "/Users/jobo/org/norway.org" "/Users/jobo/org/notes.org" "/Users/jobo/org/orgy.org" "/Users/jobo/org/personal.org" "/Users/jobo/org/risk_analysis.org" "/Users/jobo/org/todo.org" "/Users/jobo/org/ubs-interver.org" "/Users/jobo/org/uczenie-indukcyjne.org" "/Users/jobo/org/work.org" "/Users/jobo/org/zadanie-forum.org" "/Users/jobo/org/zadanie-parser.org" "/Users/jobo/org/zio-introduction.org"))
  '(org-default-notes-file "~/org/notes.org")
  '(org-directory "~/org")
  '(org-footnote-section "")
- '(org-refile-targets (quote ((org-agenda-files :maxlevel . 3))))
+ '(org-refile-targets '((org-agenda-files :maxlevel . 3)))
  '(org-return-follows-link t)
  '(org-src-ask-before-returning-to-edit-buffer nil)
- '(org-src-window-setup (quote split-window-below))
+ '(org-src-window-setup 'split-window-below)
  '(package-selected-packages
-   (quote
-    (dap-java toml-mode dockerfile-mode vterm-toggle vterm ace-mc diminish
-	      (tide)
-	      treemacs-projectile treemacs-evil spacemacs-theme ox-epub ox-pandoc python-mode ## all-the-icons-dired all-the-icons git-gutter-fringe+ git-timemachine evil-org evil-nerd-commenter evil-surround evil-magit evil-ledger evil-mc evil-leader evil duplicate-thing dumb-jump eyebrowse nix-haskell-mode nix-sandbox hie-nix direnv dap-mode helm-lsp lsp-treemacs ob-sql-mode ob-rust ob-go ob-http ob-ammonite org-kindle org-blog flycheck-haskell smartparens ace-window avy bash-completion csv-mode eglot emojify flymake ghub git-commit graphql-mode hl-todo htmlize hydra jsonrpc lsp-ui lv magit sbt-mode scala-mode transient treepy which-key with-editor yasnippet-snippets helm-ag helm-ag-r helm-etags-plus helm-projectile zoom-window zoom yasnippet-classic-snippets yaml-mode wttrin use-package-hydra use-package-ensure-system-package use-package-el-get use-package-chords terraform-mode terminal-here string-edit stack-mode react-snippets purescript-mode org-bullets nyan-mode neotree multiple-cursors moe-theme keyfreq json-mode idris-mode highlight-symbol goto-chg exec-path-from-shell etags-select eno encourage-mode elmacro ebdb ctags company-lsp auto-package-update auto-highlight-symbol annoying-arrows-mode angular-mode ag))))
+   '(lsp-metals meghanada erc-crypt dante dap-java toml-mode dockerfile-mode vterm-toggle vterm ace-mc diminish
+		(tide)
+		treemacs-projectile treemacs-evil spacemacs-theme ox-epub ox-pandoc python-mode ## all-the-icons-dired all-the-icons git-gutter-fringe+ git-timemachine evil-org evil-nerd-commenter evil-surround evil-magit evil-ledger evil-mc evil-leader evil duplicate-thing dumb-jump eyebrowse nix-haskell-mode nix-sandbox hie-nix direnv dap-mode helm-lsp lsp-treemacs ob-sql-mode ob-rust ob-go ob-http ob-ammonite org-kindle org-blog flycheck-haskell smartparens ace-window avy bash-completion csv-mode eglot emojify flymake ghub git-commit graphql-mode hl-todo htmlize hydra jsonrpc lsp-ui lv magit sbt-mode scala-mode transient treepy which-key with-editor yasnippet-snippets helm-ag helm-ag-r helm-etags-plus helm-projectile zoom-window zoom yasnippet-classic-snippets yaml-mode wttrin use-package-hydra use-package-ensure-system-package use-package-el-get use-package-chords terraform-mode terminal-here string-edit stack-mode react-snippets purescript-mode org-bullets nyan-mode neotree multiple-cursors moe-theme keyfreq json-mode idris-mode highlight-symbol goto-chg exec-path-from-shell etags-select eno encourage-mode elmacro ebdb ctags company-lsp auto-package-update auto-highlight-symbol annoying-arrows-mode angular-mode ag)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

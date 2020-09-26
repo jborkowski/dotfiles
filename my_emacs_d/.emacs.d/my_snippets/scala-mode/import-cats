@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: import-cats
-# key: import-cats
-# --
-import cats._, cats.data._, cats.implicits._ $0

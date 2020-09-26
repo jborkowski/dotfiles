@@ -12,9 +12,3 @@
   ("c"   nil "quit" :color blue))
 
 (global-set-key (kbd "C-c u") 'hydra-undo-tree/body)
-
-(defun toggle-comment-on-line ()
-  "comment or uncomment current line"
-  (interactive)
-  (comment-or-uncomment-region (line-beginning-position) (line-end-position))
-  (next-line))

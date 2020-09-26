@@ -1,4 +1,0 @@
-# name : sbt-add-sonatype
-# key : sbt-add-sonatype
-# --
-resolvers += Resolver.sonatypeRepo("releases")

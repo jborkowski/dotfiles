@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: Task.delay
-# key: task
-# --
-Task.delay {
-  $0
-}

@@ -41,17 +41,6 @@
           (message "Deleted file %s" filename)
           (kill-buffer))))))
 
-(defun delete-file-and-buffer ()
-  "Kill the current buffer and deletes the file it is visiting."
-  (interactive)
-  (let ((filename (buffer-file-name)))
-    (when filename
-      (if (vc-backend filename)
-          (vc-delete-file filename)
-        (progn
-          (delete-file filename)
-          (message "Deleted file %s" filename)
-          (kill-buffer))))))
 
 (defun toggle-comment-on-line ()
   "comment or uncomment current line"
@@ -61,20 +50,18 @@
 (global-set-key (kbd "C-c /") 'toggle-comment-on-line)
 (key-chord-define-global "cl" 'toggle-comment-on-line)
 
-(defun double-line (arg)
+
+(defun duplicate-line()
   "copy line and place it below the original"
-  (interactive "p")
-  (copy-line arg)
+  (interactive)
+  (move-beginning-of-line 1)
+  (kill-line)
   (yank)
-  (move-end-of-line))
-(global-set-key (kbd "C-c d") 'double-line)
-
-
-(global-set-key [(control .)] 'goto-last-change)
-(global-set-key (kbd "C-s-c C-s-c") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+  (open-line 1)
+  (next-line 1)
+  (yank)
+)
+(global-set-key (kbd "C-c d") 'duplicate-line)
 
 
 (global-undo-tree-mode 1)

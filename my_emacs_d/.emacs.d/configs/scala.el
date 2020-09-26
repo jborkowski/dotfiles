@@ -7,7 +7,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package scala-mode
-  :mode "\\.s\\(cala\\|bt\\)$")
+  :mode "\\.s\\(cala\\|bt\\)$"
+  :interpreter
+    ("scala" . scala-mode))
+
 
 (use-package sbt-mode
   :commands sbt-start sbt-command
@@ -50,6 +53,9 @@
 
 (use-package lsp-treemacs
   :config
-  (lsp-metals-treeview-enable t)
+  ;; (lsp-metals-treeview-enable t)
   (setq lsp-metals-treeview-show-when-views-received t)
  )
+
+(use-package lsp-metals
+  :config (setq lsp-metals-treeview-show-when-views-received t))

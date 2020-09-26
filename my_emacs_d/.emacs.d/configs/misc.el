@@ -56,12 +56,46 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package vterm
+  :hook (vterm-mode . turn-off-chrome)
+
   :config
   (defun turn-off-chrome ()
     (hl-line-mode -1)
     (display-line-numbers-mode -1))
-  :hook (vterm-mode . turn-off-chrome))
 
+  (evil-define-key* 'insert vterm-mode-map
+    (kbd "C-a") #'vterm--self-insert
+    (kbd "C-b") #'vterm--self-insert ; Should not be necessary.
+    (kbd "C-d") #'vterm--self-insert
+    (kbd "C-e") #'vterm--self-insert
+    (kbd "C-f") #'vterm--self-insert ; Should not be necessary.
+    (kbd "C-k") #'vterm--self-insert
+    (kbd "C-l") #'vterm--self-insert ; Should not be necessary.
+    (kbd "C-n") #'vterm--self-insert
+    (kbd "C-o") #'vterm--self-insert
+    (kbd "C-p") #'vterm--self-insert
+    (kbd "C-q") #'vterm--self-insert ; Should not be necessary.
+    (kbd "C-r") #'vterm--self-insert
+    (kbd "C-s") #'vterm--self-insert ; Should not be necessary.
+    (kbd "C-t") #'vterm--self-insert
+    (kbd "C-u") #'vterm--self-insert ; Should not be necessary.
+    (kbd "C-v") #'vterm--self-insert ; Should not be necessary.
+    (kbd "C-w") #'vterm--self-insert
+    (kbd "C-y") #'vterm--self-insert
+    (kbd "C-z") #'vterm--self-insert)
+
+  )
+
+(setq vterm-toggle-fullscreen-p nil)
+(add-to-list 'display-buffer-alist
+             '((lambda(bufname _) (with-current-buffer bufname (equal major-mode 'vterm-mode)))
+                (display-buffer-reuse-window display-buffer-at-bottom)
+                ;;(display-buffer-reuse-window display-buffer-in-direction)
+                ;;display-buffer-in-direction/direction/dedicated is added in emacs27
+                ;;(direction . bottom)
+                ;;(dedicated . t) ;dedicated is supported in emacs27
+                (reusable-frames . visible)
+                (window-height . 0.3)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Yaml, Toml, Dockerfile, Markdown
