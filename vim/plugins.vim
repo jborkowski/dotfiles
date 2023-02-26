@@ -13,15 +13,27 @@ endif
 call plug#begin('~/.config/nvim/plugged')
 
 " features
-" Plug 'w0rp/ale'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'romgrk/barbar.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'dense-analysis/ale'
+Plug 'phaazon/hop.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'EdenEast/nightfox.nvim'
+Plug 'preservim/nerdcommenter'
+
 " Plug 'tpope/vim-fugitive'
 " Plug 'tpope/vim-sensible'
 " Plug 'tpope/vim-surround'
-" Plug 'tpope/vim-repeat'
-" Plug 'tpope/vim-commentary'
 " Plug 'SirVer/ultisnips'
+
 " Plug 'JamshedVesuna/vim-markdown-preview'
-" Plug 'juneedahamed/svnj.vim'
+
 " Plug 'ctrlpvim/ctrlp.vim'
 
 call plug#end()
