@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/bin/zsh
 
 ZSH_PLUGINS_DIR=$HOME/.config/zsh/plugins
 

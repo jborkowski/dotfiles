@@ -29,7 +29,7 @@ alias top='btm'
 alias tree='tree -a -C'
 alias vim='nvim'
 alias s='kitty +kitten ssh'
-alias get_idf='. ~/code/esp-idf/export.sh'
+alias get_idf='. ~/code/embedded/rust-build/export-esp.sh'
 alias get_esp32='. ~/.config/zsh/export-esp32.sh'
 
 # Load
@@ -39,9 +39,13 @@ eval "$(direnv hook zsh)"
 
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
-if [ -x "$(command -v fzf)" ]; then
-    source /etc/zsh_completion.d/fzf-key-bindings
-fi
+#if [ -x "$(command -v fzf)" ]; then
+#    source /etc/zsh_completion.d/fzf-key-bindings
+#fi
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+
+[ -f "/Users/jonatan/.ghcup/env" ] && source "/Users/jonatan/.ghcup/env" # ghcup-env
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
