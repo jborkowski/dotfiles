@@ -1,0 +1,49 @@
+# Personal account: TheBO
+IMAPAccount thebo
+Host imap.migadu.com
+UserCmd "gpg2 -q --for-your-eyes-only -d ~/.authinfo.gpg | awk -F ' ' '/thebo/ { print $(NF-2); exit; }'"
+PassCmd "gpg2 -q --for-your-eyes-only -d ~/.authinfo.gpg | awk -F ' ' '/thebo/ { print $NF; exit; }'"
+AuthMechs LOGIN
+SSLType IMAPS
+SSLVersion TLSv1.2
+
+MaildirStore thebo-local
+Path ~/.mail/thebo/
+Inbox ~/.mail/thebo/INBOX
+SubFolders Verbatim
+
+IMAPStore thebo-remote
+Account thebo
+
+Channel thebo
+Far :thebo-remote:
+Near :thebo-local:
+Patterns *
+Create Both
+Expunge Both
+SyncState *
+
+# Personal account: J14I
+IMAPAccount j14i
+Host imap.migadu.com
+UserCmd "gpg2 -q --for-your-eyes-only -d ~/.authinfo.gpg | awk -F ' ' '/j14i/ { print $(NF-2); exit; }'"
+PassCmd "gpg2 -q --for-your-eyes-only -d ~/.authinfo.gpg | awk -F ' ' '/j14i/ { print $NF; exit; }'"
+AuthMechs LOGIN
+SSLType IMAPS
+SSLVersion TLSv1.2
+
+MaildirStore j14i-local
+Path ~/.mail/j14i/
+Inbox ~/.mail/j14i/INBOX
+SubFolders Verbatim
+
+IMAPStore j14i-remote
+Account j14i
+
+Channel j14i
+Far :j14i-remote:
+Near :j14i-local:
+Patterns *
+Create Both
+Expunge Both
+SyncState *

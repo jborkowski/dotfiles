@@ -11,6 +11,10 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/plugged')
+" file navigation
+Plug 'ibhagwan/fzf-lua'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 " features
 Plug 'nvim-lualine/lualine.nvim'
