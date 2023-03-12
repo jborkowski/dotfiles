@@ -1,0 +1,15 @@
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+[user]
+	email = jonatan@thebo.me
+	name = Jonatan Borkowski
+
+[init]
+	defaultBranch = main
+
+[alias]
+	st = status
+  	co = checkout
