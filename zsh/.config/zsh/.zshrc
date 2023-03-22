@@ -43,12 +43,12 @@ if [ -x "$(command -v fzf)" ]; then
     # opensuse
     # source /etc/zsh_completion.d/fzf-key-bindings
     # arch
-    source /usr/share/fzf/completion.zsh
+    # source /usr/share/fzf/completion.zsh
 fi
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
-[ -f "/Users/jonatan/.ghcup/env" ] && source "/Users/jonatan/.ghcup/env" # ghcup-env
+[ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
