@@ -1,0 +1,51 @@
+{
+  "languageserver": {
+    "purescript": {
+      "command": "purescript-language-server",
+      "args": ["--stdio"],
+      "filetypes": ["purescript"],
+      "trace.server": "off",
+      "rootPatterns": ["psc-package.json", "spago.dhall"],
+      "settings": {
+        "purescript": {
+          "addPscPackageSources": true,
+          "addNpmPath": true
+        }
+      }
+    },
+    "haskell": {
+      "command": "haskell-language-server-wrapper",
+      "args": ["--lsp"],
+      "rootPatterns": [
+        "*.cabal",
+        "stack.yaml",
+        "cabal.project",
+        "package.yaml",
+        "hie.yaml"
+      ],
+      "filetypes": ["haskell", "lhaskell"],
+      "settings": {
+        "haskell": {
+          "formattingProvider": "fourmolu",
+          "plugin": {
+            "hlint": {
+              "globalOn": true
+            }
+          }
+        }
+      }
+    },
+    "rust": {
+      "command": "rust-analyzer",
+      "filetypes": ["rust"],
+      "rootPatterns": ["Cargo.toml"]
+    }
+  },
+  "coc.preferences.formatOnSaveFiletypes": [
+    "typescript",
+    "typescript.tsx",
+    "javascript",
+    "purescript",
+    "haskell"
+  ]
+}
