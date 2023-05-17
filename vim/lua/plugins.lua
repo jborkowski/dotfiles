@@ -46,12 +46,13 @@ local function setup_fn(use)
     end
   }
 
-  use {'neoclide/coc.nvim', branch = 'release'}
-  --use {
-    -- 'dense-analysis/ale',
-    -- 'neovim/nvim-lspconfig',
---   'neoclide/coc.nvim'
-  --}
+  use {
+    'neoclide/coc.nvim', 
+    branch = 'release'
+  }
+
+  use 'dense-analysis/ale'
+  use 'bkad/CamelCaseMotion'
 
   use {
     'preservim/nerdcommenter'
@@ -72,9 +73,6 @@ local function setup_fn(use)
   use 'SirVer/ultisnips'
 
   use 'JamshedVesuna/vim-markdown-preview'
-
--- use 'ctrlpvim/ctrlp.vim'
-
 
   -- auto sync
   if packer_bootstrap then

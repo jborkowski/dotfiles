@@ -74,6 +74,16 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  CamelCaseMotion = {
+    loaded = true,
+    path = "/Users/jonatan/.config/local/share/nvim/site/pack/packer/start/CamelCaseMotion",
+    url = "https://github.com/bkad/CamelCaseMotion"
+  },
+  ale = {
+    loaded = true,
+    path = "/Users/jonatan/.config/local/share/nvim/site/pack/packer/start/ale",
+    url = "https://github.com/dense-analysis/ale"
+  },
   ["barbar.nvim"] = {
     loaded = true,
     path = "/Users/jonatan/.config/local/share/nvim/site/pack/packer/start/barbar.nvim",
