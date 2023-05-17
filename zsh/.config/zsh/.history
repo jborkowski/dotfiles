@@ -1,0 +1,994 @@
+: 1684347950:0;mv vim nvim
+: 1684347992:1;stow git mbsync zsh nvim kmonad kitty
+: 1684348049:0;rm -rf ~/.zshenv
+: 1684348052:0;stow git mbsync zsh nvim kmonad kitty -t ~/
+: 1684348063:0;rm -rf ~/.config/zsh
+: 1684348074:0;rm -rf ~/.mbsyncrc
+: 1684348078:0;rm -rf ~/.config/git
+: 1684348083:0;stow git mbsync zsh nvim kmonad kitty 
+: 1684348178:0;stow -D git mbsync zsh nvim kmonad kitty 
+: 1684348232:0;tree 
+: 1684348240:0;ls git
+: 1684348259:0;stow  git 
+: 1684348283:0;ls ~/.config/git/
+: 1684348286:0;ls ~/.config/
+: 1684348313:0;rm -rf ~/.config/nvim
+: 1684348344:0;ls -la ~/.config/ | grep git
+: 1684348368:0;stow  kitty
+: 1684348372:0;ls -la ~/.config/ | grep kitty
+: 1684348382:0;ls kitty
+: 1684348397:0;stow -D kitty
+: 1684348407:0;cd kitty
+: 1684348419:0;mv * .config/kitty/
+: 1684348436:0;mkdir -p .config/kitty
+: 1684348446:0;mv *.conf .config/kitty/
+: 1684348506:0;mkdir -p .config/nnvim
+: 1684348557:0;rm -rf .config
+: 1684348578:0;mkdir -p .config/nvim
+: 1684348594:0;mv * .config/nvim
+: 1684348614:0;stow nvim
+: 1684348619:0;ls zsh
+: 1684348893:0;$sudo pacman -S python-pynvim
+: 1684348899:0;sudo pacman -S python-pynvim
+: 1684348972:0;nvim zsh
+: 1684349036:0;cat zshenv
+: 1684349165:0;nvim zsh/.zshenv 
+: 1684349238:0;source ~/.config/zsh/.zshrc
+: 1684349252:0;cd mbsync
+: 1684349268:0;cd kmonad
+: 1684349283:0;mkdir -p .config/kmonad
+: 1684349293:0;mv *.conf .config/kmonad
+: 1684349301:0;stow kmonad
+: 1684349310:0;cd git
+: 1684349320:0;sudo pacman -S tree
+: 1684349325:0;tree
+: 1684349330:0;tree -d1
+: 1684349336:0;tree -l 1
+: 1684349338:0;tree -l 2
+: 1684349342:0;tree -L 2
+: 1684349371:0;tree -L 3
+: 1684349382:0;tree -L 4
+: 1684349436:0;mv plugins .config/zsh
+: 1684349451:0;mv install-plugins.sh .config/zsh
+: 1684349457:0;cat .history
+: 1684349487:0;cat .history >> .config/zsh/.history
+: 1675790123:0;sudo pacman -S bat
+: 1675790134:0;cat ~/.config/zsh/.zshrc
+: 1675790160:0;sudo pacman -S xcp
+: 1675790172:0;cargo install xcp
+: 1675790632:0;mkdir re
+: 1675790653:0;git clone git@github.com:restaumatic/docker-ci.git
+: 1675790676:0;git checkout arm64-images
+: 1675790695:0;git rebase origin/master
+: 1675790853:0;mkdir ~/.aws
+: 1675790869:0;mg ~/.aws/credentials
+: 1675791266:0;BUILDARCH=arm64  docker build . -f Dockerfile.base -t restaumatic-base --build-arg BUILDARCH=arm64
+: 1675791686:0;echo ' BUILDARCH=arm64  docker build . -f Dockerfile.base -t restaumatic-base --build-arg BUILDARCH=arm64' >> build-arch-images.sh
+: 1675791719:0;echo 'BUILDARCH=arm64  docker build . -f Dockerfile.db -t restaumatic-db --build-arg BUILDARCH=arm64' >> build-arch-images.sh
+: 1675791721:0;BUILDARCH=arm64  docker build . -f Dockerfile.db -t restaumatic-db --build-arg BUILDARCH=arm64
+: 1675791760:0;echo 'BUILDARCH=arm64  docker build . -f Dockerfile.buildenv -t restaumatic-buildenv --build-arg BUILDARCH=arm64' >> build-arch-images.sh
+: 1675791764:0;BUILDARCH=arm64  docker build . -f Dockerfile.buildenv -t restaumatic-buildenv --build-arg BUILDARCH=arm64                          
+: 1675791937:0;git clone https://aur.archlinux.org/aws-session-manager-plugin.git
+: 1675791942:0;cd aws-session-manager-plugin
+: 1675791950:0;makepage 
+: 1675792011:0;makepkg
+: 1675792022:0;cat
+: 1675792027:0;ls 
+: 1675792059:0;git clone https://aur.archlinux.org/1password.git
+: 1675792186:0; curl -sS https://downloads.1password.com/linux/keys/1password.asc | gpg --import \
+
+: 1675792198:0;rm -rf 1password
+: 1675792199:0; git clone https://aur.archlinux.org/1password.git \
+
+: 1675792207:0;cd 1password
+: 1675792232:0; curl -sSO https://downloads.1password.com/linux/tar/stable/aarch64/1password-latest.tar.gz \
+
+: 1675792240:0; tar -xf 1password-latest.tar.gz 
+: 1675792245:0;sudo mkdir -p /opt/1Password 
+: 1675792250:0;sudo mv 1password-*/* /opt/1Password \
+
+: 1675792256:0; sudo /opt/1Password/after-install.sh \
+
+: 1675792415:0;echo 'onepassword://team-account/add?email=jonatan.borkowski%40pm.me&key=A3-TQB7GE-8K5S53-VAM7H-4G24H-FF4P2-9SH9V&server=https%3A%2F%2Fmy.1password.com%2F' >> 1pass
+: 1675793734:0;cd sources/re/docker-ci
+: 1675793813:0;BUILDARCH=arm64  docker build . -f Dockerfile.base-ruby -t restaumatic-base-ruby --build-arg BUILDARCH=arm64
+: 1675794049:0;e ~/sources/re/devcontainer
+: 1675794207:0;e ../devcontainer
+: 1675794361:0;docker tag restaumatic-db:latest public.ecr.aws/o6y6k3s0/docker-ci:139-db
+: 1675794403:0;cd ../devcontainer/.devcontainer
+: 1675794763:0;sudo pacman -S kitty-terminfo
+: 1675795047:0;lsb_release
+: 1675795258:0;uname -s
+: 1675795263:0;uname 
+: 1675795266:0;uname -a
+: 1675795422:0;mv \#docker-compose.local.yaml\# docker-compose.local.yaml
+: 1675795542:0;e Dockerfile.local.example
+: 1675795615:0;echo $TERM
+: 1675803499:0;e .config/zsh/.zshrc
+: 1675803690:0;e ~/.config/zsh/.zshrc
+: 1675804517:0;sudo systemctl start docker.service
+: 1675804798:0;sudo docker-compose -f docker-compose.yaml -f docker-compose.local.yaml down
+: 1675804802:0;sudo docker-compose -f docker-compose.yaml -f docker-compose.local.yaml up -d
+: 1675804825:0;./scripts/build-image
+: 1675805153:0;e sources/re/devcontainer/.devcontainer/Dockerfile.local
+: 1675805177:0;sudo ./scripts/build-image
+: 1675806075:0;sudo docker-compose -f docker-compose.yaml -f docker-compose.local.yaml build dev
+: 1675806387:0;sudo docker-compose -f docker-compose.yaml -f docker-compose.local.yaml up -d  
+: 1675806423:0;sudo docker ps
+: 1675806447:0;sudo docker exec -it devconteiner-dev-1 zsh
+: 1675807161:0;sudo pacman -S slack
+: 1675807172:0;sudo pacman -S sway
+: 1675807252:0;sudo pacman -S bemenu foot i3status swaybg swayidle swaylock waybar polkit
+: 1675807400:0;sudo docker exec -it devcontainer-dev-1 zsh
+: 1675808134:0;sudo pacman -Syuu asahi-desktop-meta
+: 1675809149:0;mkdir -p ~/.config/sway
+: 1675809161:0;cp /etc/sway/config ~/.config/sway/
+: 1675809174:0;ls -la .config/sway
+: 1675809369:0;sudo pacman -Syuu dmenu
+: 1675809382:0;dmenu
+: 1675809694:0;[200~swaymsg -t get_outputs ~]
+: 1675809915:0;swaymsg -t get_outputs 
+: 1675810212:0;swaymsg -t get_inputs
+: 1675810496:0;e .emacs.d
+: 1675810592:0;alacritty
+: 1675810668:0;exti
+: 1675843591:0;sudo mg /etc/sudoers
+: 1675843843:0;sudo service sudo restart\
+
+: 1675843852:0;sudo systemctl sudo restart\
+
+: 1675843887:0;newgrp sudo\
+
+: 1675843916:0;usermod -aG sudo jonatan
+: 1675843942:0;usermod -aG wheel jonatan
+: 1675844048:0;sudo usermod -aG wheel jonatan
+: 1675847473:0;sudo shutdown
+: 1675976413:0;e .config/alacritty/alacritty.yml
+: 1675976826:0;feh
+: 1675976925:0;cat .config/zsh/.zshrc
+: 1675977075:0;sudo pacman -Syuu nerd-fonts
+: 1675977224:0;mkdir -p ~/.config/nyxt\
+
+: 1675977261:0;git clone https://github.com/dracula/nyxt.git\
+
+: 1675977288:0;rm -rf nyxt
+: 1675977297:0;git clone git clone https://github.com/dracula/nyxt.git nyxt-dracula
+: 1675977311:0;git clone https://github.com/dracula/nyxt.git nyxt-dracula
+: 1675977334:0;cp nyxt-dracula/*.lisp ~/.config/nyxt
+: 1675977379:0;cd ~/.config/nyxt
+: 1675977389:0;nyxt 
+: 1675977469:0;cd sources/nyxt-dracula
+: 1675977509:0;cat init.lisp
+: 1675977545:0;cat ~/.config/nyxt/init.lisp
+: 1675977556:0;cat ~/.config/nyxt/statusline.lisp
+: 1675977808:0;sudo pacman -Syuu sfmono
+: 1675977858:0;git clone https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized.git && cd SFMono-Nerd-Font-Ligaturized\
+cp *.otf ~/.local/share/fonts
+: 1675977889:0;font 
+: 1675978018:0;fc-list
+: 1675978177:0;fc-list | grep SF
+: 1675978238:0;fc-list | grep SFMono
+: 1675978242:0;fc-list | grep mono
+: 1675978281:0;fc-list | grep ios 
+: 1675978286:0;fc-list | grep ios  | grep mo
+: 1675978287:0;fc-list | grep ios  | grep m
+: 1675978299:0;fc-list | grep ios  | grep et
+: 1675978395:0;fc-list | grep ios  | grep a
+: 1675978475:0;fc-list | grep ios  | grep te
+: 1675978670:0;fc-list | grep ios  | grep et bold
+: 1675978753:0;fc-list | grep ios  | grep et 
+: 1675979112:0;cd sources/SFMono-Nerd-Font-Ligaturized
+: 1675979128:0;cp *.otf ~/.local/share/fonts
+: 1675979133:0;/bin/cp *.otf ~/.local/share/fonts
+: 1675979240:0;fc-cache -f 
+: 1675979413:0;cd ~/.local/share/fonts
+: 1675979414:0;lfs
+: 1675979448:0;mkdir -p otf/LigaSFMonoNerdFont
+: 1675979460:0;mv LigaSFMonoNerdFont-* otf/LigaSFMonoNerdFont/
+: 1675979476:0;mkdir ttf
+: 1675979487:0;mv *.ttf ttf
+: 1675979495:0;fc-cache -f
+: 1675979500:0;fc-cache -f -v
+: 1675979554:0;fc-list | grep li
+: 1675979557:0;fc-list | grep liga
+: 1675979613:0;sudo pacman -Syuu ttf-fira-code
+: 1675979645:0;sudo pacman -Syuu ttf-jetbrains-mono
+: 1675979665:0;fc-list | grep 
+: 1675979685:0;fc-list | grep fira
+: 1675979779:0;fc-list 
+: 1675979881:0;fc-list | grep jetbrains
+: 1675979890:0;fc-list | grep Liga
+: 1675979893:0;fc-list | grep Mono
+: 1675979927:0;sudo pacman -Syuu ttf-jetbrains-mono-nerd
+: 1675979938:0;fc-list | grep Jet
+: 1675979968:0;fc-list | grep Fira
+: 1675980096:0;sudo pacman -Syuu ttf-iosevka-nerd
+: 1675980125:0;fc-list | grep Ios
+: 1675980170:0;fc-list | grep Iosevka
+: 1675980174:0;fc-list | grep Iosevka Term
+: 1675980182:0;fc-list | grep "Iosevka Term"
+: 1675980925:0;mkdir -p ~/.config/alacritty/themes
+: 1675980939:0;git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
+: 1675981675:0;sudo pacman -Syuu powertop
+: 1675981687:0;powertop
+: 1675981692:0;sudo powertop
+: 1675981813:0;sudo powertop --calibrate
+: 1675981874:0;sudo powertop 
+: 1675982454:0;xhost +localhost
+: 1675982479:0;sudo pacman -S xquartz
+: 1675982764:0;e docker-compose.local.yaml
+: 1675983065:0;cls
+: 1676141413:0;sudo pacman -S quake3
+: 1676141605:0;sudo pacman -S wget https://github.com/supertuxkart/stk-code/releases/download/1.4/SuperTuxKart-1.4-linux-arm64.tar.xz
+: 1676141616:0;wget https://github.com/supertuxkart/stk-code/releases/download/1.4/SuperTuxKart-1.4-linux-arm64.tar.xz
+: 1676141717:0;tar -xf ./SuperTuxKart-1.4-linux-arm64.tar.xz
+: 1676141746:0;./SuperTuxKart-1.4-linux-arm64/run_game.sh
+: 1676142069:0;sudo pacman -S ioquaqe3
+: 1676142152:0;git clone https://aur.archlinux.org/ioquake3-git.git
+: 1676142155:0;cd ioquake3-git
+: 1676142435:0;quake3 +set fs_game demoq3
+: 1676142459:0;cd /opt/quake3/demoq3
+: 1676142623:0;cd /opt/quake3/demoq3/
+: 1676142638:0;cd sources/ioquake3-git
+: 1676142700:0;cd pkg/ioquake3-git/opt
+: 1676142761:0;cd ~/Downloads
+: 1676142772:0;cp pak0.pk3 /opt/quake3/baseq3/
+: 1676142785:0;cp pak0.pk3 /opt/quake3/baseq3/pak0.pk3
+: 1676142787:0;sudo cp pak0.pk3 /opt/quake3/baseq3/pak0.pk3
+: 1676142800:0;quake3 
+: 1676553977:0;cat sources/re/devcontainer/.devcontainer
+: 1676553983:0;cat sources/re/devcontainer/.devcontainer/docker-compose.yaml
+: 1676561430:0;sudo pacman -Syyu 
+: 1676565176:0;sudo pacman -Syu 
+: 1676565192:0;sudo pacman -S base-deval
+: 1676565271:0;git clone https://aur.archlinux.org/slack-desktop.git
+: 1676565274:0;cd slack-desktop
+: 1676565360:0;rm -rf slack-desktop
+: 1676565363:0;git clone git clone https://aur.archlinux.org/yay-git.git
+: 1676565365:0;git clone https://aur.archlinux.org/yay-git.git
+: 1676565367:0;cd yay-git
+: 1676565446:0;yay --version
+: 1676565455:0;yay -S slack-desktop
+: 1676565654:0;yay -S 1password
+: 1676566260:0;sudo pacman -S gnome-desktop
+: 1676566414:0;git clone https://aur.archlinux.org/visual-studio-code-bin.git
+: 1676566418:0;cd visual-studio-code-bin
+: 1676566829:0;sudo pacman -S gnome-tweaks
+: 1676577845:0;wget http://randomsample.de/profile-dotemacs.el
+: 1676580253:0;emacs -nw
+: 1676580614:0;sudo fc-cache -f -v
+: 1676580631:0;fc-list | grep "Iosevka "
+: 1676580637:0;fc-list | grep jet
+: 1676580690:0;fc-list | grep JetBrainsMonoNL
+: 1676581146:0;emacs -nw .
+: 1676581172:0;emacs -nw README.org
+: 1676581959:0;emacs -nw 
+: 1676821610:0;ps
+: 1676821615:0;ip
+: 1677191789:0;sudo pacman -S mosh
+: 1677191831:0;sudo systemctl enable mosh\
+
+: 1677192199:0;visudo /etc/sudoers
+: 1677192231:0;qqq
+: 1677192446:0;sudo su\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+
+: 1677192526:0;cat /etc/sudoers
+: 1677193287:0;sudo cat /etc/sudoers
+: 1677193487:0;sudo systemctl enable sudo
+: 1677193651:0;mg
+: 1677227381:0;sudo visudo /etc/sudoers
+: 1677227413:0;sudo TERM=xterm mg /etc/sudoers
+: 1677227501:0;sudo TERM=xterm mg /etc/sudo.conf
+: 1677227557:0;sudo TERM=xterm mg /etc/sudoers.d
+: 1677227806:0;wget https://gitlab.com/jclosure/dotfiles/-/blob/develop/common/install-terminfo-xterm-24bit.sh
+: 1677227836:0;wget https://gitlab.com/jclosure/dotfiles/-/raw/develop/common/install-terminfo-xterm-24bit.sh?inline=false
+: 1677227860:0;wget https://gitlab.com/jclosure/dotfiles/-/raw/develop/common/install-terminfo-xterm-24bit.sh
+: 1677227863:0;chmod +x install-terminfo-xterm-24bit.sh
+: 1677227864:0;./install-terminfo-xterm-24bit.sh
+: 1677227876:0;chmod +x install-terminfo-xterm-24bit.sh.1
+: 1677227878:0;./install-terminfo-xterm-24bit.sh.1
+: 1677227960:0;sudo visudo -f /etc/sudoers.d/jsudo
+: 1677230159:0;cd re
+: 1677230163:0;cd devcontainer
+: 1677230197:0;cd .devcontainer
+: 1677230255:0;docker logs devcontainer-dev-1
+: 1677230421:0;docker-compose -f docker-compose.yaml -f docker-compose.local.yaml build dev
+: 1677230430:0;docker-compose -f docker-compose.yaml -f docker-compose.local.yaml up -d  
+: 1677230490:0;cat .env
+: 1677230568:0;docker-compose -f docker-compose.yaml -f docker-compose.local.yaml up 
+: 1677230624:0;apparmor_parser -r -W docker.profile.
+: 1677230701:0;docker ps -a
+: 1677230773:0;docker-compose -f ./docker-compose.yaml  up -d  
+: 1677230780:0;docker-compose -f ./docker-compose.yaml -f ./docker-compose.local.yaml ps
+: 1677230791:0;docker-compose -f ./docker-compose.yaml -f ./docker-compose.local.yaml down
+: 1677230859:0;docker run -it --rm archlinux bash -c "echo hello world"
+: 1677230915:0;cd docker-ci
+: 1677230918:0;BUILDARCH=arm64  docker build . -f Dockerfile.buildenv -t restaumatic-buildenv --build-arg BUILDARCH=arm64
+: 1677231178:0;sudo pacman -S direnv exa
+: 1677231261:0;docker info
+: 1677231369:0;sudo pacman -S  	apparmor
+: 1677231396:0;sudo systemctl enable --now apparmor.service
+: 1677231440:0;sudo systemctl start apparmor.service
+: 1677231463:0;sudo pacman -S docker-compose
+: 1677231470:0;sudo pacman -S docer
+: 1677231473:0;sudo pacman -S docker
+: 1677231525:0;sudo systemctl status apparmor.service
+: 1677231535:0;aa-enabled
+: 1677340824:0;sudo pacman -S gnome
+: 1677340912:0;sudo systemctl enable gdm.service
+: 1677340922:0;sudo systemctl start gdm.service
+: 1677340927:0;sudo systemctl status
+: 1677340932:0;sudo systemctl status gdm
+: 1677340967:0;/var/log/Xorg.0.log
+: 1677340974:0;sudo cat /var/log/Xorg.0.log
+: 1677341074:0;cat /etc/gdm/custom.conf
+: 1677341304:0;sudo systemctl status sddm.service
+: 1677341312:0;sudo systemctl stop sddm.service
+: 1677341317:0;sudo systemctl disable sddm.service
+: 1677341394:0;startx
+: 1677341416:0;sudo systemctl enable sddm.service
+: 1677341422:0;sudo systemctl start sddm.service
+: 1677341540:0;sudo systemctl disable gdm.service
+: 1677341743:0;'pushd +0'
+: 1677342220:0;gsettings get org.gnome.desktop.interface scaling-factor 
+: 1677342227:0;gsettings set org.gnome.desktop.interface scaling-factor 2
+: 1677342501:0; export GDK_SCALE=2
+: 1677342592:0;echo .zshrc
+: 1677342626:0;echo "export GDK_SCALE=2" >> .zshrc
+: 1677342746:0;gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
+: 1677342785:0;sudo mg /etc/dconf/profile/user
+: 1677342801:0;sudo mg /etc/dconf/db/local.d/00-hidpi
+: 1677342859:0;sudo mg /etc/dconf/db/locks/hidpi
+: 1677343356:0;e .config/tirdactyl/tirdactylrc
+: 1677343461:0;echo "source --url https://raw.githubusercontent.com/jumper047/tridactyl_emacs_config/main/emacs_bindings" > ~/.config/tirdactyl/tirdactylrc
+: 1677343533:0;firefox 
+: 1677343576:0;exit 
+: 1677343987:0;git clone https://aur.archlinux.org/mellowplayer.git
+: 1677343992:0;cd mellowplayer
+: 1677345127:0;e
+: 1677347684:0;cd .local/share/bin
+: 1677347690:0;cd .local/
+: 1677347788:0;e re-dev
+: 1677347800:0;export TERM=xterm-24bit
+: 1677347919:0;sudo chmod +x re-dev
+: 1677347964:0;sudo mg ssh-re
+: 1677347991:0;chmod +x ssh-re
+: 1677347994:0;sudo chmod +x ssh-re
+: 1677348205:0;code .
+: 1677348635:0;code 
+: 1677348993:0;ssh-re
+: 1677349336:0;cd Downloads
+: 1677349382:0;docker cp code_1.75.1-167589 devcontainer-dev-1:/tmp/
+: 1677349402:0;docker cp ./code_1.75.1-167589 devcontainer-dev-1:/tmp/
+: 1677349436:0;docker cp  code_1.75.1-1675892106_arm64.deb devcontainer-dev-1:/tmp/
+: 1677349915:0;tailscale 
+: 1677349939:0;sudo systemctl enable --now tailscaled
+: 1677349945:0;tailscale ip
+: 1677350365:0;cat ~/sources/re/devcontainer/.devcontainer/docker-compose.yaml
+: 1677350389:0;cat ~/sources/re/devcontainer/.devcontainer/docker-compose.local.yaml
+: 1677350451:0;ssh localhost
+: 1677350520:0;ssh -P 2233 localhost
+: 1677350552:0;ssh --help
+: 1677350563:0;ssh localhost:2233
+: 1677350574:0;ssh 2233
+: 1677350590:0;ssh -p 2233 localhost 
+: 1677350616:0;cat ~/.ssh/authorized_keys
+: 1677350668:0;cat id_ed25519.pub
+: 1677350694:0;ssh -p 2233 -i id_ed25519 localhost 
+: 1677351123:0;docker exec devcontainer-dev-1 "sudo service ssh start"
+: 1677351130:0;docker exec devcontainer-dev-1 sudo service ssh start
+: 1677351135:0;sudo mg re-dev
+: 1677351255:0; emacsclient -s foo -e "(make-frame-on-display \"$DISPLAY\")"
+: 1677351316:0;ssh -XC -p 2233 -i id_ed25519 user@localhost -f emacs --daemon=re
+: 1677351425:0;ssh -XC -p 2233  user@localhost -f emacs --daemon=re 
+: 1677351460:0;ssh -XC -p 2233  user@localhost -f emacsclient -s re  -c 
+: 1677351472:0; emacsclient -s re -e "(make-frame-on-display \"$DISPLAY\")"
+: 1677351637:0;sudo pacman -S waypipe
+: 1677351669:0;git clone git@gitlab.freedesktop.org:mstoeckl/waypipe.git
+: 1677351685:0;git clone https://gitlab.freedesktop.org/mstoeckl/waypipe.git
+: 1677351689:0;cd waypipe
+: 1677351718:0;sudo pacman -S meson
+: 1677351727:0;sudo pacman -S ninja
+: 1677351822:0;mkdir build-waypipe
+: 1677351868:0;sudo pacman -S libx264
+: 1677351874:0;meson --buildtype debugoptimized waypipe build-waypipe
+: 1677351959:0;waypipe ssh -p 2233 -i user@localhost emacs
+: 1677351968:0;waypipe ssh -p 2233 -i user@localhost 
+: 1677352061:0;ninja -C build-waypipe install
+: 1677352081:0;./waypipe
+: 1677352110:0;waypipe ssh -p 2233 user@localhost weston-terminal
+: 1677352135:0;waypipe ssh user@localhost 
+: 1677352151:0;waypipe ssh user@localhost -p 2233
+: 1677352158:0;waypipe ssh user@localhost -p 2233 s
+: 1677352284:0;waypipe ssh -p 2233 user@localhost 
+: 1677352383:0;sudo -E evince
+: 1677352396:0;echo $DISPLAY
+: 1677352425:0;echo WAYLAND_DEBUG=1
+: 1677352429:0;export WAYLAND_DEBUG=1
+: 1677352430:0;waypipe ssh -p 2233 user@localhost emacs
+: 1677352446:0;echo $WAYLAND_DISPLAY
+: 1677352470:0;waypipe ssh -p 2233 user@localhost WAYLAND_DISPLAY=wayland-0 emacs
+: 1677352495:0;waypipe --no-gpu ssh -p 2233 user@localhost WAYLAND_DISPLAY=wayland-0 emacs
+: 1677352540:0;waypipe --no-gpu ssh -p 2233 user@localhost sudo -E emacs
+: 1677352608:0;waypipe --no-gpu ssh -p 2233 user@localhost emacs
+: 1677352680:0;bt full
+: 1677352802:0;docker commit devcontainer-dev-1
+: 1677352863:0;docker tag 55206d16d189 devcontainer_dev:250223
+: 1677352890:0;docker tag 55206d16d189 devcontainer_dev:250223-arm64
+: 1677352897:0;docker tag 55206d16d189 devcontainer_dev:250223-aarch64
+: 1677352904:0;docker images
+: 1677352937:0;cd .ssh
+: 1677352950:0;e .config
+: 1677352974:0;ssh -XC -p 2233 -i id_ed25519 user@localhost 
+: 1677353018:0;docker exec devcontainer-dev-1 zsh
+: 1677366465:0;ssh-p 2233 -i id_ed25519 user@localhost 
+: 1677375494:0;emacs 
+: 1677438427:0;sudo pacman -S bluex
+: 1677438435:0;sudo pacman -S bluez bluez-utils
+: 1677438467:0;sudo pacman -S pulseaudio-bluetooth 
+: 1677438506:0;sudo pacman -S wireplumber
+: 1677438531:0;sudo pacman -S qpwgraph
+: 1677438664:0;sudo pacman -S pipewire-*
+: 1677438677:0;sudo pacman -S pipewire-media-session
+: 1677438878:0;sudo pacman -S bluez-alsa
+: 1677439004:0;sudo pacman -S pipewire-jack
+: 1677439332:0; systemctl --user restart wireplumber.service
+: 1677439398:0; systemctl --user status wireplumber.service
+: 1677439460:0;wireplumber
+: 1677439497:0;sudo pacman -S pipewire-zeroconf
+: 1677439565:0;sudo pacman -S pipewire-audio
+: 1677439580:0;sudo pacman -S pipewire-alsa
+: 1677439649:0; systemctl --user status pipewire-bluetooth.service
+: 1677439676:0;sudo pacman -S  	pipewire-pulse
+: 1677439704:0; systemctl --user resart pipewire-pulse.service
+: 1677439709:0; systemctl --user stop pipewire-pulse.service
+: 1677439713:0; systemctl --user start pipewire-pulse.service
+: 1677439809:0; systemctl --user enabled pipewire-pulse.service
+: 1677439813:0; systemctl --user enable pipewire-pulse.service
+: 1677439822:0; pactl info
+: 1677439953:0;sudo mg /etc/wireplumber/policy.lua.d/11-bluetooth-policy.lua
+: 1677440054:0;pw-savewires
+: 1677440173:0; systemctl --user status pipewire-pulse.service
+: 1677440184:0; systemctl --user status pipewire.s
+: 1677440745:0;sudo mg /etc/pipewire/media-session.d/bluez-monitor.conf
+: 1677440894:0;sudo mg /usr/share/wireplumber/bluetooth.conf
+: 1677440926:0;sudo mg /usr/share/wireplumber/bluetooth.lua.d/50-bluez-config.lua
+: 1677441389:0;scp fwooper:~/.ssh/config ~/.ssh/
+: 1677441397:0;cat ~/.ssh/config
+: 1677441556:0;scp fwooper:~/public.key ~/
+: 1677441619:0;gpg --import public.key
+: 1677441648:0;rm -rf public.key
+: 1677441980:0;scp fwooper:~/private.key ~/
+: 1677441986:0;gpg --import private.key
+: 1677441994:0;gpg --edit-key 1B412FA058E3B598C63F008A2CA5BD18A95F23EC
+: 1677442086:0;gpg --list-secret-keys
+: 1677442094:0;rm -rf private.key
+: 1677442155:0;scp fwooper:~/.authinfo.gpg ~/
+: 1677442253:0;which gpg
+: 1677443096:0;git clone https://github.com/LuaLS/lua-language-server
+: 1677443099:0;cd lua-language-server
+: 1677443107:0;./make.sh
+: 1677443321:0;./bin/lua-language-server
+: 1677443370:0;cp bin/lua-language-server /local/share/bin
+: 1677443389:0;cp bin/lua-language-server /usr/local/bin
+: 1677443394:0;sudo cp bin/lua-language-server /usr/local/bin
+: 1677443412:0;cat bin/main.lua
+: 1677443447:0;sudo cp bin/main.lua /usr/local/bin
+: 1677443475:0;sudo cp bin/main.lua /usr/local/
+: 1677443494:0;lua-language-server
+: 1677443512:0;cat main.lua
+: 1677443547:0;rm lua-language-server
+: 1677443694:0;sudo pacman -S neovim
+: 1677444019:0;cat .zshenv
+: 1677444026:0;cat zsh/.zshenv
+: 1677444059:0;e zsh/.zshenv
+: 1677444101:0;e zsh/.zshrc
+: 1677444150:0;cd .config/
+: 1677444230:0;ln -s /home/jonatan/sources/dotfiles/vim nvim
+: 1677444353:0;emacs general.vim
+: 1677444391:0;cat general.vim
+: 1677444398:0;cat plugins
+: 1677444402:0;cat plugins-config.vim
+: 1677444485:0;cat init.vim
+: 1677444493:0;cat plugins.vim
+: 1677444547:0;nvim plugins.vim
+: 1677444676:0;rm -rf autoload
+: 1677444740:0;nvim plugins-config.vim
+: 1677444810:0;sudo pacman -S fzf
+: 1677444815:0;sudo pacman -S ripgrep
+: 1677444897:0;emacs init.vim
+: 1677445320:0;nvim .
+: 1677445399:0;e general.vim
+: 1677445562:0;nvim
+: 1677532296:0;cd nvim
+: 1677532403:0;sudo pacman -S tmux
+: 1677532409:0;tmux 
+: 1677532436:0;emacs vim
+: 1677534253:0;cat vim/plugins.vim
+: 1677534351:0;cd vim
+: 1677534657:0;git add general.vim
+: 1677535931:0;vim
+: 1677536001:0;cd sources/dotfiles/vim
+: 1677536640:0;vim general.vim
+: 1677537132:0;vim plugins-config.vim
+: 1677596796:0;ssh -p 2233 -i id_ed25519 user@localhost 
+: 1677596849:0;docker-compose -f ./docker-compose.yaml -f ./docker-compose.local.yaml build nginx 
+: 1677596882:0;docker logs 13ff
+: 1677596953:0;ping localhost:80
+: 1677596961:0;curl localhost:80
+: 1677597004:0;cat docker-compose.yaml
+: 1677597078:0;docker logs 13ff -f
+: 1677597129:0;docker exec 13ff zsh
+: 1677597135:0;docker exec 13ff -it sh
+: 1677597144:0;docker exec -it 13ff  sh
+: 1677880462:0;sudo pacman -S zola
+: 1677880470:0;zola 
+: 1677880509:0;zola init thebo
+: 1677922173:0;sudo pacman -S signal
+: 1677922193:0;sudo pacman -S signal-desktop
+: 1677922297:0;git clone git@github.com:signalapp/Signal-Desktop.git
+: 1677922400:0;sudo pacman -S yarn
+: 1677922450:0;cd Signal-Desktop
+: 1677922520:0;sudo pacman -S nvm
+: 1677922538:0;wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+: 1677922553:0;export NVM_DIR="$HOME/.config"\
+
+: 1677922701:0;[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+: 1677922710:0;nvm install 16.17.1
+: 1677922719:0;yarn generate
+: 1677922828:0;git clone https://aur.archlinux.org/packages/signal-desktop-beta
+: 1677922853:0;sudo pacman -S signal-desktop-beta
+: 1677922868:0;git clone https://aur.archlinux.org/signal-desktop-beta.git
+: 1677922872:0;cd signal-desktop-beta
+: 1677922879:0;make -sri
+: 1677922930:0;sudo pacman -S npm git-lfs libxcrypt-compat fpm
+: 1677922933:0;sudo pacman -S npm git-lfs libxcrypt-compat 
+: 1677922954:0;sudo pacman -S fpm
+: 1677922999:0;git clone  	https://aur.archlinux.org/fpm.git 
+: 1677923003:0;cd fpm
+: 1677923032:0;sudo pacman -S ruby 
+: 1677923071:0;sudo pacman -S ruby-clamp
+: 1677923076:0;sudo pacman -S ruby-arr
+: 1677923095:0;makepkg -i
+: 1677923127:0;yay -S ruby-cabin
+: 1677923141:0;yay -S fpm
+: 1677923490:0;yay -S signal-desktop-beta
+: 1677923636:0;yay -S opam-git
+: 1677923658:0;sudo pacman -S opam
+: 1677924846:0;yay -S discord
+: 1677924996:0;discord 
+: 1677925373:0;yay -R discord
+: 1677925377:0;yay
+: 1677925462:0;lt
+: 1677925468:0;git clone https://aur.archlinux.org/discord_arch_electron.git (
+: 1677925470:0;git clone https://aur.archlinux.org/discord_arch_electron.git 
+: 1677925474:0;cd discord_arch_electron
+: 1677925673:0;makepkg -sri
+: 1677925693:0;yay -S electron20-bin
+: 1677925809:0;makepkg -sri --ozone-platform-hint=auto
+: 1677925911:0;yay -S electron19-bin
+: 1677926055:0;makepkg -sri -- --ozone-platform-hint=auto
+: 1677926106:0;sudo pacman -S dconf
+: 1677926123:0;killall discord
+: 1677926140:0;ps aux | discord
+: 1677926166:0;killall electron20
+: 1677926169:0;ps aux | grep discord
+: 1677926172:0;discord
+: 1677926209:0;killall electron
+: 1677926317:0;cd ../signal-desktop-beta
+: 1677926526:0;killall electron22
+: 1677926529:0;killall electron22-bin
+: 1677926543:0;yay -S electron22-bin
+: 1677926740:0;e PKGBUILD
+: 1677926762:0;makepkg -sri 
+: 1677927157:0;sudo pacman -S hunspell-es_es
+: 1677927664:0;cd /usr
+: 1677927750:0;sudo pacman -S hunspell-es
+: 1677927844:0;cd share
+: 1677927845:0;sudo su
+: 1678361331:0;ping github.com
+: 1678481874:0;opam
+: 1678481889:0;mkdir ocaml
+: 1678481979:0;opam init
+: 1678481997:0;cat ~/.zshrc
+: 1678482012:0;opam update
+: 1678482029:0;opam switch create 5.0.0
+: 1678482403:0;opam install tuareg]
+: 1678482405:0;opam install tuareg
+: 1678529609:0;'cd ..'
+: 1678529818:0;opam install merlin
+: 1678529987:0; opam user-setup install
+: 1678530085:0;opam install ocaml-lsp-server
+: 1678530459:0;cat ~/snap/firefox/common/.mozilla
+: 1678530505:0;cat  ~/.config/tridactyl/tridactylr
+: 1678530512:0;cat  ~/.config/tridactyl/tridactylrc
+: 1678530518:0;touch   ~/.config/tridactyl/tridactylrc
+: 1678530530:0;mkdir ~/.config/tridactyl]
+: 1678530562:0;git remotes
+: 1678530565:0;git remotes ls
+: 1678530569:0;git remotes --list
+: 1678530573:0;git remote ls
+: 1678530578:0;git remote --list
+: 1678530600:0;git log
+: 1678530922:0;cat user-dirs.dirs
+: 1678530951:0;rm -rf .git
+: 1678530957:0;cat README.md
+: 1678531007:0;rm -rf nvm*
+: 1678531032:0;rm -rf Makefile LICENSE.md package.json README.md ROADMAP.md
+: 1678531044:0;cat install.sh
+: 1678531049:0;rm -rf install.sh
+: 1678531105:0;rm -rf test .dockerignore .editorconfig .gitattributes .gitignore .mailmap .npmrc .travis.yml CONTRIBUTING.md
+: 1678531137:0;rm -rf Dockerfile bash_completion 
+: 1678531148:0;rm -rf update_test_mocks.sh 
+: 1678531164:0;cd tridactyl\]
+: 1678531176:0;rm -rf tridactyl\]
+: 1678531193:0;cd tirdactyl
+: 1678531211:0;mv tirdactyl tridactyl
+: 1678531231:0;mv tirdactylrc tridactylrc
+: 1678531316:0;cat tridactylrc
+: 1678531349:0;cat  ~/.config/tridactyl/tridactylrc 
+: 1678531409:0;echo "source ~/.config/tridactyl/emacs_bindings" >> tridactylrc
+: 1678531416:0;wget  https://raw.githubusercontent.com/jumper047/tridactyl_emacs_config/main/emacs_bindings\
+
+: 1678531421:0;e tridactylrc
+: 1678531500:0;which firefox
+: 1678531507:0;firefox --version
+: 1678531610:0;yay -R firefox
+: 1678531719:0;yay -S firefox-tridactyl-native
+: 1678531743:0;yay -S firefox
+: 1678531812:0;curl -fsSl https://raw.githubusercontent.com/tridactyl/native_messenger/master/installers/install.sh -o /tmp/trinativeinstall.sh && sh /tmp/trinativeinstall.sh 1.23.0
+: 1678531906:0;\
+
+: 1678531939:0;which firefox 
+: 1678531951:0;ls -lr /usr/bin/fir
+: 1678531956:0;ls -lr /usr/bin/firefox
+: 1678532002:0;printf '%c\0\0\0{"cmd": "run", "command": "echo $PATH"}' 39 | ~/.local/share/tridactyl/native_main.py
+: 1678532031:0;curl -fsSl https://raw.githubusercontent.com/tridactyl/tridactyl/master/native/install.sh -o /tmp/trinativeinstall.sh && bash /tmp/trinativeinstall.sh master
+: 1678532053:0; /home/jonatan/.config/local/share/tridactyl/native_main
+: 1678532060:0; /home/jonatan/.config/local/share/tridactyl/native_main.py
+: 1678532122:0;cp -r /home/jonatan/.config/local/share/tridactyl/ ~/.local/share
+: 1678532136:0;cd -/.local/share/
+: 1678532145:0;cd -/.local/
+: 1678532160:0;mkdir ~/.local
+: 1678532167:0;mkdir ~/.local/share
+: 1678532172:0;cd  ~/.local/share
+: 1678532177:0;cd tridactyl
+: 1678532540:0;firefox
+: 1678533405:0;opam install dune
+: 1678533420:0;dune
+: 1678533442:0;e ~/.zshrc
+: 1678533520:0;dune 
+: 1678533581:0;mkdir ocaml-sandbox
+: 1678533586:0;cd ocaml-sandbox
+: 1678533606:0;dune init executable 
+: 1678533621:0;dune init executable ocaml-sandbox
+: 1678533634:0;dune init executable ocaml_sandbox
+: 1678533643:0;cd _build
+: 1678533649:0;cat dune
+: 1678534231:0;opam install caml-mode user-setup
+: 1678534583:0;ocamlopt ocaml_sandbox.ml
+: 1678534627:0;opam install utop
+: 1678534681:0;git config 
+: 1678534706:0;git config --global
+: 1678534765:0;git config --global user.email "jonatan@thebo.me"
+: 1678534774:0;git config --global user.name "Jonatan Borkowski"
+: 1678654436:0;sudo pacman -S mbsync
+: 1678654460:0;sudo pacman -S isync
+: 1678654477:0;scp fwooper:~/.mbsync ~/
+: 1678654616:0;gpg2
+: 1678656980:0;gpg -q --for-your-eyes-only -d ~/.authinfo.gpg
+: 1678657000:0;ssh fwooper
+: 1678657038:0;cat .authinfo.gpg
+: 1678657050:0;rm -rf .authinfo.gpg
+: 1678657374:0;gpg2 -q --for-your-eyes-only -d ~/.authinfo.gpg
+: 1678657429:0;gpg2 -q --for-your-eyes-only -d ~/.authinfo.gpg | awk -F ' ' '/thebo/ { print $(NF-1); exit; }'
+: 1678657435:0;gpg2 -q --for-your-eyes-only -d ~/.authinfo.gpg | awk -F ' ' '/thebo/ { print $(NF); exit; }'
+: 1678657482:0;gpg2 -q --for-your-eyes-only -d ~/.authinfo.gpg | awk -F ' ' '/thebo/ { print $(NF-4); exit; }'
+: 1678657490:0;gpg2 -q --for-your-eyes-only -d ~/.authinfo.gpg | awk -F ' ' '/thebo/ { print $(NF-3); exit; }'
+: 1678657495:0;gpg2 -q --for-your-eyes-only -d ~/.authinfo.gpg | awk -F ' ' '/thebo/ { print $(NF-2); exit; }'
+: 1678657553:0;gpg2 -q --for-your-eyes-only -d ~/.authinfo.gpg | awk -F ' ' '/j14i/ { print $(NF-2); exit; }'
+: 1678657615:0;sudo pacman -S stow 
+: 1678657676:0;git restore --staged vim/plugged
+: 1678657710:0;echo "vim/plugged" >> .gitignore
+: 1678657741:0;echo "vim/plugins" >> .gitignore
+: 1678657767:0;echo "zsh/.history" >> .gitignore
+: 1678657810:0;git restore --staged vim/plugins
+: 1678657815:0;git restore --staged vim/plugins/*
+: 1678657866:0;git add .
+: 1678657877:0;git restore --staged ./zsh/plugins
+: 1678657928:0;git rm --cached ./zsh/.history
+: 1678657942:0;git rm -f --cached ./zsh/.history
+: 1678657978:0;echo "zsh/plugins" >> .gitignore
+: 1678657989:0;git add .gitignore
+: 1678658020:0;git commit -m "Add isync config"
+: 1678658080:0;cd .config
+: 1678658085:0;cdd 
+: 1678658253:0;cat .gitconfig
+: 1678658290:0;cat .gitconfig >> ~/sources/dotfiles/git/.config/config
+: 1678658322:0;cat .gitconfig >> ~/sources/dotfiles/git/.config/git/config
+: 1678658478:0;stow mbsync
+: 1678658524:0;stow git
+: 1678658546:0;sudo stow git
+: 1678658553:0;cat ~/.config/git
+: 1678658574:0;stow -d git
+: 1678658616:0;rm -rf .config .mbsyncrc
+: 1678658634:0;stow 
+: 1678658645:0;stow git mbsync -t ~/
+: 1678658652:0;cat .mbsyncrc
+: 1678658677:0;cd sources/dotfiles/
+: 1678658684:0;git add git/
+: 1678658690:0;git commit -m "Add GIT config"
+: 1678658725:0;mkdir -p ~/.mail/j14i
+: 1678658729:0;mkdir -p ~/.mail/thebo
+: 1678658738:0;mbsync -a
+: 1678658856:0;cd .mail
+: 1678658859:0;cd thebo
+: 1678658864:0;cd INBOX
+: 1678659147:0;pacman -S notmuch
+: 1678659151:0;sudo pacman -S notmuch
+: 1678659341:0;notmuch setup
+: 1678741651:0;cd Music
+: 1678741681:0;scp houseelf:/data/transmission/Alan.Watts-Umysl.Ponad.Umyslem-MP3-WassiliaPL .
+: 1678741688:0;scp -r  houseelf:/data/transmission/Alan.Watts-Umysl.Ponad.Umyslem-MP3-WassiliaPL .
+: 1678743533:0;notmuch new
+: 1678743544:0;notmuch 
+: 1678743558:0;notmuch count
+: 1678743578:0;notmuch show
+: 1678743583:0;notmuch show 
+: 1678914732:0;cd .emacs.d/
+: 1678914740:0;git add README.org
+: 1678914743:0;git add init.el
+: 1678914751:0;git commit -m "eat"
+: 1678914781:0;git pull --rebase
+: 1678914786:0;git push
+: 1679497979:0;cat Dockerfile.local
+: 1679500319:0;gpg 
+: 1679500337:0;yay -S git-crypt
+: 1679500384:0;git-crypt --list
+: 1679500390:0;gpg --list-keys
+: 1679500420:0;git stash
+: 1679500458:0;git-crypt unlock
+: 1679500511:0;mg Dockerfile
+: 1679500528:0;vim Dockerfile
+: 1679500579:0;git add Dockerfile
+: 1679500592:0;cat secrets.env
+: 1679500613:0;cat dev.env.secret 
+: 1679500776:0;cat ~/.aws/credentials
+: 1679501241:0;cat docker-compose.local.yaml
+: 1679501368:0;exa
+: 1679501372:0;which exa
+: 1679501415:0;which bat
+: 1679501466:0;which xcp
+: 1679775693:0;cd .emacs.d
+: 1679775752:0;git fetch --all
+: 1679775765:0;git checkout rewrite-init
+: 1679775786:0;rm -rf straight elpa eln-cache
+: 1679775926:0;yay -S wl-clipboard
+: 1679775968:0;killall emacs
+: 1679780538:0;re-dev
+: 1679780563:0;docker-compose -f ./docker-compose.yaml -f ./docker-compose.local.yaml up -d  
+: 1679780576:0;emacs docker-compose.yaml
+: 1679780657:0;docker-compose -f docker-compose.local.yaml up  -d
+: 1679780664:0;docker-compose 
+: 1679780694:0;emacs  docker-compose.local.yaml
+: 1679780711:0;emacs Dockerfile
+: 1679780738:0;emacs Dockerfile.local
+: 1679780753:0;git status
+: 1679780773:0;cat Dockerfile.local.example
+: 1679780873:0;cd sources/re/devcontainer/.devcontainer
+: 1679780877:0;docker compose -f docker-compose.yaml -f docker-compose.local.yaml up  -d
+: 1679780895:0;docker-compose --help
+: 1679780966:0;docker network ls
+: 1679780983:0;docker stop  devcontainer_default
+: 1679781005:0;docker stop  99 13
+: 1679781032:0;docker network rm devcontainer_default
+: 1679781034:0;docker-compose -p re-dev -f docker-compose.yaml -f docker-compose.local.yaml up  -d
+: 1679781081:0;docker exec -it re-dev-dev-1
+: 1679781084:0;docker exec -it re-dev-dev-1 zsh
+: 1679781120:0;docker-compose -f docker-compose.yaml -f docker-compose.local.yaml up  -d
+: 1679781151:0;docker-compose -p re-dev -f docker-compose.yaml -f docker-compose.local.yaml down --volumes
+: 1679781198:0;docker ps
+: 1679781280:0;docker-compose -p devcontainer -f docker-compose.yaml -f docker-compose.local.yaml 
+: 1679781310:0;docker-compose -p devcontainer -f docker-compose.yaml -f docker-compose.local.yaml up --help
+: 1679781383:0;docker-compose -p devcontainer -f docker-compose.yaml -f docker-compose.local.yaml up --force-recreate
+: 1679781413:0;docker-compose -p devcontainer -f docker-compose.yaml -f docker-compose.local.yaml up -d
+: 1679781421:0;docker exec -it devcontainer-dev-1 zsh
+: 1680342658:0;emacs .zshrc
+: 1680352298:0;1password
+: 1680353176:0;ssh houseelf
+: 1680353702:0;sudo pacman -S vlc
+: 1680353945:0;sudo pacman -S musikcube
+: 1680353955:0;sudo pacman -S musickube
+: 1680353957:0;exi
+: 1680353980:0;sudo pacman -S tree-sitter 
+: 1680354039:0;sudo pacman -S  musikcube 
+: 1680354045:0;yay -S  musikcube 
+: 1680354431:0;musikcube
+: 1680354586:0;cd .emacs.s
+: 1680354668:0;git clone 
+: 1680354670:0;git clone git clone https://aur.archlinux.org/emacs-git.git
+: 1680354691:0;emacs .
+: 1680354785:0;pacman -S metapackage
+: 1680354790:0;sudo pacman -S metapackage
+: 1680354795:0;sudo pacman -S meta-package
+: 1680354813:0;sudo pacman -S base-devel
+: 1680354935:0;cd ls
+: 1680354944:0;cat site-list-aot.md
+: 1680355001:0;git clone https://aur.archlinux.org/emacs28-git.git
+: 1680355003:0;cd emacs
+: 1680355006:0;cd emacs28-git
+: 1680355058:0;cat .SRCINFO
+: 1680355539:0;git clone     git@git.sr.ht:~j14i/emacs29-git
+: 1680355746:0;cp /usr/share/pacman/PKGBUILD.proto PKGBUILD
+: 1680357893:0;git rev-list --count HEAD
+: 1680359182:0;cd sources/
+: 1680359188:0;rm -rf emacs-git
+: 1680359191:0;rm -rf emacs28-git
+: 1680359194:0;cd emacs29-git
+: 1680359873:0;which emacs
+: 1680360072:0;cd sources
+: 1680360081:0;git clone https://aur.archlinux.org/emacs-git.git
+: 1680360086:0;cd emacs-git
+: 1680360091:0;emacs-29.0.60
+: 1680360213:0;cd ../emacs29-git
+: 1680360236:0;ls -la /usr/local/bin/emacs
+: 1680360246:0;rm -rf /usr/local/bin/emacs
+: 1680360250:0;sudo rm -rf /usr/local/bin/emacs
+: 1680360255:0;cd /usr/local/bin
+: 1680360270:0;which emacs-29.0.60
+: 1680360306:0;ln -s /usr/bin/emacs-29.0.60 emacs
+: 1680360310:0;sudo ln -s /usr/bin/emacs-29.0.60 emacs
+: 1680360315:0;emacs
+: 1680360663:0;git clone https://aur.archlinux.org/slack.git
+: 1680360666:0;cd slack
+: 1680360709:0;emacs PKGBUILD
+: 1680360797:0;makepkg -si\
+
+: 1680367935:0;npm install -g purescript
+: 1680367942:0;sudo npm install -g purescript
+: 1680368048:0;cd sources 
+: 1680368053:0;git clone git@github.com:purescript/purescript.git
+: 1680368245:9;curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+: 1680368258:0;curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
+: 1680368434:0;ghcup
+: 1680368453:0;ghcup 
+: 1680368457:0;ghcup tui
+: 1680368483:0; sudo pacman -Syu
+: 1680368541:0;sudo update-grub
+: 1680368594:0;cat INSTALL.md
+: 1680368657:0;htop
+: 1680368856:0;asahi-diagnose
+: 1680368865:0;cat asahi-diagnose-20230401-190736.txt
+: 1680368952:0;asahi-fwextract
+: 1680369122:0;sudo pacman -S screenfetch 
+: 1680369147:0;DISPLAY=:0 screenfetch
+: 1680369195:0;sudo pacman -S plasma-wayland-session
+: 1680369240:0;emacs ~/.zshenv
+: 1680369259:0;emacs ~/.zshrc
+: 1680369300:0;sudo pacman -S linux-asahi-edge mesa-asahi-edge
+: 1680369540:0;screenfetch
+: 1680369622:0;yay -S xonotic
+: 1680369693:0;cd sources/purescript
+: 1680369698:0;stack install --flag purescript:RELEASE
+: 1680370131:0;purst
+: 1680370141:0;purs 
+: 1680370170:0;purt
+: 1680370189:0;export PATH=$HOME/.local/bin:$PATH
+: 1680370190:0;purs
+: 1684239421:0;sudo pacman -Syuu
+: 1684240262:0;sudo reboot
+: 1684305279:0;sudo pacman -Sy kitty
+: 1684305304:0;kitty
+: 1684347718:0;cd dotfiles
+: 1684347731:0;nvim -v
+: 1684347757:0;cd sources/dotfiles
+: 1684347777:0;git stash 
+: 1684347779:0;git pull
+: 1684347784:0;git stash pop
+: 1684347796:0;e .
+: 1684347863:0;cd -
+: 1684347901:0;mv dotfiles ~/.dotfiles
+: 1684349521:0;cd .config/zsh
+: 1684349544:0;cat .zsherc
+: 1684349598:0;source ~/.zshrc
+: 1684349617:0;source ~/.config/zsh/.zshrc-e
+: 1684349628:0;cat ~/.config/zsh/.zshrc-e
+: 1684349685:0;cat . .zshenv
+: 1684349764:0;vim .zshenv
+: 1684349799:0;echo $ZDOTDIR/.zshrc
+: 1684349804:0;cart $ZDOTDIR/.zshrc
+: 1684349845:0;cat $ZDOTDIR/.zshrc
+: 1684349900:0;phd
+: 1684349939:0;rm -rf .history .mbsyncrc 
+: 1684349939:0;l
+: 1684349986:0;bash
+: 1684349996:0;cat .zbashrc
+: 1684349999:0;cat .bashrc
+: 1684350040:0;cat .zsh
+: 1684350050:0;cat .zsh/functions/
+: 1684350064:0;cd .zsh
+: 1684350067:0;ls -la
+: 1684350094:0;mv functions ../.config/zsh/
+: 1684350105:0;rm -rf .zsh
+: 1684350130:0;rm -rf asahi-diagnose-20230*
+: 1684350144:0;cat .profile
+: 1684350148:0;rm -rf .profile
+: 1684350162:0;cat authinfo
+: 1684350185:0;source ~/.zshenv
+: 1684350209:0;cat .zshrc
+: 1684350248:0;cd dotfiles/zsh
+: 1684350250:0;cd dotfiles/
+: 1684350274:0;ll
+: 1684350288:0;rm -rf .history
+: 1684350342:0;touch .profile 
+: 1684350350:28;vim .profile
+: 1684350398:0;source .zshenv
+: 1684350413:0;ezit
+: 1684350450:0;cd jonatan/.config
+: 1684350493:0;source zsh/.profile
+: 1684350503:0;stow -D zsh
+: 1684350522:0;mv .profile .zprofile
+: 1684350528:0;stow zsh
+: 1684350541:0;tmux
+: 1684350591:0;mv .zshrc .dotfiles/zsh/
+: 1684350618:0;cat .zprofile >> .zshrc
+: 1684350624:0;vim .zshrc
+: 1684350686:0;stow
+: 1684350697:0;stow -R zsh
+: 1684350705:0;cd 
+: 1684350718:0;source .zprofile
+: 1684350756:0;rm -rf .dotfiles/zsh/.zprofile
+: 1684350762:0;rm -rf .zprofile
+: 1684350789:0;utop
+: 1684350850:0;zsh --help
+: 1684350857:0;source .zshrc
+: 1684350874:0;cat .gitconfig 
+: 1684350991:0;zsh 
+: 1684350996:0;echo $ZDOTDIR
+: 1684351028:0;cd $ZDOTDIR
+: 1684351036:0;rm -rf .zshrc-e
+: 1684351039:0;zsh
+: 1684351052:0;cp ../.zshenv .
+: 1684351058:0;pwd
+: 1684351064:0;cd ..
+: 1684351108:0;source zsh/.zshrc
+: 1684351115:0;cd
+: 1684351122:0;cd .dotfiles
+: 1684351130:0;cd zsh
+: 1684351131:0;ls
+: 1684351144:0;cp .zshenv .config/zsh/
+: 1684351148:0;exit
+: 1684351151:0;zsh
+: 1684351167:0;ls
+: 1684351168:0;cd ..
+: 1684351170:0;ls
+: 1684351172:0;cd
+: 1684351179:0;cd .dotfiles
+: 1684351180:0;ls
+: 1684351182:0;cd zsh
+: 1684351183:0;ls
+: 1684351204:0;rm .zshrc
+: 1684351206:0;cd ..
+: 1684351213:0;stow -R zsh
+: 1684351217:0;cd
+: 1684351217:0;ls
+: 1684351221:0;zsh
+: 1684351223:0;ls
+: 1684351232:0;ls
+: 1684351238:0;cd ..
+: 1684351240:0;cd 
+: 1684351258:0;cd .dot
+: 1684351260:0;cd .dotfiles
+: 1684351261:0;ls
+: 1684351264:0;git status
+: 1684351266:0;git add .
