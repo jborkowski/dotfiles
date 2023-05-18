@@ -1,4 +1,3 @@
-vim/plugged
-vim/plugins
-zsh/.history
-zsh/plugins
+zsh/.config/zsh/plugins/ 
+zsh/.config/zsh/.history
+
