@@ -66,11 +66,14 @@ local function setup_fn(use)
     'nvim-telescope/telescope.nvim',
     'nvim-lua/plenary.nvim'
   }
-
+  use 'benizi/vim-automkdir'
   use 'tpope/vim-fugitive'
   use 'tpope/vim-sensible'
   use 'tpope/vim-surround'
   use 'SirVer/ultisnips'
+
+  use 'purescript-contrib/purescript-vim'
+  use 'leafgarland/typescript-vim'
 
   use 'JamshedVesuna/vim-markdown-preview'
 

@@ -1,3 +1,5 @@
 zsh/.config/zsh/plugins/ 
 zsh/.config/zsh/.history
+zsh/.config/zsh/.zcompdump
+nvim/.config/nvim/plugin/packer_compiled.lua
 
