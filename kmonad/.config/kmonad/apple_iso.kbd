@@ -1,0 +1,60 @@
+
+(defcfg
+  input (iokit-name "Apple Internal Keyboard / Trackpad")
+  output (kext)
+  fallthrough true
+)
+
+(defalias
+    nav  (layer-toggle extend)
+    media (layer-toggle media))
+
+(defalias
+    fn_l  (tap-hold-next-release 150 fn @media)
+    spc_n (tap-hold-next-release 200 spc @nav)
+    ma    (tap-hold-next-release 150 a lmet)
+    ar    (tap-hold-next-release 150 r lalt)
+    cs    (tap-hold-next-release 150 s lctl)
+    st    (tap-hold-next-release 150 t lsft)
+
+    sn    (tap-hold-next-release 150 n rsft)
+    ce    (tap-hold-next-release 150 e rctl)
+    ai    (tap-hold-next-release 150 i ralt)
+    mo    (tap-hold-next-release 150 o rmet)
+)
+
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11 f12
+  nubs 1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]
+  caps a    s    d    f    g    h    j    k    l    ;    '    \    ret
+  lsft grv  z    x    c    v    b    n    m    ,    .    /    rsft
+  fn   lctl lalt lmet           spc             rmet ralt
+)
+
+(deflayer colemak-dhm
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11 f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    f    p    b    j    l    u    y    ;    [    ]
+  lctl @ma  @ar  @cs  @st  g    k    @sn  @ce  @ai  @mo  '    \    ret
+  lsft z    x    c    d    v    _    m    h    ,    .    /    rsft
+  lctl @fn_l lalt lmet          @spc_n           rmet ralt
+)
+
+(deflayer extend
+  esc   f1  f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  _     _   _    _    _    _    _    _    _    _    _    _    _    bspc
+  _     _   _    _    _    _    _    _    _    _    _    _    _
+  lctl @ma  @ar  @cs  @st  g    k    lft  down up   rght _    _    ret
+  _    _    _    _    _    _    _    _    _    _    _    _    rsft
+  lctl @fn_l lalt lmet           _              _    ralt
+)
+
+(deflayer media
+  esc brdn brup mctl  _    _    _    prev pp   next mute vold volu
+  _     _   _    _    _    _    _    _    _    _    _    _    _    bspc
+  _     _   _    _    _    _    _    _    _    _    _    _    _
+  _     _   _    _    _    _    _    _    _    _    _    _    _    _
+  _     _   _    _    _    _    _    _    _    _    _    _    _
+  _     _   _    _           _                 _    _
+)
