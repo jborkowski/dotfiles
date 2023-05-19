@@ -26,22 +26,19 @@ utils.set_keymap("I", "5k")
 utils.set_keymap("N", "5h")
 utils.set_keymap("O", "5l")
 
-
--- moving the cursor around windows
-vim.keymap.set("n", "<LEADER>w", "<C-w>w", { noremap = true })
-vim.keymap.set("n", "<LEADER>n", "<C-w>h", { noremap = true })
-vim.keymap.set("n", "<LEADER>e", "<C-w>j", { noremap = true })
-vim.keymap.set("n", "<LEADER>i", "<C-w>k", { noremap = true })
-vim.keymap.set("n", "<LEADER>o", "<C-w>l", { noremap = true })
-
 -- Disable the default s key
 utils.set_keymap("s", "<nop>")
 
--- split the screens to up (horizontal), down (horizontal), left (vertical), right (vertical)
-vim.keymap.set("n", "se", ":set nosplitbelow<CR>:split<CR>:set splitbelow<CR>", { noremap = true })
-vim.keymap.set("n", "si", ":set splitbelow<CR>:split<CR>", { noremap = true })
-vim.keymap.set("n", "so", ":set nosplitright<CR>:vsplit<CR>:set splitright<CR>", { noremap = true })
-vim.keymap.set("n", "sn", ":set splitright<CR>:vsplit<CR>", { noremap = true })
+-- moving the cursor around windows
+vim.keymap.set("n", "sw", "<C-w>w", { noremap = true })
+vim.keymap.set("n", "sn", "<C-w>h", { noremap = true })
+vim.keymap.set("n", "se", "<C-w>j", { noremap = true })
+vim.keymap.set("n", "si", "<C-w>k", { noremap = true })
+vim.keymap.set("n", "so", "<C-w>l", { noremap = true })
+
+-- split the screens to horizontal (down) and vertical (right)
+vim.keymap.set("n", "sh", ":set splitbelow<CR>:split<CR>", { noremap = true })
+vim.keymap.set("n", "sv", ":set nosplitright<CR>:vsplit<CR>:set splitright<CR>", { noremap = true })
 
 -- Ctrl + e or i will move up/down the view port without moving the cursor
 utils.set_keymap("<C-i>", "5<C-y>")
@@ -61,8 +58,6 @@ utils.set_keymap("J", "")
 
 
 utils.set_keymap("l", "o")
-
--- 
 
 local buffer_settings = vim.api.nvim_create_augroup('buffer_settings', {})
 
@@ -89,7 +84,6 @@ vim.api.nvim_create_autocmd('FileType', {
  
    end,
 })
-
 
 local map = vim.keymap.set 
 
