@@ -3,8 +3,9 @@ vim.g.mapleader = " "
 vim.o.relativenumber = true
 vim.o.clipboard = "unnamedplus"
 
-vim.g.terminal_emulator='zsh'
+vim.o.shell = 'zsh'
 
+vim.g.hlsearch = true 
 
 vim.g.autoread = true 
 vim.g.autowrite = true 
