@@ -77,6 +77,8 @@ local function setup_fn(use)
 
   use 'JamshedVesuna/vim-markdown-preview'
 
+  use 'lervag/wiki.vim'
+
   -- auto sync
   if packer_bootstrap then
      require('packer').sync()
