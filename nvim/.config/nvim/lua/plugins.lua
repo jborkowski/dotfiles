@@ -83,7 +83,12 @@ local function setup_fn(use)
   use 'purescript-contrib/purescript-vim'
   use 'leafgarland/typescript-vim'
 
-  use 'JamshedVesuna/vim-markdown-preview'
+  use {
+    'JamshedVesuna/vim-markdown-preview',
+    'williamboman/mason.nvim',
+    'williamboman/mason-lspconfig.nvim',
+
+  }
 
   use 'lervag/wiki.vim'
 

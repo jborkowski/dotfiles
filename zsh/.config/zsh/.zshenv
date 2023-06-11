@@ -50,4 +50,4 @@ if [ -e "$MOME/.nix-profile/etc/profile.d/nix.sh" ]; then . "$HOME/.nix-profile/
 # opam configuration
 [[ ! -r "$MOME/.opam/opam-init/init.zsh" ]] || source "$HOME/.opam/opam-init/init.zsh"  > /dev/null 2> /dev/null
 
-
+export PATH="/opt/homebrew/opt/sphinx-doc/bin:$PATH"
