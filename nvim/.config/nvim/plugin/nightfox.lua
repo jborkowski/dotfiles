@@ -6,7 +6,7 @@ local function hour_based_theme()
   nowHour = nowTable.hour
 
   -- Compare UTC time
-  if (nowHour >= 16) then
+  if (nowHour >= 19) then
     return dark_theme
   else
     return light_theme
