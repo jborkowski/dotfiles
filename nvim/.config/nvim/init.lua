@@ -1,6 +1,6 @@
 vim.g.mapleader = " "
 
-vim.o.relativenumber = true
+vim.o.relativenumber = false
 vim.o.clipboard = "unnamedplus"
 
 vim.o.shell = 'zsh'

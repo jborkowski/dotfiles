@@ -66,6 +66,14 @@ local function setup_fn(use)
     'nvim-telescope/telescope.nvim',
     'nvim-lua/plenary.nvim'
   }
+
+  use { 
+    'junegunn/fzf', run = './install --bin', 
+    'ibhagwan/fzf-lua',
+    'junegunn/fzf.vim',
+    requires = { 'nvim-tree/nvim-web-devicons' }
+  }
+
   use 'benizi/vim-automkdir'
   use 'tpope/vim-fugitive'
   use 'tpope/vim-sensible'
@@ -78,6 +86,8 @@ local function setup_fn(use)
   use 'JamshedVesuna/vim-markdown-preview'
 
   use 'lervag/wiki.vim'
+
+  -- use 'ctrlpvim/ctrlp.vim'
 
   -- auto sync
   if packer_bootstrap then
