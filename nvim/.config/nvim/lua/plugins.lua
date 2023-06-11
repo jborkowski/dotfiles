@@ -91,6 +91,13 @@ local function setup_fn(use)
   }
 
   use 'lervag/wiki.vim'
+  
+  use {'nvim-treesitter/nvim-treesitter'} 
+  use {
+    'nvim-orgmode/orgmode', config = function()
+      require('orgmode').setup{}
+    end
+  }
 
   -- use 'ctrlpvim/ctrlp.vim'
 
