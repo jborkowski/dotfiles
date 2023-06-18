@@ -92,11 +92,24 @@ local function setup_fn(use)
 
   use 'lervag/wiki.vim'
   
-  use {'nvim-treesitter/nvim-treesitter'} 
   use {
     'nvim-orgmode/orgmode', config = function()
       require('orgmode').setup{}
     end
+  }
+  
+  use 'Julian/lean.nvim'
+  use 'neovim/nvim-lspconfig'
+  use 'nvim-lua/plenary.nvim'
+
+
+  use {
+    'hrsh7th/nvim-cmp',       
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/vim-vsnip',       
+    'andrewradev/switch.vim',  
+    'tomtom/tcomment_vim',
   }
 
   -- use 'ctrlpvim/ctrlp.vim'
