@@ -11,5 +11,14 @@
 	defaultBranch = main
 
 [alias]
-	st = status
-  	co = checkout
+  a  = add .
+  st = status
+  s  = status
+  co = checkout
+  ci = commit
+  c  = commit 
+  br = branch
+  b  = branch
+  ll = log --pretty=oneline --abbrev-commit
+  sofar = "!sh -c 'git add . && git commit -a -m \"Changes so far\"'"
+

@@ -66,6 +66,14 @@ local function setup_fn(use)
     'nvim-telescope/telescope.nvim',
     'nvim-lua/plenary.nvim'
   }
+
+  use { 
+    'junegunn/fzf', run = './install --bin', 
+    'ibhagwan/fzf-lua',
+    'junegunn/fzf.vim',
+    requires = { 'nvim-tree/nvim-web-devicons' }
+  }
+
   use 'benizi/vim-automkdir'
   use 'tpope/vim-fugitive'
   use 'tpope/vim-sensible'
@@ -75,7 +83,36 @@ local function setup_fn(use)
   use 'purescript-contrib/purescript-vim'
   use 'leafgarland/typescript-vim'
 
-  use 'JamshedVesuna/vim-markdown-preview'
+  use {
+    'JamshedVesuna/vim-markdown-preview',
+    'williamboman/mason.nvim',
+    'williamboman/mason-lspconfig.nvim',
+
+  }
+
+  use 'lervag/wiki.vim'
+  
+  use {
+    'nvim-orgmode/orgmode', config = function()
+      require('orgmode').setup{}
+    end
+  }
+  
+  use 'Julian/lean.nvim'
+  use 'neovim/nvim-lspconfig'
+  use 'nvim-lua/plenary.nvim'
+
+
+  use {
+    'hrsh7th/nvim-cmp',       
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/vim-vsnip',       
+    'andrewradev/switch.vim',  
+    'tomtom/tcomment_vim',
+  }
+
+  -- use 'ctrlpvim/ctrlp.vim'
 
   -- auto sync
   if packer_bootstrap then

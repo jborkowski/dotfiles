@@ -1,5 +1,10 @@
 zsh/.config/zsh/plugins/ 
 zsh/.config/zsh/.history
 zsh/.config/zsh/.zcompdump
+zsh/.config/zsh/.history-mac
+zsh/.config/zsh/.zcompcache/brew_casks
+zsh/.config/zsh/.zcompcache/brew_formulae
+zsh/.config/zsh/.zsh_history
+zsh/.config/zsh/.zsh_sessions/
 nvim/.config/nvim/plugin/packer_compiled.lua
 

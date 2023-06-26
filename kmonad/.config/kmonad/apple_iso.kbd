@@ -36,7 +36,7 @@
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11 f12
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    f    p    b    j    l    u    y    ;    [    ]
-  lctl @ma  @ar  @cs  @st  g    k    @sn  @ce  @ai  @mo  '    \    ret
+  esc  @ma  @ar  @cs  @st  g    k    @sn  @ce  @ai  @mo  '    \    ret
   lsft z    x    c    d    v    _    m    h    ,    .    /    rsft
   lctl @fn_l lalt lmet          @spc_n           rmet ralt
 )
@@ -45,7 +45,7 @@
   esc   f1  f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   _     _   _    _    _    _    _    _    _    _    _    _    _    bspc
   _     _   _    _    _    _    _    _    _    _    _    _    _
-  lctl @ma  @ar  @cs  @st  g    k    lft  down up   rght _    _    ret
+  esc  @ma  @ar  @cs  @st  g    k    lft  down up   rght _    _    ret
   _    _    _    _    _    _    _    _    _    _    _    _    rsft
   lctl @fn_l lalt lmet           _              _    ralt
 )

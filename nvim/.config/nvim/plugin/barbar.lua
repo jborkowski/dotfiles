@@ -16,9 +16,9 @@ map('n', '<LEADER>t8', '<Cmd>BufferGoto 8<CR>', opts)
 map('n', '<LEADER>t9', '<Cmd>BufferGoto 9<CR>', opts)
 map('n', '<LEADER>t0', '<Cmd>BufferLast<CR>', opts)
 -- Pin/unpin buffer
-map('n', '<LEADER>tp>', '<Cmd>BufferPin<CR>', opts)
+map('n', '<LEADER>tp', '<Cmd>BufferPin<CR>', opts)
 -- Close buffer
-map('n', '<LEADER>tc>', '<Cmd>BufferClose<CR>', opts)
+map('n', '<LEADER>tc', '<Cmd>BufferClose<CR>', opts)
 
 vim.keymap.set("n", "<A-c>", "<Cmd>BufferClose<CR>", { silent = true })
 
