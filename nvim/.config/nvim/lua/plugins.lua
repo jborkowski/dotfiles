@@ -95,7 +95,8 @@ local function setup_fn(use)
   use {
     'nvim-orgmode/orgmode', config = function()
       require('orgmode').setup{}
-    end
+    end,
+    'akinsho/org-bullets.nvim'
   }
   
   use 'Julian/lean.nvim'
@@ -113,6 +114,8 @@ local function setup_fn(use)
   }
 
   -- use 'ctrlpvim/ctrlp.vim'
+  -- notes
+  use 'mickael-menu/zk-nvim'
 
   -- auto sync
   if packer_bootstrap then
