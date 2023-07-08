@@ -1,0 +1,195 @@
+env:
+  TERM: alacritty-direct
+
+    #window:
+    # dimensions:
+    # columns: 0
+    #lines: 0
+
+    # padding:
+    #x: 2
+    #y: 2
+    #dynamic_padding: true
+    #decorations: none
+    # dynamic_title: true
+
+scrolling:
+  history: 10000
+  multiplier: 3
+
+font:
+  normal:
+    family: Liga SFMono Nerd Font
+    style: Regular
+
+  bold:
+    family: Liga SFMono Nerd Font
+    style: Bold
+
+  italic:
+    family: Liga SFMono Nerd Font
+    style: Italic
+
+  bold_italic:
+    family: Liga SFMono Nerd Font
+    style: Bold Italic
+
+  size: 16
+
+draw_bold_text_with_bright_colors: true
+
+# Colors
+schemes:
+  nord: &nord
+    cursor:
+      cursor: '#bbc2cf'
+    primary:
+      background: '#242730'
+      foreground: '#bbc2cf'
+    normal:
+      black: '#2a2e38'
+      red: '#ff665c'
+      green: '#7bc275'
+      yellow: '#FCCE7B'
+      blue:  '#5cEfFF'
+      magenta: '#C57BDB'
+      cyan: '#51afef'
+      white: '#bbc2cf'
+    bright:
+      black: '#484854'
+      red: '#ff665c'
+      green: '#7bc275'
+      yellow: '#fcce7b'
+      blue: '#5cefff'
+      magenta: '#c57bdb'
+      cyan: '#51afef'
+      white: '#bbc2cf'
+
+
+  modus-operandi: &modus-operandi
+    primary:
+      background: '#fafafa'
+      foreground: '#101010'
+    cursor:
+      text:       '#fafafa'
+      cursor:     '#101010'
+    normal:
+      black:      '#101010'
+      red:        '#7f1010'
+      green:      '#104410'
+      yellow:     '#5f4400'
+      blue:       '#003497'
+      magenta:    '#752f50'
+      cyan:       '#005077'
+      white:      '#bfbfbf'
+    bright:
+      black:      '#595959'
+      red:        '#702f00'
+      green:      '#30440f'
+      yellow:     '#5d3026'
+      blue:       '#0f3d8c'
+      magenta:    '#7b206f'
+      cyan:       '#354f6f'
+      white:      '#fafafa'
+
+  modus-vivendi: &modus-vivendi
+    primary:
+      background: '#101010'
+      foreground: '#fafafa'
+    cursor:
+      text:       '#101010'
+      cursor:     '#fafafa'
+    normal:
+      black:      '#101010'
+      red:        '#ffa0a0'
+      green:      '#78bf78'
+      yellow:     '#d2b580'
+      blue:       '#82b0ec'
+      magenta:    '#e0b2d6'
+      cyan:       '#90c4ed'
+      white:      '#bfbfbf'
+    bright:
+      black:      '#595959'
+      red:        '#f5aa80'
+      green:      '#99b56f'
+      yellow:     '#cabf77'
+      blue:       '#a0acef'
+      magenta:    '#ef9fe4'
+      cyan:       '#a0bfdf'
+      white:      '#fafafa'
+
+colors: *modus-operandi
+
+selection:
+  semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
+  save_to_clipboard: false
+
+cursor:
+  style:
+    shape: Block
+    blinking: On
+  unfocused_hollow: true
+
+live_config_reload: true
+
+shell:
+ program: /usr/bin/zsh
+ args:
+   - --login
+
+alt_send_esc: true
+
+hints:
+  enabled:
+  - regex: "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)\
+            [^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
+    command: xdg-open
+    post_processing: true
+    mouse:
+      enabled: true
+      mods: Control
+    binding:
+      key: U
+      mods: Control|Shift
+
+mouse_bindings:
+ - { mouse: Middle, action: PasteSelection }
+
+mouse:
+  hide_when_typing: true
+
+use_thin_strokes: true
+
+cursor.style: "Beam"
+
+live_config_reload: true
+
+key_bindings:
+  - { key: L,          mods: Control,                         action: ClearLogNotice        }
+  - { key: L,          mods: Control,       mode: ~Search,    chars: "\x0c"                 }
+  - { key: V,          mods: Control|Shift,                   action: Paste                 }
+  - { key: C,          mods: Control|Shift,                   action: Copy                  }
+  - { key: F,          mods: Control|Shift, mode: ~Search,    action: SearchForward         }
+  - { key: B,          mods: Control|Shift, mode: ~Search,    action: SearchBackward        }
+  - { key: Key0,       mods: Control,                         action: ResetFontSize         }
+  - { key: Plus,       mods: Control|Shift,                   action: IncreaseFontSize      }
+  - { key: Return,     mods: Control|Shift,                   action: SpawnNewInstance      }
+
+  - { key: Return,                          mode: Search,     action: SearchConfirm         }
+  - { key: Escape,                          mode: Search,     action: SearchCancel          }
+  - { key: C,          mods: Control,       mode: Search,     action: SearchCancel          }
+  - { key: U,          mods: Control,       mode: Search,     action: SearchClear           }
+  - { key: W,          mods: Control,       mode: Search,     action: SearchDeleteWord      }
+  - { key: P,          mods: Control,       mode: Search,     action: SearchHistoryPrevious }
+  - { key: N,          mods: Control,       mode: Search,     action: SearchHistoryNext     }
+  - { key: Up,                              mode: Search,     action: SearchHistoryPrevious }
+  - { key: Down,                            mode: Search,     action: SearchHistoryNext     }
+  - { key: Return,                          mode: Search,     action: SearchFocusNext       }
+  - { key: Return,     mods: Shift,         mode: Search,     action: SearchFocusPrevious   }
+
+  - { key: Comma,      mods: Control,                          chars: "\x1b[27;5;44~"       }
+  - { key: Period,     mods: Control,                          chars: "\x1b[27;5;46~"       }
+  - { key: Semicolon,  mods: Control,                          chars: "\x1b[27;5;59~"       }
+  - { key: Apostrophe, mods: Control,                          chars: "\x1b[27;5;39~"       }
+  - { key: Minus,      mods: Control,                          chars: "\x1b[27;5;45~"       }
+  - { key: Equals,     mods: Control,                          chars: "\x1b[27;5;61~"       }
