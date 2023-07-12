@@ -1,0 +1,25 @@
+
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    gsettings set $gnome-schema color-scheme 'prefer-dark'
+    gsettings set $gnome-schema gtk-theme 'Adwaita-dark'
+    gsettings set $gnome-schema icon-theme 'Adwaita'
+    gsettings set $gnome-schema cursor-theme 'Adwaita'
+    gsettings set $gnome-schema font-name 'Inter 11'
+}
+
+### Apperance
+set $fg     #dadada
+set $bg     #1e1e1e
+set $fade   #323232
+set $dim    #93959b
+set $alt    #90c4ed
+set $urgent #ffa0a0
+
+# Property Name         Border  BG      Text    Indicator Child Border
+client.focused          $fade   $fg     $bg     $alt      $fg
+client.focused_inactive $fade   $fade   $fg     $bg       $fade
+client.unfocused        $fade   $bg     $fg     $bg       $fade
+client.urgent           $urgent $urgent $bg     $urgent   $urgent
+client.placeholder      $bg     $bg     $fg     $bg       $bg
+client.background       $bg

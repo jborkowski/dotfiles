@@ -7,9 +7,9 @@ PLUGINS=(
     'https://github.com/chisui/zsh-nix-shell.git'
     'https://github.com/zsh-users/zsh-history-substring-search.git'
     'https://github.com/zsh-users/zsh-autosuggestions.git'
-    'https://github.com/kutsan/fast-syntax-highlighting.git'
     'https://github.com/marlonrichert/zsh-edit.git'
     'https://github.com/hlissner/zsh-autopair.git'
+    'https://github.com/zdharma-continuum/fast-syntax-highlighting.git'
 )
 
 
