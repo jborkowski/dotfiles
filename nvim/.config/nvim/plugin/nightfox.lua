@@ -16,7 +16,6 @@ end
 local current_theme = hour_based_theme()
 vim.cmd(current_theme)
 
-
 local function set_keymap_n(key, cmd)
   vim.keymap.set("n", key, cmd, { silent = true })
 end
@@ -27,9 +26,11 @@ set_keymap_n("|", "<cmd>lua toggle_theme()<CR>")
 
 function toggle_theme()
   if(vim.g.current_colorscheme == "light") then
+    vim.api.nvim_set_option('background', 'dark')
     vim.cmd(dark_theme)
     vim.g.current_colorscheme = "dark"
   else
+    vim.api.nvim_set_option('background', 'light')
     vim.cmd(light_theme)
     vim.g.current_colorscheme = "light"
   end

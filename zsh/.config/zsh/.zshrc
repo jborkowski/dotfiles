@@ -19,8 +19,9 @@ bindkey -e
 alias :q='exit'
 alias calc='emacs -f full-calc'
 alias cat='bat -p'
+alias ca='cat'
 alias cp='xcp'
-alias e='emacsclient -t'
+alias e='emacs -nw'
 alias find='fd'
 alias ll='exa -lF --color-scale --no-user --no-time --no-permissions --group-directories-first --icons -a'
 alias ls='exa -lF --group-directories-first --icons -a'
@@ -54,3 +55,4 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 [ -f "/home/jonatan/.ghcup/env" ] && source "/home/jonatan/.ghcup/env" # ghcup-env
+export ZK_NOTEBOOK_DIR=$HOME/sources/zettels

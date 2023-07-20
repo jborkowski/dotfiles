@@ -116,6 +116,8 @@ local function setup_fn(use)
   -- use 'ctrlpvim/ctrlp.vim'
   -- notes
   use 'mickael-menu/zk-nvim'
+  
+  use 'f-person/auto-dark-mode.nvim'
 
   -- auto sync
   if packer_bootstrap then
