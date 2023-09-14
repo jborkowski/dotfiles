@@ -9,13 +9,7 @@ set $left n
 set $down e
 set $up i
 set $right o
-# Your preferred terminal emulator
-# Recommends: foot
-set $term foot
-# Your preferred application launcher
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
-# Recommends: rofi-wayland
+set $term kitty
 set $rofi_cmd rofi \
         -terminal '$term' 
 
@@ -193,6 +187,20 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
+
+exec_always {
+  pkill kanshi
+  kanshi &
+}
+
+exec_always {
+  eval $(gpg-agent --daemon)
+}
+
+
+exec /usr/bin/dunst
+exec gnome-keyring-daemon --start
+exec export SSH_AUTH_SOCK
 
 include $HOME/.config/sway/themes/modus_vivendi
 
