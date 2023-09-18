@@ -1,132 +1,152 @@
-#!/bin/env bash 
+#!/bin/env bash
 
 _dep_installed() {
-  command -v "$1" > /dev/null || {
-    echo "Dependency not installed: $1"
-    return 1
-  }
+    command -v "$1" >/dev/null || {
+        echo "Dependency not installed: $1"
+        return 1
+    }
 }
 
 ised() {
-  sed --follow-symlinks -i "$@"
+    sed --follow-symlinks -i "$@"
 }
 
 _kitty() {
-  _dep_installed kitty
+    _dep_installed kitty
 
-  case "$1" in
+    case "$1" in
     light) kitty +kitten themes --reload-in=all Modus Operandi ;;
     dark) kitty +kitten themes --reload-in=all Modus Vivendi ;;
-  esac
+    esac
 }
 
 _emacs() {
-  _dep_installed emacs
-  pgrep -x emacs > /dev/null || return 1
+    # _dep_installed emacs
+    # pgrep -x emacs >/dev/null || return 1
 
-  case "$1" in
-        light) emacsclient -e "(load-theme 'modus-operandi-deuteranopia :no-confirm)" > /dev/null ;;
-        dark)  emacsclient -e "(load-theme 'modus-vivendi-deuteranopia :no-confirm)" > /dev/null ;;
-  esac
+    case "$1" in
+    light) emacsclient -e "(load-theme 'modus-operandi-deuteranopia :no-confirm)" >/dev/null ;;
+    dark) emacsclient -e "(load-theme 'modus-vivendi-deuteranopia :no-confirm)" >/dev/null ;;
+    esac
 }
 
 _gtk_common() {
-  # GTK3
-  ised "s,\(gtk-theme-name=\).*,\1${1}, ; \
+    # GTK3
+    ised "s,\(gtk-theme-name=\).*,\1${1}, ; \
         s,\(gtk-icon-theme-name=\).*,\1${2}, ; \
         s,\(gtk-application-prefer-dark-theme=\).*,\1${3}," \
         "$HOME"/.config/gtk-3.0/settings.ini
 
-  # GTK4
-  ised "s,\(gtk-application-prefer-dark-theme=\).*,\1${3}," \
-       "$HOME"/.config/gtk-4.0/settings.ini
+    # GTK4
+    ised "s,\(gtk-application-prefer-dark-theme=\).*,\1${3}," \
+        "$HOME"/.config/gtk-4.0/settings.ini
 }
 
-_gsettings()  {
-  gsettings "$1" "$2" "${@:3}"
+_gsettings() {
+    gsettings "$1" "$2" "${@:3}"
 }
 
 _gsettings_gtk_get() {
-  _gsettings 'get' 'org.gnome.desktop.interface' 'gtk-theme'
+    _gsettings 'get' 'org.gnome.desktop.interface' 'gtk-theme'
 }
 
 _gsettings_gtk_set() {
-  _gsettings 'set' 'org.gnome.desktop.interface' 'gtk-theme' "$1"
+    _gsettings 'set' 'org.gnome.desktop.interface' 'gtk-theme' "$1"
+}
+
+_gsettings_color_scheme_get() {
+    _gsettings 'get' 'org.gnome.desktop.interface' 'color-scheme'
 }
 
 _gsettings_color_scheme_set() {
-  _gsettings 'set' 'org.gnome.desktop.interface' 'color-scheme' "$1"
+    _gsettings 'set' 'org.gnome.desktop.interface' 'color-scheme' "$1"
 }
 
 _gtk_gnome() {
-  _gsettings_gtk_set "${1}"
-  _gsettings_color_scheme_set "${2}"
+    _gsettings_gtk_set "${1}"
+    _gsettings_color_scheme_set "${2}"
 }
 
 _gtk() {
-  case "$1" in
+    case "$1" in
     light)
-      _gtk_common 'Adwaita' 'Adwaita' 'false'
-      _gtk_gnome 'Adwaita' 'prefer-light'
-      _xsettingsd 'Adwaita' 'Adwaita'
-      ;;
+        _gtk_common 'Adwaita' 'Adwaita' 'false'
+        _gtk_gnome 'Adwaita' 'prefer-light'
+        _xsettingsd 'Adwaita' 'Adwaita'
+        ;;
     dark)
-      _gtk_common 'Adwaita-dark' 'Adwaita' 'true'
-      _gtk_gnome 'Adwaita-dark' 'prefer-dark'
-      _xsettingsd 'Adwaita-dark' 'Adwaita'
-      ;;
-  esac
+        _gtk_common 'Adwaita-dark' 'Adwaita' 'true'
+        _gtk_gnome 'Adwaita-dark' 'prefer-dark'
+        _xsettingsd 'Adwaita-dark' 'Adwaita'
+        ;;
+    esac
 }
 
 _gnome() {
-  if [ "$(_gsettings_gtk_get)" = "'adw-gtk3'" ]; then
-    style=dark
-    _gsettings_gtk_set 'adw-gtk3-dark'
-    _gsettings_color_scheme_set 'prefer-dark'
-    _gtk_common 'adw-gtk3-dark' 'Adwaita' 'true'
-  else 
-    style=light
-    _gsettings_gtk_set 'adw-gtk3'
-    _gsettings_color_scheme_set 'prefer-light'
-    _gtk_common 'adw-gtk3' 'Adwaita' 'false'
-  fi
+    if [ "$(_gsettings_color_scheme_get)" = "'prefer-dark'" ]; then
+        style=dark
+        _gsettings_gtk_set 'adw-gtk3-dark'
+        _gtk_common 'adw-gtk3-dark' 'Adwaita' 'true'
+    else
+        style=light
+        _gsettings_gtk_set 'adw-gtk3'
+        _gtk_common 'adw-gtk3' 'Adwaita' 'false'
+        _gsettings_color_scheme_set 'prefer-light'
+    fi
 
-  _kitty "$style" & 
+    _emacs "$style" &
+}
+
+_gnome2() {
+    if [ "$(_gsettings_color_scheme_get)" = "'prefer-dark'" ]; then
+        style=dark
+        _gsettings_gtk_set 'adw-gtk3-dark'
+        _gtk_common 'adw-gtk3-dark' 'Adwaita' 'true'
+    else
+        style=light
+        _gsettings_gtk_set 'adw-gtk3'
+        _gsettings_color_scheme_set 'prefer-light'
+        _gtk_common 'adw-gtk3' 'Adwaita' 'false'
+    fi
+
+    _kitty "$style" &
+    _emacs "$style" &
+    _emacs "$style" &
 }
 
 _sway() {
-  _dep_installed sway
-  active_theme="$HOME"/.cache/active_theme
-  if [ "$(cat "$active_theme")" = light ]; then 
-    style=dark 
-  else 
-    style=light
-  fi
+    _dep_installed sway
+    active_theme="$HOME"/.cache/active_theme
+    if [ "$(cat "$active_theme")" = light ]; then
+        style=dark
+    else
+        style=light
+    fi
 
-  echo "$style" > "$active_theme"
+    echo "$style" >"$active_theme"
 
-  case "$style" in 
+    case "$style" in
     light)
-      ised "s,themes/modus_vivendi,themes/modus_operandi," "$HOME"/.config/sway/config
-      _gsettings_gtk_set 'adw-gtk3'
-      _gsettings_color_scheme_set 'prefer-light'
-      _gtk_common 'Adwaita' 'Adwaita' 'false'
-      ;;
+        ised "s,themes/modus_vivendi,themes/modus_operandi," "$HOME"/.config/sway/config
+        _gsettings_gtk_set 'adw-gtk3'
+        _gsettings_color_scheme_set 'prefer-light'
+        _gtk_common 'Adwaita' 'Adwaita' 'false'
+        ;;
     dark)
-      ised "s,themes/modus_operandi,themes/modus_vivendi," "$HOME"/.config/sway/config
-      _gsettings_gtk_set 'adw-gtk3'
-      _gsettings_color_scheme_set 'prefer-light'
-      _gtk_common 'Adwaita-dark' 'Adwaita' 'true'
-      ;;
-  esac
- 
-  swaymsg reload & 
-  _kitty "$style" &
-  _emacs "$style" &
+        ised "s,themes/modus_operandi,themes/modus_vivendi," "$HOME"/.config/sway/config
+        _gsettings_gtk_set 'adw-gtk3'
+        _gsettings_color_scheme_set 'prefer-light'
+        _gtk_common 'Adwaita-dark' 'Adwaita' 'true'
+        ;;
+    esac
+
+    swaymsg reload &
+    _kitty "$style" &
+    _emacs "$style" &
 }
 
-
-case "$XDG_CURRENT_DESKTOP" in 
-  gnome) _gnome;;
-  sway) _sway;;
+case "$XDG_CURRENT_DESKTOP" in
+GNOME) _gnome ;;
+gnome) _gnome ;;
+sway) _sway ;;
 esac

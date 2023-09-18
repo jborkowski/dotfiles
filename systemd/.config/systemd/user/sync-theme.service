@@ -1,0 +1,8 @@
+[Unit]
+Description=Sync theme depending on the /org/gnome/desktop/interface/color-scheme value
+
+[Service]
+ExecStart=/bin/bash -c 'while read -r line; do [[ -n $line ]] || /home/jonatan/.scripts/toggle-theme gnome; done < <(dconf watch /org/gnome/desktop/interface/color-scheme)'
+
+[Install]
+WantedBy=default.target
