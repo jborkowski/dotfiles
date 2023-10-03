@@ -32,6 +32,9 @@ input "10176:2136:WingCoolTouch_WingCoolTouch" {
   map_to_output 'SOMELEC Z.I. Du Vert Galanta Mira133 202105'
 }
 
+bindgesture swipe:right workspace prev
+bindgesture swipe:left workspace next
+
 output "SOMELEC Z.I. Du Vert Galanta Mira133 202105" {
   bg #ffffff solid_color
   resolution 2200x1650 position 1728,0 scale 2.0
