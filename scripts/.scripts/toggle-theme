@@ -20,6 +20,17 @@ _kitty() {
     esac
 }
 
+_foot() {
+    _dep_installed foot
+
+    case "$1" in
+    light) ised "s,\(\binclude=~/.config/foot/\).*,\1modus_operandi.ini," \
+        "$HOME"/.config/foot/foot.ini ;;
+    dark) ised "s,\(\binclude=~/.config/foot/\).*,\1modus_vivendi.ini," \
+        "$HOME"/.config/foot/foot.ini ;;
+    esac
+}
+
 _emacs() {
     # _dep_installed emacs
     # pgrep -x emacs >/dev/null || return 1
@@ -141,7 +152,7 @@ _sway() {
     esac
 
     swaymsg reload &
-    _kitty "$style" &
+    _foot "$style" &
     _emacs "$style" &
 }
 

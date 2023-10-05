@@ -7,7 +7,7 @@ set $left n
 set $down e
 set $up i
 set $right o
-set $term kitty
+set $term foot
 set $rofi_cmd rofi \
         -terminal '$term' 
 
@@ -205,6 +205,6 @@ exec_always $HOME/.config/sway/scripts/clamshell
 exec gnome-keyring-daemon --start
 exec export SSH_AUTH_SOCK
 
-include $HOME/.config/sway/themes/modus_vivendi
+include $HOME/.config/sway/themes/modus_operandi
 
 include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
