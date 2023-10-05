@@ -1,7 +1,4 @@
-profile all {
-	output eDP-1 enable
-  output DP-1 enable
-}
+
 
 profile mate {
    output eDP-1 disable
@@ -9,8 +6,8 @@ profile mate {
 }
 
 profile eink {
-  output eDP-1 enable 
-  output 'SOMELEC Z.I. Du Vert Galanta Mira133 202105' mode 2200x1650 position 1728,0 scale 2
+  output eDP-1 mode 2160x1440 position 1100,0 scale 1.25
+  output 'SOMELEC Z.I. Du Vert Galanta Mira133 202105' mode 2200x1650 position 0,0 scale 2
 }
 
 

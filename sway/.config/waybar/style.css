@@ -87,6 +87,7 @@ button:hover {
 #mode,
 #idle_inhibitor,
 #scratchpad,
+#custom-toggle-theme,
 #mpd {
     padding: 0 10px;
     color: #ffffff;
@@ -219,6 +220,15 @@ label:focus {
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
     background-color: #eb4d4b;
+}
+
+#custom-toggle-theme {
+  background-color: #2d3436;
+}
+
+#custom-toggle-theme.activated {
+    background-color: #ecf0f1;
+    color: #2d3436;
 }
 
 #idle_inhibitor {
