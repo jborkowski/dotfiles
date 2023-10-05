@@ -31,6 +31,14 @@ _foot() {
     esac
 }
 
+_wallpaper() {
+
+    case "$1" in
+    light) ln -sf "$HOME"/.config/wallpapers/light.jpg "$HOME"/.config/wallpapers/current.jpg ;;
+    dark) ln -sf "$HOME"/.config/wallpapers/dark.jpg "$HOME"/.config/wallpapers/current.jpg ;;
+    esac
+}
+
 _emacs() {
     # _dep_installed emacs
     # pgrep -x emacs >/dev/null || return 1
@@ -152,6 +160,7 @@ _sway() {
     esac
 
     swaymsg reload &
+    _wallpaper "$style" &
     _foot "$style" &
     _emacs "$style" &
 }

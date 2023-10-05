@@ -18,9 +18,7 @@ bindswitch --reload --locked lid:off output eDP-1 enable
 
 ### Output configuration
 #
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-# Requires: desktop-backgrounds-compat, swaybg
-output * bg /usr/share/backgrounds/default.png fill
+output * bg $HOME/.config/wallpapers/current.jpg fill
 output DP-1 resolution 3840x2560 position 0 0 scale 1.6
 output eDP-1 resolution 2160x1440 position 2400 0 scale 1.25
 
@@ -205,6 +203,6 @@ exec_always $HOME/.config/sway/scripts/clamshell
 exec gnome-keyring-daemon --start
 exec export SSH_AUTH_SOCK
 
-include $HOME/.config/sway/themes/modus_operandi
+include $HOME/.config/sway/themes/modus_vivendi
 
 include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
