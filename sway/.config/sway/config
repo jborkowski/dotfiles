@@ -22,16 +22,14 @@ output * bg $HOME/.config/wallpapers/current.jpg fill
 output DP-1 resolution 3840x2560 position 0 0 scale 1.6
 output eDP-1 resolution 2160x1440 position 2400 0 scale 1.25
 
-input "type:keyboard" {
- xkb_layout "pl"
-}
-
-input "10176:2136:WingCoolTouch_WingCoolTouch" {
-  map_to_output 'SOMELEC Z.I. Du Vert Galanta Mira133 202105'
-}
-
 bindgesture swipe:right workspace prev
 bindgesture swipe:left workspace next
+
+bindgesture swipe:4:up move scratchpad
+bindgesture swipe:4:down [floating] scratchpad show
+
+bindgesture pinch:inward floating enable
+bindgesture pinch:outward floating disable
 
 output "SOMELEC Z.I. Du Vert Galanta Mira133 202105" {
   bg #ffffff solid_color
@@ -40,8 +38,21 @@ output "SOMELEC Z.I. Du Vert Galanta Mira133 202105" {
 }
 
 ### Input configuration
-#
-input * natural_scroll enabled 
+
+#input * natural_scroll enabled 
+
+input "type:keyboard" {
+  xkb_layout "pl"
+}
+
+input "10176:2136:WingCoolTouch_WingCoolTouch" {
+  map_to_output 'SOMELEC Z.I. Du Vert Galanta Mira133 202105'
+}
+
+input "1739:6682:SYNA7813:00_06CB:1A1A" {
+  map_to_output eDP-1
+  
+}
 
 input "10182:480:GXTP7863:00_27C6:01E0_Touchpad" {
    dwt enabled
