@@ -1,0 +1,13 @@
+
+
+profile mate {
+   output eDP-1 disable
+   output 'Huawei Technologies Co., Inc. MateView              ' mode 3840x2560 scale 1.5
+}
+
+profile eink {
+  output eDP-1 mode 2160x1440 position 1100,0 scale 1.25
+  output 'SOMELEC Z.I. Du Vert Galanta Mira133 202105' mode 2200x1650 position 0,0 scale 2
+}
+
+
