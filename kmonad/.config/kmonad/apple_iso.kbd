@@ -23,6 +23,14 @@
     mo    (tap-hold-next-release 150 o rmet)
 )
 
+(defalias
+  cpy M-c
+  pst M-v
+
+  cc (tap-hold-next-release 200 c @cpy)
+  cv (tap-hold-next-release 200 v @pst)
+)
+
 (defsrc
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11 f12
   nubs 1    2    3    4    5    6    7    8    9    0    -    =    bspc
@@ -37,7 +45,7 @@
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    f    p    b    j    l    u    y    ;    [    ]
   esc  @ma  @ar  @cs  @st  g    k    @sn  @ce  @ai  @mo  '    \    ret
-  lsft z    x    c    d    v    _    m    h    ,    .    /    rsft
+  lsft z    x    @cc  d    @cv    _    m    h    ,    .    /    rsft
   lctl @fn_l lalt lmet          @spc_n           rmet ralt
 )
 
