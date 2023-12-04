@@ -1,0 +1,54 @@
+
+(defcfg
+  linux-dev "/dev/input/by-path/platform-39b10c000.spi-cs-0-event-kbd"
+)
+
+(defalias
+    nav  (layer-toggle extend))
+
+(defalias
+    spc_n (tap-hold-release 200 200 spc @nav)
+    ma    (tap-hold-release 150 200 a lmet)
+    ar    (tap-hold-release 150 200 r lalt)
+    cs    (tap-hold-release 150 200 s lctl)
+    st    (tap-hold-release 150 200 t lsft)
+
+    sn    (tap-hold-release 150 200 n rsft)
+    ce    (tap-hold-release 150 200 e rctl)
+    ai    (tap-hold-release 150 200 i ralt)
+    mo    (tap-hold-release 150 200 o rmet)
+)
+
+(defalias
+  ;; Ctrl+(C|V): copy or paste shortcut
+  cpy C-c
+  pst C-v
+
+  cc (tap-hold-release 200 200 c @cpy)
+  cv (tap-hold-release 200 200 v @pst)
+)
+
+(defsrc
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]
+  caps a    s    d    f    g    h    j    k    l    ;    '    \    ret
+  lsft 102d  z    x    c    v    b    n    m    ,    .    /    rsft
+  cmp   lctl lalt lmet           spc             rmet ralt
+)
+
+(deflayer colemak-dhm
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    f    p    b    j    l    u    y    ;    [    ]
+  esc  @ma  @ar  @cs  @st  g    k    @sn  @ce  @ai  @mo  '    \    ret
+  lsft z    x    @cc  d    @cv    _    m    h    ,    .    /    rsft
+  lctl cmp lalt lmet          @spc_n           rmet ralt
+)
+
+(deflayer extend
+  _     _   _    _    _    _    _    _    _    _    _    _    _    bspc
+  _     _   _    _    _    _    _    _    _    _    _    _    _
+  esc  @ma  @ar  @cs  @st  g    k    lft  down up   rght _    _    ret
+  _    _    _    _    _    _    _    _    _    _    _    _    rsft
+  lctl cmp lalt lmet           _              _    ralt
+)
+
