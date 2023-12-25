@@ -1,0 +1,21 @@
+#!/bin/bash
+
+export PATH=$PATH:/opt/homebrew/bin
+
+if [[ $DARKMODE == 1 ]]; then 
+  kitty +kitten themes --reload-in=all Modus Vivendi Tinted
+
+  emacsclient -e "(load-theme 'modus-vivendi-tinted :no-confirm)" > /dev/null
+
+  if ssh revm -q -o ConnectTimeout=1 -o BatchMode=yes exit; then
+    ssh -qtt re "docker exec devcontainer-dev-1 emacsclient -e \"(load-theme 'modus-vivendi-tinted :no-confirm)\""
+  fi
+
+else 
+  kitty +kitten themes --reload-in=all Modus Operandi Tinted
+
+  emacsclient -e "(load-theme 'modus-operandi-tinted :no-confirm)" > /dev/null
+  if ssh revm -q -o ConnectTimeout=1 -o BatchMode=yes exit; then
+    ssh -qtt re "docker exec devcontainer-dev-1 emacsclient -e \"(load-theme 'modus-operandi-tinted :no-confirm)\""
+  fi
+fi
