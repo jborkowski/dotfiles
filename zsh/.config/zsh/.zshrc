@@ -56,3 +56,4 @@ fi
 
 [ -f "/home/jonatan/.ghcup/env" ] && source "/home/jonatan/.ghcup/env" # ghcup-env
 export ZK_NOTEBOOK_DIR=$HOME/sources/zettels
+alias python=python3
