@@ -24,6 +24,9 @@ alias e='emacs -nw'
 alias em='emacsclient -t'
 alias find='fd'
 
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
 
 if command -v eza > /dev/null; then
     alias eza='eza --group-directories-first'
