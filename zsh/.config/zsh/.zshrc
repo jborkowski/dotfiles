@@ -18,13 +18,28 @@ bindkey -e
 # Aliases
 alias :q='exit'
 alias calc='emacs -f full-calc'
-alias cat='bat -p'
 alias ca='cat'
 alias cp='xcp'
-alias e="emacsclient -a ''"
+alias e='emacs -nw'
+alias em='emacsclient -t'
 alias find='fd'
-alias ll='exa -lF --color-scale --no-user --no-time --no-permissions --group-directories-first --icons -a'
-alias ls='exa -lF --group-directories-first --icons -a'
+
+
+if command -v eza > /dev/null; then
+    alias eza='eza --group-directories-first'
+    alias ls='eza'
+    alias l='eza -a'
+    alias la='eza -laF'
+    alias ll='eza -lF'
+    alias tree='eza --tree'
+else
+    alias ls='ls --color=auto --group-directories-first'
+    alias l='ls -A'
+    alias la='ls -lAF'
+    alias ll='ls -lF'
+fi
+
+
 alias ps='ps'
 alias top='btm'
 alias tree='tree -a -C'
