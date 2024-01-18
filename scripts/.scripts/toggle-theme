@@ -162,7 +162,9 @@ _sway() {
     _emacs "$style" &
 }
 
-case "$XDG_CURRENT_DESKTOP" in
+CURRENT_DESKTOP=${XDG_CURRENT_DESKTOP:-$1}
+
+case "$CURRENT_DESKTOP" in
 GNOME) _gnome ;;
 gnome) _gnome ;;
 sway) _sway ;;

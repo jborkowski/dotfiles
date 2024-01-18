@@ -1,4 +1,7 @@
 
+profile mbp {
+  output eDP-1 enable
+}
 
 profile mate {
    output eDP-1 disable
