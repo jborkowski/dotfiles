@@ -16,7 +16,8 @@ return {
       {"<leader>fb", cmdT .. "buffers<cr>", desc = "Telescope buffers" },
       {"<leader>fd", cmdT .. "diagnostics<cr>", desc = "Telescope diagnostics" },
       {"<leader>ff", cmdT .. "find_files<cr>", desc = "Telescope Find files" },
-      {"<leader>fg", cmdT .. "live_grep<cr>", desc = "Telescope Live Grep" },
+      {"<leader>fg", cmdT .. "egrepify<cr>", desc = "Telescope Live Grep (ripgrep)" },
+      {"<leader>fG", cmdT .. "live_grep<cr>", desc = "Telescope Live Grep" },
       {"<leader>fh", cmdT .. "help_tags<cr>", desc = "Telecope Help files" },
 
       {"<leader>fk", cmdT .. "keymaps<cr>", desc = "Telescope keymaps" },

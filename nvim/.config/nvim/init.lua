@@ -33,4 +33,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins")
 
+vim.g.vlime_enable_autodoc = true
+
 require('cursor_colemak')
