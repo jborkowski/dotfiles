@@ -87,10 +87,10 @@ vim.api.nvim_create_autocmd('FileType', {
 
 local map = vim.keymap.set 
 
-map('n', 'w', '<Plug>CamelCaseMotion_w', { silent = true })
-map('n', 'b', '<Plug>CamelCaseMotion_b', { silent = true })
-map('n', 'h', '<Plug>CamelCaseMotion_e', { silent = true })
-map('n', 'gh', '<Plug>CamelCaseMotion_ge', { silent = true })
+-- map('n', 'w', '<Plug>CamelCaseMotion_w', { silent = true })
+-- map('n', 'b', '<Plug>CamelCaseMotion_b', { silent = true })
+-- map('n', 'h', '<Plug>CamelCaseMotion_e', { silent = true })
+-- map('n', 'gh', '<Plug>CamelCaseMotion_ge', { silent = true })
 
 -- Term
 vim.g.neoterm_autoscroll = true 
