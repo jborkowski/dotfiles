@@ -57,6 +57,14 @@ return {
     branch = 'release',
 
     ft = { 'haskell', 'purs'  },
+    keys = {
+      { "gd", "<cmd>(coc-definition)<cr>", desc = "Coc: Go to Definition" },
+      { "gy", "<cmd>(coc-type-definition)<cr>", desc = "Coc: Go to Type Definition" },
+      { "gi", "<Plug>(coc-implementation)<cr>", desc = "Coc: Go to implementation" },
+      { "gr", "<Plug>(coc-references)<cr>", desc = "Coc: Go To References" },
+    }
+
+
   },
   {
     'mrcjkb/rustaceanvim',
