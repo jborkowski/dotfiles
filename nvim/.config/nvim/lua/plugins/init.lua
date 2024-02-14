@@ -58,7 +58,7 @@ return {
   {
     "neoclide/coc.nvim",
     branch = 'release',
-
+    lazy = true,
     ft = { 'haskell', 'purs'  },
     keys = {
       { "gd", "<Plug>(coc-definition)<cr>", desc = "Coc: Go to Definition" },
@@ -66,8 +66,6 @@ return {
       { "gi", "<Plug>(coc-implementation)<cr>", desc = "Coc: Go to implementation" },
       { "gr", "<Plug>(coc-references)<cr>", desc = "Coc: Go To References" },
     }
-
-
   },
   {
     'mrcjkb/rustaceanvim',
