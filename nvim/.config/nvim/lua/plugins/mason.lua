@@ -8,7 +8,6 @@ return {
           width = 0.75,
         }
       end,
-      },
-      "williamboman/mason-lspconfig.nvim",
-      "neovim/nvim-lspconfig",
-}
+  },
+  "williamboman/mason-lspconfig.nvim",
+}:
