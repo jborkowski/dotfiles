@@ -3,18 +3,18 @@ vim.g.mapleader = " "
 vim.o.relativenumber = false 
 
 
-local osc52 ={
-   name = 'OSC 52',
-   copy = {
-     ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
-     ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
-   },
-   paste = {
-     ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
-     ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
-   },
-}
-
+-- local osc52 ={
+--    name = 'OSC 52',
+--    copy = {
+--      ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+--      ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+--    },
+--    paste = {
+--      ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+--      ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+--    },
+-- }
+--
 vim.g.clipboard = "unnamedplus"
 
 
