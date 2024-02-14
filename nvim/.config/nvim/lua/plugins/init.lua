@@ -1,13 +1,28 @@
 return {
+  -- {
+  --   "folke/tokyonight.nvim",
+  --   style = "night",
+  --   lazy = false,
+  --   enable = false,
+  --   priority = 1000, 
+  --   config = function()
+  --     -- load the colorscheme here
+  --     -- vim.cmd([[colorscheme tokyonight]])
+  --   end,
+  -- },
+
   {
-    "folke/tokyonight.nvim",
-    style = "night",
+    "projekt0n/github-nvim-theme",
     lazy = false,
     priority = 1000, 
     config = function()
-      -- load the colorscheme here
-      vim.cmd([[colorscheme tokyonight]])
+      if vim.o.background == "light" then
+        vim.cmd([[colorscheme github_light_colorblind]]) 
+      else
+        vim.cmd([[colorscheme github_dark_colorblind]])
+      end
     end,
+
   },
 
   {

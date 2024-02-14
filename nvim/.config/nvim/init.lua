@@ -1,7 +1,13 @@
 vim.g.mapleader = " "
 
 vim.o.relativenumber = false
-vim.o.clipboard = "unnamedplus"
+
+
+if vim.loop.os_uname().sysname == "Darwin" then 
+  vim.o.clipboard = "unnamedplus"
+else 
+  vim.o.clipboard = "g:clipboard"
+end
 
 vim.o.shell = 'zsh'
 
@@ -17,6 +23,17 @@ vim.g.incsearch = true
 vim.g.nobackup = true 
 vim.g.noswapfile = true
 vim.g.autochdir = true
+
+
+if tonumber(os.date("%H")) < 6 then
+  vim.o.background = "dark"
+elseif tonumber(os.date("%H")) < 19 then
+  vim.o.background = "light"
+else
+  vim.o.background = "dark"
+end
+
+
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
