@@ -1,16 +1,4 @@
 return {
-  -- {
-  --   "folke/tokyonight.nvim",
-  --   style = "night",
-  --   lazy = false,
-  --   enable = false,
-  --   priority = 1000, 
-  --   config = function()
-  --     -- load the colorscheme here
-  --     -- vim.cmd([[colorscheme tokyonight]])
-  --   end,
-  -- },
-
   {
     "projekt0n/github-nvim-theme",
     lazy = false,
@@ -90,5 +78,12 @@ return {
     'nvim-orgmode/orgmode',
     config = function() require('orgmode').setup{} end,
     'akinsho/org-bullets.nvim',
+  },
+  {
+    'chipsenkbeil/distant.nvim', 
+    branch = 'v0.3',
+    config = function()
+        require('distant'):setup()
+    end
   }
 }

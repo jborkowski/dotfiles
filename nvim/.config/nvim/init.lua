@@ -1,9 +1,22 @@
 vim.g.mapleader = " "
 
-vim.o.relativenumber = false
+vim.o.relativenumber = false 
 
 
-vim.o.clipboard = "unnamedplus"
+local osc52 ={
+   name = 'OSC 52',
+   copy = {
+     ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+     ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+   },
+   paste = {
+     ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+     ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+   },
+}
+
+vim.g.clipboard = "unnamedplus"
+
 
 vim.o.shell = 'zsh'
 
@@ -23,13 +36,11 @@ vim.g.autochdir = true
 
 if tonumber(os.date("%H")) < 6 then
   vim.o.background = "dark"
-elseif tonumber(os.date("%H")) < 19 then
+elseif tonumber(os.date("%H")) < 17 then
   vim.o.background = "light"
 else
   vim.o.background = "dark"
 end
-
-
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -48,5 +59,8 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins")
 
 vim.g.vlime_enable_autodoc = true
+
+-- exit from termial mode
+vim.api.nvim_set_keymap('t', '<Esc><Esc>', '<C-\\><C-n>', { noremap = true })
 
 require('cursor_colemak')
