@@ -3,11 +3,7 @@ vim.g.mapleader = " "
 vim.o.relativenumber = false
 
 
-if vim.loop.os_uname().sysname == "Darwin" then 
-  vim.o.clipboard = "unnamedplus"
-else 
-  vim.o.clipboard = "g:clipboard"
-end
+vim.o.clipboard = "unnamedplus"
 
 vim.o.shell = 'zsh'
 
