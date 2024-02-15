@@ -22,15 +22,36 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter"
     },
+    keys = {
+      {"<leader>nj", "<cmd>Neorg journal today<cr>", "Neorg today journal"}  
+    },
     opts = {
       load = {
         ["core.defaults"] = {},
+        ["core.completion"] = { config = { engine = "nvim-cmp", name = "[Norg]" } },
         ["core.concealer"] = {}, 
+        ["core.integrations.nvim-cmp"] = {},
         ["core.dirman"] = { 
-           config = {
+          config = {
             workspaces = {
-              notes = "~/org",
+              work = "~/org/work",
+              home = "~/org",
             },
+            default_workspace = "home",
+          },
+        },
+--        ["core.ui.calendar"] = {},
+        ["core.journal"] = {
+          config = {
+           strategy = "nested",
+             workspace = "home",
+           },
+        },
+        ["core.keybinds"] = {
+        -- https://github.com/nvim-neorg/neorg/blob/main/lua/neorg/modules/core/keybinds/keybinds.lua
+          config = {
+            default_keybinds = true,
+            neorg_leader = "<Leader>",
           },
         },
       },
@@ -60,12 +81,14 @@ return {
     branch = 'release',
     lazy = true,
     ft = { 'haskell', 'purs'  },
-    keys = {
-      { "gd", "<Plug>(coc-definition)<cr>", desc = "Coc: Go to Definition" },
-      { "gy", "<Plug>(coc-type-definition)<cr>", desc = "Coc: Go to Type Definition" },
-      { "gi", "<Plug>(coc-implementation)<cr>", desc = "Coc: Go to implementation" },
-      { "gr", "<Plug>(coc-references)<cr>", desc = "Coc: Go To References" },
-    }
+
+    -- ft = { 'haskell', 'purs'  },
+    -- keys = {
+    --   { "gd", "<Plug>(coc-definition)<cr>", desc = "Coc: Go to Definition" },
+    --   { "gy", "<Plug>(coc-type-definition)<cr>", desc = "Coc: Go to Type Definition" },
+    --   { "gi", "<Plug>(coc-implementation)<cr>", desc = "Coc: Go to implementation" },
+    --   { "gr", "<Plug>(coc-references)<cr>", desc = "Coc: Go To References" },
+    -- }
   },
   {
     'mrcjkb/rustaceanvim',
