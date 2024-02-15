@@ -78,7 +78,7 @@ return {
         vim.keymap.set('n', '<space>cD', vim.lsp.buf.type_definition,
           { buffer= ev.buf, desc = "LSP: Type definition" }
         )
-        vim.keymap.set('n', '<space>ar', vim.lsp.buf.rename, { buffer= ev.buf, desc = "LSP: Rename" })
+        vim.keymap.set('n', '<space>cr', vim.lsp.buf.rename, { buffer= ev.buf, desc = "LSP: Rename" })
         vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action,
           { buffer= ev.buf, desc = "LSP: Code action" }
         )
