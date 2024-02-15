@@ -65,23 +65,31 @@ return {
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer= ev.buf, desc = "LSP: Go to definition" })
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
         vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { buffer= ev.buf, desc = "LSP: Go to implementation" })
-        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-        vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, { buffer= ev.buf, desc = "LSP: add workspace folder" })
-        vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, { buffer= ev.buf, desc = "LSP: Remove workspace folder" })
+        vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder,
+          { buffer= ev.buf, desc = "LSP: Add workspace folder" }
+        )
+        vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder,
+          { buffer= ev.buf, desc = "LSP: Remove workspace folder" }
+        )
         vim.keymap.set('n', '<space>wl', function()
           print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        end, { buffer= ev.buf, desc = "LSP: list workspace folders" })
-        vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition,
+        end, { buffer= ev.buf, desc = "LSP: List workspace folders" })
+
+        vim.keymap.set('n', '<space>cD', vim.lsp.buf.type_definition,
           { buffer= ev.buf, desc = "LSP: Type definition" }
         )
-        vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, { buffer= ev.buf, desc = "LSP: Rename" })
+        vim.keymap.set('n', '<space>ar', vim.lsp.buf.rename, { buffer= ev.buf, desc = "LSP: Rename" })
         vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action,
           { buffer= ev.buf, desc = "LSP: Code action" }
         )
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-        vim.keymap.set('n', '<space>f', function()
+        vim.keymap.set('n', '<space>cf', function()
           vim.lsp.buf.format { async = true }
         end, { buffer= ev.buf, desc = "LSP: Format document" })
+
+        vim.keymap.set('n', '<space>cs', vim.lsp.buf.signature_help, 
+          { buffer= ev.buf, desc = "LSP: Signatur Help" }
+        )
       end,
     })
   end,
