@@ -33,6 +33,9 @@ vim.g.nobackup = true
 vim.g.noswapfile = true
 vim.g.autochdir = true
 
+-- spell checker 
+vim.opt.spelllang = 'en_us'
+vim.opt.spell = true
 
 if tonumber(os.date("%H")) < 6 then
   vim.o.background = "dark"
