@@ -2,7 +2,7 @@ vim.g.mapleader = " "
 
 vim.o.relativenumber = false 
 
-local osc52 ={
+local osc52 = {
     name = 'OSC 52',
     copy = {
       ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
