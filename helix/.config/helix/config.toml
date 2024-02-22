@@ -1,0 +1,5 @@
+theme = "github_dark_colorblind"
+
+[editor]
+true-color = true
+
