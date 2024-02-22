@@ -42,6 +42,8 @@ return {
       end,
     }
     -- lspconfig.rust_analyzer.setup {
+    --
+    require'lspconfig'.tsserver.setup {}
 
     -- Global mappings.
     -- See `:help vim.diagnostic.*` for documentation on any of the below functions
