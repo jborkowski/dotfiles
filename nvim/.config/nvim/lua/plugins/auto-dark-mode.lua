@@ -1,5 +1,5 @@
 return {
-  "f-person/auto-dark-mode.nvim",
+  "jborkowski/auto-dark-mode.nvim",
   config = {
     update_interval = 1000,
     set_dark_mode = function()
