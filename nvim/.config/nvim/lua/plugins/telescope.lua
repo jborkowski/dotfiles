@@ -27,10 +27,6 @@ return {
       {"<leader>fp", cmdT .. "planets<cr>", desc = "Telescope Planets" },
       {"<leader>fw", cmdT .. "grep_string<cr>", desc = "" },
 
-      {"<leader>gC", cmdT .. "git_commits<cr>", desc = "Telescope git commits" },
-      {"<leader>gb", cmdT .. "git_branches<cr>", desc = "Telescope git branches" },
-      {"<leader>go", cmdT .. "git_status<cr>", desc = "Telescope git status" },
-
       {"<leader>LS", cmdT .. "lsp_dynamic_workspace_symbols<cr>", desc = "Telescope Workspace Symbols" },
       {"<leader>Ls", cmdT .. "lsp_document_symbols<cr>", desc = "Telescope Document Symbols" },
     }
