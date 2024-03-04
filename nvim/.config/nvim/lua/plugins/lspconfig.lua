@@ -41,9 +41,34 @@ return {
         return true
       end,
     }
-    -- lspconfig.rust_analyzer.setup {
-    --
-    require'lspconfig'.tsserver.setup {}
+
+    require'lspconfig'.hls.setup {
+      cmd = { "haskell-language-server-wrapper", "--lsp" },
+      root_dir = require'lspconfig'.util.root_pattern("*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"),
+      settings = {
+        haskell = {
+          formattingProvider = "fourmolu",
+          plugin = {
+            hlint = {
+              globalOn = true
+            }
+          }
+        }
+      }
+    }
+
+    require'lspconfig'.tsserver.setup {  }
+
+    require'lspconfig'.purescriptls.setup {
+      cmd = {"purescript-language-server", "--stdio"},
+      settings = {
+        purescript = {
+          addPscPackageSources = true,
+          addNpmPath = true
+        }
+      }
+    }
+  
 
     -- Global mappings.
     -- See `:help vim.diagnostic.*` for documentation on any of the below functions
