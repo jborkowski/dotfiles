@@ -61,6 +61,7 @@ return {
 
     require'lspconfig'.purescriptls.setup {
       cmd = {"purescript-language-server", "--stdio"},
+      root_dir = require'lspconfig'.util.root_pattern("psc-package.json", "spago.dhall"),
       settings = {
         purescript = {
           addPscPackageSources = true,
