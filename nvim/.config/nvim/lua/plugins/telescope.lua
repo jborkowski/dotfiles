@@ -1,7 +1,7 @@
 return {
   'nvim-telescope/telescope.nvim', tag = '0.1.5',
     
-  dependencies = { 'nvim-lua/plenary.nvim' },
+  dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-fzy-native.nvim' },
 
   enabled = true,
   lazy = false,
@@ -15,7 +15,7 @@ return {
 
       {"<leader>fb", cmdT .. "buffers<cr>", desc = "Telescope buffers" },
       {"<leader>fd", cmdT .. "diagnostics<cr>", desc = "Telescope diagnostics" },
-      {"<leader>ff", cmdT .. "find_files<cr>", desc = "Telescope Find files" },
+      {"<leader>ff", cmdT .. "find_files find_command=rg,--ignore,--hidden,--files prompt_prefix=🔍<cr>", desc = "Telescope Find files" },
       {"<leader>fg", cmdT .. "egrepify<cr>", desc = "Telescope Live Grep (ripgrep)" },
       {"<leader>fG", cmdT .. "live_grep<cr>", desc = "Telescope Live Grep" },
       {"<leader>fh", cmdT .. "help_tags<cr>", desc = "Telecope Help files" },
@@ -34,7 +34,15 @@ return {
 
   config = function(_, opts)
     local telescope = require("telescope")
-    telescope.setup(opts)
+    telescope.setup {
+      extensions = {
+        fzy_native = {
+            override_generic_sorter = false,
+            override_file_sorter = true,
+        }
+      }
+    }
+    telescope.load_extension('fzy_native')
   end,
 }
 

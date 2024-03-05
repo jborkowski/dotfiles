@@ -61,7 +61,13 @@ return {
 
     require'lspconfig'.purescriptls.setup {
       cmd = {"purescript-language-server", "--stdio"},
-      root_dir = require'lspconfig'.util.root_pattern("psc-package.json", "spago.dhall"),
+      root_dir = function(path)
+        local util = require("lspconfig.util")
+        if path:match("/.spago/") then
+          return nil
+        end
+        return util.root_pattern("bower.json", "psc-package.json", "spago.dhall", "flake.nix", "shell.nix")(path)
+      end,
       settings = {
         purescript = {
           addPscPackageSources = true,
