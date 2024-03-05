@@ -1,7 +1,13 @@
+local function is_enabled()
+  local enabled_for = { ['Nundu.local'] = true, ['hasurian'] = true }
+
+  return enabled_for[vim.fn.hostname()]
+end
+
 return {
   'Exafunction/codeium.vim',
   event = 'BufEnter',
-  enabled = false,
+  enabled = is_enabled(),
   init = function()
     vim.g.codeium_disable_bindings = 1
   end,
@@ -16,4 +22,3 @@ return {
     vim.keymap.set('i', '<m-i>', vim.fn['codeium#Complete'], { noremap = true, expr = true, desc = 'Codeium Complete' })
   end
 }
- 
