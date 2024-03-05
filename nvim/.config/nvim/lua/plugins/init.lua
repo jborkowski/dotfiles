@@ -77,21 +77,6 @@ return {
     opts = { use_default_keymaps = false, max_join_length = 150 },
   },
   {
-    "neoclide/coc.nvim",
-    enabled = false,
-    branch = 'release',
-    lazy = true,
-    ft = { 'haskell', 'purs'  },
-
-    -- ft = { 'haskell', 'purs'  },
-    -- keys = {
-    --   { "gd", "<Plug>(coc-definition)<cr>", desc = "Coc: Go to Definition" },
-    --   { "gy", "<Plug>(coc-type-definition)<cr>", desc = "Coc: Go to Type Definition" },
-    --   { "gi", "<Plug>(coc-implementation)<cr>", desc = "Coc: Go to implementation" },
-    --   { "gr", "<Plug>(coc-references)<cr>", desc = "Coc: Go To References" },
-    -- }
-  },
-  {
     'mrcjkb/rustaceanvim',
     version = '^4', 
     ft = { 'rust' },
@@ -101,11 +86,4 @@ return {
     config = function() require('orgmode').setup{} end,
     'akinsho/org-bullets.nvim',
   },
-  {
-    'chipsenkbeil/distant.nvim', 
-    branch = 'v0.3',
-    config = function()
-        require('distant'):setup()
-    end
-  }
 }

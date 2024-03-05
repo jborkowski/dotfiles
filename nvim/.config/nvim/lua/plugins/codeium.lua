@@ -1,7 +1,7 @@
 local function is_enabled()
   local enabled_for = { ['Nundu.local'] = true, ['hasurian'] = true }
 
-  return enabled_for[vim.fn.hostname()]
+  return enabled_for[vim.fn.hostname()] or false
 end
 
 return {

@@ -12,8 +12,11 @@ return {
   },
   config = function()
     local cmp_lsp = require 'cmp_nvim_lsp'
+    local lspconfig = require 'lspconfig'
+
     vim.tbl_deep_extend('force', {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
-    require('lspconfig').lua_ls.setup {
+    
+    lspconfig.lua_ls.setup {
       n_init = function(client)
         local path = client.workspace_folders[1].name
         if not vim.loop.fs_stat(path .. '/.luarc.json') and not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
@@ -42,7 +45,7 @@ return {
       end,
     }
 
-    require'lspconfig'.hls.setup {
+    lspconfig.hls.setup {
       cmd = { "haskell-language-server-wrapper", "--lsp" },
       root_dir = require'lspconfig'.util.root_pattern("*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"),
       settings = {
@@ -57,9 +60,9 @@ return {
       }
     }
 
-    require'lspconfig'.tsserver.setup {  }
+    lspconfig.tsserver.setup {  }
 
-    require'lspconfig'.purescriptls.setup {
+    lspconfig.purescriptls.setup {
       cmd = {"purescript-language-server", "--stdio"},
       root_dir = function(path)
         local util = require("lspconfig.util")
@@ -73,6 +76,9 @@ return {
           addPscPackageSources = true,
           addNpmPath = true
         }
+      },
+      flags = {
+        debounce_text_changes = 150,
       }
     }
   
