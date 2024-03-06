@@ -15,7 +15,7 @@ return {
     local lspconfig = require 'lspconfig'
 
     vim.tbl_deep_extend('force', {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
-    
+
     lspconfig.lua_ls.setup {
       n_init = function(client)
         local path = client.workspace_folders[1].name
@@ -47,7 +47,7 @@ return {
 
     lspconfig.hls.setup {
       cmd = { "haskell-language-server-wrapper", "--lsp" },
-      root_dir = require'lspconfig'.util.root_pattern("*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"),
+      root_dir = require 'lspconfig'.util.root_pattern("*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"),
       settings = {
         haskell = {
           formattingProvider = "fourmolu",
@@ -60,10 +60,11 @@ return {
       }
     }
 
-    lspconfig.tsserver.setup {  }
+    lspconfig.tsserver.setup {}
 
     lspconfig.purescriptls.setup {
-      cmd = {"purescript-language-server", "--stdio"},
+      cmd = { "purescript-language-server", "--stdio" },
+      filetypes = { "purescript" },
       root_dir = function(path)
         local util = require("lspconfig.util")
         if path:match("/.spago/") then
@@ -73,6 +74,7 @@ return {
       end,
       settings = {
         purescript = {
+          formatter = "purs-tidy",
           addPscPackageSources = true,
           addNpmPath = true
         }
@@ -81,11 +83,11 @@ return {
         debounce_text_changes = 150,
       }
     }
-  
+
 
     -- Global mappings.
     -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-    vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, {desc = "LSP: diagnostics"})
+    vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { desc = "LSP: diagnostics" })
     vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
     vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
     vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
@@ -101,34 +103,34 @@ return {
         -- Buffer local mappings.
         -- See `:help vim.lsp.*` for documentation on any of the below functions
         local opts = { buffer = ev.buf }
-        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer= ev.buf, desc = "LSP: Go to declaration" })
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer= ev.buf, desc = "LSP: Go to definition" })
+        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = ev.buf, desc = "LSP: Go to declaration" })
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = ev.buf, desc = "LSP: Go to definition" })
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { buffer= ev.buf, desc = "LSP: Go to implementation" })
+        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { buffer = ev.buf, desc = "LSP: Go to implementation" })
         vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder,
-          { buffer= ev.buf, desc = "LSP: Add workspace folder" }
+          { buffer = ev.buf, desc = "LSP: Add workspace folder" }
         )
         vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder,
-          { buffer= ev.buf, desc = "LSP: Remove workspace folder" }
+          { buffer = ev.buf, desc = "LSP: Remove workspace folder" }
         )
         vim.keymap.set('n', '<space>wl', function()
           print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        end, { buffer= ev.buf, desc = "LSP: List workspace folders" })
+        end, { buffer = ev.buf, desc = "LSP: List workspace folders" })
 
         vim.keymap.set('n', '<space>cD', vim.lsp.buf.type_definition,
-          { buffer= ev.buf, desc = "LSP: Type definition" }
+          { buffer = ev.buf, desc = "LSP: Type definition" }
         )
-        vim.keymap.set('n', '<space>cr', vim.lsp.buf.rename, { buffer= ev.buf, desc = "LSP: Rename" })
+        vim.keymap.set('n', '<space>cr', vim.lsp.buf.rename, { buffer = ev.buf, desc = "LSP: Rename" })
         vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action,
-          { buffer= ev.buf, desc = "LSP: Code action" }
+          { buffer = ev.buf, desc = "LSP: Code action" }
         )
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
         vim.keymap.set('n', '<space>cf', function()
           vim.lsp.buf.format { async = true }
-        end, { buffer= ev.buf, desc = "LSP: Format document" })
+        end, { buffer = ev.buf, desc = "LSP: Format document" })
 
-        vim.keymap.set('n', '<space>cs', vim.lsp.buf.signature_help, 
-          { buffer= ev.buf, desc = "LSP: Signatur Help" }
+        vim.keymap.set('n', '<space>cs', vim.lsp.buf.signature_help,
+          { buffer = ev.buf, desc = "LSP: Signatur Help" }
         )
       end,
     })

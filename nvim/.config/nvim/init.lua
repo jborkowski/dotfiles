@@ -32,8 +32,8 @@ vim.g.incsearch = true
 vim.g.nobackup = true 
 vim.g.noswapfile = true
 vim.opt.swapfile = false
-vim.g.autochdir = true
-vim.o.autochdir = true
+-- vim.g.autochdir = true
+-- vim.o.autochdir = true
 
 -- spell checker 
 vim.opt.spelllang = 'en_us'
