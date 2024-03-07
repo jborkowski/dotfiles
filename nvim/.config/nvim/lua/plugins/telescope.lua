@@ -4,7 +4,10 @@ return {
 
   dependencies = {
     'nvim-lua/plenary.nvim',
-    { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
+    { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+    'nvim-telescope/telescope-project.nvim',
+    'nvim-telescope/telescope-file-browser.nvim',
+    'nvim-telescope/telescope-egrepify.nvim',
   },
 
   enabled = true,
@@ -31,6 +34,8 @@ return {
       { "<leader>fp", cmdT .. "planets<cr>", desc = "Telescope Planets" },
       { "<leader>fw", cmdT .. "grep_string<cr>", desc = "" },
 
+      { "<leader>pp", cmdT .. "project<cr>", desc = "Telescope Project" },
+
       { "<leader>LS", cmdT .. "lsp_dynamic_workspace_symbols<cr>", desc = "Telescope Workspace Symbols" },
       { "<leader>Ls", cmdT .. "lsp_document_symbols<cr>", desc = "Telescope Document Symbols" },
     }
@@ -46,12 +51,18 @@ return {
           override_generic_sorter = true,
           override_file_sorter = true,
           case_mode = "smart_case",
+        },
+        project = {
+          theme = "dropdown",
+          hidden_files = true,
+          order_by = "recent",
+          search_by = "title",
         }
       },
       defaults = {
+        file_ignore_patterns = { ".git/", ".cache", "%.pdf", ".stack-work/", "output/", "node_modules/",  },
         file_previewer = previewers.cat.new,
         grep_previewer = previewers.cat.new,
-        -- grep_previewer = previewers.vim_buffer_vimgrep.new,
       },
       set_env = {
         BAT_THEME = "default",
@@ -60,5 +71,7 @@ return {
       },
     }
     telescope.load_extension('fzf')
+    telescope.load_extension('file_browser')
+    telescope.load_extension('project')
   end,
 }
