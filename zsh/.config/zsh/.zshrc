@@ -18,11 +18,27 @@ bindkey -e
 # Aliases
 alias :q='exit'
 alias calc='emacs -f full-calc'
-alias ca='cat'
 alias cp='xcp'
-alias e='emacs -nw'
+alias e='nvim'
 alias em='emacsclient -t'
 alias find='fd'
+
+if command -v bat > /dev/null; then
+  light_theme="OneHalfLight"
+  dark_theme="OneHalfDark"
+  theme=$light_theme
+  if uname -a | grep -q "Darwin"; then 
+    theme=$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo $dark_theme || echo $light_theme)
+  elif [[ $(dconf read /org/gnome/desktop/interface/color-scheme) == "'prefer-dark'" ]]; then
+    theme=$dark_theme
+  else
+    theme="default"
+  fi
+  alias cat="COLORTERM=24bit bat --theme=$theme --style=changes,numbers"
+
+  alias cap='cat -p'
+fi
+
 
 alias ..='cd ..'
 alias ...='cd ../..'
