@@ -1,7 +1,6 @@
 return {
   "nvim-neorg/neorg",
-  -- lazy-load on filetype
-  ft = "norg",
+  lazy = false,
   build = ":Neorg sync-parsers",
   dependencies = {
     "nvim-lua/plenary.nvim",
@@ -43,6 +42,9 @@ return {
       ["core.ui"] = {},
       ["core.export"] = {},
       ["core.export.markdown"] = {},
+      ["core.highlights"] = {},
+      ["core.autocommands"] = {},
+      ["core.summary"] = {},
     },
   },
 }

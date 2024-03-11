@@ -7,7 +7,7 @@ return {
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     'nvim-telescope/telescope-project.nvim',
     'nvim-telescope/telescope-file-browser.nvim',
-    'nvim-telescope/telescope-egrepify.nvim',
+    'fdschmidt93/telescope-egrepify.nvim',
   },
 
   enabled = true,
