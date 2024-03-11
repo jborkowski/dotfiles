@@ -45,6 +45,9 @@ return {
     local telescope = require("telescope")
     local previewers = require("telescope.previewers")
     telescope.setup {
+      defaults = {
+        set_env = { ['COLORTERM'] = 'truecolor' },
+      },
       extensions = {
         fzf = {
           fuzzy = true,
