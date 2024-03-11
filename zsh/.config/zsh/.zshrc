@@ -32,7 +32,7 @@ if command -v bat > /dev/null; then
   elif [[ $(dconf read /org/gnome/desktop/interface/color-scheme) == "'prefer-dark'" ]]; then
     theme=$dark_theme
   else
-    theme="default"
+    theme=ansi-light
   fi
   alias cat="COLORTERM=24bit bat --theme=$theme --style=changes,numbers"
 
