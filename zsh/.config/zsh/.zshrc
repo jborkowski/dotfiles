@@ -36,6 +36,7 @@ if command -v bat > /dev/null; then
   fi
   alias cat="COLORTERM=24bit bat --theme=$theme --style=changes,numbers"
 
+  export BAT_THEME=$theme
   alias cap='cat -p'
 fi
 

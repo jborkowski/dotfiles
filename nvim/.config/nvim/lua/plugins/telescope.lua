@@ -68,7 +68,6 @@ return {
         grep_previewer = previewers.cat.new,
       },
       set_env = {
-        BAT_THEME = "default",
         BAT_STYLE = "numbers,changes",
         COLORTERM = "24bit",
       },
