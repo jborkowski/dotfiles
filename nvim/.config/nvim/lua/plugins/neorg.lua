@@ -4,19 +4,22 @@ return {
   build = ":Neorg sync-parsers",
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "nvim-treesitter/nvim-treesitter"
+    "nvim-treesitter/nvim-treesitter",
+    "nvim-neorg/neorg-telescope"
   },
   keys = {
-    { "<leader>nj", "<cmd>Neorg journal today<cr>", "Neorg today journal" },
-    { "<leader>ne", "<cmd>Neorg export to-file<cr>", "Neorg export to file" }
+    { "<leader>nj", "<cmd>Neorg journal today<cr>",  "Neorg today journal" },
+    { "<leader>ne", "<cmd>Neorg export to-file<cr>", "Neorg export to file" },
+    { "<leader>nf", "<cmd>Telescope neorg find_norg_files<cr>", "Neorg find file" },
   },
-  opts =  {
-    load =   {
+  opts = {
+    load = {
       ["core.defaults"] = {},
       ["core.completion"] = { engine = "nvim-cmp", config = { engine = "nvim-cmp", name = "[Norg]" } },
       ["core.concealer"] = {},
       ["core.syntax"] = {},
       ["core.integrations.nvim-cmp"] = {},
+      ["core.integrations.telescope"] = {},
       ["core.dirman"] = {
         config = {
           workspaces = {
@@ -27,7 +30,7 @@ return {
         },
       },
       ["core.journal"] = {
-        config =   {
+        config = {
           strategy = "nested",
           workspace = "home",
         },

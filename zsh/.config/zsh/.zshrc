@@ -67,6 +67,7 @@ alias vim='nvim'
 alias s='kitty +kitten ssh'
 alias get_idf='. ~/code/embedded/rust-build/export-esp.sh'
 alias get_esp32='. ~/.config/zsh/export-esp32.sh'
+alias get_esprs='. $HOME/export-esp.sh'
 
 # Load
 autoload -U compinit; compinit
