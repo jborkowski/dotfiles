@@ -16,11 +16,11 @@ return {
     "vhyrro/luarocks.nvim",
     priority = 1001,
     config = true,
-    -- opts = {
-    --   luarocks_build_args = {
-    --     "--with-lua-include=/usr/include",
-    --   },
-    -- },
+    opts = {
+      luarocks_build_args = {
+        "--with-lua-include=/usr/include/",
+      },
+    },
   },
 
   {

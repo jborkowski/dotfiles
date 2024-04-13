@@ -1,6 +1,7 @@
 return {
   "nvim-neorg/neorg",
   lazy = false,
+  enabled = false,
   dependencies = {
     "luarocks.nvim",
   },
