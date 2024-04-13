@@ -92,6 +92,13 @@ return {
       capabilities = capabilities,
     }
 
+    lspconfig.html.setup {
+      capabilities = capabilities,
+    }
+
+    -- yaml-language-server vscode-langservers-extracted 
+    lspconfig.yamlls.setup{}
+
 
     -- Global mappings.
     -- See `:help vim.diagnostic.*` for documentation on any of the below functions
