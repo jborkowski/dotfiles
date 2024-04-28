@@ -1,18 +1,18 @@
 vim.g.mapleader = " "
 
-vim.o.relativenumber = false 
+vim.o.relativenumber = false
 
 local osc52 = {
-    name = 'OSC 52',
-    copy = {
-      ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
-      ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
-    },
-    paste = {
-      ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
-      ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
-    },
- }
+  name = 'OSC 52',
+  copy = {
+    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+  },
+  paste = {
+    ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+  },
+}
 
 vim.g.clipboard = osc52
 
@@ -20,22 +20,22 @@ vim.opt.clipboard = "unnamedplus"
 
 vim.o.shell = 'zsh'
 
-vim.o.hlsearch = true 
+vim.o.hlsearch = true
 
 vim.o.expandtab = true
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
 
 vim.g.autowrite = true
-vim.g.autoread = true 
-vim.g.incsearch = true 
-vim.g.nobackup = true 
+vim.g.autoread = true
+vim.g.incsearch = true
+vim.g.nobackup = true
 vim.g.noswapfile = true
 vim.opt.swapfile = false
 -- vim.g.autochdir = true
 -- vim.o.autochdir = true
 
--- spell checker 
+-- spell checker
 vim.opt.spelllang = 'en_us'
 vim.opt.spell = true
 
@@ -70,3 +70,10 @@ vim.api.nvim_set_keymap('t', '<Esc><Esc>', '<C-\\><C-n>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<Leader>w', ':w<cr>', { noremap = true })
 
 require('cursor_colemak')
+
+-- auto format buffers
+vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
+
+-- vim.cmd [[
+--   autocmd BufWritePre *.rs lua if vim.bo.filetype == 'rust' then vim.lsp.buf.format() end
+-- ]]
