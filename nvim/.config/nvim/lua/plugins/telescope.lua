@@ -29,7 +29,7 @@ return {
 
       { "<leader>fk", cmdT .. "keymaps<cr>", desc = "Telescope keymaps" },
       { "<leader>fl", cmdT .. "resume<cr>", desc = "Telescope resume" },
-      { "<leader>fm", cmdT .. "marks<cr>", desc = "Telescope marks" },
+      { "<leader>fm", cmdT .. "harpoon marks<cr>", desc = "Harpoon marks" },
       { "<leader>fo", cmdT .. "oldfiles<cr>", desc = "Telescope old files" },
       { "<leader>fp", cmdT .. "planets<cr>", desc = "Telescope Planets" },
       { "<leader>fw", cmdT .. "grep_string<cr>", desc = "" },
@@ -75,5 +75,6 @@ return {
     telescope.load_extension('fzf')
     telescope.load_extension('file_browser')
     telescope.load_extension('project')
+    telescope.load_extension('harpoon')
   end,
 }

@@ -1,6 +1,6 @@
 return {
   "iamcco/markdown-preview.nvim",
-  enabled = true,
+  enabled = false,
   lazy = false,
   keys = {
     {"<leader>mt", "<cmd>MarkdownPreviewToggle<cr>", desc = "Markdown Toggle Preview"},
