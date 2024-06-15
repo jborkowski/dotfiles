@@ -20,7 +20,6 @@ alias :q='exit'
 alias calc='emacs -f full-calc'
 alias cp='xcp'
 alias e='nvim'
-alias em='emacsclient -t'
 alias find='fd'
 
 if command -v bat > /dev/null; then
@@ -45,18 +44,25 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
-if command -v eza > /dev/null; then
-    alias eza='eza --group-directories-first'
-    alias ls='eza'
-    alias l='eza -a'
-    alias la='eza -laF'
-    alias ll='eza -lF'
-    alias tree='eza --tree'
+if command  -v lsd > /dev/null; then 
+  alias ls='lsd'
+  alias l='lsd -l'
+  alias ll='lsd -la' 
+elif command -v eza > /dev/null; then
+  alias eza='eza --group-directories-first'
+  alias ls='eza'
+  alias l='eza -a'
+  alias la='eza -laF'
+  alias ll='eza -lF'
+  alias tree='eza --tree'
+elif command -v exa > /dev/null; then 
+  alias ll='exa -lF --color-scale --no-user --no-time --no-permissions --group-directories-first --icons -a'
+  alias ls='exa -lF --group-directories-first --icons -a'
 else
-    alias ls='ls --color=auto --group-directories-first'
-    alias l='ls -A'
-    alias la='ls -lAF'
-    alias ll='ls -lF'
+  alias ls='ls --color=auto --group-directories-first'
+  alias l='ls -A'
+  alias la='ls -lAF'
+  alias ll='ls -lF'
 fi
 
 
@@ -68,6 +74,7 @@ alias s='kitty +kitten ssh'
 alias get_idf='. ~/code/embedded/rust-build/export-esp.sh'
 alias get_esp32='. ~/.config/zsh/export-esp32.sh'
 alias get_esprs='. $HOME/export-esp.sh'
+#alias get_idf='. $HOME/esp/esp-idf/export.sh'
 
 # Load
 autoload -U compinit; compinit
@@ -81,6 +88,8 @@ if [ -x "$(command -v fzf)" ]; then
     # source /etc/zsh_completion.d/fzf-key-bindings
     # arch
     # source /usr/share/fzf/completion.zsh
+    # fedora
+    source /usr/share/fzf/shell/key-bindings.zsh
 fi
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.

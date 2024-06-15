@@ -1,0 +1,3 @@
+#!/bin/bash 
+
+ssh revm -tt "docker exec -it devcontainer-dev-1 zsh"

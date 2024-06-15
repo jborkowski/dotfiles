@@ -9,7 +9,8 @@ set $up i
 set $right o
 set $term foot
 set $rofi_cmd rofi \
-        -terminal '$term' 
+        -terminal '$term'
+set $shotman_cmd $HOME/.local/bin/shotman --capture         
 
 set $menu $rofi_cmd -show combi -combi-modes drun#run#drun#ssh -modes combi
 
@@ -27,11 +28,11 @@ output eDP-1 resolution 3024x1890 position 0 0 scale 1.45
 bindgesture swipe:right workspace prev
 bindgesture swipe:left workspace next
 
-bindgesture swipe:4:up move scratchpad
-bindgesture swipe:4:down [floating] scratchpad show
+# bindgesture swipe:4:up move scratchpad
+# bindgesture swipe:4:down [floating] scratchpad show
 
-bindgesture pinch:inward floating enable
-bindgesture pinch:outward floating disable
+# bindgesture pinch:inward floating enable
+# bindgesture pinch:outward floating disable
 
 # output "SOMELEC Z.I. Du Vert Galanta Mira133 202105" {
 #   bg #ffffff solid_color
@@ -41,7 +42,7 @@ bindgesture pinch:outward floating disable
 
 ### Input configuration
 
-#input * natural_scroll enabled 
+input * natural_scroll enabled 
 
 input "type:keyboard" {
   xkb_layout "pl"
@@ -195,6 +196,15 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
+
+bindsym $mod+p       exec $shotman_cmd output
+bindsym $mod+Shift+p exec $shotman_cmd region
+bindsym $mod+Ctrl+p  exec $shotman_cmd window 
+
+for_window {
+  [app_id = "shotman"] floating enable
+  [app_id = "blueman-manager"] floating enable
+}
 
 exec_always {
   pkill kanshi
