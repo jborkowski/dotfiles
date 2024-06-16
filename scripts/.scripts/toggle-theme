@@ -14,9 +14,10 @@ ised() {
 _kitty() {
     _dep_installed kitty
     case "$1" in
-    light) kitty +kitten themes --reload-in=all Modus Operandi Tinted ;;
-    dark) kitty +kitten themes --reload-in=all Modus Vivendi Tinted ;;
+      light) kitty +kitten themes --reload-in=all GitHub Light Colorblind ;;
+      dark) kitty +kitten themes --reload-in=all GitHub Dark Colorblind ;;
     esac
+
 }
 
 _foot() {
@@ -27,6 +28,17 @@ _foot() {
         "$HOME"/.config/foot/foot.ini ;;
     dark) ised "s,\(\binclude=~/.config/foot/\).*,\1modus_vivendi.ini," \
         "$HOME"/.config/foot/foot.ini ;;
+    esac
+}
+
+_alacritty() {
+    _dep_installed alacritty
+
+    case "$1" in
+      light) ised 's/github_dark_colorblind/github_light_colorblind/' \
+        "$HOME"/.config/alacritty/theme.toml ;;
+      dark) ised 's/github_light_colorblind/github_dark_colorblind/' \
+        "$HOME"/.config/alacritty/theme.toml ;;
     esac
 }
 
@@ -110,7 +122,9 @@ _gnome() {
         _gsettings_color_scheme_set 'prefer-light'
     fi
 
-    _emacs "$style" &
+    _kitty "$style" &
+    _foot "$style" &
+    _alacritty "$style" &
 }
 
 _gnome2() {
@@ -126,8 +140,7 @@ _gnome2() {
     fi
 
     _kitty "$style" &
-    _emacs "$style" &
-    _emacs "$style" &
+    # _emacs "$style" &
 }
 
 _sway() {
