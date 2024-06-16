@@ -9,3 +9,4 @@ zsh/.config/zsh/.zsh_sessions/
 nvim/.config/nvim/plugin/packer_compiled.lua
 
 /nvim/.config/nvim/plugin/auto-dark-mode.lua
+zed/.config/zed/.tmp*
