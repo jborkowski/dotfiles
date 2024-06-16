@@ -125,6 +125,7 @@ _gnome() {
     _kitty "$style" &
     _foot "$style" &
     _alacritty "$style" &
+    _sync_remote "$style" &
 }
 
 _gnome2() {
@@ -173,6 +174,25 @@ _sway() {
     _wallpaper "$style" &
     _foot "$style" &
     _emacs "$style" &
+}
+
+_sync_remote() {
+  case "$1" in 
+    light)
+      _set_gsettings_on_remote "daredevil" "prefer-light"
+      _set_gsettings_on_remote "hasurian" "prefer-light"
+      ;;
+    dark)
+      _set_gsettings_on_remote "daredevil" "prefer-dark"
+      _set_gsettings_on_remote "hasurian" "prefer-dark"
+      ;;
+  esac
+}
+
+_set_gsettings_on_remote() {
+ if ssh "$1" -q -o ConnectTimeout=1 -o BatchMode=yes exit; then
+    ssh -qtt "$1" "gsettings set org.gnome.desktop.interface color-scheme '$2'"
+  fi
 }
 
 CURRENT_DESKTOP=${XDG_CURRENT_DESKTOP:-$1}
