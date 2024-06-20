@@ -19,11 +19,6 @@ vim.keymap.set("n", "so", "<C-w>l", { noremap = true })
 vim.keymap.set("n", "sh", ":set splitbelow<CR>:split<CR>", { noremap = true })
 vim.keymap.set("n", "sv", ":set nosplitright<CR>:vsplit<CR>:set splitright<CR>", { noremap = true })
 
--- Ctrl + e or i will move up/down the view port without moving the cursor
-utils.set_keymap("<C-i>", "5<C-y>")
-utils.set_keymap("<C-e>", "5<C-e>")
-
-
 local map = vim.keymap.set 
 
 map('n', 'w', '<Plug>CamelCaseMotion_w', { silent = true })
