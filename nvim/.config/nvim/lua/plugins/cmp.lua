@@ -1,16 +1,16 @@
 return {
   "hrsh7th/nvim-cmp",
   event = "InsertEnter",
-      
+
   -- event = {"InsertEnter", "CmdLineEnter"},
   -- event = {"InsertEnter"},
   -- event = {"BufReadPost", "BufNewFile"},
 
   dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-cmdline",
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-path",
+    "hrsh7th/cmp-cmdline",
   },
 
   enabled = true,
@@ -48,7 +48,7 @@ return {
     cmp.setup.filetype("gitcommit", {
       sources = cmp.config.sources({
         { name = "fugitive" },
-      },{
+      }, {
         { name = "buffer" },
         { name = "spell" },
       }),
@@ -65,8 +65,8 @@ return {
       mapping = cmp.mapping.preset.cmdline(),
       sources = cmp.config.sources({
         { name = "path" },
-      },{
-        { name = "cmdline" , option = { ignore_cmds = { 'Man',"!'" } } },
+      }, {
+        { name = "cmdline", option = { ignore_cmds = { 'Man', "!'" } } },
       }),
     })
 
@@ -86,55 +86,55 @@ return {
     -- --------------------------------------------------------------------- }}}
     -- {{{ lsp kind icons
 
-    local kind_icons =  {
+    local kind_icons = {
       Array = " ",
       Boolean = " ",
-    Calc = " ",
-    Class = " ",
-    Codium = "",
-    Color = " ",
-    Constant = " ",
-    Constructor = "",
-    Control = "",
-    Copilot = " ",
-    Enum = "",
-    EnumMember = "",
-    Event = "",
-    Field = " ",
-    File = " ",
-    Folder = "󰉋 ",
-    Function = " ",
-    Interface = " ",
-    Key = " ",
-    Keyword = "",
-    Method = " ",
-    Module = "",
-    Namespace = " ",
-    Null = "󰟢 ",
-    Number = " ",
-    Object = " ",
-    Operator = " ",
-    Package = " ",
-    Property = "",
-    Reference = " ",
-    Snippet = " ",
-    Spell = " ",
-    String = " ",
-    Struct = " ",
-    TabNine = " ",
-    Text = " ",
-    TypeParameter = " ",
-    Unit = "",
-    Value = " ",
-    Variable = "β",
-    Vsnip = " ",
-    buffer = "",
-    calc = " ",
-    nvim_lsp = "",
-    path = "",
-    spell = " ",
-    vsnip = " ",
-  }  
+      Calc = " ",
+      Class = " ",
+      Codium = "",
+      Color = " ",
+      Constant = " ",
+      Constructor = "",
+      Control = "",
+      Copilot = " ",
+      Enum = "",
+      EnumMember = "",
+      Event = "",
+      Field = " ",
+      File = " ",
+      Folder = "󰉋 ",
+      Function = " ",
+      Interface = " ",
+      Key = " ",
+      Keyword = "",
+      Method = " ",
+      Module = "",
+      Namespace = " ",
+      Null = "󰟢 ",
+      Number = " ",
+      Object = " ",
+      Operator = " ",
+      Package = " ",
+      Property = "",
+      Reference = " ",
+      Snippet = " ",
+      Spell = " ",
+      String = " ",
+      Struct = " ",
+      TabNine = " ",
+      Text = " ",
+      TypeParameter = " ",
+      Unit = "",
+      Value = " ",
+      Variable = "β",
+      Vsnip = " ",
+      buffer = "",
+      calc = " ",
+      nvim_lsp = "",
+      path = "",
+      spell = " ",
+      vsnip = " ",
+    }
     -- --------------------------------------------------------------------- }}}
     -- {{{ Snippets
 
@@ -196,7 +196,7 @@ return {
     }
 
     local formatting = {
-      fields = {'kind', 'abbr', 'menu'},
+      fields = { 'kind', 'abbr', 'menu' },
       format = function(entry, vim_item)
         vim_item.kind = string.format('%s', kind_icons[vim_item.kind])
         vim_item.menu = (source_mapping)[entry.source.name]
@@ -209,7 +209,7 @@ return {
 
     local sources = {
       { name = "nvim_lsp",      keyword_length = 1, max_item_count = 10, priority = 350 },
-      { name = "spell",         keyword_length = 4, max_item_count = 10, priority = 450 },
+      { name = "spell",         keyword_length = 3, max_item_count = 10, priority = 300 },
       { name = "buffer",        keyword_length = 3, max_item_count = 10, prioirty = 500 },
       { name = "calc",          keyword_length = 3, max_item_count = 10, priority = 250 },
       { name = "latex_symbols", keyword_length = 1, max_item_count = 10, prioirty = 300 },
@@ -217,6 +217,12 @@ return {
       { name = "nvim_lua",      keyword_length = 1, max_item_count = 10, priority = 800 },
       { name = "path",          keyword_length = 3, max_item_count = 20, prioirty = 250 },
     }
+
+
+    -- Sort sources by priority
+    table.sort(sources, function(a, b)
+      return (a.priority or 0) > (b.priority or 0)
+    end)
 
     -- --------------------------------------------------------------------- }}}
     -- {{{ Update the function argument opts with local choices made.
@@ -232,9 +238,9 @@ return {
   end,
 
   config = function(_, opts)
-      for _, source in ipairs(opts.sources) do
-        source.group_index = source.group_index or 1
-      end
-      require("cmp").setup(opts)
+    for _, source in ipairs(opts.sources) do
+      source.group_index = source.group_index or 1
+    end
+    require("cmp").setup(opts)
   end,
 }
