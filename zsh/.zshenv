@@ -29,7 +29,7 @@ export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 
 export PATH="/Library/TeX/texbin:/Library/TeX/texbin:/opt/homebrew/opt/mysql-client/bin:/opt/homebrew/opt/llvm/bin:/opt/homebrew/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbinu:$HOME/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:$HOME/.local/bin:$HOME/.ghcup/bin:/Applications/kitty.app/Contents/MacOS:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.cabal/bin"
 export GH_TOKEN="op://Personal/GitHub Jonatan/Section_2CBCCC6A7E4040BC9B694F19FD61BF56/personal_access_token"
-export TERM=foot-extra
+# export TERM=foot-extra
 
 . "$HOME/.cargo/env"
 
