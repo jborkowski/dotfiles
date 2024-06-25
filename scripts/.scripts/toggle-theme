@@ -128,21 +128,6 @@ _gnome() {
     _sync_remote "$style" &
 }
 
-_gnome2() {
-    if [ "$(_gsettings_color_scheme_get)" = "'prefer-dark'" ]; then
-        style=dark
-        _gsettings_gtk_set 'adw-gtk3-dark'
-        _gtk_common 'adw-gtk3-dark' 'Adwaita' 'true'
-    else
-        style=light
-        _gsettings_gtk_set 'adw-gtk3'
-        _gsettings_color_scheme_set 'prefer-light'
-        _gtk_common 'adw-gtk3' 'Adwaita' 'false'
-    fi
-
-    _kitty "$style" &
-    # _emacs "$style" &
-}
 
 _sway() {
     _dep_installed sway
@@ -171,9 +156,11 @@ _sway() {
     esac
 
     swaymsg reload &
-    _wallpaper "$style" &
+    _kitty "$style" &
     _foot "$style" &
-    _emacs "$style" &
+    _alacritty "$style" &
+    _sync_remote "$style" &
+    _wallpaper "$style" &
 }
 
 _sync_remote() {
