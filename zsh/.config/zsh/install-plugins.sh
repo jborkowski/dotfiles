@@ -25,3 +25,8 @@ for plugin in "${PLUGINS[@]}" ;do
 	echo "Plugin $PLUGIN_NAME already exists skipping"
     fi
 done
+
+## Install fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+
+$HOME/.fzf/install --all --no-update-rc
