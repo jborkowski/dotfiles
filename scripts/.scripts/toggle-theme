@@ -156,11 +156,23 @@ _sway() {
     esac
 
     swaymsg reload &
+    _rofi "$style" &
     _kitty "$style" &
     _foot "$style" &
     _alacritty "$style" &
     _sync_remote "$style" &
     _wallpaper "$style" &
+}
+
+_rofi() {
+  case "$1" in 
+    light)
+        ised "s,themes/spotlight-dark.rasi,themes/spotlight.rasi," "$HOME"/.config/sway/scripts/launch_rofi.sh
+      ;;
+    dark) 
+        ised "s,themes/spotlight.rasi,themes/spotlight-dark.rasi," "$HOME"/.config/sway/scripts/launch_rofi.sh
+      ;;
+  esac
 }
 
 _sync_remote() {
@@ -181,6 +193,8 @@ _set_gsettings_on_remote() {
     ssh -qtt "$1" "gsettings set org.gnome.desktop.interface color-scheme '$2'"
   fi
 }
+
+
 
 CURRENT_DESKTOP=${XDG_CURRENT_DESKTOP:-$1}
 

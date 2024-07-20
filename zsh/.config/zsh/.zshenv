@@ -35,7 +35,6 @@ export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 export LIBCLANG_PATH="$HOME/.espressif/tools/xtensa-esp32-elf-clang/esp-15.0.0-20221014-aarch64-apple-darwin/esp-clang/lib/"
 . "$HOME/.cargo/env"
 export GH_TOKEN="op://Personal/GitHub Jonatan/Section_2CBCCC6A7E4040BC9B694F19FD61BF56/personal_access_token"
-export TERM=xterm-24bit
 
 . "$HOME/.cargo/env"
 
