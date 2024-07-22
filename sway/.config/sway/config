@@ -9,11 +9,11 @@ set $up e
 set $right l
 # set $term foot
 set $term alacritty
-set $rofi_cmd rofi \
-        -terminal '$term'
-set $shotman_cmd $HOME/.local/bin/shotman --capture         
 
-set $menu $rofi_cmd -show combi -combi-modes drun#run#drun#ssh -modes combi
+set $rofi_cmd $HOME/.config/sway/scripts/launch_rofi.sh
+set $menu $rofi_cmd 
+
+set $shotman_cmd $HOME/.local/bin/shotman --capture         
 
 bindswitch --reload --locked lid:on output eDP-1 disable
 bindswitch --reload --locked lid:off output eDP-1 enable
@@ -227,13 +227,13 @@ exec_always {
 # Autostart
 #
 exec /usr/bin/dunst
-exec_always pkill waybar; /usr/bin/waybar
+exec /usr/bin/waybar
 exec_always pkill kanshi; kanshi > /tmp/kanshi.log 2>&1
 exec_always $HOME/.config/sway/scripts/clamshell
 
 exec gnome-keyring-daemon --start
 exec export SSH_AUTH_SOCK
 
-include $HOME/.config/sway/themes/modus_vivendi
+include $HOME/.config/sway/themes/modus_operandi
 
 include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
