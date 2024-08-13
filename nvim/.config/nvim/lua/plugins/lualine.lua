@@ -1,11 +1,12 @@
 return {
   "nvim-lualine/lualine.nvim",
-  event = {"InsertEnter", "CmdLineEnter"},
+  event = { "InsertEnter", "CmdLineEnter" },
   dependencies = {
     "nvim-tree/nvim-web-devicons",
   },
 
   opts = function(_, opts)
+    local git_blame = require('gitblame')
     local function show_macro_recording()
       local recording_register = vim.fn.reg_recording()
       if recording_register == "" then
@@ -18,7 +19,7 @@ return {
     vim.api.nvim_create_autocmd("RecordingEnter", {
       callback = function()
         require("lualine").refresh({
-          place = {"statusline"},
+          place = { "statusline" },
         })
       end,
     })
@@ -31,7 +32,7 @@ return {
           0,
           vim.schedule_wrap(function()
             require("lualine").refresh({
-              place = {"statusline"},
+              place = { "statusline" },
             })
           end)
         )
