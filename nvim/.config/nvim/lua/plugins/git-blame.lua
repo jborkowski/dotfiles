@@ -2,7 +2,8 @@ return {
   "f-person/git-blame.nvim",
   event = "VeryLazy",
   config = function()
-
+	  vim.cmd("highlight default link gitblame SpecialComment")
+    vim.g.gitblame_enabled = false
   end,
   opts = {
     enabled = false,
