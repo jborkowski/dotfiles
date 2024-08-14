@@ -7,6 +7,9 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "telemetry": {
+    "diagnostics": false
+  },
   "assistant": {
     "default_open_ai_model": "gpt-3.5-turbo",
     "provider": {
@@ -14,7 +17,7 @@
       "default_model": "gpt-3.5-turbo"
     }
   },
-  "theme": "Ayu Dark",
+  "theme": "One Dark",
   "ui_font_size": 16,
   "buffer_font_size": 16,
   "vim_mode": true
