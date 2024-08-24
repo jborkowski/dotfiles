@@ -3,9 +3,9 @@ default_border none
 ### Variables
 #
 set $mod Mod4
-set $left j
+set $left h 
 set $down k
-set $up e
+set $up j
 set $right l
 # set $term foot
 set $term alacritty
@@ -234,6 +234,6 @@ exec_always $HOME/.config/sway/scripts/clamshell
 exec gnome-keyring-daemon --start
 exec export SSH_AUTH_SOCK
 
-include $HOME/.config/sway/themes/modus_operandi
+include $HOME/.config/sway/themes/modus_vivendi
 
 include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
