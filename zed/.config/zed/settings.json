@@ -11,7 +11,12 @@
     "diagnostics": false
   },
   "assistant": {
-    "default_open_ai_model": "gpt-3.5-turbo",
+    "default_model": {
+      "provider": "openai",
+      "model": "gpt-3.5-turbo"
+    },
+    "version": "2",
+    "default_open_ai_model": null,
     "provider": {
       "name": "openai",
       "default_model": "gpt-3.5-turbo"
