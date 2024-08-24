@@ -6,7 +6,7 @@ utils.set_keymap("H", "5h")
 utils.set_keymap("L", "5l")
 
 -- Disable the default s key
-utils.set_keymap("s", "<nop>")
+-- utils.set_keymap("s", "<nop>")
 
 -- moving the cursor around windows
 vim.keymap.set("n", "sw", "<C-w>w", { noremap = true })

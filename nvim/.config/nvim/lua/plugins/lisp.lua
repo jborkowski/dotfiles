@@ -1,10 +1,11 @@
 return {
   {
-    "vlime/vlime",
-    ft = { "lisp" },
-    build = function()
-      vim.fn.system("cd ~/.config/nvim/pack/vlime/start/vlime/lisp && make")
-    end
+    "monkoose/nvlime",
+    dependencies = { "monkoose/parsley", "gpanders/nvim-parinfer" },
+    ft = "lisp",
+    lazy = true,
+    cmp_enabled = true,
+    enabled = false
   },
   {
     "gpanders/nvim-parinfer",
