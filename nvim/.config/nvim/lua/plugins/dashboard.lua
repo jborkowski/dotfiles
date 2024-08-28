@@ -4,7 +4,7 @@ return {
   enabled = true,
 
   keys = {
-    {"<leader>aa", "<cmd>Dashboard<cr>", desc = "Dashboard display"}
+    {"<leader>dd", "<cmd>Dashboard<cr>", desc = "Dashboard display"}
   },
 
   opts = function()

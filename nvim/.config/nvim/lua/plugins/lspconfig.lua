@@ -48,7 +48,7 @@ return {
 
     lspconfig.hls.setup {
       cmd = { "haskell-language-server-wrapper", "--lsp" },
-      root_dir = require 'lspconfig'.util.root_pattern("*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"),
+      root_dir = lspconfig.util.root_pattern("*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"),
       settings = {
         haskell = {
           formattingProvider = "fourmolu",
@@ -67,11 +67,10 @@ return {
       cmd = { "purescript-language-server", "--stdio" },
       filetypes = { "purescript" },
       root_dir = function(path)
-        local util = require("lspconfig.util")
         if path:match("/.spago/") then
           return nil
         end
-        return util.root_pattern("bower.json", "psc-package.json", "spago.dhall", "flake.nix", "shell.nix")(path)
+        return lspconfig.util.root_pattern("bower.json", "psc-package.json", "spago.dhall")(path)
       end,
       settings = {
         purescript = {
@@ -116,6 +115,23 @@ return {
         }
       }
     }
+
+    local configs = require 'lspconfig.configs'
+
+    if not configs.redsl then
+      configs.redsl = {
+        default_config = {
+          cmd = { "dsl", "lsp" },  
+          filetypes = { "redsl", "haskell", "purescript", "typescript" },
+          root_dir = function(fname)
+            return lspconfig.util.find_git_ancestor(fname)
+          end,
+          settings = {}, 
+        },
+      }
+    end
+
+    lspconfig.redsl.setup{}
 
 
     -- Global mappings.
