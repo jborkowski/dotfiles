@@ -40,3 +40,5 @@ export TERM=xterm-24bit
 
 # opam configuration
 [[ ! -r "$MOME/.opam/opam-init/init.zsh" ]] || source "$HOME/.opam/opam-init/init.zsh"  > /dev/null 2> /dev/null
+
+[ -f "$HOME/.config/zsh/.env.secret" ] && source "$HOME/.config/zsh/.env.secret" 

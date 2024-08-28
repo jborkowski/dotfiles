@@ -52,4 +52,4 @@ if [ -e "$MOME/.nix-profile/etc/profile.d/nix.sh" ]; then . "$HOME/.nix-profile/
 export PATH="/opt/homebrew/opt/sphinx-doc/bin:$PATH"
 export ZK_NOTEBOOK_DIR=$HOME/sources/zettels
 
-[[ ! -r "$HOME/.config/zsh/.env.secret" ]] || source "$HOME/.config/zsh/.env.secret" > /dev/null 2> /dev/null
+[ -f "$HOME/.config/zsh/.env.secret" ] && source "$HOME/.config/zsh/.env.secret" > /dev/null 2> /dev/null
