@@ -75,6 +75,4 @@ require('cursor_colemak')
 -- auto format buffers
 vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
 
--- vim.cmd [[
---   autocmd BufWritePre *.rs lua if vim.bo.filetype == 'rust' then vim.lsp.buf.format() end
--- ]]
+vim.keymap.set('n', '<leader>d', vim.diagnostic.setloclist, { noremap = true, silent = true })
