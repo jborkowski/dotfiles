@@ -7,11 +7,6 @@ listen_on unix:/tmp/kitty
 macos_option_as_alt yes
 clipboard_control write-clipboard write-primary read-clipboard read-primary
 
-# font_family      JetBrainsMonoNLNerd Thin
-# bold_font        JetBrainsMonoNLNerd Bold
-# italic_font      JetBrainsMonoNLNerd Italic
-# bold_italic_font JetBrainsMonoNLNerd Bold Italic
-#
 font_family CaskaydiaMono Nerd Font 
 font_size        12
 
@@ -40,10 +35,18 @@ window_padding_width 2
 # Other
 include ./current-theme.conf
 
-enabled_layouts tall, fat, grid, stack
+map ctrl+shift+l next_layout
+
+enabled_layouts tall, fat
+
+
+ BEGIN_KITTY_THEME
+# GitHub Light Colorblind
+include current-theme.conf
+# END_KITTY_THEME
 
 
 # BEGIN_KITTY_THEME
-# GitHub Dark Colorblind
+# GitHub Light Colorblind
 include current-theme.conf
 # END_KITTY_THEME

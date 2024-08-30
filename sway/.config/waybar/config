@@ -1,15 +1,28 @@
 {
-    // "layer": "top", // Waybar at top layer
-    // "position": "bottom", // Waybar position (top|bottom|left|right)
-    "height": 25, // Waybar height (to be removed for auto height)
-    // "width": 1280, // Waybar width
-    "spacing": 4, // Gaps between modules (4px)
-    // Choose the order of the modules
-    "modules-left": ["sway/workspaces", "sway/mode", "sway/scratchpad", "custom/media"],
-    "modules-center": ["sway/window"],
-    "modules-right": ["mpd", "idle_inhibitor", "custom/toggle-theme", "pulseaudio", "network", "cpu", "memory", "temperature", "backlight", "keyboard-state", "battery", "battery#bat2", "clock", "tray"],
-    // Modules configuration
-    // "sway/workspaces": {
+    //"spacing": 4,
+    "modules-left": [
+      "sway/workspaces",
+      "sway/scratchpad",
+      "sway/mode"
+    ],
+    "modules-right": [
+      "mpd",
+      "idle_inhibitor",
+      "custom/toggle-theme",
+      "pulseaudio",
+      "network",
+      "bluetooth",
+      "temperature",
+      "backlight",
+      "keyboard-state",
+      "battery",
+      "clock"
+    ],
+    "sway/workspaces": {
+        "enable-bar-scroll": true,
+        "disable-scroll-wraparound": true,
+        "smooth-scrolling-threshold": 1
+ 
     //     "disable-scroll": true,
     //     "all-outputs": true,
     //     "warp-on-scroll": false,
@@ -24,45 +37,21 @@
     //         "focused": "",
     //         "default": ""
     //     }
-    // },
+    },
     
     "sway/mode": {
-        "format": "<span style=\"italic\">{}</span>"
+        "format": "<span style=\"italic\">{}</span>",
+        "tooltip": false
     },
     "sway/scratchpad": {
         "format": "{icon} {count}",
         "show-empty": false,
         "format-icons": ["", ""],
         "tooltip": true,
-        "tooltip-format": "{app}: {title}"
+        "tooltip-format": "{app}: {title}",
+        "on-click": "swaymsg scratchpad show"
     },
-    "mpd": {
-        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
-        "format-disconnected": "Disconnected ",
-        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
-        "unknown-tag": "N/A",
-        "interval": 2,
-        "consume-icons": {
-            "on": " "
-        },
-        "random-icons": {
-            "off": "<span color=\"#f53c3c\"></span> ",
-            "on": " "
-        },
-        "repeat-icons": {
-            "on": " "
-        },
-        "single-icons": {
-            "on": "1 "
-        },
-        "state-icons": {
-            "paused": "",
-            "playing": ""
-        },
-        "tooltip-format": "MPD (connected)",
-        "tooltip-format-disconnected": "MPD (disconnected)"
-    },
-    "idle_inhibitor": {
+   "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
             "activated": "",
@@ -70,59 +59,68 @@
         }
     },
     "tray": {
-        // "icon-size": 21,
         "spacing": 10
     },
-    "clock": {
-        "timezone": "Europe/Warsaw",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
-    },
-    "cpu": {
-        "format": "{usage}% ",
-        "tooltip": false
-    },
-    "memory": {
-        "format": "{}% "
+     "clock": {
+        "format-alt": "{:%A, %B %d %Y %R}",
+        "tooltip-format": "<tt>{calendar}</tt>",
+        "calendar": {
+          "mode": "month",
+          "mode-mon-col": 3,
+          "on-scroll": 1,
+          "format": {
+            "months": "<b>{}</b>",
+            "today": "<span color='#ffffff'><b><u>{}</u></b></span>"
+          }
+        },
+        "actions": {
+          "on-click-right": "mode",
+          "on-scroll-up": "shift_up",
+          "on-scroll-down": "shift_down"
+        }
     },
     "temperature": {
-        // "thermal-zone": 2,
-        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
         "critical-threshold": 80,
-        // "format-critical": "{temperatureC}°C {icon}",
         "format": "{temperatureC}°C {icon}",
         "format-icons": ["", "", ""]
     },
     "backlight": {
-        // "device": "acpi_video1",
-        "format": "{percent}% {icon}",
-        "format-icons": ["", "", "", "", "", "", "", "", ""]
+        "format": "{icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""],
+        "tooltip-format": "{percent}% {icon}"
     },
     "battery": {
         "states": {
-            // "good": 95,
-            "warning": 30,
+            "warning": 25,
             "critical": 15
         },
         "format": "{capacity}% {icon}",
         "format-charging": "{capacity}% ",
         "format-plugged": "{capacity}% ",
         "format-alt": "{time} {icon}",
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
         "format-icons": ["", "", "", "", ""]
     },
-    "battery#bat2": {
-        "bat": "BAT2"
-    },
     "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "{ipaddr}/{cidr} ",
+        "format": "{ifname}",
+        "format-wifi": " ",
+        "format-ethernet": " ",
+        "format-disconnected": "⚠",
         "tooltip-format": "{ifname} via {gwaddr} ",
-        "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        "tooltip-format-wifi": "  {essid} ({signalStrength}%) {ipaddr}/{cidr}",
+        "tooltip-format-ethernet": "  {ifname} {ipaddr}/{cidr} ",
+        "tooltip-format-disconnected": "Disconnected",
+        "max-length": 50,
+        "on-click": "nm-connection-editor"
+    },
+    "bluetooth": {
+        "format": "  ",
+        "format-disabled": "",
+        "format-connected": "  ",
+        "tooltip-format": "{controller_alias}\t{controller_address}",
+        "tooltip-format-connected": "{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}%",
+        "on-click": "blueman-manager"
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float

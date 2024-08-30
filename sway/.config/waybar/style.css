@@ -1,6 +1,6 @@
 * {
-    /* `otf-font-awesome` is required to be installed for icons */
-    font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+
+    font-family: "CaskaydiaMono Nerd Font", "Font Awesome 6 Free";
     font-size: 13px;
 }
 
@@ -164,6 +164,10 @@ label:focus {
     background-color: #2980b9;
 }
 
+#bluetooth {
+  background-color: #f1c40f;
+}
+
 #network.disconnected {
     background-color: #f53c3c;
 }
@@ -223,7 +227,7 @@ label:focus {
 }
 
 #custom-toggle-theme {
-  background-color: #2d3436;
+  background-color: #00b093;
 }
 
 #custom-toggle-theme.activated {
@@ -238,23 +242,6 @@ label:focus {
 #idle_inhibitor.activated {
     background-color: #ecf0f1;
     color: #2d3436;
-}
-
-#mpd {
-    background-color: #66cc99;
-    color: #2a5c45;
-}
-
-#mpd.disconnected {
-    background-color: #f53c3c;
-}
-
-#mpd.stopped {
-    background-color: #90b1b1;
-}
-
-#mpd.paused {
-    background-color: #51a37a;
 }
 
 #language {

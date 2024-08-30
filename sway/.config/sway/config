@@ -24,7 +24,7 @@ output * bg $HOME/.config/wallpapers/current.jpg fill
 #output DP-1 resolution 3840x2560 position 0 0 scale 1.6
 #output eDP-1 resolution 2160x1440 position 2400 0 scale 1.25
 
-output eDP-1 resolution 3024x1890 position 0 0 scale 1.45
+output eDP-1 resolution 3024x1890 position 0 0 scale 1.25
 
 bindgesture swipe:right workspace prev
 bindgesture swipe:left workspace next
