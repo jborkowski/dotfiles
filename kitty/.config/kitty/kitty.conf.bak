@@ -7,8 +7,13 @@ listen_on unix:/tmp/kitty
 macos_option_as_alt yes
 clipboard_control write-clipboard write-primary read-clipboard read-primary
 
+# font_family      JetBrainsMonoNLNerd Thin
+# bold_font        JetBrainsMonoNLNerd Bold
+# italic_font      JetBrainsMonoNLNerd Italic
+# bold_italic_font JetBrainsMonoNLNerd Bold Italic
+#
 font_family CaskaydiaMono Nerd Font 
-font_size        12
+font_size        11
 
 # Scrollback
 scrollback_lines 8000

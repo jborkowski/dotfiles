@@ -23,7 +23,6 @@
         "disable-scroll-wraparound": true,
         "smooth-scrolling-threshold": 1
  
-    //     "disable-scroll": true,
     //     "all-outputs": true,
     //     "warp-on-scroll": false,
     //     "format": "{name}: {icon}",
@@ -81,7 +80,7 @@
     },
     "temperature": {
         "critical-threshold": 80,
-        "format": "{temperatureC}°C {icon}",
+        "format": "{temperatureC}°C {icon} ",
         "format-icons": ["", "", ""]
     },
     "backlight": {
@@ -101,10 +100,10 @@
         "format-icons": ["", "", "", "", ""]
     },
     "network": {
-        "format": "{ifname}",
-        "format-wifi": " ",
-        "format-ethernet": " ",
-        "format-disconnected": "⚠",
+        "format": " {ifname} ",
+        "format-wifi": "   ",
+        "format-ethernet": "  ",
+        "format-disconnected": " ⚠  ",
         "tooltip-format": "{ifname} via {gwaddr} ",
         "tooltip-format-wifi": "  {essid} ({signalStrength}%) {ipaddr}/{cidr}",
         "tooltip-format-ethernet": "  {ifname} {ipaddr}/{cidr} ",
@@ -123,13 +122,13 @@
         "on-click": "blueman-manager"
     },
     "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon} {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
+        "scroll-step": 5,
+        "format": "{icon}",
+        "format-bluetooth": "{icon} ",
+        "format-bluetooth-muted": " {icon} ",
+        "format-muted": "",
+        "format-source": "  {volume}%",
+        "format-source-muted": " ",
         "format-icons": {
             "headphone": "",
             "hands-free": "",
@@ -139,22 +138,13 @@
             "car": "",
             "default": ["", "", ""]
         },
-        "on-click": "pavucontrol"
+        "tooltip-format": "{icon}  {volume}% {format_source}",
+        "on-click": "pavucontrol",
+        "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
     },
-    "custom/media": {
-        "format": "{icon} {}",
-        "return-type": "json",
-        "max-length": 40,
-        "format-icons": {
-            "spotify": "",
-            "default": "🎜"
-        },
-        "escape": true,
-        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
-    },
+//       "format": "🌜",
     "custom/toggle-theme": {
-      "format": "🌜",
+      "format": " \uf186",
       "on-click": "$HOME/.scripts/toggle-theme sway"
     }
 }

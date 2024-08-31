@@ -128,6 +128,16 @@ _gnome() {
     _sync_remote "$style" &
 }
 
+_waybar() {
+  _dep_installed waybar
+
+  case "$1" in 
+    light) ised -z "s/dark/light/" "$HOME"/.config/waybar/style.css ;;
+    dark) ised -z "s/light/dark/" "$HOME"/.config/waybar/style.css ;;
+  esac
+
+  killall -SIGUSR2 waybar
+}
 
 _sway() {
     _dep_installed sway
@@ -156,6 +166,7 @@ _sway() {
     esac
 
     swaymsg reload &
+    _waybar "$style" &
     _rofi "$style" &
     _kitty "$style" &
     _foot "$style" &
