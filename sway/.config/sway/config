@@ -7,7 +7,6 @@ set $left h
 set $down k
 set $up j
 set $right l
-# set $term foot
 set $term alacritty
 
 set $rofi_cmd $HOME/.config/sway/scripts/launch_rofi.sh
@@ -21,7 +20,8 @@ bindswitch --reload --locked lid:off output eDP-1 enable
 ### Output configuration
 #
 output * bg $HOME/.config/wallpapers/current.jpg fill
-#output DP-1 resolution 3840x2560 position 0 0 scale 1.6
+output DP-1 resolution 2560x1440@59.951Hz position 0 0 
+# output DP-1 resolution 2560x1440 position 0 0 scale 1
 #output eDP-1 resolution 2160x1440 position 2400 0 scale 1.25
 
 output eDP-1 resolution 3024x1890 position 0 0 scale 1.25
@@ -234,6 +234,6 @@ exec_always $HOME/.config/sway/scripts/clamshell
 exec gnome-keyring-daemon --start
 exec export SSH_AUTH_SOCK
 
-include $HOME/.config/sway/themes/modus_operandi
+include $HOME/.config/sway/themes/modus_vivendi
 
 include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
