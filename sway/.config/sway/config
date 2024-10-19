@@ -21,6 +21,7 @@ bindswitch --reload --locked lid:off output eDP-1 enable
 #
 output * bg $HOME/.config/wallpapers/current.jpg fill
 output DP-1 resolution 2560x1440@59.951Hz position 0 0 
+output HDMI-A-1 resolution 3840x2160@60.000Hz position 0 0 scale 1.25
 # output DP-1 resolution 2560x1440 position 0 0 scale 1
 #output eDP-1 resolution 2160x1440 position 2400 0 scale 1.25
 
@@ -234,6 +235,6 @@ exec_always $HOME/.config/sway/scripts/clamshell
 exec gnome-keyring-daemon --start
 exec export SSH_AUTH_SOCK
 
-include $HOME/.config/sway/themes/modus_vivendi
+include $HOME/.config/sway/themes/modus_operandi
 
 include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
