@@ -49,3 +49,6 @@ bindings = [
    { key = "Return", mods = "Control|Shift", action = "SpawnNewInstance" },
    { key = "Insert", mods = "Control", action = "Copy" }
 ]
+
+[debug]
+render_timer = false

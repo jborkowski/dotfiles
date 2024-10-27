@@ -89,11 +89,11 @@
 @define-color orange_4 rgba(223, 158, 81, 1.00);
 @define-color orange_5 rgba(196, 132, 53, 1.00);
 
-@define-color purple_1 rgba(229, 155, 255, 1.00);
-@define-color purple_2 rgba(221, 148, 255, 1.00);
-@define-color purple_3 rgba(213, 140, 255, 1.00);
-@define-color purple_4 rgba(188, 116, 229, 1.00);
-@define-color purple_5 rgba(164, 93, 204, 1.00);
+@define-color purple_1 rgba(180, 104, 233, 1.00);
+@define-color purple_2 rgba(166, 90, 219, 1.00);
+@define-color purple_3 rgba(153, 76, 204, 1.00);
+@define-color purple_4 rgba(136, 58, 185, 1.00);
+@define-color purple_5 rgba(119, 38, 166, 1.00);
 @define-color light_0 rgba(0, 0, 0, 1.00);
 @define-color light_1 rgba(5, 5, 5, 1.00);
 @define-color light_2 rgba(27, 27, 27, 1.00);

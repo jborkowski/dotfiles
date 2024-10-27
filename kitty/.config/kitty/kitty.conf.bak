@@ -4,16 +4,9 @@ shell zsh
 shell_integration no-cursor
 enable_audio_bell no
 listen_on unix:/tmp/kitty
-macos_option_as_alt yes
 clipboard_control write-clipboard write-primary read-clipboard read-primary
 
-# font_family      JetBrainsMonoNLNerd Thin
-# bold_font        JetBrainsMonoNLNerd Bold
-# italic_font      JetBrainsMonoNLNerd Italic
-# bold_italic_font JetBrainsMonoNLNerd Bold Italic
-#
-font_family CaskaydiaMono Nerd Font 
-font_size        11
+include kitty.${KITTY_OS}.conf
 
 # Scrollback
 scrollback_lines 8000
@@ -31,24 +24,18 @@ map ctrl+) send_text all \x1b[41;5u
 map ctrl+shift+. send_text all \x1b[46;6u
 map ctrl+shift+, send_text all \x1b[44;6u
 
+map ctrl+insert copy_to_clipboard
+map shift+insert paste_from_clipboard
+
 cursor_shape block
 default_pointer_shape beam
 tab_bar_style fade
 tab_fade 1 1 1 1
 window_padding_width 2
 
-# Other
-include ./current-theme.conf
-
 map ctrl+shift+l next_layout
 
 enabled_layouts tall, fat
-
-
- BEGIN_KITTY_THEME
-# GitHub Light Colorblind
-include current-theme.conf
-# END_KITTY_THEME
 
 
 # BEGIN_KITTY_THEME
