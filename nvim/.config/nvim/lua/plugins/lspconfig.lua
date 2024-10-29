@@ -61,7 +61,7 @@ return {
       }
     }
 
-    lspconfig.tsserver.setup {}
+    lspconfig.ts_ls.setup {}
 
     lspconfig.purescriptls.setup {
       cmd = { "purescript-language-server", "--stdio" },
@@ -83,6 +83,8 @@ return {
         debounce_text_changes = 150,
       }
     }
+
+    lspconfig.rnix.setup {}
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -121,17 +123,17 @@ return {
     if not configs.redsl then
       configs.redsl = {
         default_config = {
-          cmd = { "dsl", "lsp" },  
+          cmd = { "dsl", "lsp" },
           filetypes = { "redsl", "haskell", "purescript", "typescript" },
           root_dir = function(fname)
             return lspconfig.util.find_git_ancestor(fname)
           end,
-          settings = {}, 
+          settings = {},
         },
       }
     end
 
-    lspconfig.redsl.setup{}
+    lspconfig.redsl.setup {}
 
 
     -- Global mappings.
