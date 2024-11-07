@@ -22,6 +22,11 @@ alias cp='xcp'
 alias e='nvim'
 alias find='fd'
 
+
+if command -v btm > /dev/null; then 
+  alias top='btm'
+fi
+
 if command -v bat > /dev/null; then
   light_theme="OneHalfLight"
   dark_theme="OneHalfDark"

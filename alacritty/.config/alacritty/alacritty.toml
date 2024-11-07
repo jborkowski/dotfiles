@@ -1,4 +1,4 @@
-import = [ "~/.config/alacritty/theme.toml" ]
+general.import = [ "~/.config/alacritty/theme.toml" ]
 
 [env]
 TERM = "alacritty-direct"
@@ -7,7 +7,7 @@ TERM = "alacritty-direct"
 normal = { family = "CaskaydiaMono Nerd Font", style = "SemiLight" }
 bold = { family = "CaskaydiaMono Nerd Font", style = "Bold" }
 italic = { family = "CaskaydiaMono Nerd Font", style = "Italic" }
-size = 11
+size = 12
 
 [[hints.enabled]]
 command = "xdg-open"
@@ -37,7 +37,7 @@ multiplier = 3
 save_to_clipboard = false
 semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
 
-[shell]
+[terminal.shell]
 args = ["--login"]
 program = "/usr/bin/zsh"
 
