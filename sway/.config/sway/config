@@ -228,7 +228,11 @@ exec_always {
 # Autostart
 #
 exec /usr/bin/dunst
-exec_always pkill waybar; /usr/bin/waybar
+exec_always {
+  pkill waybar;
+  /usr/bin/waybar & 
+}
+# exec /usr/bin/waybar
 exec_always pkill kanshi; kanshi > /tmp/kanshi.log 2>&1
 exec_always $HOME/.config/sway/scripts/clamshell
 
