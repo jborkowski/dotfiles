@@ -13,8 +13,8 @@ return {
   },
   keys = function()
     return {
-      { "<leader>gbt", "<cmd>GitBlameToggle<CR>", desc = "GitBlame Toggle" },
-      { "<leader>gbc", "<cmd>GitBlameCopySHA<CR>", desc = "GitBlame Copy SHA" },
+      { "<leader>gb", "<cmd>GitBlameToggle<CR>", desc = "GitBlame Toggle" },
+      { "<leader>gB", "<cmd>GitBlameCopySHA<CR>", desc = "GitBlame Copy SHA" },
     }
   end
 

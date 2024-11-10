@@ -1,5 +1,6 @@
 return {
   "Olical/conjure",
+  ft = { "lisp", "scheme", "racket" },
   config = function()
     vim.g["conjure#extract#tree_sitter#enabled"] = true
 vim.g["conjure#highlight#enabled"] = true

@@ -135,6 +135,19 @@ return {
 
     lspconfig.redsl.setup {}
 
+    lspconfig.rust_analyzer.setup {
+      settings = {
+        ['rust-analyzer'] = {
+          checkOnSave = {
+            command = "cargo fmt",
+          },
+          diagnostics = {
+            enable = true,
+          },
+        },
+      },
+    }
+
 
     -- Global mappings.
     -- See `:help vim.diagnostic.*` for documentation on any of the below functions
