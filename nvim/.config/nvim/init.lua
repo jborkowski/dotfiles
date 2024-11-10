@@ -76,3 +76,7 @@ require('cursor_colemak')
 vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
 
 vim.keymap.set('n', '<leader>d', vim.diagnostic.setloclist, { noremap = true, silent = true })
+
+
+-- quick access to newrt
+vim.keymap.set('n', '<leader>rt', ':newrt<CR>', { noremap = true, silent = true })
