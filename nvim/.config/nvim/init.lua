@@ -79,4 +79,4 @@ vim.keymap.set('n', '<leader>d', vim.diagnostic.setloclist, { noremap = true, si
 
 
 -- quick access to newrt
-vim.keymap.set('n', '<leader>rt', ':newrt<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>e', ':Explore<CR>', { noremap = true, silent = true })
