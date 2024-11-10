@@ -16,8 +16,6 @@ return {
   keys = function()
     local cmdT = "<cmd>Telescope "
     return {
-      { "<leader>fC", cmdT .. "commands<cr>", desc = "Telescope commands" },
-      { "<leader>fM", cmdT .. "man_pages<cr>", desc = "Telescope man pages" },
       { "<leader>fS", cmdT .. "colorscheme<cr>", desc = "Telescope colorschemes" },
 
       { "<leader>fb", cmdT .. "buffers<cr>", desc = "Telescope buffers" },
@@ -28,10 +26,8 @@ return {
       { "<leader>fh", cmdT .. "help_tags<cr>", desc = "Telecope Help files" },
 
       { "<leader>fk", cmdT .. "keymaps<cr>", desc = "Telescope keymaps" },
-      { "<leader>fl", cmdT .. "resume<cr>", desc = "Telescope resume" },
       { "<leader>hm", cmdT .. "harpoon marks<cr>", desc = "Harpoon marks" },
       { "<leader>fo", cmdT .. "oldfiles<cr>", desc = "Telescope old files" },
-      { "<leader>fp", cmdT .. "planets<cr>", desc = "Telescope Planets" },
       { "<leader>fw", cmdT .. "grep_string<cr>", desc = "" },
 
       { "<leader>pp", ":lua require'telescope'.extensions.project.project{}<CR>", desc = "Telescope Project" },
