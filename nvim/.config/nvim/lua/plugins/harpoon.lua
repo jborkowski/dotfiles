@@ -10,9 +10,9 @@ return {
     local harpoon = require("harpoon")
     return {
       { "<leader>ha", function() harpoon:list():add() end, desc = "Harpoon add" },
-      { "<leader>hm", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc = "Harpoon UI" },
-      { "<leader>hn", function() harpoon:list():next() end, desc = "Harpoon Next Buffer" },
-      { "<leader>hp", function() harpoon:list():prev() end, desc = "Harpoon Prev Buffer" },
+      { "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc = "Harpoon UI" },
+      { "<C-S-N>", function() harpoon:list():next() end, desc = "Harpoon Next Buffer" },
+      { "<C-S-P>", function() harpoon:list():prev() end, desc = "Harpoon Prev Buffer" },
     }
   end
 }
