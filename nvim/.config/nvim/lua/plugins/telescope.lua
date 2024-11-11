@@ -26,7 +26,6 @@ return {
   lazy = false,
 
   keys = function()
-    local cmdT = "<cmd>Telescope "
     return {
       { "<leader>fS", builtin('colorscheme'), desc = "Change colorschemes" },
       { "<leader>fb", builtin('buffers'),     desc = "Search buffers" },
@@ -36,20 +35,29 @@ return {
         desc = 'Browse files',
       },
 
-      { "<leader>i",   builtin('diagnostics'),                                  desc = "Telescope diagnostics" },
-      { "<Leader>ff",  builtin('find_files', { follow = true, hidden = true }), desc = "Search files" },
-      { "<Leader>/",   builtin('current_buffer_fuzzy_find'),                    desc = 'Fuzzy file in file' },
+      { "<leader>i",   builtin('diagnostics'),                desc = "Telescope diagnostics" },
+      -- { "<Leader>ff", builtin('find_files', { follow = true, hidden = true }), desc = "Search files" },
+      {
+        "<Leader>ff",
+        builtin('find_files', {
+          follow = true,
+          hidden = true,
+          hidden_files = true,
+          find_command = { "rg", "--files" }
+        }),
+        desc = "Search files"
+      },
+      { "<Leader>/",   builtin('current_buffer_fuzzy_find'),  desc = 'Fuzzy file in file' },
 
-      -- { "<leader>ff", cmdT .. "find_files find_command=rg,--ignore,--hidden,--files prompt_prefix=🔍<cr>", desc = "Telescope Find files" },
-      { "<leader>fg",  builtin('egrepify'),                                     desc = "Telescope Live Grep (ripgrep)" },
-      { "<Leader>fm",  builtin('marks'),                                        desc = 'Search marks' },
-      { "<leader>hm",  builtin('harpoon', 'marks'),                             desc = "Harpoon marks" },
+      { "<leader>fg",  builtin('egrepify'),                   desc = "Live Grep (ripgrep)" },
+      { "<Leader>fm",  builtin('marks'),                      desc = 'Search marks' },
+      { "<leader>hm",  builtin('harpoon', 'marks'),           desc = "Harpoon marks" },
 
-      { "<Leader>fo",  builtin('oldfiles'),                                     desc = "Search recent files" },
-      { "<Leader>fs",  builtin('grep_string'),                                  desc = "Search from word under cursor" },
-      { "<leader>pp",  extension('project', 'project'),                         desc = "Telescope Project" },
-      { "<Leader>fls", builtin('lsp_document_symbols'),                         desc = 'List lsp symbols for current buffer' },
-      { "<leader>rr",  extension('refactoring', 'refactors'),                   mode = 'v',                                  desc = 'Search refactors' },
+      { "<Leader>fo",  builtin('oldfiles'),                   desc = "Search recent files" },
+      { "<Leader>fs",  builtin('grep_string'),                desc = "Search from word under cursor" },
+      { "<leader>pp",  extension('project', 'project'),       desc = "Telescope Project" },
+      { "<Leader>fls", builtin('lsp_document_symbols'),       desc = "List lsp symbols for current buffer" },
+      { "<leader>rr",  extension('refactoring', 'refactors'), mode = 'v',                                  desc = 'Search refactors' },
     }
   end,
 
