@@ -1,3 +1,9 @@
+local builtin = function(fn, args)
+  return function()
+    pcall(require('telescope.builtin')[fn], args)
+  end
+end
+
 local extension = function(name, fn, args)
   return function()
     pcall(require('telescope').extensions[name][fn], args)
@@ -22,25 +28,28 @@ return {
   keys = function()
     local cmdT = "<cmd>Telescope "
     return {
-      { "<leader>fS", cmdT .. "colorscheme<cr>", desc = "Telescope colorschemes" },
+      { "<leader>fS", builtin('colorscheme'), desc = "Change colorschemes" },
+      { "<leader>fb", builtin('buffers'),     desc = "Search buffers" },
+      {
+        '<Leader>fe',
+        extension('file_browser', 'file_browser', { path = '%:p:h', hidden = true }),
+        desc = 'Browse files',
+      },
 
-      { "<leader>fb", cmdT .. "buffers<cr>", desc = "Telescope buffers" },
-      { "<leader>fd", cmdT .. "diagnostics<cr>", desc = "Telescope diagnostics" },
-      { "<leader>ff", cmdT .. "find_files find_command=rg,--ignore,--hidden,--files prompt_prefix=🔍<cr>", desc = "Telescope Find files" },
-      { "<leader>fg", cmdT .. "egrepify<cr>", desc = "Telescope Live Grep (ripgrep)" },
-      { "<leader>fG", cmdT .. "live_grep<cr>", desc = "Telescope Live Grep" },
-      { "<leader>fh", cmdT .. "help_tags<cr>", desc = "Telecope Help files" },
+      { "<leader>i",   builtin('diagnostics'),                                  desc = "Telescope diagnostics" },
+      { "<Leader>ff",  builtin('find_files', { follow = true, hidden = true }), desc = "Search files" },
+      { "<Leader>/",   builtin('current_buffer_fuzzy_find'),                    desc = 'Fuzzy file in file' },
 
-      { "<leader>fk", cmdT .. "keymaps<cr>", desc = "Telescope keymaps" },
-      { "<leader>hm", cmdT .. "harpoon marks<cr>", desc = "Harpoon marks" },
-      { "<leader>fo", cmdT .. "oldfiles<cr>", desc = "Telescope old files" },
-      { "<leader>fw", cmdT .. "grep_string<cr>", desc = "" },
+      -- { "<leader>ff", cmdT .. "find_files find_command=rg,--ignore,--hidden,--files prompt_prefix=🔍<cr>", desc = "Telescope Find files" },
+      { "<leader>fg",  builtin('egrepify'),                                     desc = "Telescope Live Grep (ripgrep)" },
+      { "<Leader>fm",  builtin('marks'),                                        desc = 'Search marks' },
+      { "<leader>hm",  builtin('harpoon', 'marks'),                             desc = "Harpoon marks" },
 
-      { "<leader>pp", ":lua require'telescope'.extensions.project.project{}<CR>", desc = "Telescope Project" },
-
-      { "<leader>LS", cmdT .. "lsp_dynamic_workspace_symbols<cr>", desc = "Telescope Workspace Symbols" },
-      { "<leader>Ls", cmdT .. "lsp_document_symbols<cr>", desc = "Telescope Document Symbols" },
-      { '<leader>rr', extension('refactoring', 'refactors'), mode = 'v', desc = 'Search refactors' },
+      { "<Leader>fo",  builtin('oldfiles'),                                     desc = "Search recent files" },
+      { "<Leader>fs",  builtin('grep_string'),                                  desc = "Search from word under cursor" },
+      { "<leader>pp",  extension('project', 'project'),                         desc = "Telescope Project" },
+      { "<Leader>fls", builtin('lsp_document_symbols'),                         desc = 'List lsp symbols for current buffer' },
+      { "<leader>rr",  extension('refactoring', 'refactors'),                   mode = 'v',                                  desc = 'Search refactors' },
     }
   end,
 
