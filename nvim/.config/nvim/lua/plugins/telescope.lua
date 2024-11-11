@@ -20,6 +20,7 @@ return {
     'nvim-telescope/telescope-project.nvim',
     'nvim-telescope/telescope-file-browser.nvim',
     'fdschmidt93/telescope-egrepify.nvim',
+    'nvim-telescope/telescope-github.nvim',
   },
 
   enabled = true,
@@ -48,7 +49,7 @@ return {
       },
       { "<Leader>/",   builtin('current_buffer_fuzzy_find'),  desc = 'Fuzzy file in file' },
 
-      { "<leader>fg",  builtin('egrepify'),                   desc = "Live Grep (ripgrep)" },
+      { "<leader>fg",  extension('egrepify', 'egrepify'),     desc = "Live Grep (ripgrep)" },
       { "<Leader>fm",  builtin('marks'),                      desc = 'Search marks' },
       { "<leader>hm",  builtin('harpoon', 'marks'),           desc = "Harpoon marks" },
 
@@ -145,6 +146,7 @@ return {
     telescope.load_extension('file_browser')
     telescope.load_extension('project')
     telescope.load_extension('harpoon')
+    telescope.load_extension('gh')
 
     require('refactoring').setup({})
     telescope.load_extension('refactoring')
