@@ -43,7 +43,6 @@ return {
           follow = true,
           hidden = true,
           hidden_files = true,
-          find_command = { "rg", "--files" }
         }),
         desc = "Search files"
       },
