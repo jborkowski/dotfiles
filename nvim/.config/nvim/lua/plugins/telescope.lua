@@ -56,7 +56,8 @@ return {
           search_by = "title",
           base_dirs = {
             '~/sources',
-            '~/code'
+            '~/code',
+            '/workspace'
           },
           mappings = {
             n = {

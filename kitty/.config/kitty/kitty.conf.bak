@@ -34,11 +34,12 @@ tab_fade 1 1 1 1
 window_padding_width 2
 
 map ctrl+shift+l next_layout
+map ctrl+shift+n no_op
 
 enabled_layouts tall, fat
 
 
 # BEGIN_KITTY_THEME
-# GitHub Light Colorblind
+# GitHub Dark Colorblind
 include current-theme.conf
 # END_KITTY_THEME
