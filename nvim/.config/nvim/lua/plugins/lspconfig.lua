@@ -10,6 +10,7 @@ return {
     'hrsh7th/nvim-cmp',
     'L3MON4D3/LuaSnip',
     'saadparwaiz1/cmp_luasnip',
+    'ThePrimeagen/refactoring.nvim',
   },
   config = function()
     local cmp_lsp = require 'cmp_nvim_lsp'
@@ -23,7 +24,7 @@ return {
     end
 
     local on_attach = function(client, bufnr)
-      disable_formatting(client)
+      -- disable_formatting(client)
       common.set_mappings(client, bufnr)
     end
 
@@ -46,7 +47,8 @@ return {
           client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
             Lua = {
               diagnostics = {
-                globals = { 'vim', 'it', 'describe', 'before_each', 'after_each' },
+                telemetry = { enable = false },
+                globals = { 'vim', 'hs', 'it', 'describe', 'before_each', 'after_each' },
               },
               runtime = {
                 version = 'LuaJIT',
@@ -55,8 +57,6 @@ return {
                 checkThirdParty = false,
                 library = {
                   vim.env.VIMRUNTIME,
-                  -- "${3rd}/luv/library"
-                  -- "${3rd}/busted/library",
                 },
               },
             },
@@ -85,7 +85,7 @@ return {
 
     lspconfig.ts_ls.setup(default_config)
 
-    lspconfig.purescriptls.setup(vim.tbl_extend('force', default_config,{
+    lspconfig.purescriptls.setup(vim.tbl_extend('force', default_config, {
       cmd = { "purescript-language-server", "--stdio" },
       filetypes = { "purescript" },
       root_dir = function(path)
@@ -110,6 +110,7 @@ return {
     lspconfig.cssls.setup(default_config)
     lspconfig.html.setup(default_config)
     lspconfig.yamlls.setup(default_config)
+    lspconfig.clangd.setup(default_config)
 
     lspconfig.zls.setup(vim.tbl_extend('force', default_config, {
       -- Server-specific settings. See `:help lspconfig-setup`
@@ -153,5 +154,8 @@ return {
         vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
       end,
     })
+
+    require('mason').setup()
+    require('mason-lspconfig').setup({ automatic_installation = false })
   end,
 }

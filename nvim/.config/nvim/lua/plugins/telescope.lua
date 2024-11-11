@@ -54,11 +54,23 @@ return {
           hidden_files = true,
           order_by = "recent",
           search_by = "title",
-          base_dirs = {
-            '~/sources',
-            '~/code',
-            '/workspace'
-          },
+          base_dirs = (function ()
+            local dirs = {} 
+            local m_dirs = {
+              '~/sources',
+              '~/code',
+              '/workspace'
+            }
+
+            for _, dir in ipairs(m_dirs) do
+              local expanded_dir = vim.fn.expand(dir)
+                if vim.fn.isdirectory(expanded_dir) == 1 then 
+                table.insert(dirs, dir)
+              end
+            end
+
+            return dirs
+          end)(),
           mappings = {
             n = {
               ['d'] = project_actions.delete_project,
