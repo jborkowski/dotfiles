@@ -14,7 +14,6 @@ return {
     mappings = {
       ask = "<leader>aa",
       edit = "<leader>ae",
-      refresh = "<leader>ar",
       --- @class AvanteConflictMappings
       diff = {
         ours = "co",
@@ -30,10 +29,6 @@ return {
       submit = {
         normal = "<CR>",
         insert = "<C-s>",
-      },
-      toggle = {
-        debug = "<leader>ad",
-        hint = "<leader>ah",
       },
     },
     hints = { enabled = true },

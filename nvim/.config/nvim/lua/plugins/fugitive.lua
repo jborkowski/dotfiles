@@ -11,7 +11,6 @@ return {
     {"<leader>gc", "<cmd>G commmit<cr>", desc = "Git commit" },
     {"<leader>gd", "<cmd>G diff<cr>", desc = "Git diff" },
     {"<leader>gl", "<cmd>G log<cr>", desc = "Git log" },
-    {"<leader>gh", "<cmd>vert bo help fugitive<cr>", desc = "Git *fugitive* help" },
     {"<leader>gp", "<cmd>G push<cr>", desc = "Git push" },
     {"<leader>gs", "<cmd>G<cr>", desc = "Git status"},
     {"gh", "<cmd>diffget //2<cr>", desc = "Git diff - Chose left side" },

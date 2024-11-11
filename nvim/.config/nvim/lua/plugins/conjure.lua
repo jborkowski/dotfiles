@@ -1,9 +1,10 @@
 return {
+  lazy = true,
   "Olical/conjure",
   ft = { "lisp", "scheme", "racket" },
   config = function()
     vim.g["conjure#extract#tree_sitter#enabled"] = true
-vim.g["conjure#highlight#enabled"] = true
+    vim.g["conjure#highlight#enabled"] = true
     -- vim.g["conjure#filetype#lisp"] = "conjure.client.common-lisp.stdio"
   end,
   -- keys = function()

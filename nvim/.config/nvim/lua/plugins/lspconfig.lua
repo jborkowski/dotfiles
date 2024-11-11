@@ -14,10 +14,32 @@ return {
   config = function()
     local cmp_lsp = require 'cmp_nvim_lsp'
     local lspconfig = require 'lspconfig'
+    local common = require('plugins.common.lsp')
+
+    -- most languages use a custom formatter to format the code
+    local disable_formatting = function(client)
+      client.server_capabilities.documentFormattingProvider = false
+      client.server_capabilities.documentRangeFormattingProvider = false
+    end
+
+    local on_attach = function(client, bufnr)
+      disable_formatting(client)
+      common.set_mappings(client, bufnr)
+    end
+
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+    local default_flags = { debounce_text_changes = 100 }
+    local default_config = {
+      capabilities = capabilities,
+      on_attach = on_attach,
+      flags = default_flags,
+    }
 
     vim.tbl_deep_extend('force', {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
 
-    lspconfig.lua_ls.setup {
+    lspconfig.lua_ls.setup(vim.tbl_extend('force', default_config, {
       n_init = function(client)
         local path = client.workspace_folders[1].name
         if not vim.loop.fs_stat(path .. '/.luarc.json') and not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
@@ -43,10 +65,10 @@ return {
           client.notify('workspace/didChangeConfiguration', { settings = client.config.settings })
         end
         return true
-      end,
-    }
+      end
+    }))
 
-    lspconfig.hls.setup {
+    lspconfig.hls.setup(vim.tbl_extend('force', default_config, {
       cmd = { "haskell-language-server-wrapper", "--lsp" },
       root_dir = lspconfig.util.root_pattern("*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"),
       settings = {
@@ -59,11 +81,11 @@ return {
           }
         }
       }
-    }
+    }))
 
-    lspconfig.ts_ls.setup {}
+    lspconfig.ts_ls.setup(default_config)
 
-    lspconfig.purescriptls.setup {
+    lspconfig.purescriptls.setup(vim.tbl_extend('force', default_config,{
       cmd = { "purescript-language-server", "--stdio" },
       filetypes = { "purescript" },
       root_dir = function(path)
@@ -82,25 +104,14 @@ return {
       flags = {
         debounce_text_changes = 150,
       }
-    }
+    }))
 
-    lspconfig.rnix.setup {}
+    lspconfig.rnix.setup(default_config)
+    lspconfig.cssls.setup(default_config)
+    lspconfig.html.setup(default_config)
+    lspconfig.yamlls.setup(default_config)
 
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-    lspconfig.cssls.setup {
-      capabilities = capabilities,
-    }
-
-    lspconfig.html.setup {
-      capabilities = capabilities,
-    }
-
-    -- yaml-language-server vscode-langservers-extracted
-    lspconfig.yamlls.setup {}
-
-    lspconfig.zls.setup {
+    lspconfig.zls.setup(vim.tbl_extend('force', default_config, {
       -- Server-specific settings. See `:help lspconfig-setup`
 
       -- the following line can be removed if ZLS is in your PATH
@@ -116,7 +127,7 @@ return {
           -- zig_exe_path = '~/.local/bin/zls',
         }
       }
-    }
+    }))
 
     local configs = require 'lspconfig.configs'
 
@@ -133,68 +144,13 @@ return {
       }
     end
 
-    lspconfig.redsl.setup {}
+    lspconfig.redsl.setup(default_config)
 
-    lspconfig.rust_analyzer.setup {
-      settings = {
-        ['rust-analyzer'] = {
-          checkOnSave = {
-            command = "cargo fmt",
-          },
-          diagnostics = {
-            enable = true,
-          },
-        },
-      },
-    }
-
-
-    -- Global mappings.
-    -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-    vim.keymap.set('n', '<space>cd', vim.diagnostic.open_float, { desc = "LSP: diagnostics" })
-    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-    vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-    vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
-
-    -- Use LspAttach autocommand to only map the following keys
-    -- after the language server attaches to the current buffer
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),
       callback = function(ev)
         -- Enable completion triggered by <c-x><c-o>
         vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-        -- Buffer local mappings.
-        -- See `:help vim.lsp.*` for documentation on any of the below functions
-        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = ev.buf, desc = "LSP: Go to declaration" })
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = ev.buf, desc = "LSP: Go to definition" })
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = ev.buf })
-        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { buffer = ev.buf, desc = "LSP: Go to implementation" })
-        vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder,
-          { buffer = ev.buf, desc = "LSP: Add workspace folder" }
-        )
-        vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder,
-          { buffer = ev.buf, desc = "LSP: Remove workspace folder" }
-        )
-        vim.keymap.set('n', '<space>wl', function()
-          print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        end, { buffer = ev.buf, desc = "LSP: List workspace folders" })
-
-        vim.keymap.set('n', '<space>cD', vim.lsp.buf.type_definition,
-          { buffer = ev.buf, desc = "LSP: Type definition" }
-        )
-        vim.keymap.set('n', '<space>cr', vim.lsp.buf.rename, { buffer = ev.buf, desc = "LSP: Rename" })
-        vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action,
-          { buffer = ev.buf, desc = "LSP: Code action" }
-        )
-        vim.keymap.set('n', 'gr', vim.lsp.buf.references, { buffer = ev.buf, desc = "LSP: Show references" })
-        vim.keymap.set('n', '<space>cf', function()
-          vim.lsp.buf.format { async = true }
-        end, { buffer = ev.buf, desc = "LSP: Format document" })
-
-        vim.keymap.set('n', '<space>cs', vim.lsp.buf.signature_help,
-          { buffer = ev.buf, desc = "LSP: Signatur Help" }
-        )
       end,
     })
   end,

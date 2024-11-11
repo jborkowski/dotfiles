@@ -43,11 +43,6 @@ return {
     opts = { use_default_keymaps = false, max_join_length = 150 },
   },
   {
-    'mrcjkb/rustaceanvim',
-    version = '^4',
-    ft = { 'rust' },
-  },
-  {
     'nvim-orgmode/orgmode',
     config = function() require('orgmode').setup {} end,
     'akinsho/org-bullets.nvim',
