@@ -54,8 +54,8 @@ return {
           hidden_files = true,
           order_by = "recent",
           search_by = "title",
-          base_dirs = (function ()
-            local dirs = {} 
+          base_dirs = (function()
+            local dirs = {}
             local m_dirs = {
               '~/sources',
               '~/code',
@@ -64,7 +64,7 @@ return {
 
             for _, dir in ipairs(m_dirs) do
               local expanded_dir = vim.fn.expand(dir)
-                if vim.fn.isdirectory(expanded_dir) == 1 then 
+              if vim.fn.isdirectory(expanded_dir) == 1 then
                 table.insert(dirs, dir)
               end
             end
@@ -115,5 +115,8 @@ return {
     telescope.load_extension('file_browser')
     telescope.load_extension('project')
     telescope.load_extension('harpoon')
+
+    require('refactoring').setup({})
+    telescope.load_extension('refactoring')
   end,
 }
