@@ -1,3 +1,9 @@
+local extension = function(name, fn, args)
+  return function()
+    pcall(require('telescope').extensions[name][fn], args)
+  end
+end
+
 return {
   'nvim-telescope/telescope.nvim',
   -- tag = '0.1.8',
@@ -34,6 +40,7 @@ return {
 
       { "<leader>LS", cmdT .. "lsp_dynamic_workspace_symbols<cr>", desc = "Telescope Workspace Symbols" },
       { "<leader>Ls", cmdT .. "lsp_document_symbols<cr>", desc = "Telescope Document Symbols" },
+      { '<leader>rr', extension('refactoring', 'refactors'), mode = 'v', desc = 'Search refactors' },
     }
   end,
 
@@ -96,12 +103,19 @@ return {
               ['<c-l>'] = project_actions.change_working_directory,
               ['<c-o>'] = project_actions.next_cd_scope,
               ['<c-w>'] = project_actions.change_workspace,
-            }
+            },
+          },
+          pickers = {
+            live_grep = {
+              additional_args = function()
+                return { '--hidden', '--follow' }
+              end,
+            },
           }
         }
       },
       defaults = {
-        file_ignore_patterns = { ".git/", ".cache", "%.pdf", ".stack-work/", "output/", "node_modules/", },
+        file_ignore_patterns = { ".git/", ".cache", "%.pdf", ".stack-work/", "output/", "node_modules/", "target" },
         file_previewer = previewers.cat.new,
         grep_previewer = previewers.cat.new,
         set_env = { ['COLORTERM'] = 'truecolor' },
