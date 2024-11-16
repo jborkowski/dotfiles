@@ -38,9 +38,6 @@ vim.opt.swapfile = false
 vim.opt.spelllang = 'en_us'
 vim.opt.spell = true
 
-local hour = tonumber(os.date("%H"))
-vim.o.background = (hour >= 6 and hour < 17) and "light" or "dark"
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -64,12 +61,6 @@ vim.api.nvim_set_keymap('t', '<Esc><Esc>', '<C-\\><C-n>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<Leader>w', ':w<cr>', { noremap = true })
 
 require('cursor_colemak')
-
--- auto format buffers
-vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
-
-vim.keymap.set('n', '<leader>d', vim.diagnostic.setloclist, { noremap = true, silent = true })
-
 
 -- quick access to newrt
 vim.keymap.set('n', '<leader>e', ':Explore<CR>', { noremap = true, silent = true })

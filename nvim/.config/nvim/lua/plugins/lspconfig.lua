@@ -15,16 +15,9 @@ return {
   config = function()
     local cmp_lsp = require 'cmp_nvim_lsp'
     local lspconfig = require 'lspconfig'
-    local common = require('plugins.common.lsp')
-
-    -- most languages use a custom formatter to format the code
-    local disable_formatting = function(client)
-      client.server_capabilities.documentFormattingProvider = false
-      client.server_capabilities.documentRangeFormattingProvider = false
-    end
+    local common = require('plugins.lspconfig.common')
 
     local on_attach = function(client, bufnr)
-      -- disable_formatting(client)
       common.set_mappings(client, bufnr)
     end
 
@@ -48,16 +41,17 @@ return {
             Lua = {
               diagnostics = {
                 telemetry = { enable = false },
-                globals = { 'vim', 'hs', 'it', 'describe', 'before_each', 'after_each' },
+                globals = { 'vim', 'hs' },
               },
               runtime = {
                 version = 'LuaJIT',
               },
               workspace = {
                 checkThirdParty = false,
-                library = {
-                  vim.env.VIMRUNTIME,
-                },
+                library = vim.list_extend(
+                  { vim.env.VIMRUNTIME },
+                  vim.fn.exists("/usr/local/openresty/lualib") == 1 and { "/usr/local/openresty/lualib" } or {}
+                ),
               },
             },
           })
@@ -83,7 +77,6 @@ return {
       }
     }))
 
-    lspconfig.ts_ls.setup(default_config)
 
     lspconfig.purescriptls.setup(vim.tbl_extend('force', default_config, {
       cmd = { "purescript-language-server", "--stdio" },
@@ -111,18 +104,11 @@ return {
     lspconfig.html.setup(default_config)
     lspconfig.yamlls.setup(default_config)
     lspconfig.clangd.setup(default_config)
+    lspconfig.marksman.setup(default_config)
+    lspconfig.bashls.setup(default_config)
+    lspconfig.ts_ls.setup(default_config)
 
     lspconfig.zls.setup(vim.tbl_extend('force', default_config, {
-      -- Server-specific settings. See `:help lspconfig-setup`
-
-      -- the following line can be removed if ZLS is in your PATH
-      -- cmd = { '~/.local/bin/zls' },
-      -- There are two ways to set config options:
-      --   - edit your `zls.json` that applies to any editor that uses ZLS
-      --   - set in-editor config options with the `settings` field below.
-      --
-      -- Further information on ZLS config options:
-      -- https://github.com/zigtools/zls#configuration-options
       settings = {
         zls = {
           -- zig_exe_path = '~/.local/bin/zls',

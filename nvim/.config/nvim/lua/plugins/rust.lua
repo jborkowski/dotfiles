@@ -11,7 +11,7 @@ vim.g.rustaceanvim = function()
     server = {
 
       on_attach = function(client, bufnr)
-        local common = require('plugins.common.lsp')
+        local common = require('plugins.lspconfig.common')
         common.set_mappings(client, bufnr, {
           ['K'] = {
             cmd = function()
