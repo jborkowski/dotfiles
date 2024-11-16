@@ -28,7 +28,6 @@ return {
 
   keys = function()
     return {
-      { "<leader>fS", builtin('colorscheme'), desc = "Change colorschemes" },
       { "<leader>fb", builtin('buffers'),     desc = "Search buffers" },
       {
         '<Leader>fe',
@@ -36,7 +35,7 @@ return {
         desc = 'Browse files',
       },
 
-      { "<leader>i",   builtin('diagnostics'),                desc = "Telescope diagnostics" },
+      { "<leader>i",  builtin('diagnostics'), desc = "Telescope diagnostics" },
       -- { "<Leader>ff", builtin('find_files', { follow = true, hidden = true }), desc = "Search files" },
       {
         "<Leader>ff",

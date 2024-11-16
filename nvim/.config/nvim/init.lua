@@ -33,20 +33,13 @@ vim.g.incsearch = true
 vim.g.nobackup = true
 vim.g.noswapfile = true
 vim.opt.swapfile = false
--- vim.g.autochdir = true
--- vim.o.autochdir = true
 
 -- spell checker
 vim.opt.spelllang = 'en_us'
 vim.opt.spell = true
 
-if tonumber(os.date("%H")) < 6 then
-  vim.o.background = "dark"
-elseif tonumber(os.date("%H")) < 17 then
-  vim.o.background = "light"
-else
-  vim.o.background = "dark"
-end
+local hour = tonumber(os.date("%H"))
+vim.o.background = (hour >= 6 and hour < 17) and "light" or "dark"
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then

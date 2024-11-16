@@ -1,8 +1,8 @@
 return {
   "epwalsh/obsidian.nvim",
-  version = "*",  -- recommended, use latest release instead of latest commit
+  version = "*",
   lazy = true,
-  ft = "markdown",
+  ft = "markdown,org",
   dependencies = {
     -- Required.
     "nvim-lua/plenary.nvim",
