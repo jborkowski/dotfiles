@@ -48,10 +48,9 @@ return {
               },
               workspace = {
                 checkThirdParty = false,
-                library = vim.list_extend(
-                  { vim.env.VIMRUNTIME },
-                  vim.fn.exists("/usr/local/openresty/lualib") == 1 and { "/usr/local/openresty/lualib" } or {}
-                ),
+                library = {
+                  vim.env.VIMRUNTIME
+                }
               },
             },
           })
