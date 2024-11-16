@@ -1,17 +1,17 @@
-local commented =  {
+local commented = {
   "folke/noice.nvim",
   event = "VeryLazy",
   enabled = true,
 
   keys = {
-    {"<leader>ne", "<cmd>NoiceErrors<cr>"},
-    {"<leader>nh", "<cmd>NoiceHistory<cr>"}
+    --    {"<leader>ne", "<cmd>NoiceErrors<cr>"},
+    --    {"<leader>nh", "<cmd>NoiceHistory<cr>"}
   },
 
   dependencies = { "MunifTanjim/nui.nvim" },
   opts = function(_, opts)
     -- {{{ Cmdline
-    opts.cmdline = {
+    opts.cmdline    = {
       enabled = true,
       view = "cmdline_popup",
       opts = {
@@ -36,7 +36,7 @@ local commented =  {
     -- --------------------------------------------------------------------- }}}
     -- {{{ Commands
 
-    opts.commands = {
+    opts.commands   = {
       all = {
         view = "split",
         opts = { enter = true, format = "details" },
@@ -47,7 +47,7 @@ local commented =  {
     -- --------------------------------------------------------------------- }}}
     -- {{{ LSP
 
-    opts.lsp = {
+    opts.lsp        = {
       progress = {
         enable = true,
         format = "lsp_progress",
@@ -91,14 +91,14 @@ local commented =  {
     -- --------------------------------------------------------------------- }}}
     -- {{{ Health
 
-    opts.health = {
+    opts.health     = {
       checker = true,
     }
 
     -- --------------------------------------------------------------------- }}}
     -- {{{ Markdown
 
-    opts.markdown = {
+    opts.markdown   = {
       hover = {
         ["|(%S-)|"] = vim.cmd.help,
         ["%[.-%]%((%S-)%)"] = require("noice.util").open,
@@ -117,7 +117,7 @@ local commented =  {
     -- --------------------------------------------------------------------- }}}
     -- {{{ Messages
 
-    opts.messages  = {
+    opts.messages   = {
       enabled = true,
       view = "mini",
       view_error = "mini",
@@ -129,7 +129,7 @@ local commented =  {
     -- --------------------------------------------------------------------- }}}
     -- {{{ Notify
 
-    opts.notify = {
+    opts.notify     = {
       enabled = false,
       view = "notify"
     }
@@ -137,7 +137,7 @@ local commented =  {
     -- --------------------------------------------------------------------- }}}
     -- {{{ Popupmenu
 
-    opts.popupmenu = {
+    opts.popupmenu  = {
       enabled = true,
       backend = "nui",
       scrollbar = false,
@@ -146,7 +146,7 @@ local commented =  {
     -- --------------------------------------------------------------------- }}}
     -- {{{ Presets
 
-    opts.presets = {
+    opts.presets    = {
       bottom_search = false,
       command_palette = false,
       long_message_to_split = true,
@@ -157,7 +157,7 @@ local commented =  {
     -- --------------------------------------------------------------------- }}}
     -- {{{ Redirect
 
-    opts.redirect  = {
+    opts.redirect   = {
       view = "mini",
       filter = { event = "msg_show" },
     }
@@ -165,7 +165,7 @@ local commented =  {
     -- --------------------------------------------------------------------- }}}
     -- {{{ Routes
 
-    opts.routes = {
+    opts.routes     = {
       {
         filter = {
           event = "msg_show",
@@ -239,7 +239,7 @@ local commented =  {
     -- --------------------------------------------------------------------- }}}
     -- {{{ Views
 
-    opts.views = {
+    opts.views      = {
       mini = {
         align = "message-right",
         -- position = { col = 5 },
@@ -248,7 +248,7 @@ local commented =  {
         },
         border = {
           style = "none",
-          padding = {0, 1},
+          padding = { 0, 1 },
         }
       },
     }
@@ -257,4 +257,4 @@ local commented =  {
   end,
 }
 
-return commented 
+return commented
