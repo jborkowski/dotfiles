@@ -1,2 +1,2 @@
 [general]
-import = [ "~/.config/alacritty/themes/github_light_colorblind.toml" ]
+import = [ "~/.config/alacritty/themes/github_dark_colorblind.toml" ]
