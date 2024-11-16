@@ -19,7 +19,7 @@ return {
     workspaces = {
       {
         name = "personal",
-        path = "~/org",
+        path = "~/org/Notes",
       },
     },
     daily_notes = {
@@ -29,6 +29,7 @@ return {
       -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
       template = nil
     },
+    new_notes_location = "Inbox"
     follow_url_func = function(url)
       -- Open the URL in the default web browser.
       vim.fn.jobstart({ "open", url })
@@ -44,7 +45,7 @@ return {
           suffix = suffix .. string.char(math.random(65, 90))
         end
       end
-      return tostring(os.time()) .. "-" .. suffix
+      return os.date('%Y%m%dT%H%M%S') .. "--" .. suffix
     end,
     mappings = {
       ["gf"] = {
