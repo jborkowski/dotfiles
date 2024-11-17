@@ -23,13 +23,13 @@ return {
       },
     },
     daily_notes = {
-      folder = "notes/daily",
+      folder = "Daily",
       date_format = "%Y-%m-%d",
       alias_format = "%B %-d, %Y",
       -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
       template = nil
     },
-    new_notes_location = "Inbox"
+    new_notes_location = "Inbox",
     follow_url_func = function(url)
       -- Open the URL in the default web browser.
       vim.fn.jobstart({ "open", url })
