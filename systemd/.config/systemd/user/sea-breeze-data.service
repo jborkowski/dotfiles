@@ -1,0 +1,16 @@
+[Unit]
+Description=Serve Surfing whether data
+After=network.target 
+
+[Service]
+ExecStart=/data/sources/sea-breeze-data/target/release/sea-breeze-data server
+Restart=always
+Environment=RUST_LOG=info
+WorkingDirectory=/data/sources/sea-breeze-data/target/release
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=sea-breeze-data
+
+[Install]
+WantedBy=default.target
+
