@@ -80,6 +80,9 @@ alias get_idf='. ~/code/embedded/rust-build/export-esp.sh'
 alias get_esp32='. ~/.config/zsh/export-esp32.sh'
 alias get_esprs='. $HOME/export-esp.sh'
 #alias get_idf='. $HOME/esp/esp-idf/export.sh'
+#
+
+alias ggc='git add . && git commit -m.'
 
 # Load
 autoload -U compinit; compinit
