@@ -212,6 +212,7 @@ bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
 for_window {
   [app_id = "shotman"] floating enable
   [app_id = "blueman-manager"] floating enable
+  [app_id = "nm-connection-editor" ] floating enable
 }
 
 exec_always {
