@@ -10,6 +10,7 @@ return {
     'hrsh7th/nvim-cmp',
     'L3MON4D3/LuaSnip',
     'saadparwaiz1/cmp_luasnip',
+    'srghma/nvimmer-ps',
     'ThePrimeagen/refactoring.nvim',
   },
   config = function()
@@ -76,9 +77,15 @@ return {
       }
     }))
 
-
     lspconfig.purescriptls.setup(vim.tbl_extend('force', default_config, {
-      cmd = { "purescript-language-server", "--stdio" },
+      -- cmd = { "purescript-language-server", "--stdio" },
+
+      on_attach = function(client, bufnr)
+        require("nvimmer-ps").setup_on_attach(client, bufnr)
+      end,
+      on_init = function(client)
+        require("nvimmer-ps").setup_on_init(client)
+      end,
       filetypes = { "purescript" },
       root_dir = function(path)
         if path:match("/.spago/") then
