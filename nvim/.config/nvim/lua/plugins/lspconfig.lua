@@ -113,6 +113,7 @@ return {
     lspconfig.marksman.setup(default_config)
     lspconfig.bashls.setup(default_config)
     lspconfig.ts_ls.setup(default_config)
+    lspconfig.svelte.setup(default_config)
 
     lspconfig.zls.setup(vim.tbl_extend('force', default_config, {
       settings = {
