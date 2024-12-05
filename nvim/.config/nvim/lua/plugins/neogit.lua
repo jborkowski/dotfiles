@@ -16,7 +16,7 @@ return {
   config = function()
     vim.api.nvim_create_user_command('GitUI', function()
       vim.cmd("tabnew")
-      vim.fn.termopen("gitui")
+      vim.fn.termopen("gitu")
       vim.cmd("startinsert")
     end, {})
   end
