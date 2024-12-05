@@ -65,3 +65,10 @@ require('cursor_colemak')
 vim.keymap.set('n', '<leader>e', ':Explore<CR>', { noremap = true, silent = true })
 
 vim.cmd('autocmd BufRead,BufNewFile *.hbs set filetype=html')
+
+
+vim.api.nvim_create_user_command('Gitu', function()
+  vim.cmd("tabnew")
+  vim.fn.termopen("gitu")
+  vim.cmd("startinsert")
+end, {})

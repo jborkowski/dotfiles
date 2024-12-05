@@ -13,11 +13,6 @@ return {
     }
   end,
 
-  config = function()
-    vim.api.nvim_create_user_command('GitUI', function()
-      vim.cmd("tabnew")
-      vim.fn.termopen("gitu")
-      vim.cmd("startinsert")
-    end, {})
-  end
+  config = true
+
 }
