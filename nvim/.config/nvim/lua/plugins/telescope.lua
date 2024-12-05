@@ -48,7 +48,25 @@ return {
       },
       { "<Leader>/",   builtin('current_buffer_fuzzy_find'),  desc = 'Fuzzy file in file' },
 
-      { "<leader>fg",  builtin('live_grep'),                  desc = "Live Grep (ripgrep)" },
+      {
+        "<leader>fg",
+        builtin('live_grep', {
+          vimgrep_arguments = {
+            'rg',
+            '--color=never',
+            '--no-heading',
+            '--with-filename',
+            '--line-number',
+            '--column',
+            '--smart-case',
+            '--hidden',
+            '--follow',
+            '-g',
+            '!.git',
+          }
+        }),
+        desc = "Live Grep (ripgrep)"
+      },
       { "<Leader>fm",  builtin('marks'),                      desc = 'Search marks' },
       { "<leader>hm",  builtin('harpoon', 'marks'),           desc = "Harpoon marks" },
 
