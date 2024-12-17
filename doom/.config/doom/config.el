@@ -95,3 +95,8 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+(use-package! gptel
+  :config
+  (setq! gptel-backend (gptel-make-anthropic "Claude"
+                 :stream t :key  (getenv "ANTHROPIC_API_KEY"))))
