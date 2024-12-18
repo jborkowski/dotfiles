@@ -13,8 +13,7 @@ return {
       term:toggle()
     end
     local mappings = {
-      { '<C-/>', mode = { 'n', 't' }, toggleterm, desc = 'Toggle terminal' },
-      { '<C-_>', mode = { 'n', 't' }, toggleterm, desc = 'which_key_ignore' },
+      { '<leader>ot', mode = { 'n', 't' }, toggleterm, desc = 'Toggle terminal' },
     }
     return vim.list_extend(mappings, keys)
   end,

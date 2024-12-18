@@ -19,7 +19,6 @@ return {
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     'nvim-telescope/telescope-project.nvim',
     'nvim-telescope/telescope-file-browser.nvim',
-    'fdschmidt93/telescope-egrepify.nvim',
     'nvim-telescope/telescope-github.nvim',
   },
 
@@ -28,15 +27,14 @@ return {
 
   keys = function()
     return {
-      { "<leader>fb", builtin('buffers'),     desc = "Search buffers" },
+      { "<leader>bb", builtin('buffers'),     desc = "Search buffers" },
       {
-        '<Leader>fe',
+        '<Leader><leader>',
         extension('file_browser', 'file_browser', { path = '%:p:h', hidden = true }),
         desc = 'Browse files',
       },
 
       { "<leader>i",  builtin('diagnostics'), desc = "Telescope diagnostics" },
-      -- { "<Leader>ff", builtin('find_files', { follow = true, hidden = true }), desc = "Search files" },
       {
         "<Leader>ff",
         builtin('find_files', {
@@ -46,27 +44,7 @@ return {
         }),
         desc = "Search files"
       },
-      { "<leader>/",   builtin('live_grep'),  desc = 'Live Grep' },
-
-      {
-        "<leader>fg",
-        builtin('live_grep', {
-          vimgrep_arguments = {
-            'rg',
-            '--color=never',
-            '--no-heading',
-            '--with-filename',
-            '--line-number',
-            '--column',
-            '--smart-case',
-            '--hidden',
-            '--follow',
-            '-g',
-            '!.git',
-          }
-        }),
-        desc = "Live Grep (ripgrep)"
-      },
+      { "<leader>/",   builtin('live_grep'),                  desc = "Live Grep (ripgrep)" },
       { "<Leader>fm",  builtin('marks'),                      desc = 'Search marks' },
       { "<leader>hm",  builtin('harpoon', 'marks'),           desc = "Harpoon marks" },
 
@@ -82,7 +60,18 @@ return {
     local project_actions = require("telescope._extensions.project.actions")
     local telescope = require("telescope")
     local previewers = require("telescope.previewers")
+    local sorters = require("telescope.sorters")
     telescope.setup {
+      defaults = {
+        file_sorter = sorters.get_fzf_sorter,
+        generic_sorter = sorters.get_fzf_sorter,
+        file_ignore_patterns = { ".git/", ".cache", "%.pdf", ".stack-work/", "output/", "node_modules/", "target", "out/", "dist/", "%.lock" },
+        prompt_prefix = "  ",
+        selection_caret = " ",
+        path_display = { "truncate" },
+        file_previewer = previewers.cat.new,
+        grep_previewer = previewers.cat.new,
+      },
       extensions = {
         fzf = {
           fuzzy = true,
@@ -106,7 +95,7 @@ return {
             for _, dir in ipairs(m_dirs) do
               local expanded_dir = vim.fn.expand(dir)
               if vim.fn.isdirectory(expanded_dir) == 1 then
-                table.insert(dirs, dir)
+                table.insert(dirs, expanded_dir)
               end
             end
 
@@ -139,26 +128,12 @@ return {
               ['<c-w>'] = project_actions.change_workspace,
             },
           },
-          pickers = {
-            live_grep = {
-              additional_args = function()
-                return { '--hidden', '--follow' }
-              end,
-            },
-          }
         }
       },
-      defaults = {
-        file_ignore_patterns = { ".git/", ".cache", "%.pdf", ".stack-work/", "output/", "node_modules/", "target" },
-        file_previewer = previewers.cat.new,
-        grep_previewer = previewers.cat.new,
-        set_env = { ['COLORTERM'] = 'truecolor' },
-      },
-      set_env = {
-        BAT_STYLE = "numbers,changes",
-        COLORTERM = "24bit",
-      },
+
     }
+
+
     telescope.load_extension('fzf')
     telescope.load_extension('file_browser')
     telescope.load_extension('project')

@@ -62,7 +62,7 @@ vim.api.nvim_set_keymap('n', '<Leader>w', ':w<cr>', { noremap = true })
 require('cursor_colemak')
 
 -- quick access to newrt
-vim.keymap.set('n', '<leader>e', ':Explore<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>.', ':Explore<CR>', { noremap = true, silent = true })
 
 vim.cmd('autocmd BufRead,BufNewFile *.hbs set filetype=html')
 
