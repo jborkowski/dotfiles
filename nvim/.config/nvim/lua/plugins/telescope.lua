@@ -46,7 +46,7 @@ return {
         }),
         desc = "Search files"
       },
-      { "<Leader>/",   builtin('current_buffer_fuzzy_find'),  desc = 'Fuzzy file in file' },
+      { "<leader>/",   builtin('live_grep'),  desc = 'Live Grep' },
 
       {
         "<leader>fg",
