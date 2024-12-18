@@ -10,12 +10,14 @@
     spc_n (tap-hold-release 200 200 spc @nav)
     ma    (tap-hold-release 150 150 a lmet)
     ar    (tap-hold-release 150 150 r lalt)
+    ax    (tap-hold-release 150 150 x ralt)
     cs    (tap-hold-release 150 150 s lctl)
     st    (tap-hold-release 150 150 t lsft)
 
     sn    (tap-hold-release 150 150 n rsft)
     ce    (tap-hold-release 150 150 e rctl)
-    ai    (tap-hold-release 150 150 i ralt)
+    ai    (tap-hold-release 150 150 i lalt)
+    a,    (tap-hold-release 150 150 , ralt)
     mo    (tap-hold-release 150 150 o rmet)
 )
 
@@ -40,7 +42,7 @@
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    f    p    b    j    l    u    y    ;    [    ]
   esc  @ma  @ar  @cs  @st  g    k    @sn  @ce  @ai  @mo  '    \    ret
-  lsft z    x    @cc  d    @cv    _    m    h    ,    .    /    rsft
+  lsft z    @ax  @cc  d    @cv  _    m    h    @a,  .    /    rsft
   lctl cmp lalt lmet          @spc_n           rmet ralt
 )
 
