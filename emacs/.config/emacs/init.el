@@ -130,16 +130,26 @@
   (evil-set-leader 'normal (kbd "SPC"))
   (evil-set-leader 'visual (kbd "SPC"))
 
+
+
+  (evil-define-key 'normal 'global (kbd "<leader> p b") 'consult-project-buffer)
+  (evil-define-key 'normal 'global (kbd "<leader> p p") 'project-switch-project)
+  (evil-define-key 'normal 'global (kbd "<leader> p f") 'project-find-file)
+  (evil-define-key 'normal 'global (kbd "<leader> p g") 'project-find-regexp)
+  (evil-define-key 'normal 'global (kbd "<leader> p k") 'project-kill-buffers)
+  (evil-define-key 'normal 'global (kbd "<leader> p D") 'project-dired)
+
   ;; Enable evil mode
   (evil-mode 1))
 
 (use-package evil-collection
   :ensure t
+  :after evil
   :defer t
   :custom
-  (evil-collection-want-find-usages-bindings t)
-  :hook
-  (evil-mode . evil-collection-init))
+  (evil-collection-want-find-usages-bindings t))
+
+(add-hook 'evil-mode-hook #'evil-collection-init)
 
 (use-package evil-surround
   :ensure t
@@ -254,5 +264,142 @@
   (:map vertico-map
 	("C-x C-d" . consult-dir)
 	("C-x C-j" . consult-dir-jump-file)))
+
+;; Dired
+(use-package dired
+  :ensure nil
+  :hook (dired-mode . hl-line-mode)
+  :custom
+  (delete-by-moving-to-trash t)
+  (dired-kill-when-opening-new-dired-buffer t)
+  (dired-recursive-copies 'always)
+  (dired-recursive-deletes 'always)
+  (dired-movement-style 'bounded)
+  (dired-dwim-target t))
+
+;; Xref
+(use-package xref
+  :ensure nil
+  :custom
+  (xref-auto-jump-to-first-definition 'show)
+  (xref-search-program 'ripgrep))
+
+
+;; Project
+(use-package project
+  :ensure nil
+  :bind (:map project-prefix-map ("g" . consult-ripgrep))
+  :custom
+  (project-switch-commands
+   '((project-find-file "Find file" ?f)
+     (project-dired "Find directory" ?d)
+     (consult-ripgrep "Find regexp" ?g)
+     (project-switch-to-buffer "Find buffer" ?b)
+     (magit-project-status "Magit" ?m)
+     (project-eshell "Eshell" ?e)))
+  (project-vc-extra-root-markers '("hie.yaml" "package.json" "spago.dhall"))
+  (project-vc-ignores '("node_modules" "output" "dist" "tmp")))
+
+;; History
+(setq undo-limit 80000000
+      history-length 5000
+      history-delete-duplicates t)
+
+
+;; Minibuffer
+(use-package minibuffer
+  :ensure nil
+  :defines (crm-separator)
+  :functions (crm-indicator)
+  :hook (minibuffer-setup . cursor-intangible-mode)
+  :custom
+  (completion-ignore-case t)
+  (completion-auto-select t)
+  (completion-auto-help 'visible)
+  (completion-show-help nil)
+  (completions-detailed t)
+  (completions-header-format nil)
+  (completions-format 'one-column)
+
+  ;; Tweak minibuffer behaviour
+  (resize-mini-windows t)
+  (enable-recursive-minibuffers t)
+  ;; (minibuffer-depth-indicate-mode t)
+  (minibuffer-electric-default-mode t)
+  (minibuffer-eldef-shorten-default t)
+
+  ;; Do not allow the cursor in the minibuffer prompt
+  (minibuffer-prompt-properties
+   '(read-only t cursor-intangible t face minibuffer-prompt))
+
+  ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
+  (read-extended-command-predicate
+   #'command-completion-default-include-p)
+  :config
+  (defun crm-indicator (args)
+    "Add prompt indicator to `completing-read-multiple'.
+ We display [CRM<separator>], e.g., [CRM,] if the separator is a comma."
+    (cons (format "[CRM%s] %s"
+                  (replace-regexp-in-string
+                   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+                   crm-separator)
+                  (car args))
+          (cdr args)))
+  (advice-add #'completing-read-multiple :filter-args #'crm-indicator))
+
+;; Vertico
+(use-package vertico
+  :ensure t
+  :defines (vertico-map)
+  :functions (vertico-mode)
+  :init (vertico-mode)
+  :hook (rfn-eshadow-update-overlay . vertico-directory-tidy)
+  :bind
+  (:map vertico-map
+        ("M-j" . vertico-quick-exit)
+        ("M-RET" . vertico-exit-input)
+        ;; ("C-SPC" . +vertico/embark-preview)
+        ("C-j"   . vertico-next)
+        ("C-M-j" . vertico-next-group)
+        ("C-k"   . vertico-previous)
+        ("C-M-k" . vertico-previous-group)
+        )
+  ("ESC" . vertico-exit)
+
+  :custom
+  (vertico-mouse-mode t)
+  (vertico-scroll-margin 0)
+  (vertico-resize nil)
+  (vertico-cycle t)
+  (vertico-count 17)
+  :config
+  (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
+  (add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
+
+  (setq-default completion-in-region-function
+                (lambda (&rest args)
+                  (apply (if vertico-mode
+                             #'consult-completion-in-region
+                           #'completion--in-region)
+                         args)))
+  )
+
+;; Orderless
+(use-package orderless
+  :ensure t
+  :custom
+  (completion-styles '(orderless flex))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles . (partial-completion))))))
+
+;; Marginalia
+(use-package marginalia
+  :ensure t
+  :functions (marginalia-mode)
+  :init (marginalia-mode)
+  :custom
+  (marginalia-annotators '(marginalia-annotators-heavy
+                           marginalia-annotators-light
+                           nil)))
 
 ;;; init.el ends here
