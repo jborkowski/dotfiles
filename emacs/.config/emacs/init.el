@@ -127,8 +127,12 @@
   :config
   (setq evil-leader/in-all-states t)
   (setq evil-want-fine-undo t)
+  (evil-set-undo-system 'undo-fu)
   (evil-set-leader 'normal (kbd "SPC"))
   (evil-set-leader 'visual (kbd "SPC"))
+
+
+
 
 
 
@@ -358,13 +362,10 @@
   (:map vertico-map
         ("M-j" . vertico-quick-exit)
         ("M-RET" . vertico-exit-input)
-        ;; ("C-SPC" . +vertico/embark-preview)
         ("C-j"   . vertico-next)
         ("C-M-j" . vertico-next-group)
         ("C-k"   . vertico-previous)
-        ("C-M-k" . vertico-previous-group)
-        )
-  ("ESC" . vertico-exit)
+        ("C-M-k" . vertico-previous-group))
 
   :custom
   (vertico-mouse-mode t)
@@ -401,5 +402,103 @@
   (marginalia-annotators '(marginalia-annotators-heavy
                            marginalia-annotators-light
                            nil)))
+;; Undo-fu
+(use-package undo-fu
+  :ensure t
+  :init
+  (setq undo-limit 67108864) ; 64mb.
+  (setq undo-strong-limit 100663296) ; 96mb.
+  (setq undo-outer-limit 1006632960)) ; 960mb.
+
+;; Ediff
+(use-package ediff
+  :ensure nil
+  :custom
+  (ediff-merge-split-window-function 'split-window-horizontally)
+  (ediff-split-window-function 'split-window-horizontally)
+  (ediff-window-setup-function 'ediff-setup-windows-plain))
+
+;; Diff-hl
+(use-package diff-hl
+  :defer t
+  :ensure t
+  :hook
+  (after-init . global-diff-hl-mode)
+  (after-init . (lambda () (unless (window-system) (diff-hl-margin-mode))))
+  (dired-mode . diff-hl-dired-mode)
+  (magit-pre-refresh . diff-hl-magit-pre-refresh)
+  (magit-post-refresh . diff-hl-magit-post-refresh)
+
+  :custom
+  (diff-hl-side 'left)
+  (diff-hl-margin-symbols-alist '((insert . "│")
+                                  (delete . "-")
+                                  (change . "│")
+                                  (unknown . "?")
+                                  (ignored . "i"))))
+;; Magit
+(use-package transient :ensure t)
+(use-package magit
+  :ensure t
+  :defer t
+  :bind ("<leader> g g" . magit-status)
+  :after transient
+  :custom
+  (magit-diff-refine-hunk t)
+  (magit-save-repository-buffers 'dontask)
+  (magit-revision-insert-related-refs nil)
+  (magit-section-visibility-indicator nil)
+  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+
+(use-package all-the-icons :ensure t)
+
+;; Modeline
+
+(use-package doom-modeline
+  :ensure t
+  :hook (doom-modeline-mode . size-indication-mode)
+  :hook (doom-modeline-mode . column-number-mode)
+  :init
+  (setq projectile-dynamic-mode-line nil
+        doom-modeline-height 25
+        doom-modeline-bar-width 3
+        doom-modeline-github nil
+        doom-modeline-mu4e nil
+        doom-modeline-persp-name nil
+        doom-modeline-minor-modes nil
+        doom-modeline-major-mode-icon nil
+        doom-modeline-buffer-file-name-style 'relative-from-project
+        doom-modeline-buffer-encoding nil
+        doom-modeline-project-detection 'project
+        doom-modeline-lsp t
+        doom-modeline-default-eol-type 2)
+  (doom-modeline-mode 1)
+  :config
+  (defvar mouse-wheel-down-event nil)
+  (defvar mouse-wheel-up-event nil)
+  (doom-modeline-def-modeline 'main
+    '(bar matches buffer-info remote-host buffer-position parrot selection-info)
+    '(misc-info minor-modes check input-method buffer-encoding process vcs "  "))
+
+  (add-hook 'doom-load-theme-hook #'doom-modeline-refresh-bars)
+
+  (add-hook 'magit-mode-hook
+            (defun +modeline-hide-in-non-status-buffer-h ()
+              "Show minimal modeline in magit-status buffer, no modeline elsewhere."
+              (if (eq major-mode 'magit-status-mode)
+                  (doom-modeline-set-modeline 'magit)
+                (hide-mode-line-mode))))
+  (set-face-attribute 'mode-line nil :font (font-spec :family "CaskaydiaMono Nerd Font" :size 13 :weight 'regular))
+  (set-face-attribute 'mode-line-inactive nil :font (font-spec :family "CaskaydiaMono Nerd Font" :size 13)))
+
+(defun +setup-font-faces-h ()
+  "Setup all Emacs font faces."
+  (when (display-graphic-p)
+    (set-face-attribute 'default nil :font (font-spec :family "CaskaydiaMono Nerd Font" :size 14 :weight 'semi-light))
+    (set-face-attribute 'fixed-pitch nil :font (font-spec :family "CaskaydiaMono Nerd Font" :size 14 :weight 'regular))
+    (set-face-attribute 'variable-pitch nil :font (font-spec :family "CaskaydiaMono Nerd Font" :size 14 :weight 'regular))))
+
+(add-hook 'after-init-hook '+setup-font-faces-h)
+(add-hook 'server-after-make-frame-hook '+setup-font-faces-h)
 
 ;;; init.el ends here
