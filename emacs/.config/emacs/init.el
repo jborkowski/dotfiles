@@ -12,6 +12,9 @@
           ((string-match-p "^arm" arch) "arm")
           (t "unknown"))))
 
+(defconst *is-a-mac* (eq system-type 'darwin))
+(defconst *is-a-linux* (eq system-type 'gnu/linux))
+
 (defvar cache-dir
   (expand-file-name (format "var/%s/cache/" (+get-arch))
                     user-emacs-directory))
@@ -96,23 +99,53 @@
 ;; Personal information
 (setq user-full-name "Jonatan Borkowski"
       user-mail-address "jonatan@thebo.me")
+
+
+(when *is-a-mac* (setq x-alt-keysym 'meta))
+
+
 ;; Theme
 (setopt custom-safe-themes t)
 (add-to-list 'default-frame-alist '(undecorated . t))
+
 (use-package modus-themes
   :ensure t
   :demand t
-  :bind
-  ("C-c t t" . modus-themes-toggle)
+  :bind ("<leader> t t" . modus-themes-toggle)
   :custom
-  (modus-themes-to-toggle
-   '(modus-operandi-tinted modus-vivendi-tinted))
-  (modus-themes-common-palette-overrides
-   '((prose-done green-intense)
-     (prose-todo red-intense)))
+  (modus-themes-to-toggle '(modus-operandi-deuteranopia modus-vivendi-deuteranopia))
 
-  (modus-themes-common-palette-overrides)
-  (modus-themes-preset-overrides-faint))
+  (modus-vivendi-deuteranopia-palette-overrides
+   '((bg-main "#101212")
+     (bg-dim "#0d1117")
+     (bg-alt "#161b22")
+     (fg-main "#c9d1d9")
+     (fg-alt "#8b949e")
+     (border "#30363d")
+     (fringe "#101212")
+     (cursor "#58a6ff")
+     (constant "#79c0ff")
+     (comment "#8b949e")
+     (keyword "#ff7b72")
+     (string "#a5d6ff")
+     (function "#d2a8ff")
+     (region "#264f78")
+     (link "#58a6ff")
+     (error "#ff6e6e")
+     (warning "#e3b341")
+     (success "#56d364")))
+  :config
+  (defun +os/theme ()
+    "Retrieve the OS theme (dark or light)."
+    (downcase
+     (if *is-a-linux*
+         (shell-command-to-string "gsettings get org.gnome.desktop.interface color-scheme")
+       (shell-command-to-string "defaults read -g AppleInterfaceStyle"))))
+
+  ;; Automatically load the appropriate theme based on the OS setting
+  (if (string-match-p "dark" (+os/theme))
+      (load-theme 'modus-vivendi-deuteranopia t)
+    (load-theme 'modus-operandi-deuteranopia t)))
 
 ;; Evil!
 (use-package evil
@@ -307,7 +340,22 @@
 ;; History
 (setq undo-limit 80000000
       history-length 5000
+      kill-do-not-save-duplicates t
+      create-lockfiles nil
       history-delete-duplicates t)
+
+;; Savehist
+(use-package savehist
+  :ensure nil
+  :defer 1
+  :hook (after-init . savehist-mode)
+  :custom
+  (savehist-save-minibuffer-history t)
+  (savehist-additional-variables
+   '(kill-ring
+     register-alist
+     mark-ring global-mark-ring
+     search-ring regexp-search-ring)))
 
 
 ;; Minibuffer
@@ -500,5 +548,172 @@
 
 (add-hook 'after-init-hook '+setup-font-faces-h)
 (add-hook 'server-after-make-frame-hook '+setup-font-faces-h)
+
+;; Treesiter
+(use-package treesit-auto
+  :ensure t
+  :defer t
+  :custom
+  (treesit-auto-install t)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
+
+;; Flymake
+(use-package flymake
+  :ensure nil
+  :defer t
+  :hook (prog-mode . flymake-mode)
+  :custom
+  (flymake-margin-indicators-string
+   '((error "!»" compilation-error) (warning "»" compilation-warning)
+     (note "»" compilation-info))))
+
+;; LSP
+(use-package lsp-mode
+  :ensure t
+  :defer t
+  :hook (
+         (bash-ts-mode . lsp)
+         (typescript-ts-mode . lsp)
+         (tsx-ts-mode . lsp)
+         (js-mode . lsp)
+         (js-ts-mode . lsp)
+         (rust-ts-mode . lsp)
+         (lsp-mode . lsp-enable-which-key-integration)) ;; Integrate with Which Key
+  :commands lsp
+  :custom
+  ;; General Settings
+  (lsp-keymap-prefix "<leader> l")
+  (lsp-session-file (locate-user-emacs-file ".lsp-session"))
+  (lsp-log-io nil)
+  (lsp-idle-delay 0)
+  (lsp-auto-configure t)
+  (lsp-enable-xref t)
+  (lsp-eldoc-enable-hover t)
+  (lsp-eldoc-render-all nil)
+  (lsp-signature-doc-lines 1)
+
+  ;; Performance Settings
+  (lsp-keep-workspace-alive nil)
+  (lsp-enable-file-watchers nil)
+  (lsp-enable-on-type-formatting nil)
+  (lsp-enable-indentation nil)
+  (lsp-enable-folding nil)
+
+  ;; Features and UI
+  (lsp-enable-imenu t)
+  (lsp-enable-symbol-highlighting t)
+  (lsp-enable-suggest-server-download t)
+  (lsp-enable-links nil)
+  (lsp-enable-text-document-color nil)
+  (lsp-inlay-hint-enable t)
+  (lsp-ui-doc-enable t)
+  (lsp-modeline-code-actions-enable nil)
+  (lsp-modeline-diagnostics-enable t)
+  (lsp-modeline-workspace-status-enable t)
+  (lsp-headerline-breadcrumb-enable nil)
+  (lsp-semantic-tokens-enable nil)
+  (lsp-lens-enable nil)
+
+  ;; Completion Settings
+  (lsp-completion-enable t)
+  (lsp-completion-show-kind t)
+  (lsp-completion-enable-additional-text-edit t)
+  (lsp-completion-provider :none)
+  (lsp-enable-snippet nil)
+  :config
+  ;; TODO Cleanup this!
+  (with-eval-after-load 'evil
+    (evil-define-key 'normal 'lsp-mode-map
+      (kbd "gr") 'lsp-find-references
+      (kbd "<leader> c a") 'lsp-execute-code-action
+      (kbd "<leader> l r") 'lsp-rename
+      (kbd "<leader> l d") 'lsp-find-definition
+      (kbd "<leader> l t") 'lsp-find-type-definition
+      (kbd "<leader> l i") 'lsp-find-implementation
+      (kbd "<leader> l e") 'lsp-execute-code-action
+      (kbd "<leader> l f") 'lsp-format-buffer
+      (kbd "<leader> l a") 'lsp-find-references
+      (kbd "<leader> l h") 'lsp-describe-session
+      (kbd "<leader> l s") 'lsp-signature-help))
+  )
+
+
+;; Corfu
+(use-package corfu
+  :ensure t
+  :after savehist
+  :init (global-corfu-mode)
+  :bind
+  (:map corfu-map ("M-j" . corfu-quick-insert))
+  :custom
+  (corfu-cycle t)
+  (corfu-auto t)
+  (corfu-history-mode t)
+  (corfu-popupinfo-mode t)
+  (add-to-list 'savehist-additional-variables 'corfu-history))
+
+(use-package corfu-terminal
+  :ensure t
+  :unless (window-system)
+  :hook (corfu-mode . corfu-terminal-mode))
+
+(use-package cape
+  :ensure t
+  :bind ("C-c p" . cape-prefix-map) ;; Alternative key: M-<tab>, M-p, M-+
+  ;;
+  ;; TODO Bindings!
+  ;; Alternatively bind Cape commands individually.
+  ;; :bind (("C-c p d" . cape-dabbrev)
+  ;;        ("C-c p h" . cape-history)
+  ;;        ("C-c p f" . cape-file)
+  ;;        ...)
+  :init
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  (add-to-list 'completion-at-point-functions #'cape-keyword))
+
+;; Markdown
+(use-package markdown-mode
+  :ensure t
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'"       . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :hook (markdown-mode . turn-on-visual-line-mode)
+  :custom
+  (markdown-fontify-code-blocks-natively t))
+
+;; WhichKey
+(use-package which-key
+  :ensure t
+  :defer t
+  :init (which-key-mode)
+  :config
+  (setq which-key-idle-delay 0.5))
+
+
+;; Rust
+(use-package rust-mode
+  :ensure t
+  :mode
+  ("\\.rs\\'"      . rust-mode)
+  ("\\.lalrpop\\'" . rust-mode)
+  :defines (rust-mode-map)
+  :config
+  (use-package evil
+    :ensure t
+    :config
+    ;; Bindings for Rust mode in Evil Normal state
+    (evil-define-key 'normal rust-mode-map
+      (kbd "M-j") 'lsp-ui-imenu
+      (kbd "M-?") 'lsp-find-references
+      (kbd "<leader> c l") 'flycheck-list-errors
+      (kbd "<leader> c x") 'lsp-execute-code-action
+      (kbd "<leader> c b") 'rustic-cargo-build
+      (kbd "<leader> c r") 'lsp-rename
+      (kbd "<leader> c s") 'lsp-rust-analyzer-status
+      (kbd "<leader> c A") 'rustic-cargo-add-missing-dependencies)))
+
 
 ;;; init.el ends here
