@@ -315,6 +315,26 @@
   (consult-preview-key "M-.")
   (consult-narrow-key "<"))
 
+;; Parentheses
+(use-package paren
+  :ensure nil
+  :defer 1
+  :hook (after-init . show-paren-mode)
+  :custom
+  (show-paren-delay 0)
+  (show-paren-context-when-offscreen t)
+  (show-paren-when-point-inside-paren t))
+
+(use-package rainbow-mode
+  :ensure t
+  :bind ("<leader> t r" . rainbow-mode))
+
+;; xclip
+(use-package xclip
+  :unless (display-graphic-p)
+  :hook (tty-setup)
+  :custom (xclip-method 'wl-copy))
+
 ;; Consult Dir
 (use-package consult-dir
   :ensure t
