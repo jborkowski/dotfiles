@@ -176,6 +176,9 @@
   (evil-define-key 'normal 'global (kbd "<leader> p k") 'project-kill-buffers)
   (evil-define-key 'normal 'global (kbd "<leader> p D") 'project-dired)
 
+  (evil-define-key 'normal 'global (kbd "<leader> .") 'consult-dir)
+  (evil-define-key 'normal 'global (kbd "<leader> SPC") 'find-file)
+
   ;; Enable evil mode
   (evil-mode 1))
 
@@ -331,6 +334,7 @@
 
 ;; xclip
 (use-package xclip
+  :ensure t
   :unless (display-graphic-p)
   :hook (tty-setup)
   :custom (xclip-method 'wl-copy))
@@ -796,10 +800,79 @@
 
 ;; CL
 (use-package sly
+  :ensure t
   :bind (:map lisp-mode-map ("C-c M-j" . sly))
   :custom
   (inferior-lisp-program (executable-find "sbcl"))
-  (sly-symbol-completion-mode nil))
+  (sly-symbol-completion-mode nil)
+
+  :config
+  (defun temp-buffer-p (buf)
+    "Returns non-nil if BUF is temporary."
+    (char-equal ?\s (aref (buffer-name buf) 0)))
+
+  (defun +common-lisp--cleanup-sly-maybe-h ()
+    "Kill processes and leftover buffers when killing the last sly buffer."
+    (unless (cl-loop for buf in (delq (current-buffer) (buffer-list))
+                     if (and (buffer-local-value 'sly-mode buf)
+                             (get-buffer-window buf))
+                     return t)
+      (dolist (conn (sly--purge-connections))
+        (sly-quit-lisp-internal conn 'sly-quit-sentinel t))
+      (let (kill-buffer-hook kill-buffer-query-functions)
+        (mapc #'kill-buffer
+              (cl-loop for buf in (delq (current-buffer) (buffer-list))
+                       if (buffer-local-value 'sly-mode buf)
+                       collect buf)))))
+
+  (add-hook 'sly-mode-hook
+            (defun +common-lisp-init-sly-h ()
+              "Attempt to auto-start sly when opening a lisp buffer."
+              (cond ((or (temp-buffer-p (current-buffer))
+                         (sly-connected-p)))
+                    ((executable-find (car (split-string inferior-lisp-program)))
+                     (let ((sly-auto-start 'always))
+                       (sly-auto-start)
+                       (add-hook 'kill-buffer-hook #'+common-lisp--cleanup-sly-maybe-h nil t)))
+                    ((message "WARNING: Couldn't find `inferior-lisp-program' (%s)"
+                              inferior-lisp-program)))(add-hook 'sly-mode-hook
+                    (defun +common-lisp-init-sly-h ()
+                      "Attempt to auto-start sly when opening a lisp buffer."
+                      (cond ((or (temp-buffer-p (current-buffer))
+                                 (sly-connected-p)))
+                            ((executable-find (car (split-string inferior-lisp-program)))
+                             (let ((sly-auto-start 'always))
+                               (sly-auto-start)
+                               (add-hook 'kill-buffer-hook #'+common-lisp--cleanup-sly-maybe-h nil t)))
+                            ((message "WARNING: Couldn't find `inferior-lisp-program' (%s)"
+                                      inferior-lisp-program)))))))
+
+  )
+
+
+(use-package sly-asdf
+  :ensure t
+  :defer t
+  :init
+  (add-to-list 'sly-contribs 'sly-asdf 'append))
+
+(use-package sly-quicklisp :ensure t)
+
+(elpack
+ (elpacka-package 'sly-stepper
+                  :recipe (:host github :repo "joaotavora/sly-stepper"
+                           :files (:defaults "*.lisp" "*.asd"))
+                  :defer t
+                  :init
+                  (add-to-list 'sly-contribs 'sly-stepper)
+                  ))
+
+(use-package sly-macrostep :ensure t)
+(use-package sly-repl-ansi-color
+  :ensure t
+  :init
+  (add-to-list 'sly-contribs 'sly-repl-ansi-color))
+(use-package sly-overlay :ensure t)
 
 
 ;; JavaScript
