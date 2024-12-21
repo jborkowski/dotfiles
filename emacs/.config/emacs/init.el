@@ -200,6 +200,29 @@
   :config
   (global-evil-matchit-mode 1))
 
+(use-package pulsar
+  :defer t
+  :ensure t
+  :init
+  (pulsar-global-mode)
+  :config
+  (setq pulsar-pulse t)
+  (setq pulsar-delay 0.025)
+  (setq pulsar-iterations 10)
+  (setq pulsar-face 'evil-ex-lazy-highlight)
+
+  (add-to-list 'pulsar-pulse-functions 'evil-scroll-down)
+  (add-to-list 'pulsar-pulse-functions 'flymake-goto-next-error)
+  (add-to-list 'pulsar-pulse-functions 'flymake-goto-prev-error)
+  (add-to-list 'pulsar-pulse-functions 'evil-yank)
+  (add-to-list 'pulsar-pulse-functions 'evil-yank-line)
+  (add-to-list 'pulsar-pulse-functions 'evil-delete)
+  (add-to-list 'pulsar-pulse-functions 'evil-delete-line)
+  (add-to-list 'pulsar-pulse-functions 'evil-jump-item)
+  (add-to-list 'pulsar-pulse-functions 'diff-hl-next-hunk)
+  (add-to-list 'pulsar-pulse-functions 'diff-hl-previous-hunk)
+  )
+
 ;; Recent files
 (use-package recentf
   :ensure nil
@@ -500,6 +523,42 @@
 
 (use-package all-the-icons :ensure t)
 
+(use-package vterm
+  :ensure t
+  :bind
+  ("<leader> o t" . +vterm/toggle)
+
+  :config
+  (setq vterm-max-scrollback 5000)
+
+  ;; Add popup behavior for vterm buffers
+  (add-to-list 'display-buffer-alist
+               '("^vterm"
+                 (display-buffer-reuse-window display-buffer-at-bottom)
+                 (window-height . 0.25)))
+
+  (defun +vterm/toggle ()
+    "Toggle a persistent vterm popup window and focus it."
+    (interactive)
+    (let ((buffer (get-buffer-create "*vterm*")))
+      (if (get-buffer-window buffer)
+          (delete-window (get-buffer-window buffer))
+        (progn
+          (unless (get-buffer-process buffer)
+            (with-current-buffer buffer
+              (vterm-mode)))
+          (let ((window (display-buffer buffer)))
+            (select-window window))))))
+
+  :hook ((vterm-mode . (lambda ()
+                         (setq confirm-kill-processes nil
+                               hscroll-margin 0))))
+
+  :bind (:map vterm-mode-map
+              ("C-q" . vterm-send-next-key))    ;; Allow C-q to send the next key
+  )
+
+
 ;; Modeline
 
 (use-package doom-modeline
@@ -714,6 +773,23 @@
       (kbd "<leader> c r") 'lsp-rename
       (kbd "<leader> c s") 'lsp-rust-analyzer-status
       (kbd "<leader> c A") 'rustic-cargo-add-missing-dependencies)))
+
+;; CL
+(use-package sly
+  :bind (:map lisp-mode-map ("C-c M-j" . sly))
+  :custom
+  (inferior-lisp-program (executable-find "sbcl"))
+  (sly-symbol-completion-mode nil))
+
+
+;; JavaScript
+(use-package js
+  :ensure nil
+  :custom
+  (js--prettify-symbols-alist nil)
+  (js-indent-level 2)
+  (js-switch-indent-offset 2))
+
 
 
 ;;; init.el ends here
