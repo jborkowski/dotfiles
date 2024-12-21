@@ -11,7 +11,6 @@ return {
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
-    "PaterJason/cmp-conjure",
     "HiPhish/nvim-cmp-vlime",
   },
 
@@ -195,7 +194,6 @@ return {
       nvim_lua      = "[Lua]",
       path          = "[Path]",
       calc          = "[calc]",
-      conjure       = "[Conjure]",
       nvlime        = "[nvlime]",
     }
 
@@ -213,7 +211,6 @@ return {
 
     local sources = {
       { name = "nvim_lsp",      keyword_length = 1, max_item_count = 10, priority = 350 },
-      { name = "conjure",       keyword_length = 1, max_item_count = 10, priority = 350 },
       { name = "nvlime",        keyword_length = 1, max_item_count = 10, priority = 350 },
       { name = "spell",         keyword_length = 3, max_item_count = 10, priority = 300 },
       { name = "buffer",        keyword_length = 3, max_item_count = 10, prioirty = 500 },
