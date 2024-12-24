@@ -40,7 +40,7 @@ return {
         table.insert(opts[pos], {
           ft = "snacks_terminal",
           size = { height = 0.4 },
-          title = "%{b:snacks_terminal.id}: %{b:term_title}",
+          title = '',
           filter = function(_buf, win)
             return vim.w[win].snacks_win
                 and vim.w[win].snacks_win.position == pos
@@ -58,13 +58,62 @@ return {
     lazy = false,
     keys = {
       { "<leader>ot", function() require("snacks.terminal").toggle() end, desc = "Toggle Terminal" },
+      {
+        '<leader>gB',
+        function()
+          Snacks.git.blame_line()
+        end,
+        desc = 'Git Blame Line',
+      },
     },
     ---@type snacks.Config
     opts = {
       bigfile = { enabled = true },
       indent = { enabled = true },
       input = { enabled = false },
-      terminal = { enabled = true },
+      git = { enable = true },
+      terminal = {
+        enabled = true,
+        win = {
+          style = 'minimal',
+          title = false,
+          bo = {
+            filetype = "snacks_terminal",
+          },
+          wo = {},
+          keys = {
+            q = 'hide',
+            gf = function(self)
+              local f = vim.fn.findfile(vim.fn.expand '<cfile>', '**')
+              if f == '' then
+                Snacks.notify.warn 'No file under cursor'
+              else
+                self:hide()
+                vim.schedule(function()
+                  vim.cmd('e ' .. f)
+                end)
+              end
+            end,
+            term_normal = {
+              '<esc>',
+              function(self)
+                self.esc_timer = self.esc_timer or (vim.uv or vim.loop).new_timer()
+                if self.esc_timer:is_active() then
+                  self.esc_timer:stop()
+                  vim.cmd 'stopinsert'
+                else
+                  self.esc_timer:start(250, 0, function() end)
+                  return '<esc>'
+                end
+              end,
+              mode = 't',
+              expr = true,
+              desc = 'Double escape to normal mode',
+            },
+          },
+
+        }
+      },
       quickfile = { enabled = true },
       statuscolumn = { enabled = true },
       words = { enabled = true },
