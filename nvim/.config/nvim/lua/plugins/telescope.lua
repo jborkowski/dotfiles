@@ -68,7 +68,7 @@ return {
         file_ignore_patterns = { ".git/", ".cache", "%.pdf", ".stack-work/", "output/", "node_modules/", "target", "out/", "dist/", "%.lock" },
         prompt_prefix = "  ",
         selection_caret = " ",
-        path_display = { "truncate" },
+        path_display = { "smart" },
         file_previewer = previewers.cat.new,
         grep_previewer = previewers.cat.new,
       },
