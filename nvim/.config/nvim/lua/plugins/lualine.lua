@@ -4,9 +4,9 @@ return {
   dependencies = {
     "nvim-tree/nvim-web-devicons",
   },
+  lazy = false,
 
   opts = function(_, opts)
-    local git_blame = require('gitblame')
     local function show_macro_recording()
       local recording_register = vim.fn.reg_recording()
       if recording_register == "" then
@@ -66,8 +66,8 @@ return {
       lualine_c = { "filename" },
       lualine_x = {
         { show_macro_recording, },
-        { "progress", separator = " ", padding = { left = 1, right = 0 } },
-        { "location", padding = { left = 0, right = 1 } },
+        { "progress",           separator = " ",                  padding = { left = 1, right = 0 } },
+        { "location",           padding = { left = 0, right = 1 } },
       },
       lualine_y = { "fileformat", "filetype" },
       lualine_z = { "encoding" },
