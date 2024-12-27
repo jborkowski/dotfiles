@@ -46,7 +46,7 @@ return {
       },
       { "<leader>/",   builtin('live_grep'),                  desc = "Live Grep (ripgrep)" },
       { "<Leader>fm",  builtin('marks'),                      desc = 'Search marks' },
-      { "<leader>hm",  builtin('harpoon', 'marks'),           desc = "Harpoon marks" },
+      { "<leader>hm",  extension('harpoon', 'marks'),         desc = "Harpoon marks" },
 
       { "<Leader>fo",  builtin('oldfiles'),                   desc = "Search recent files" },
       { "<Leader>fs",  builtin('grep_string'),                desc = "Search from word under cursor" },
