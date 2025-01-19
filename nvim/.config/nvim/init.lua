@@ -56,7 +56,6 @@ require("lazy").setup("plugins")
 vim.g.vlime_enable_autodoc = true
 
 -- exit from terminal mode
-vim.api.nvim_set_keymap('t', '<Esc><Esc>', '<C-\\><C-n>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<Leader>w', ':w<cr>', { noremap = true })
 
 require('cursor_colemak')
