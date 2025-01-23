@@ -65,7 +65,7 @@ return {
       defaults = {
         file_sorter = sorters.get_fzf_sorter,
         generic_sorter = sorters.get_fzf_sorter,
-        file_ignore_patterns = { ".git/", ".cache", "%.pdf", ".stack-work/", "output/", "node_modules/", "target", "out/", "dist/", "%.lock" },
+        file_ignore_patterns = { ".git/", ".cache", "%.pdf", ".stack-work/", "output/", "node_modules/", "target/", "out/", "dist/", "%.lock" },
         prompt_prefix = "  ",
         selection_caret = " ",
         path_display = { "smart" },
@@ -124,7 +124,7 @@ return {
               "--hidden",
               "--follow",
               "--glob",
-              "!{**/.git/*,**/node_modules/*,**/package-lock.json,**/yarn.lock,**/output/*,**/.stack-work/**,}",
+              "!{**/.git/*,**/node_modules/*,**/package-lock.json,**/yarn.lock,**/output/*,**/.stack-work/*}",
             }
           end,
         },
