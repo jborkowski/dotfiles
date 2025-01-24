@@ -76,11 +76,12 @@ floating_modifier $mod normal
 bindsym $mod+Shift+c reload
 
 bindsym $mod+Shift+Alt+e mode $exit
-set $exit "Quick actions: [e]xit, [r]eboot, [p]oweroff"
+set $exit "Quick actions: [e]xit, [r]eboot, [p]oweroff, [s]uspend"
 mode $exit {
      bindsym e exec swaymsg exit
      bindsym r exec systemctl reboot
      bindsym p exec systemctl poweroff
+     bindsym s exec systemctl suspend
 
      bindsym Escape mode "default"
      bindsym Return mode "default"
