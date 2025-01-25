@@ -35,7 +35,7 @@ return {
     priority = 1000,
     lazy = false,
     keys = {
-      { "<leader>ot", function() require("snacks.terminal").toggle() end, desc = "Toggle Terminal" },
+      { "<leader>ot", function() require("snacks.terminal").toggle() end,                                desc = "Toggle Terminal" },
       {
         '<leader>gB',
         function()
@@ -43,6 +43,9 @@ return {
         end,
         desc = 'Git Blame Line',
       },
+      { "<leader>ot", function() require("snacks.terminal").toggle() end,                                desc = "Toggle Terminal" },
+      { "<leader>gG", function() require("snacks").terminal({ "gitui" }) end,                            desc = "GitUi (cwd)" },
+      { "<leader>gU", function() require("snacks").terminal({ "gitui" }, { cwd = vim.fn.getcwd() }) end, desc = "GitUi (root dir)" },
     },
     ---@type snacks.Config
     opts = {

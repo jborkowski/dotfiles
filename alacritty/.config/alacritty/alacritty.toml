@@ -7,7 +7,7 @@ TERM = "alacritty-direct"
 normal = { family = "CaskaydiaMono Nerd Font", style = "SemiLight" }
 bold = { family = "CaskaydiaMono Nerd Font", style = "Bold" }
 italic = { family = "CaskaydiaMono Nerd Font", style = "Italic" }
-size = 12
+size = 11
 
 [[hints.enabled]]
 command = "xdg-open"

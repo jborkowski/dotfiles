@@ -154,7 +154,7 @@
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
-  (setq evil-want-C-u-scroll t)
+  (setq evil-want-C-u-scroll nil)
   (setq evil-want-C-u-delete t)
 
   :config
@@ -846,6 +846,7 @@
                                (add-hook 'kill-buffer-hook #'+common-lisp--cleanup-sly-maybe-h nil t)))
                             ((message "WARNING: Couldn't find `inferior-lisp-program' (%s)"
                                       inferior-lisp-program)))))))
+
 
   )
 
