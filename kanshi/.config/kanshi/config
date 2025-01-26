@@ -1,6 +1,6 @@
 
 profile mbp {
-  output eDP-1 enable
+  output eDP-1 mode 3024x1964 position 0,0 scale 1.5
 }
 
 profile mate {

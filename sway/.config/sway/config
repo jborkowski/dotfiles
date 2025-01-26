@@ -25,7 +25,8 @@ output HDMI-A-1 resolution 3840x2160@60.000Hz position 0 0 scale 1.25
 # output DP-1 resolution 2560x1440 position 0 0 scale 1
 #output eDP-1 resolution 2160x1440 position 2400 0 scale 1.25
 
-output eDP-1 resolution 3024x1890 position 0 0 scale 1.25
+# output eDP-1 resolution 3024x1890 position 0 0 scale 1.25
+# output eDP-1 resolution 3024x1964 position 0 0 scale 1.25 enable
 
 bindgesture swipe:right workspace prev
 bindgesture swipe:left workspace next
@@ -236,7 +237,8 @@ exec_always {
   /usr/bin/waybar & 
 }
 # exec /usr/bin/waybar
-exec_always pkill kanshi; kanshi > /tmp/kanshi.log 2>&1
+exec_always pkill /usr/bin/kanshi; exec_always /usr/bin/kanshi > /tmp/kanshi.log 2>&1
+ 
 exec_always $HOME/.config/sway/scripts/clamshell
 
 exec gnome-keyring-daemon --start
