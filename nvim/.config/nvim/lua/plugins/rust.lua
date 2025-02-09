@@ -11,16 +11,11 @@ vim.g.rustaceanvim = function()
     server = {
 
       on_attach = function(client, bufnr)
-        local common = require('plugins.common.lsp')
+        local common = require('plugins.lspconfig.common')
         common.set_mappings(client, bufnr, {
           ['K'] = {
             cmd = function()
-              local actions = require('rust-quick-tests.hover_actions').get_hover_actions()
-              if actions ~= nil then
-                require('rust-quick-tests.hover_actions').show_actions(actions)
-              else
-                vim.lsp.buf.hover()
-              end
+              vim.lsp.buf.hover()
             end,
             desc = '[Rust] Lsp Hover',
           },

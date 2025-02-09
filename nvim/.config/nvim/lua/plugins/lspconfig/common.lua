@@ -24,6 +24,21 @@ vim.api.nvim_create_user_command('LspInlayHints', function()
   vim.lsp.inlay_hint.enable(not current_setting, filter)
 end, {})
 
+vim.api.nvim_create_user_command('LspToggleFormatting', function()
+  local buf = vim.api.nvim_get_current_buf()
+  local clients = vim.lsp.get_clients({ bufnr = buf })
+
+  for _, client in ipairs(clients) do
+    client.server_capabilities.documentFormattingProvider =
+        not client.server_capabilities.documentFormattingProvider
+    client.server_capabilities.documentRangeFormattingProvider =
+        not client.server_capabilities.documentRangeFormattingProvider
+
+    local state = client.server_capabilities.documentFormattingProvider and "enabled" or "disabled"
+    vim.notify(string.format("Formatting %s for %s", state, client.name), vim.log.levels.INFO)
+  end
+end, {})
+
 local default_lsp_mappings = {
   ['gd'] = { cmd = ':LspDef<CR>', desc = 'Go to definition' },
   ['gf'] = { cmd = ':Telescope lsp_references<CR>', desc = 'Show references' },
@@ -32,8 +47,10 @@ local default_lsp_mappings = {
   ['gr'] = { cmd = ':LspRename<CR>', desc = 'Rename symbol' },
   ['<leader>ca'] = { cmd = ':lua vim.lsp.buf.code_action()<CR>', desc = 'Display code actions' },
   ['<leader>cf'] = { cmd = ':LspFormatting<CR>', desc = 'Format document' },
+  ['<leader>tf'] = { cmd = ':LspToggleFormatting<CR>', desc = 'Format document' },
   ['<leader>cs'] = { cmd = ':LspSignatureHelp<CR>', desc = 'Signature Help' },
   ['<leader>cd'] = { cmd = ':LspDiagQuickfix<CR>', desc = 'Show diagnostics QuickFix' },
+  ['<leader>d'] = { cmd = ':LspDiagLine<CR>', desc = 'Go to previous diagnostic' },
   ['[d'] = { cmd = ':LspDiagPrev<CR>', desc = 'Go to previous diagnostic' },
   [']d'] = { cmd = ':LspDiagNext<CR>', desc = 'Go to next diagnostic' },
 }

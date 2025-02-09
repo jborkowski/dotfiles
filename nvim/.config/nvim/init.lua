@@ -33,20 +33,10 @@ vim.g.incsearch = true
 vim.g.nobackup = true
 vim.g.noswapfile = true
 vim.opt.swapfile = false
--- vim.g.autochdir = true
--- vim.o.autochdir = true
 
 -- spell checker
 vim.opt.spelllang = 'en_us'
 vim.opt.spell = true
-
-if tonumber(os.date("%H")) < 6 then
-  vim.o.background = "dark"
-elseif tonumber(os.date("%H")) < 17 then
-  vim.o.background = "light"
-else
-  vim.o.background = "dark"
-end
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -61,22 +51,23 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-
 require("lazy").setup("plugins")
 
 vim.g.vlime_enable_autodoc = true
 
 -- exit from terminal mode
-vim.api.nvim_set_keymap('t', '<Esc><Esc>', '<C-\\><C-n>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<Leader>w', ':w<cr>', { noremap = true })
 
 require('cursor_colemak')
 
--- auto format buffers
-vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
-
-vim.keymap.set('n', '<leader>d', vim.diagnostic.setloclist, { noremap = true, silent = true })
-
-
 -- quick access to newrt
-vim.keymap.set('n', '<leader>e', ':Explore<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>.', ':Explore<CR>', { noremap = true, silent = true })
+
+vim.cmd('autocmd BufRead,BufNewFile *.hbs set filetype=html')
+
+
+vim.api.nvim_create_user_command('Gitu', function()
+  vim.cmd("tabnew")
+  vim.fn.termopen("gitu")
+  vim.cmd("startinsert")
+end, {})

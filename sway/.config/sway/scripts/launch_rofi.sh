@@ -2,7 +2,7 @@
 
 term="alacritty"
 
-rofi_theme="$HOME"/.config/rofi/themes/spotlight.rasi
+rofi_theme="$HOME"/.config/rofi/themes/spotlight-dark.rasi
 
 rofi -terminal "$term" \
   -show combi -combi-modes drun#ssh \

@@ -3,9 +3,6 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
-
-;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets. It is optional.
 (setq user-full-name "Jonatan Borkowski"
       user-mail-address "jonatan@thebo.me")
 
@@ -21,23 +18,14 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font (font-spec :family "CaskaydiaMono Nerd Font" :size 17 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "CaskaydiaMono Nerd Font" :size 18))
-;;
-;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
-;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
-;; refresh your font settings. If Emacs still can't find your font, it likely
-;; wasn't installed correctly. Font issues are rarely Doom issues!
+(setq doom-font (font-spec :family "CaskaydiaMono Nerd Font" :size 16 :weight 'semi-light)
+      doom-variable-pitch-font (font-spec :family "CaskaydiaMono Nerd Font" :size 17))
 
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
-(setq doom-themes-toggled-themes '(doom-one doom-one-light))
+(setq doom-theme 'modus-vivendi-tinted)
 
-(defvar my/theme-toggle-dark 'doom-one
+(defvar my/theme-toggle-dark 'modus-vivendi-tinted
   "Dark theme")
-(defvar my/theme-toggle-light 'doom-light
+(defvar my/theme-toggle-light 'modus-operandi-deuteranopia
   "Light theme")
 (defvar my/current-theme my/theme-toggle-dark
   "Tracks the current theme")
@@ -55,8 +43,6 @@
       :desc "Toggle Theme Variant"
       "t T" #'my/toggle-theme)
 
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type nil)
 
 ;; If you use `org' and don't want your org files in the default location below,
@@ -95,3 +81,8 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+(use-package! gptel
+  :config
+  (setq! gptel-backend (gptel-make-anthropic "Claude"
+                         :stream t :key  (getenv "ANTHROPIC_API_KEY"))))

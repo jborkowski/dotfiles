@@ -1,4 +1,4 @@
-@import "themes/light.css";
+@import "themes/dark.css";
 
 * {
 
@@ -70,7 +70,7 @@ button:hover {
 #memory,
 #disk,
 #temperature,
-#backdark,
+#backlight,
 #network,
 #pulseaudio,
 #wireplumber,

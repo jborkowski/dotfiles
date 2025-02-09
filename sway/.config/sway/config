@@ -27,7 +27,8 @@ output HDMI-A-1 resolution 3840x2560 position 0 0 scale 1.25
 # output DP-1 resolution 2560x1440 position 0 0 scale 1
 #output eDP-1 resolution 2160x1440 position 2400 0 scale 1.25
 
-output eDP-1 resolution 3024x1890 position 0 0 scale 1.25
+# output eDP-1 resolution 3024x1890 position 0 0 scale 1.25
+# output eDP-1 resolution 3024x1964 position 0 0 scale 1.25 enable
 
 bindgesture swipe:right workspace prev
 bindgesture swipe:left workspace next
@@ -78,11 +79,12 @@ floating_modifier $mod normal
 bindsym $mod+Shift+c reload
 
 bindsym $mod+Shift+Alt+e mode $exit
-set $exit "Quick actions: [e]xit, [r]eboot, [p]oweroff"
+set $exit "Quick actions: [e]xit, [r]eboot, [p]oweroff, [s]uspend"
 mode $exit {
      bindsym e exec swaymsg exit
      bindsym r exec systemctl reboot
      bindsym p exec systemctl poweroff
+     bindsym s exec systemctl suspend
 
      bindsym Escape mode "default"
      bindsym Return mode "default"
@@ -214,6 +216,9 @@ bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
 for_window {
   [app_id = "shotman"] floating enable
   [app_id = "blueman-manager"] floating enable
+  [app_id = "nm-connection-editor" ] floating enable
+  [app_id = "pavucontrol" ] floating enable
+  [app_id = "bitwarden-app" ] floating enable
 }
 
 exec_always {
@@ -234,12 +239,13 @@ exec_always {
   /usr/bin/waybar & 
 }
 # exec /usr/bin/waybar
-exec_always pkill kanshi; kanshi > /tmp/kanshi.log 2>&1
+exec_always pkill /usr/bin/kanshi; exec_always /usr/bin/kanshi > /tmp/kanshi.log 2>&1
+ 
 exec_always $HOME/.config/sway/scripts/clamshell
 
 exec gnome-keyring-daemon --start
 exec export SSH_AUTH_SOCK
 
-include $HOME/.config/sway/themes/modus_operandi
+include $HOME/.config/sway/themes/modus_vivendi
 
 include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'

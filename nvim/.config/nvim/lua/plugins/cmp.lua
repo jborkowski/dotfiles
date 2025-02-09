@@ -11,7 +11,6 @@ return {
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
-    -- "PaterJason/cmp-conjure",
     "HiPhish/nvim-cmp-vlime",
   },
 
@@ -148,11 +147,37 @@ return {
     -- {{{ Mappings
 
     local mapping = {
-      ["<C-j>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
-      ["<C-k>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
+      ["<C-j>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+        else
+          fallback()
+        end
+      end, { "i", "s" }),
 
-      ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
-      ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
+      ["<C-k>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+        else
+          fallback()
+        end
+      end, { "i", "s" }),
+
+      ["<C-n>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+        else
+          fallback()
+        end
+      end, { "i", "s" }),
+
+      ["<C-p>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+        else
+          fallback()
+        end
+      end, { "i", "s" }),
 
       ["<C-c>"] = cmp.mapping { i = cmp.mapping.abort(), c = cmp.mapping.close() },
 
@@ -160,7 +185,7 @@ return {
 
       ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
-          cmp.select_next_item()
+          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
         elseif luasnip.expandable() then
           luasnip.expand()
         elseif luasnip.expand_or_jumpable() then
@@ -174,7 +199,7 @@ return {
 
       ["<S-Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
-          cmp.select_prev_item()
+          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
         elseif luasnip.jumpable(-1) then
           luasnip.jump(-1)
         else
@@ -195,7 +220,6 @@ return {
       nvim_lua      = "[Lua]",
       path          = "[Path]",
       calc          = "[calc]",
-      -- conjure       = "[Conjure]",
       nvlime        = "[nvlime]",
     }
 
@@ -213,7 +237,6 @@ return {
 
     local sources = {
       { name = "nvim_lsp",      keyword_length = 1, max_item_count = 10, priority = 350 },
-      -- { name = "conjure",       keyword_length = 1, max_item_count = 10, priority = 350 },
       { name = "nvlime",        keyword_length = 1, max_item_count = 10, priority = 350 },
       { name = "spell",         keyword_length = 3, max_item_count = 10, priority = 300 },
       { name = "buffer",        keyword_length = 3, max_item_count = 10, prioirty = 500 },

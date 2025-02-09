@@ -159,8 +159,8 @@ _sway() {
         ;;
     dark)
         ised "s,themes/modus_operandi,themes/modus_vivendi," "$HOME"/.config/sway/config
-        _gsettings_gtk_set 'adw-gtk3'
-        _gsettings_color_scheme_set 'prefer-light'
+        _gsettings_gtk_set 'adw-gtk3-dark'
+        _gsettings_color_scheme_set 'prefer-dark'
         _gtk_common 'Adwaita-dark' 'Adwaita' 'true'
         ;;
     esac
@@ -168,10 +168,10 @@ _sway() {
     swaymsg reload &
     _waybar "$style" &
     _rofi "$style" &
-    _kitty "$style" &
-    _foot "$style" &
+    # _kitty "$style" &
+    # _foot "$style" &
     _alacritty "$style" &
-    _sync_remote "$style" &
+    # _sync_remote "$style" &
     _wallpaper "$style" &
 }
 

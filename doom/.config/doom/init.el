@@ -33,7 +33,7 @@
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
        ;;doom-quit         ; DOOM quit-message prompts when you quit Emacs
-       ;;(emoji +unicode)  ; 🙂
+       (emoji +unicode)  ; 🙂
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;indent-guides     ; highlighted indent columns
        ;;ligatures         ; ligatures and symbols to make your code pretty again
@@ -112,7 +112,7 @@
        :lang
        ;;agda              ; types of types of types of types...
        ;;beancount         ; mind the GAAP
-       (cc +lsp)         ; C > C++ == 1
+       (cc +eglot)         ; C > C++ == 1
        ;;clojure           ; java with a lisp
        common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
@@ -160,7 +160,7 @@
        ;;rest              ; Emacs as a REST client
        ;;rst               ; ReST in peace
        (ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-       (rust +lsp)       ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       (rust +eglot)       ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;(scheme +guile)   ; a fully conniving family of lisps
        sh                ; she sells {ba,z,fi}sh shells on the C xor
        ;;sml
@@ -169,7 +169,7 @@
        terra             ; Earth and Moon in alignment for performance.
        web               ; the tubes
        yaml              ; JSON, but readable
-       (zig +lsp)          ; C, but simpler
+       (zig +eglot)          ; C, but simpler
 
        :email
        ;;(mu4e +org +gmail)
