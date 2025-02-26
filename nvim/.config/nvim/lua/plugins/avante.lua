@@ -7,7 +7,7 @@ return {
     provider = "claude",
     claude = {
       endpoint = "https://api.anthropic.com",
-      model = "claude-3-5-sonnet-latest",
+      model = "claude-3-7-sonnet-latest",
       temperature = 0,
       max_tokens = 4096,
     },
@@ -33,8 +33,8 @@ return {
     },
     hints = { enabled = true },
     windows = {
-      wrap = true, -- similar to vim.o.wrap
-      width = 30, -- default % based on available width
+      wrap = true,        -- similar to vim.o.wrap
+      width = 30,         -- default % based on available width
       sidebar_header = {
         align = "center", -- left, center, right for title
         rounded = true,
