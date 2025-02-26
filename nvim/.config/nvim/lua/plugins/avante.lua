@@ -3,11 +3,18 @@ return {
   event = "VeryLazy",
   build = "make",
   opts = {
-    ---@alias Provider "openai" | "claude" | "azure"  | "copilot" | "cohere" | [string]
-    provider = "claude",
+    provider = "hyperbolic",
     claude = {
       endpoint = "https://api.anthropic.com",
       model = "claude-3-7-sonnet-latest",
+      temperature = 0,
+      max_tokens = 4096,
+    },
+    hyperbolic = {
+      __inherited_from = "openai",
+      api_key_name = "env:HYPERBOLIC_API_KEY",
+      endpoint = "https://api.hyperbolic.xyz/v1",
+      model = "deepseek-ai/DeepSeek-R1",
       temperature = 0,
       max_tokens = 4096,
     },
