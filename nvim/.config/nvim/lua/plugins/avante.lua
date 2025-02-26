@@ -1,20 +1,23 @@
 return {
   "yetone/avante.nvim",
   event = "VeryLazy",
+  lazy = false,
   build = "make",
+  version = false,
   opts = {
+    -- provider = "claude",
     provider = "hyperbolic",
+    vendors = {
+      hyperbolic = {
+        __inherited_from = 'openai',
+        api_key_name = "HYPERBOLIC_API_KEY",
+        endpoint = "https://api.hyperbolic.xyz/v1",
+        model = "deepseek-ai/DeepSeek-R1",
+      },
+    },
     claude = {
       endpoint = "https://api.anthropic.com",
       model = "claude-3-7-sonnet-latest",
-      temperature = 0,
-      max_tokens = 4096,
-    },
-    hyperbolic = {
-      __inherited_from = "openai",
-      api_key_name = "env:HYPERBOLIC_API_KEY",
-      endpoint = "https://api.hyperbolic.xyz/v1",
-      model = "deepseek-ai/DeepSeek-R1",
       temperature = 0,
       max_tokens = 4096,
     },
