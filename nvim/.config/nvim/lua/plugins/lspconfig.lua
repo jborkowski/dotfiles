@@ -114,6 +114,20 @@ return {
     lspconfig.bashls.setup(default_config)
     lspconfig.ts_ls.setup(default_config)
     lspconfig.svelte.setup(default_config)
+    lspconfig.gopls.setup(vim.tbl_extend('force', default_config, {
+      cmd = { "gopls" },
+      filetypes = { "go", "gomod", "gowork", "gotmpl" },
+      root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
+      settings = {
+        gopls = {
+          analyses = {
+            unusedparams = true,
+          },
+          staticcheck = true,
+        },
+      },
+    })
+    )
 
     lspconfig.zls.setup(vim.tbl_extend('force', default_config, {
       settings = {
