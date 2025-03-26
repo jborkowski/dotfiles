@@ -114,6 +114,10 @@ return {
     lspconfig.bashls.setup(default_config)
     lspconfig.ts_ls.setup(default_config)
     lspconfig.svelte.setup(default_config)
+    lspconfig.terraform_lsp.setup(vim.tbl_extend('force', default_config, {
+      filetypes = { "terraform", "terraform-vars", "hcl" },
+      root_dir = lspconfig.util.root_pattern(".terraform", ".git"),
+    }))
     lspconfig.gopls.setup(vim.tbl_extend('force', default_config, {
       cmd = { "gopls" },
       filetypes = { "go", "gomod", "gowork", "gotmpl" },
