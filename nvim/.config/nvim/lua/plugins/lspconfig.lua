@@ -133,6 +133,8 @@ return {
     })
     )
 
+    require 'lspconfig'.postgres_lsp.setup(default_config)
+
     lspconfig.zls.setup(vim.tbl_extend('force', default_config, {
       settings = {
         zls = {
