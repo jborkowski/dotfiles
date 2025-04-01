@@ -22,7 +22,6 @@ return {
         path = "~/org/Notes",
       },
     },
-    detect_cwd = false,
     open_notes_in = "current",
     daily_notes = {
       folder = "Daily",
@@ -66,18 +65,20 @@ return {
         ["~"] = { char = "󰰱", hl_group = "ObsidianTilde" },
       },
       external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
-    config = function(_, opts)
-      require("obsidian").setup(opts)
-      -- Set conceallevel for Obsidian syntax features only in markdown files within the vault
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = "markdown",
-        callback = function()
-          local client = require("obsidian").get_client()
-          if client and client:vault_relative_path(vim.fn.expand("%:p")) then
-            vim.opt_local.conceallevel = 2
-          end
-        end,
-      })
+    }
+  },
+  config = function(_, opts)
+    require("obsidian").setup(opts)
+    -- Set conceallevel for Obsidian syntax features only in markdown files within the vault
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "markdown",
+      callback = function()
+        local client = require("obsidian").get_client()
+        if client and client:vault_relative_path(vim.fn.expand("%:p")) then
+          vim.opt_local.conceallevel = 2
+        end
+      end,
+    })
     -- Set conceallevel for Obsidian syntax features
     vim.opt.conceallevel = 2
     local wk = require("which-key")
@@ -98,11 +99,8 @@ return {
         {
           "<leader>ne",
           function()
-            local client = require("obsidian").get_client()
-            if client then 
-              local title = vim.fn.input({ prompt = "Enter title (optional): " })
-              vim.cmd("ObsidianExtractNote " .. title)
-            end
+            local title = vim.fn.input({ prompt = "Enter title (optional): " })
+            vim.cmd("ObsidianExtractNote " .. title)
           end,
           desc = "Extract text into new note"
         },
