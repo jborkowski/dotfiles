@@ -6,7 +6,7 @@ return {
   version = false,
   opts = {
     provider = "claude",
-    --provider = "hyperbolic",
+    -- provider = "hyperbolic",
     vendors = {
       hyperbolic = {
         __inherited_from = "openai",

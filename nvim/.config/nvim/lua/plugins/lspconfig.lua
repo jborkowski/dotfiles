@@ -133,7 +133,9 @@ return {
     })
     )
 
-    require 'lspconfig'.postgres_lsp.setup(default_config)
+    lspconfig.postgres_lsp.setup(default_config)
+    lspconfig.pylsp.setup(default_config)
+
 
     lspconfig.zls.setup(vim.tbl_extend('force', default_config, {
       settings = {
@@ -169,6 +171,6 @@ return {
     })
 
     require('mason').setup()
-    require('mason-lspconfig').setup({ automatic_installation = false })
+    require('mason-lspconfig').setup({ automatic_installation = true })
   end,
 }
