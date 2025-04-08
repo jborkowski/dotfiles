@@ -1,13 +1,13 @@
 general.import = [ "~/.config/alacritty/theme.toml" ]
 
 [env]
-TERM = "alacritty-direct"
+TERM = "xterm-24bit"
 
 [font]
-normal = { family = "CaskaydiaMono Nerd Font", style = "SemiLight" }
-bold = { family = "CaskaydiaMono Nerd Font", style = "Bold" }
-italic = { family = "CaskaydiaMono Nerd Font", style = "Italic" }
-size = 11
+normal = { family = "Liga SFMono Nerd Font", style = "Light" }
+bold = { family = "Liga SFMono Nerd Font", style = "Bold" }
+italic = { family = "Liga SFMono Nerd Font", style = "Italic" }
+size = 15
 
 [[hints.enabled]]
 command = "xdg-open"
@@ -39,7 +39,7 @@ semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
 
 [terminal.shell]
 args = ["--login"]
-program = "/usr/bin/zsh"
+program = "/bin/zsh"
 
 [terminal]
 osc52 = "CopyPaste"
@@ -52,3 +52,5 @@ bindings = [
 
 [debug]
 render_timer = false
+
+
