@@ -4,10 +4,16 @@ font-size = 14
 app-notifications = no-clipboard-copy
 
 theme = dark:GitHub-Dark-Colorblind,light:GitHub-Light-Colorblind
+clipboard-read = allow
+clipboard-write = allow
+clipboard-paste-protection = false
+background-blur = false
 
 cursor-style = block
 shell-integration-features = no-cursor
 keybind = ctrl+insert=copy_to_clipboard
 keybind = shift+insert=paste_from_clipboard
 
-
+keybind = shift+ctrl+right=next_tab
+keybind = shift+ctrl+left=previous_tab
+keybind = cmd+enter=new_split:right
