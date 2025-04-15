@@ -14,6 +14,16 @@ return {
     }
   end,
 
-  config = true
+  config = {
+    disable_hint = false,
+    prompt_force_push = false,
+    filewatcher = {
+      interval = 1000,
+      enabled = true,
+    },
+    graph_style = "kitty",
+    process_spinner = true,
+    auto_show_console = false,
+  }
 
 }
