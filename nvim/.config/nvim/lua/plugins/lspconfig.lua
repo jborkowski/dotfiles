@@ -22,7 +22,11 @@ return {
       common.set_mappings(client, bufnr)
     end
 
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    local capabilities = vim.tbl_deep_extend(
+      'force',
+      vim.lsp.protocol.make_client_capabilities(),
+      cmp_lsp.default_capabilities()
+    )
     capabilities.textDocument.completion.completionItem.snippetSupport = true
 
     local default_flags = { debounce_text_changes = 100 }
@@ -31,8 +35,6 @@ return {
       on_attach = on_attach,
       flags = default_flags,
     }
-
-    vim.tbl_deep_extend('force', {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
 
     lspconfig.lua_ls.setup(vim.tbl_extend('force', default_config, {
       n_init = function(client)
