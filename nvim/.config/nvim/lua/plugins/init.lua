@@ -1,18 +1,5 @@
 return {
   {
-    "projekt0n/github-nvim-theme",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      if vim.o.background == "light" then
-        vim.cmd([[colorscheme github_light_colorblind]])
-      else
-        vim.cmd([[colorscheme github_dark_colorblind]])
-      end
-    end,
-
-  },
-  {
     "vhyrro/luarocks.nvim",
     priority = 1001,
     config = true,

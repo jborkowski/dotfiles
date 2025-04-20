@@ -329,7 +329,7 @@ themes {
     }
 }
 
-theme "github-dark-colorblind"
+theme "duskfox"
 // theme "github-light-colorblind"
 
 // theme "tokyo-night-storm"
