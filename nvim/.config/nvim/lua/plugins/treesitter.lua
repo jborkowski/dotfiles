@@ -1,22 +1,22 @@
 return {
   "nvim-treesitter/nvim-treesitter",
   enabled = true,
-  cmd = {"TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo"},
+  cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
   build = ":TSUpdate",
-  config = function ()
+  config = function()
     require('nvim-treesitter.configs').setup {
       -- Add languages to be installed here that you want installed for treesitter
       ensure_installed = {
         "bash", "c", "cpp", "dockerfile", "html", "javascript", "json", "haskell", "norg",
         "lua", "markdown", "markdown_inline", "python", "query", "regex",
-        "rust", "ruby", "sql", "toml", "tsx", "typescript", "vim", "vimdoc", "yaml",
+        "rust", "ruby", "sql", "toml", "tsx", "typescript", "vim", "vimdoc", "yaml", "zig"
       },
 
       -- Autoinstall languages that are not installed. Defaults to false (but you
       -- can change for yourself!)
       auto_install = false,
 
-      highlight = { enable = true },
+      highlight = { enable = true, additional_vim_regex_highlighting = false },
       indent = { enable = true },
 
       incremental_selection = {

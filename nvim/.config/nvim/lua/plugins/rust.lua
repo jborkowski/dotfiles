@@ -90,6 +90,6 @@ end
 
 return {
   'mrcjkb/rustaceanvim',
-  version = '^5',
+  version = '*',
   ft = { 'rust' },
 }

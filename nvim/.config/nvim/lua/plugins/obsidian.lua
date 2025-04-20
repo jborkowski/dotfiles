@@ -57,14 +57,33 @@ return {
       },
     },
     ui = {
-      enable = true,
+      enable = false,
       checkboxes = {
         [" "] = { char = "󰄱", hl_group = "ObsidianTodo" },
         ["x"] = { char = "", hl_group = "ObsidianDone" },
         [">"] = { char = "", hl_group = "ObsidianRightArrow" },
         ["~"] = { char = "󰰱", hl_group = "ObsidianTilde" },
+        ["!"] = { char = "", hl_group = "ObsidianImportant" },
+        [" "] = { char = "☐", hl_group = "ObsidianTodo" },
+        ["x"] = { char = "✔", hl_group = "ObsidianDone" },
       },
       external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
+      bullets = { char = "• ", hl_group = "ObsidianBullet" },
+      block_ids = { hl_group = "ObsidianBlockID" },
+      hl_groups = {
+        -- The options are passed directly to `vim.api.nvim_set_hl()`. See `:help nvim_set_hl`.
+        ObsidianTodo = { bold = true, fg = "#f78c6c" },
+        ObsidianDone = { bold = true, fg = "#89ddff" },
+        ObsidianRightArrow = { bold = true, fg = "#f78c6c" },
+        ObsidianTilde = { bold = true, fg = "#ff5370" },
+        ObsidianImportant = { bold = true, fg = "#d73128" },
+        ObsidianBullet = { bold = true, fg = "#89ddff" },
+        ObsidianRefText = { underline = true, fg = "#c792ea" },
+        ObsidianExtLinkIcon = { fg = "#c792ea" },
+        ObsidianTag = { italic = true, fg = "#89ddff" },
+        ObsidianBlockID = { italic = true, fg = "#89ddff" },
+        ObsidianHighlightText = { bg = "#75662e" },
+      },
     }
   },
   config = function(_, opts)

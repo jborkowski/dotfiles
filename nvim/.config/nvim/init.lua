@@ -34,6 +34,10 @@ vim.g.nobackup = true
 vim.g.noswapfile = true
 vim.opt.swapfile = false
 
+
+vim.opt.conceallevel = 2
+vim.g.vim_markdown_frontmatter = 1
+
 -- spell checker
 vim.opt.spelllang = 'en_us'
 vim.opt.spell = true
