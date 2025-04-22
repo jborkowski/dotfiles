@@ -17,9 +17,12 @@ return {
     local cmp_lsp = require 'cmp_nvim_lsp'
     local lspconfig = require 'lspconfig'
     local common = require('plugins.lspconfig.common')
+    local navic = require("nvim-navic")
+
 
     local on_attach = function(client, bufnr)
       common.set_mappings(client, bufnr)
+      navic.attach(client, bufnr)
     end
 
     local capabilities = vim.tbl_deep_extend(
@@ -110,7 +113,6 @@ return {
     lspconfig.rnix.setup(default_config)
     lspconfig.cssls.setup(default_config)
     lspconfig.html.setup(default_config)
-    lspconfig.yamlls.setup(default_config)
     lspconfig.clangd.setup(default_config)
     lspconfig.marksman.setup(default_config)
     lspconfig.bashls.setup(default_config)
@@ -137,6 +139,7 @@ return {
 
     lspconfig.postgres_lsp.setup(default_config)
     lspconfig.pylsp.setup(default_config)
+    lspconfig.yamlls.setup(default_config)
 
 
     lspconfig.zls.setup(vim.tbl_extend('force', default_config, {
@@ -161,8 +164,22 @@ return {
         },
       }
     end
-
     lspconfig.redsl.setup(default_config)
+
+    if not configs.circleci then
+      configs.circleci = {
+        default_config = {
+          cmd = { "circleci-yaml-language-server", "--stdio" },
+          filetypes = { "yaml", "yml" },
+          root_dir = function(fname)
+            return lspconfig.util.root_pattern(".circleci/config.yml", ".git")(fname)
+          end,
+          settings = {},
+          single_file_support = true,
+        },
+      }
+    end
+    lspconfig.circleci.setup(default_config)
 
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),
