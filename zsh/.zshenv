@@ -32,7 +32,9 @@ export GH_TOKEN="op://Personal/GitHub Jonatan/Section_2CBCCC6A7E4040BC9B694F19FD
 
 . "$HOME/.cargo/env"
 
-export TERM=xterm-24bit
+if [ -z "$TERM" ] || [ "$TERM" != "xterm-ghostty" ] || [ -z "$(infocmp xterm-ghostty 2>/dev/null)" ]; then
+    export TERM=xterm-24bit
+fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
