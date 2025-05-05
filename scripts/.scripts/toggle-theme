@@ -20,6 +20,14 @@ _kitty() {
 
 }
 
+_bottom() {
+  _dep_installed bottom 
+  case "$1" in 
+    light) ised "s/theme = \"default-light\"/theme = \"default\"/" "$HOME/.config/bottom/bottom.toml";;
+    dark) ised "s/theme = \"default-light\"/theme = \"default\"/" "$HOME/.config/bottom/bottom.toml";;
+  esac
+}
+
 _foot() {
     _dep_installed foot
 
@@ -126,6 +134,7 @@ _gnome() {
     _foot "$style" &
     _alacritty "$style" &
     _sync_remote "$style" &
+    _bottom "$style" &
 }
 
 _waybar() {

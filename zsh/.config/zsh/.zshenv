@@ -39,7 +39,9 @@ export GH_TOKEN="op://Personal/GitHub Jonatan/Section_2CBCCC6A7E4040BC9B694F19FD
 
 . "$HOME/.cargo/env"
 
-export TERM=xterm-24bit
+if [ -z "$TERM" ] || [ "$TERM" != "xterm-ghostty" ]; then
+    export TERM=xterm-24bit
+fi
 
 if [ -e "$MOME/.nix-profile/etc/profile.d/nix.sh" ]; then . "$HOME/.nix-profile/etc/profile.d/nix.sh"; fi # added by Nix installer
 

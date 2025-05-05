@@ -2,20 +2,37 @@
 
 export PATH=$PATH:/opt/homebrew/bin
 
-if [[ $DARKMODE == 1 ]]; then 
-  kitty +kitten themes --reload-in=all Modus Vivendi Tinted
+if [[ $DARKMODE == 1 ]]; then
+  kitty +kitten themes --reload-in=all GitHub Dark Colorblind
+  # emacsclient -e "(load-theme 'modus-vivendi-tinted :no-confirm)" > /dev/null
+  sed -i '' 's/github_light_colorblind/github_dark_colorblind/' "$HOME"/.config/alacritty/theme.toml
+  sed -i '' 's/theme = "default-light"/theme = "default"/' "$HOME/.config/bottom/bottom.toml"
 
-  emacsclient -e "(load-theme 'modus-vivendi-tinted :no-confirm)" > /dev/null
-
-  if ssh revm -q -o ConnectTimeout=1 -o BatchMode=yes exit; then
-    ssh -qtt re "docker exec devcontainer-dev-1 emacsclient -e \"(load-theme 'modus-vivendi-tinted :no-confirm)\""
+  # if ssh revm -q -o ConnectTimeout=1 -o BatchMode=yes exit; then
+  #   ssh -qtt re "docker exec devcontainer-dev-1 emacsclient -e \"(load-theme 'modus-vivendi-tinted :no-confirm)\""
+  #   # ssh -qtt hasurian "gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'"
+  # fi
+  
+  if ssh luddite -q -o ConnectTimeout=1 -o BatchMode=yes exit; then
+    ssh -qtt luddite "gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'"
+    ssh -qtt luddite "docker exec devcontainer-dev-1 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'"
+    ssh -qtt luddite 'sed -i "s/theme = \"default-light\"/theme = \"default\"/" "$HOME/.config/bottom/bottom.toml"'
   fi
-
 else 
-  kitty +kitten themes --reload-in=all Modus Operandi Tinted
+  kitty +kitten themes --reload-in=all GitHub Light Colorblind
+  # emacsclient -e "(load-theme 'modus-operandi-tinted :no-confirm)" > /dev/null
+  sed -i '' 's/github_dark_colorblind/github_light_colorblind/' "$HOME"/.config/alacritty/theme.toml
+  sed -i '' 's/theme = "default"/theme = "default-light"/' "$HOME/.config/bottom/bottom.toml"
 
-  emacsclient -e "(load-theme 'modus-operandi-tinted :no-confirm)" > /dev/null
-  if ssh revm -q -o ConnectTimeout=1 -o BatchMode=yes exit; then
-    ssh -qtt re "docker exec devcontainer-dev-1 emacsclient -e \"(load-theme 'modus-operandi-tinted :no-confirm)\""
+  # if ssh revm -q -o ConnectTimeout=1 -o BatchMode=yes exit; then
+  #   ssh -qtt re "docker exec devcontainer-dev-1 emacsclient -e \"(load-theme 'modus-operandi-tinted :no-confirm)\""
+  #   # ssh -qtt hasurian "gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'"
+  # fi
+
+  if ssh luddite -q -o ConnectTimeout=1 -o BatchMode=yes exit; then
+    ssh -qtt luddite "gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'"
+    ssh -qtt luddite "docker exec devcontainer-dev-1 gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'"
+    ssh -qtt luddite 'sed -i "s/theme = \"default\"/theme = \"default-light\"/" "$HOME/.config/bottom/bottom.toml"'
   fi
 fi
+
