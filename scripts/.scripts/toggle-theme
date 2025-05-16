@@ -1,225 +1,124 @@
 #!/bin/env bash
 
-_dep_installed() {
-    command -v "$1" >/dev/null || {
-        echo "Dependency not installed: $1"
-        return 1
-    }
+check_dep() {
+  command -v "$1" >/dev/null || return 1
 }
 
 ised() {
-    sed --follow-symlinks -i "$@"
+  sed --follow-symlinks -i "$@"
 }
 
-_kitty() {
-    _dep_installed kitty
-    case "$1" in
-      light) kitty +kitten themes --reload-in=all GitHub Light Colorblind ;;
-      dark) kitty +kitten themes --reload-in=all GitHub Dark Colorblind ;;
-    esac
+toggle_app() {
+  local app=$1 style=$2
 
-}
-
-_bottom() {
-  _dep_installed bottom 
-  case "$1" in 
-    light) ised "s/theme = \"default-light\"/theme = \"default\"/" "$HOME/.config/bottom/bottom.toml";;
-    dark) ised "s/theme = \"default-light\"/theme = \"default\"/" "$HOME/.config/bottom/bottom.toml";;
+  case $app in
+  kitty)
+    check_dep kitty && kitty +kitten themes --reload-in=all "GitHub ${style^} Colorblind"
+    ;;
+  bottom)
+    check_dep bottom && ised "s/theme = \"default-light\"/theme = \"default\"/" "$HOME/.config/bottom/bottom.toml"
+    ;;
+  foot)
+    check_dep foot && ised "s,\(\binclude=~/.config/foot/\).*,\1modus_$([ "$style" = "light" ] && echo "operandi" || echo "vivendi").ini," "$HOME/.config/foot/foot.ini"
+    ;;
+  alacritty)
+    check_dep alacritty && ised "s/github_$([ "$style" = "light" ] && echo "dark" || echo "light")_colorblind/github_${style}_colorblind/" "$HOME/.config/alacritty/theme.toml"
+    ;;
+  wallpaper)
+    ln -sf "$HOME/.config/wallpapers/$style.jpg" "$HOME/.config/wallpapers/current.jpg"
+    ;;
+  emacs)
+    emacsclient -e "(load-theme 'modus-$([ "$style" = "light" ] && echo "operandi" || echo "vivendi")-tinted :no-confirm)" >/dev/null
+    ;;
+  waybar)
+    check_dep waybar && ised -z "s/$([ "$style" = "light" ] && echo "dark" || echo "light")/$style/" "$HOME/.config/waybar/style.css" && killall -SIGUSR2 waybar
+    ;;
+  rofi)
+    local suffix=$([ "$style" = "light" ] && echo "" || echo "-dark")
+    ised "s,themes/spotlight$([ "$style" = "light" ] && echo "-dark" || echo "").rasi,themes/spotlight$suffix.rasi," "$HOME/.config/sway/scripts/launch_rofi.sh"
+    ;;
   esac
 }
 
-_foot() {
-    _dep_installed foot
-
-    case "$1" in
-    light) ised "s,\(\binclude=~/.config/foot/\).*,\1modus_operandi.ini," \
-        "$HOME"/.config/foot/foot.ini ;;
-    dark) ised "s,\(\binclude=~/.config/foot/\).*,\1modus_vivendi.ini," \
-        "$HOME"/.config/foot/foot.ini ;;
-    esac
+set_gsettings() {
+  gsettings set "org.gnome.desktop.interface" "$1" "$2"
 }
 
-_alacritty() {
-    _dep_installed alacritty
-
-    case "$1" in
-      light) ised 's/github_dark_colorblind/github_light_colorblind/' \
-        "$HOME"/.config/alacritty/theme.toml ;;
-      dark) ised 's/github_light_colorblind/github_dark_colorblind/' \
-        "$HOME"/.config/alacritty/theme.toml ;;
-    esac
+get_gsettings() {
+  gsettings get "org.gnome.desktop.interface" "$1"
 }
 
-_wallpaper() {
-    case "$1" in
-    light) ln -sf "$HOME"/.config/wallpapers/light.jpg "$HOME"/.config/wallpapers/current.jpg ;;
-    dark) ln -sf "$HOME"/.config/wallpapers/dark.jpg "$HOME"/.config/wallpapers/current.jpg ;;
-    esac
+set_gtk() {
+  local style=$1
+  local theme=$([ "$style" = "light" ] && echo "Adwaita" || echo "Adwaita-dark")
+  local dark=$([ "$style" = "light" ] && echo "false" || echo "true")
+  local scheme=$([ "$style" = "light" ] && echo "prefer-light" || echo "prefer-dark")
+
+  ised "s,\(gtk-theme-name=\).*,\1$theme, ; s,\(gtk-icon-theme-name=\).*,\1Adwaita, ; s,\(gtk-application-prefer-dark-theme=\).*,\1$dark," "$HOME/.config/gtk-3.0/settings.ini"
+  ised "s,\(gtk-application-prefer-dark-theme=\).*,\1$dark," "$HOME/.config/gtk-4.0/settings.ini"
+  set_gsettings "gtk-theme" "$theme"
+  set_gsettings "color-scheme" "$scheme"
 }
 
-_emacs() {
-    # _dep_installed emacs
-    # pgrep -x emacs >/dev/null || return 1
-    case "$1" in
-        light) emacsclient -e "(load-theme 'modus-operandi-tinted :no-confirm)" > /dev/null ;;
-        dark)  emacsclient -e "(load-theme 'modus-vivendi-tinted :no-confirm)" > /dev/null ;;
-    esac
-}
+sync_remote() {
+  local style=$1
+  local scheme=$([ "$style" = "light" ] && echo "prefer-light" || echo "prefer-dark")
 
-_gtk_common() {
-    # GTK3
-    ised "s,\(gtk-theme-name=\).*,\1${1}, ; \
-        s,\(gtk-icon-theme-name=\).*,\1${2}, ; \
-        s,\(gtk-application-prefer-dark-theme=\).*,\1${3}," \
-        "$HOME"/.config/gtk-3.0/settings.ini
-
-    # GTK4
-    ised "s,\(gtk-application-prefer-dark-theme=\).*,\1${3}," \
-        "$HOME"/.config/gtk-4.0/settings.ini
-}
-
-_gsettings() {
-    gsettings "$1" "$2" "${@:3}"
-}
-
-_gsettings_gtk_get() {
-    _gsettings 'get' 'org.gnome.desktop.interface' 'gtk-theme'
-}
-
-_gsettings_gtk_set() {
-    _gsettings 'set' 'org.gnome.desktop.interface' 'gtk-theme' "$1"
-}
-
-_gsettings_color_scheme_get() {
-    _gsettings 'get' 'org.gnome.desktop.interface' 'color-scheme'
-}
-
-_gsettings_color_scheme_set() {
-    _gsettings 'set' 'org.gnome.desktop.interface' 'color-scheme' "$1"
-}
-
-_gtk_gnome() {
-    _gsettings_gtk_set "${1}"
-    _gsettings_color_scheme_set "${2}"
-}
-
-_gtk() {
-    case "$1" in
-    light)
-        _gtk_common 'Adwaita' 'Adwaita' 'false'
-        _gtk_gnome 'Adwaita' 'prefer-light'
-        _xsettingsd 'Adwaita' 'Adwaita'
-        ;;
-    dark)
-        _gtk_common 'Adwaita-dark' 'Adwaita' 'true'
-        _gtk_gnome 'Adwaita-dark' 'prefer-dark'
-        _xsettingsd 'Adwaita-dark' 'Adwaita'
-        ;;
-    esac
-}
-
-_gnome() {
-    if [ "$(_gsettings_color_scheme_get)" = "'prefer-dark'" ]; then
-        style=dark
-        _gsettings_gtk_set 'adw-gtk3-dark'
-        _gtk_common 'adw-gtk3-dark' 'Adwaita' 'true'
-    else
-        style=light
-        _gsettings_gtk_set 'adw-gtk3'
-        _gtk_common 'adw-gtk3' 'Adwaita' 'false'
-        _gsettings_color_scheme_set 'prefer-light'
+  for host in "daredevil" "hasurian"; do
+    if ssh "$host" -q -o ConnectTimeout=1 -o BatchMode=yes exit; then
+      ssh -qtt "$host" "gsettings set org.gnome.desktop.interface color-scheme '$scheme'"
     fi
-
-    _kitty "$style" &
-    _foot "$style" &
-    _alacritty "$style" &
-    _sync_remote "$style" &
-    _bottom "$style" &
+  done
 }
 
-_waybar() {
-  _dep_installed waybar
+toggle_gnome() {
+  local current_scheme=$(get_gsettings "color-scheme")
+  local style=$([ "$current_scheme" = "'prefer-dark'" ] && echo "dark" || echo "light")
+  local adw_theme=$([ "$style" = "light" ] && echo "adw-gtk3" || echo "adw-gtk3-dark")
+  local dark=$([ "$style" = "light" ] && echo "false" || echo "true")
 
-  case "$1" in 
-    light) ised -z "s/dark/light/" "$HOME"/.config/waybar/style.css ;;
-    dark) ised -z "s/light/dark/" "$HOME"/.config/waybar/style.css ;;
-  esac
+  set_gsettings "gtk-theme" "$adw_theme"
+  ised "s,\(gtk-theme-name=\).*,\1$adw_theme, ; s,\(gtk-icon-theme-name=\).*,\1Adwaita, ; s,\(gtk-application-prefer-dark-theme=\).*,\1$dark," "$HOME/.config/gtk-3.0/settings.ini"
 
-  killall -SIGUSR2 waybar
+  [ "$style" = "light" ] && set_gsettings "color-scheme" "prefer-light"
+
+  for app in kitty foot alacritty; do
+    toggle_app "$app" "$style" &
+  done
+
+  sync_remote "$style" &
+  toggle_app "bottom" "$style" &
 }
 
-_sway() {
-    _dep_installed sway
-    active_theme="$HOME"/.cache/active_theme
-    if [ "$(cat "$active_theme")" = light ]; then
-        style=dark
-    else
-        style=light
-    fi
+toggle_sway() {
+  check_dep sway || return 1
 
-    echo "$style" >"$active_theme"
+  local active_theme="$HOME/.cache/active_theme"
+  local style=$([ "$(cat "$active_theme" 2>/dev/null)" = "light" ] && echo "dark" || echo "light")
 
-    case "$style" in
-    light)
-        ised "s,themes/modus_vivendi,themes/modus_operandi," "$HOME"/.config/sway/config
-        _gsettings_gtk_set 'adw-gtk3'
-        _gsettings_color_scheme_set 'prefer-light'
-        _gtk_common 'Adwaita' 'Adwaita' 'false'
-        ;;
-    dark)
-        ised "s,themes/modus_operandi,themes/modus_vivendi," "$HOME"/.config/sway/config
-        _gsettings_gtk_set 'adw-gtk3-dark'
-        _gsettings_color_scheme_set 'prefer-dark'
-        _gtk_common 'Adwaita-dark' 'Adwaita' 'true'
-        ;;
-    esac
+  echo "$style" >"$active_theme"
 
-    swaymsg reload &
-    _waybar "$style" &
-    _rofi "$style" &
-    # _kitty "$style" &
-    # _foot "$style" &
-    _alacritty "$style" &
-    # _sync_remote "$style" &
-    _wallpaper "$style" &
+  local modus=$([ "$style" = "light" ] && echo "operandi" || echo "vivendi")
+  local adw_theme=$([ "$style" = "light" ] && echo "adw-gtk3" || echo "adw-gtk3-dark")
+  local scheme=$([ "$style" = "light" ] && echo "prefer-light" || echo "prefer-dark")
+  local theme=$([ "$style" = "light" ] && echo "Adwaita" || echo "Adwaita-dark")
+  local dark=$([ "$style" = "light" ] && echo "false" || echo "true")
+
+  ised "s,themes/modus_$([ "$style" = "light" ] && echo "vivendi" || echo "operandi"),themes/modus_$modus," "$HOME/.config/sway/config"
+  set_gsettings "gtk-theme" "$adw_theme"
+  set_gsettings "color-scheme" "$scheme"
+  ised "s,\(gtk-theme-name=\).*,\1$theme, ; s,\(gtk-icon-theme-name=\).*,\1Adwaita, ; s,\(gtk-application-prefer-dark-theme=\).*,\1$dark," "$HOME/.config/gtk-3.0/settings.ini"
+
+  swaymsg reload &
+  toggle_app "waybar" "$style" &
+  toggle_app "rofi" "$style" &
+  toggle_app "alacritty" "$style" &
+  toggle_app "wallpaper" "$style" &
 }
-
-_rofi() {
-  case "$1" in 
-    light)
-        ised "s,themes/spotlight-dark.rasi,themes/spotlight.rasi," "$HOME"/.config/sway/scripts/launch_rofi.sh
-      ;;
-    dark) 
-        ised "s,themes/spotlight.rasi,themes/spotlight-dark.rasi," "$HOME"/.config/sway/scripts/launch_rofi.sh
-      ;;
-  esac
-}
-
-_sync_remote() {
-  case "$1" in 
-    light)
-      _set_gsettings_on_remote "daredevil" "prefer-light"
-      _set_gsettings_on_remote "hasurian" "prefer-light"
-      ;;
-    dark)
-      _set_gsettings_on_remote "daredevil" "prefer-dark"
-      _set_gsettings_on_remote "hasurian" "prefer-dark"
-      ;;
-  esac
-}
-
-_set_gsettings_on_remote() {
- if ssh "$1" -q -o ConnectTimeout=1 -o BatchMode=yes exit; then
-    ssh -qtt "$1" "gsettings set org.gnome.desktop.interface color-scheme '$2'"
-  fi
-}
-
-
 
 CURRENT_DESKTOP=${XDG_CURRENT_DESKTOP:-$1}
 
-case "$CURRENT_DESKTOP" in
-GNOME) _gnome ;;
-gnome) _gnome ;;
-sway) _sway ;;
+case "${CURRENT_DESKTOP,,}" in
+gnome) toggle_gnome ;;
+sway*) toggle_sway ;;
 esac
