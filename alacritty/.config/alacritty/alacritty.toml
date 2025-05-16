@@ -4,10 +4,10 @@ general.import = [ "~/.config/alacritty/theme.toml" ]
 TERM = "xterm-24bit"
 
 [font]
-normal = { family = "Liga SFMono Nerd Font", style = "Light" }
-bold = { family = "Liga SFMono Nerd Font", style = "Bold" }
-italic = { family = "Liga SFMono Nerd Font", style = "Italic" }
-size = 15
+normal = { family = "CaskaydiaMono Nerd Font", style = "SemiLight" }
+bold = { family = "CaskaydiaMono Nerd Font", style = "Bold" }
+italic = { family = "CaskaydiaMono Nerd Font", style = "Italic" }
+size = 11
 
 [[hints.enabled]]
 command = "xdg-open"
