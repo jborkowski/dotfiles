@@ -9,7 +9,7 @@ set $up j
 set $right l
 set $term alacritty
 
-set $menu wmenu-run
+set $menu $HOME/.config/sway/scripts/wmenu-run+
 set $shotman_cmd $HOME/.local/bin/shotman 
 
 bindswitch --reload --locked lid:on output eDP-1 disable
