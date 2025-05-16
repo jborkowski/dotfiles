@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if command -v dnf &>/dev/null; then
-  sudo dnf install gtk-murrine-engine -y
+  sudo dnf install gtk-murrine-engine wmenu -y
 else
   echo "not supported"
 fi
@@ -29,20 +29,3 @@ if [ -d "$THEME_DIR/icons" ]; then
     ./install.sh -n Duskfox -t default -l -c dark
   )
 fi
-
-# Set up Duskfox and Dayfox themes
-echo "Setting up Duskfox and Dayfox themes..."
-if command -v gsettings &>/dev/null; then
-  # For day time use Dayfox
-  gsettings set org.gnome.desktop.interface gtk-theme "Duskfox-Dark"
-  gsettings set org.gnome.desktop.wm.preferences theme "Duskfox-Dark"
-
-  # You can uncomment and use these lines if you want to switch between themes
-  # based on time of day or with a custom script
-  # gsettings set org.gnome.desktop.interface gtk-theme "Dayfox-Light"
-  # gsettings set org.gnome.desktop.wm.preferences theme "Dayfox-Light"
-else
-  echo "gsettings not found. Please manually set Duskfox or Dayfox theme in your desktop environment settings."
-fi
-
-echo "Nightfox GTK Theme installation completed!"

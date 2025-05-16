@@ -9,9 +9,7 @@ set $up j
 set $right l
 set $term alacritty
 
-set $rofi_cmd $HOME/.config/sway/scripts/launch_rofi.sh
-set $menu $rofi_cmd 
-
+set $menu wmenu-run
 set $shotman_cmd $HOME/.local/bin/shotman 
 
 bindswitch --reload --locked lid:on output eDP-1 disable
@@ -21,14 +19,10 @@ bindswitch --reload --locked lid:off output eDP-1 enable
 #
 output * bg $HOME/.config/wallpapers/current.jpg fill
 output DP-1 resolution 2560x1440@59.951Hz position 0 0 
-# output HDMI-A-1 resolution 3840x2160@60.000Hz position 0 0 scale 1.25
 # Settings for Huawei MateView 28'
 output HDMI-A-1 resolution 3840x2560 position 0 0 scale 1.25
 # output DP-1 resolution 2560x1440 position 0 0 scale 1
 #output eDP-1 resolution 2160x1440 position 2400 0 scale 1.25
-
-# output eDP-1 resolution 3024x1890 position 0 0 scale 1.25
-# output eDP-1 resolution 3024x1964 position 0 0 scale 1.25 enable
 
 bindgesture swipe:right workspace prev
 bindgesture swipe:left workspace next
@@ -230,15 +224,16 @@ exec_always {
   eval $(gpg-agent --daemon)
 }
 
+
+bar {
+   swaybar_command waybar
+}
+
 #
 # Autostart
 #
 exec /usr/bin/dunst
-exec_always {
-  pkill -f waybar || true
-  sleep 0.5
-  /usr/bin/waybar &
-}
+
 exec_always pkill /usr/bin/kanshi; exec_always /usr/bin/kanshi > /tmp/kanshi.log 2>&1
 exec_always $HOME/.config/sway/scripts/clamshell
 exec gnome-keyring-daemon --start
