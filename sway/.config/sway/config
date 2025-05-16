@@ -238,7 +238,7 @@ exec_always {
   pkill waybar;
   /usr/bin/waybar & 
 }
-# exec /usr/bin/waybar
+exec /usr/bin/waybar
 exec_always pkill /usr/bin/kanshi; exec_always /usr/bin/kanshi > /tmp/kanshi.log 2>&1
  
 exec_always $HOME/.config/sway/scripts/clamshell
