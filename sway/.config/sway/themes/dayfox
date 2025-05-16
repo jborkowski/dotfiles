@@ -1,0 +1,19 @@
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    gsettings set $gnome-schema color-scheme 'prefer-light'
+    gsettings set $gnome-schema gtk-theme 'Dayfox-Light'
+    gsettings set $gnome-schema icon-theme 'Dayfox-Light'
+    gsettings set $gnome-schema cursor-theme 'Dayfox-Light'
+    gsettings set $gnome-schema font-name 'Inter 11'
+}
+
+# Dayfox Theme
+client.focused          #4c7aaf #f6f2ee #4c7aaf #4c7aaf #f6f2ee
+client.focused_inactive #d4cdc3 #f6f2ee #3c3c3c #3c3c3c #f6f2ee
+client.unfocused        #d4cdc3 #f6f2ee #3c3c3c #3c3c3c #f6f2ee
+client.urgent           #ff775c #f6f2ee #ff775c #ff775c #f6f2ee
+client.placeholder      #f6f2ee #f6f2ee #3c3c3c #3c3c3c #f6f2ee
+client.background       #f6f2ee
+
+
+

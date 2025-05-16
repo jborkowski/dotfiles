@@ -18,24 +18,19 @@ toggle_app() {
   bottom)
     check_dep bottom && ised "s/theme = \"default-light\"/theme = \"default\"/" "$HOME/.config/bottom/bottom.toml"
     ;;
-  foot)
-    check_dep foot && ised "s,\(\binclude=~/.config/foot/\).*,\1modus_$([ "$style" = "light" ] && echo "operandi" || echo "vivendi").ini," "$HOME/.config/foot/foot.ini"
-    ;;
   alacritty)
-    check_dep alacritty && ised "s/github_$([ "$style" = "light" ] && echo "dark" || echo "light")_colorblind/github_${style}_colorblind/" "$HOME/.config/alacritty/theme.toml"
+    check_dep alacritty && ised "s/$([ "$style" = "light" ] && echo "duskfox" || echo "dayfox")/$([ "$style" = "light" ] && echo "dayfox" || echo "duskfox")/" "$HOME/.config/alacritty/theme.toml"
     ;;
   wallpaper)
     ln -sf "$HOME/.config/wallpapers/$style.jpg" "$HOME/.config/wallpapers/current.jpg"
-    ;;
-  emacs)
-    emacsclient -e "(load-theme 'modus-$([ "$style" = "light" ] && echo "operandi" || echo "vivendi")-tinted :no-confirm)" >/dev/null
     ;;
   waybar)
     check_dep waybar && ised -z "s/$([ "$style" = "light" ] && echo "dark" || echo "light")/$style/" "$HOME/.config/waybar/style.css" && killall -SIGUSR2 waybar
     ;;
   rofi)
-    local suffix=$([ "$style" = "light" ] && echo "" || echo "-dark")
-    ised "s,themes/spotlight$([ "$style" = "light" ] && echo "-dark" || echo "").rasi,themes/spotlight$suffix.rasi," "$HOME/.config/sway/scripts/launch_rofi.sh"
+    local from=$([ "$style" = "dark" ] && echo "spotlight" || echo "spotlight-dark")
+    local to=$([ "$style" = "light" ] && echo "spotlight" || echo "spotlight-dark")
+    ised "s,themes/$from.rasi,themes/$to.rasi," "$HOME/.config/sway/scripts/launch_rofi.sh"
     ;;
   esac
 }
@@ -50,11 +45,12 @@ get_gsettings() {
 
 set_gtk() {
   local style=$1
-  local theme=$([ "$style" = "light" ] && echo "Adwaita" || echo "Adwaita-dark")
+  local theme=$([ "$style" = "light" ] && echo "Dayfox-Light" || echo "Duskfox-Dark")
+  local prev_theme=$([ "$style" = "dark" ] && echo "Dayfox-Light" || echo "Duskfox-Dark")
   local dark=$([ "$style" = "light" ] && echo "false" || echo "true")
   local scheme=$([ "$style" = "light" ] && echo "prefer-light" || echo "prefer-dark")
 
-  ised "s,\(gtk-theme-name=\).*,\1$theme, ; s,\(gtk-icon-theme-name=\).*,\1Adwaita, ; s,\(gtk-application-prefer-dark-theme=\).*,\1$dark," "$HOME/.config/gtk-3.0/settings.ini"
+  ised "s,\(gtk-theme-name=\).*,\1$theme, ; s,\(gtk-icon-theme-name=\).*,\1$prev_theme, ; s,\(gtk-application-prefer-dark-theme=\).*,\1$dark," "$HOME/.config/gtk-3.0/settings.ini"
   ised "s,\(gtk-application-prefer-dark-theme=\).*,\1$dark," "$HOME/.config/gtk-4.0/settings.ini"
   set_gsettings "gtk-theme" "$theme"
   set_gsettings "color-scheme" "$scheme"
@@ -64,7 +60,7 @@ sync_remote() {
   local style=$1
   local scheme=$([ "$style" = "light" ] && echo "prefer-light" || echo "prefer-dark")
 
-  for host in "daredevil" "hasurian"; do
+  for host in "luddite" "hasurian"; do
     if ssh "$host" -q -o ConnectTimeout=1 -o BatchMode=yes exit; then
       ssh -qtt "$host" "gsettings set org.gnome.desktop.interface color-scheme '$scheme'"
     fi
@@ -74,15 +70,17 @@ sync_remote() {
 toggle_gnome() {
   local current_scheme=$(get_gsettings "color-scheme")
   local style=$([ "$current_scheme" = "'prefer-dark'" ] && echo "dark" || echo "light")
-  local adw_theme=$([ "$style" = "light" ] && echo "adw-gtk3" || echo "adw-gtk3-dark")
+  local theme=$([ "$style" = "light" ] && echo "Dayfox-Light" || echo "Duskfox-Dark")
+  local prev_theme=$([ "$style" = "dark" ] && echo "Dayfox-Light" || echo "Duskfox-Dark")
   local dark=$([ "$style" = "light" ] && echo "false" || echo "true")
 
-  set_gsettings "gtk-theme" "$adw_theme"
-  ised "s,\(gtk-theme-name=\).*,\1$adw_theme, ; s,\(gtk-icon-theme-name=\).*,\1Adwaita, ; s,\(gtk-application-prefer-dark-theme=\).*,\1$dark," "$HOME/.config/gtk-3.0/settings.ini"
+  set_gsettings "gtk-theme" "$theme"
+
+  ised "s,\(gtk-theme-name=\).*,\1$theme, ; s,\(gtk-icon-theme-name=\).*,\1$prev_theme, ; s,\(gtk-application-prefer-dark-theme=\).*,\1$dark," "$HOME/.config/gtk-3.0/settings.ini"
 
   [ "$style" = "light" ] && set_gsettings "color-scheme" "prefer-light"
 
-  for app in kitty foot alacritty; do
+  for app in kitty alacritty; do
     toggle_app "$app" "$style" &
   done
 
@@ -92,22 +90,22 @@ toggle_gnome() {
 
 toggle_sway() {
   check_dep sway || return 1
-
   local active_theme="$HOME/.cache/active_theme"
   local style=$([ "$(cat "$active_theme" 2>/dev/null)" = "light" ] && echo "dark" || echo "light")
 
   echo "$style" >"$active_theme"
 
-  local modus=$([ "$style" = "light" ] && echo "operandi" || echo "vivendi")
-  local adw_theme=$([ "$style" = "light" ] && echo "adw-gtk3" || echo "adw-gtk3-dark")
+  local theme=$([ "$style" = "light" ] && echo "Dayfox-Light" || echo "Duskfox-Dark")
+  local prev_theme=$([ "$style" = "dark" ] && echo "Dayfox-Light" || echo "Duskfox-Dark")
   local scheme=$([ "$style" = "light" ] && echo "prefer-light" || echo "prefer-dark")
-  local theme=$([ "$style" = "light" ] && echo "Adwaita" || echo "Adwaita-dark")
+  local sway_theme=$([ "$style" = "light" ] && echo "dayfox" || echo "duskfox")
+  local prev_sway_theme=$([ "$style" = "dark" ] && echo "dayfox" || echo "duskfox")
   local dark=$([ "$style" = "light" ] && echo "false" || echo "true")
 
-  ised "s,themes/modus_$([ "$style" = "light" ] && echo "vivendi" || echo "operandi"),themes/modus_$modus," "$HOME/.config/sway/config"
-  set_gsettings "gtk-theme" "$adw_theme"
+  ised "s,themes/$prev_sway_theme,themes/$sway_theme," "$HOME/.config/sway/config"
+  set_gsettings "gtk-theme" "$theme"
   set_gsettings "color-scheme" "$scheme"
-  ised "s,\(gtk-theme-name=\).*,\1$theme, ; s,\(gtk-icon-theme-name=\).*,\1Adwaita, ; s,\(gtk-application-prefer-dark-theme=\).*,\1$dark," "$HOME/.config/gtk-3.0/settings.ini"
+  ised "s,\(gtk-theme-name=\).*,\1$prev_theme, ; s,\(gtk-icon-theme-name=\).*,\1$theme, ; s,\(gtk-application-prefer-dark-theme=\).*,\1$dark," "$HOME/.config/gtk-3.0/settings.ini"
 
   swaymsg reload &
   toggle_app "waybar" "$style" &
