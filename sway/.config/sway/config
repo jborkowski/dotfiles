@@ -18,9 +18,12 @@ bindswitch --reload --locked lid:off output eDP-1 enable
 ### Output configuration
 #
 output * bg $HOME/.config/wallpapers/current.jpg fill
-output DP-1 resolution 2560x1440@59.951Hz position 0 0 
+# output DP-1 resolution 2560x1440@59.951Hz position 0 0 
 # Settings for Huawei MateView 28'
 output HDMI-A-1 resolution 3840x2560 position 0 0 scale 1.25
+
+output eDP-1 mode 2160x1440 position 2200,0 scale 1 
+output 'SOMELEC Z.I. Du Vert Galanta Mira133 202105' mode 2200x1650 position 0,0 scale 1
 # output DP-1 resolution 2560x1440 position 0 0 scale 1
 #output eDP-1 resolution 2160x1440 position 2400 0 scale 1.25
 
@@ -216,11 +219,6 @@ for_window {
 }
 
 exec_always {
-  pkill kanshi
-  kanshi &
-}
-
-exec_always {
   eval $(gpg-agent --daemon)
 }
 
@@ -234,7 +232,6 @@ bar {
 #
 exec /usr/bin/dunst
 
-exec_always pkill /usr/bin/kanshi; exec_always /usr/bin/kanshi > /tmp/kanshi.log 2>&1
 exec_always $HOME/.config/sway/scripts/clamshell
 exec gnome-keyring-daemon --start
 exec export SSH_AUTH_SOCK
