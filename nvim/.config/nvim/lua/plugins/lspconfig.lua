@@ -83,8 +83,6 @@ return {
     }))
 
     lspconfig.purescriptls.setup(vim.tbl_extend('force', default_config, {
-      -- cmd = { "purescript-language-server", "--stdio" },
-
       on_attach = function(client, bufnr)
         require("nvimmer-ps").setup_on_attach(client, bufnr)
       end,
@@ -190,6 +188,15 @@ return {
     })
 
     require('mason').setup()
-    require('mason-lspconfig').setup({ automatic_installation = true })
+    require('mason-lspconfig').setup({
+      automatic_enable = {
+        exclude = {
+          "rust_analyzer",
+          "hls",
+          "purescript"
+
+        }
+      }
+    })
   end,
 }
