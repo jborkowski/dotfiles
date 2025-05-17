@@ -7,7 +7,7 @@ TERM = "xterm-24bit"
 normal = { family = "CaskaydiaMono Nerd Font", style = "SemiLight" }
 bold = { family = "CaskaydiaMono Nerd Font", style = "Bold" }
 italic = { family = "CaskaydiaMono Nerd Font", style = "Italic" }
-size = 11
+size = 13
 
 [[hints.enabled]]
 command = "xdg-open"

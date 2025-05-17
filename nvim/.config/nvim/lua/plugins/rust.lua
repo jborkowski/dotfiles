@@ -1,11 +1,10 @@
 vim.g.rustaceanvim = function()
   return {
     tools = {
+      test_executor_alias = "neotest",
+
       runnables = {
         use_telescope = true,
-      },
-      hover_actions = {
-        replace_builtin_hover = true,
       },
     },
     server = {
@@ -14,11 +13,23 @@ vim.g.rustaceanvim = function()
         common.set_mappings(client, bufnr, {
           ['K'] = {
             cmd = function()
-              vim.lsp.buf.hover()
+              vim.cmd.RustLsp({ 'hover', 'actions' })
             end,
             desc = '[Rust] Lsp Hover',
           },
           ['<leader>l'] = { cmd = ':RustLsp! runnables<CR>', desc = '[Rust] Run last runnable' },
+          ['<leader>ca'] = {
+            cmd = function()
+              vim.cmd.RustLsp('codeAction')
+            end,
+            desc = '[Rust] Code actions'
+          },
+          ['<leader>T'] = {
+            cmd = function()
+              require("neotest").run.run(vim.fn.expand("%"))
+            end,
+            desc = '[Rust] Run file tests'
+          },
           ['<leader>D'] = { cmd = ':RustLsp! debug<CR>', desc = '[Rust] Debug target under cursor' },
           ['<leader>m'] = { cmd = ':RustLsp! expandMacro<CR>', desc = '[Rust] Expand macros' },
         })
@@ -29,7 +40,6 @@ vim.g.rustaceanvim = function()
           checkOnSave = true,
           procMacro = {
             enable = true,
-            -- Don't expand some problematic proc_macros
             ignored = {
               ['async-trait'] = { 'async_trait' },
               ['napi-derive'] = { 'napi' },
@@ -37,8 +47,12 @@ vim.g.rustaceanvim = function()
               ['async-std'] = { 'async_std' },
             },
           },
+          files = {
+            excludeUnlinkdFiles = true,
+          },
           diagnostics = {
             enable = true,
+            disabled = { "unlinked-file" },
           },
           completion = {
             snippets = {
