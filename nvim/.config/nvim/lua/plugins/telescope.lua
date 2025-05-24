@@ -12,7 +12,6 @@ end
 
 return {
   'nvim-telescope/telescope.nvim',
-  -- tag = '0.1.8',
 
   dependencies = {
     'nvim-lua/plenary.nvim',
@@ -20,6 +19,7 @@ return {
     'nvim-telescope/telescope-project.nvim',
     'nvim-telescope/telescope-file-browser.nvim',
     'nvim-telescope/telescope-github.nvim',
+    'jborkowski/telescope-inflect.nvim'
   },
 
   enabled = true,
@@ -44,10 +44,9 @@ return {
         }),
         desc = "Search files"
       },
-      { "<leader>/",   builtin('live_grep'),                  desc = "Live Grep (ripgrep)" },
+      { "<leader>/",   extension('inflect', 'ripgrep'),       desc = "Inflect (ripgrep)" },
       { "<Leader>fm",  builtin('marks'),                      desc = 'Search marks' },
       { "<leader>hm",  extension('harpoon', 'marks'),         desc = "Harpoon marks" },
-
       { "<Leader>fo",  builtin('oldfiles'),                   desc = "Search recent files" },
       { "<Leader>fs",  builtin('grep_string'),                desc = "Search from word under cursor" },
       { "<leader>pp",  extension('project', 'project'),       desc = "Telescope Project" },
@@ -63,14 +62,14 @@ return {
     local sorters = require("telescope.sorters")
     telescope.setup {
       defaults = {
-        file_sorter = sorters.get_fzf_sorter,
-        generic_sorter = sorters.get_fzf_sorter,
+        file_sorter = sorters.native_fzf_sorter,
+        generic_sorter = sorters.native_fzf_sorter,
         file_ignore_patterns = { ".git/", ".cache", "%.pdf", ".stack-work/", "output/", "node_modules/", "target/", "out/", "dist/", "%.lock" },
         prompt_prefix = "  ",
         selection_caret = " ",
         path_display = { "smart" },
-        file_previewer = previewers.cat.new,
-        grep_previewer = previewers.cat.new,
+        -- grep_previewer = custom_cat_previewer,
+        -- grep_previewer = previewers.cat.new
       },
       extensions = {
         fzf = {
@@ -118,16 +117,6 @@ return {
         }
       },
       pickers = {
-        live_grep = {
-          additional_args = function(opts)
-            return {
-              "--hidden",
-              "--follow",
-              "--glob",
-              "!{**/.git/*,**/node_modules/*,**/package-lock.json,**/yarn.lock,**/output/*,**/.stack-work/*}",
-            }
-          end,
-        },
       },
     }
 
@@ -137,6 +126,7 @@ return {
     telescope.load_extension('project')
     telescope.load_extension('harpoon')
     telescope.load_extension('gh')
+    telescope.load_extension("inflect")
 
     require('refactoring').setup({})
     telescope.load_extension('refactoring')
