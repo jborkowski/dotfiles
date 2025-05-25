@@ -44,14 +44,16 @@ return {
         }),
         desc = "Search files"
       },
-      { "<leader>/",   extension('inflect', 'ripgrep'),       desc = "Inflect (ripgrep)" },
-      { "<Leader>fm",  builtin('marks'),                      desc = 'Search marks' },
-      { "<leader>hm",  extension('harpoon', 'marks'),         desc = "Harpoon marks" },
-      { "<Leader>fo",  builtin('oldfiles'),                   desc = "Search recent files" },
-      { "<Leader>fs",  builtin('grep_string'),                desc = "Search from word under cursor" },
-      { "<leader>pp",  extension('project', 'project'),       desc = "Telescope Project" },
-      { "<Leader>fls", builtin('lsp_document_symbols'),       desc = "List lsp symbols for current buffer" },
-      { "<leader>rr",  extension('refactoring', 'refactors'), mode = 'v',                                  desc = 'Search refactors' },
+      { "<leader>/",   extension('inflect', 'ripgrep'),             desc = "Inflect (ripgrep)" },
+      { "<Leader>fm",  builtin('marks'),                            desc = 'Search marks' },
+      { "<leader>hm",  extension('harpoon', 'marks'),               desc = "Harpoon marks" },
+      { "<Leader>fo",  builtin('oldfiles'),                         desc = "Search recent files" },
+      { "<Leader>fs",  builtin('grep_string'),                      desc = "Search from word under cursor" },
+      { "<leader>pp",  extension('project', 'project'),             desc = "Telescope Project" },
+      { "<Leader>fls", builtin('lsp_document_symbols'),             desc = "List lsp symbols for current buffer" },
+      { "<leader>rr",  extension('refactoring', 'refactors'),       mode = 'v',                                  desc = 'Search refactors' },
+      { "<leader>sl",  extension('session-lens', 'search_session'), desc = 'Search list' },
+
     }
   end,
 
@@ -130,5 +132,22 @@ return {
 
     require('refactoring').setup({})
     telescope.load_extension('refactoring')
+
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "TelescopeProjectSelected",
+      callback = function()
+        vim.cmd("SessionRestore")
+      end,
+    })
+
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "TelescopeProjectSelected",
+      callback = function()
+        vim.g.auto_session_enabled = false
+        vim.defer_fn(function()
+          vim.g.auto_session_enabled = true
+        end, 1000)
+      end,
+    })
   end,
 }
