@@ -16,6 +16,7 @@ if [[ $DARKMODE == 1 ]]; then
   if ssh luddite -q -o ConnectTimeout=1 -o BatchMode=yes exit; then
     ssh -qtt luddite "gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'"
     ssh -qtt luddite "docker exec devcontainer-dev-1 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'"
+    ssh -qtt luddite "docker exec devcontainer-dev-1 bash -c 'echo prefer-dark > \$HOME/.color-scheme'"
     ssh -qtt luddite 'sed -i "s/theme = \"default-light\"/theme = \"default\"/" "$HOME/.config/bottom/bottom.toml"'
   fi
 else 
@@ -31,6 +32,7 @@ else
 
   if ssh luddite -q -o ConnectTimeout=1 -o BatchMode=yes exit; then
     ssh -qtt luddite "gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'"
+    ssh -qtt luddite "docker exec devcontainer-dev-1 bash -c 'echo prefer-light > \$HOME/.color-scheme'"
     ssh -qtt luddite "docker exec devcontainer-dev-1 gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'"
     ssh -qtt luddite 'sed -i "s/theme = \"default\"/theme = \"default-light\"/" "$HOME/.config/bottom/bottom.toml"'
   fi
