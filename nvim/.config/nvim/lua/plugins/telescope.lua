@@ -18,7 +18,7 @@ return {
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     'nvim-telescope/telescope-project.nvim',
     'nvim-telescope/telescope-file-browser.nvim',
-    'nvim-telescope/telescope-github.nvim',
+    'jborkowski/telescope-github.nvim',
     'jborkowski/telescope-inflect.nvim'
   },
 
@@ -44,17 +44,18 @@ return {
         }),
         desc = "Search files"
       },
-      { "<leader>/",   extension('inflect', 'ripgrep'),                                            desc = "Inflect (ripgrep)" },
-      { "<Leader>fm",  builtin('marks'),                                                           desc = 'Search marks' },
-      { "<leader>hm",  extension('harpoon', 'marks'),                                              desc = "Harpoon marks" },
-      { "<Leader>fo",  builtin('oldfiles'),                                                        desc = "Search recent files" },
-      { "<Leader>fs",  builtin('grep_string'),                                                     desc = "Search from word under cursor" },
-      { "<leader>pp",  extension('project', 'project'),                                            desc = "Telescope Project" },
-      { "<Leader>fls", builtin('lsp_document_symbols'),                                            desc = "List lsp symbols for current buffer" },
-      { "<leader>rr",  extension('refactoring', 'refactors'),                                      mode = 'v',                                  desc = 'Search refactors' },
-      { "<leader>sl",  extension('session-lens', 'search_session'),                                desc = 'Search list' },
-      { "<leader>gL",  extension('gh', 'pull_request'),                                            desc = 'List PRs' },
-      { "<leader>gl",  extension('gh', 'pull_request', { author = "jborkowski", state = "open" }), desc = 'List open PRs' },
+      { "<leader>/",   extension('inflect', 'ripgrep'),                                 desc = "Inflect (ripgrep)" },
+      { "<Leader>fm",  builtin('marks'),                                                desc = 'Search marks' },
+      { "<leader>hm",  extension('harpoon', 'marks'),                                   desc = "Harpoon marks" },
+      { "<Leader>fo",  builtin('oldfiles'),                                             desc = "Search recent files" },
+      { "<Leader>fs",  builtin('grep_string'),                                          desc = "Search from word under cursor" },
+      { "<leader>pp",  extension('project', 'project'),                                 desc = "Telescope Project" },
+      { "<Leader>fls", builtin('lsp_document_symbols'),                                 desc = "List lsp symbols for current buffer" },
+      { "<leader>rr",  extension('refactoring', 'refactors'),                           mode = 'v',                                  desc = 'Search refactors' },
+      { "<leader>sl",  extension('session-lens', 'search_session'),                     desc = 'Search list' },
+      { "<leader>gL",  extension('gh', 'pull_request'),                                 desc = 'List PRs' },
+      { "<leader>gl",  extension('gh', 'pull_request', 'author=jborkowski state=open'), desc = 'List open PRs' },
+      { "<leader>ga",  extension('gh', 'workflow'),                                     desc = 'GHA Workflows' },
 
     }
   end,
