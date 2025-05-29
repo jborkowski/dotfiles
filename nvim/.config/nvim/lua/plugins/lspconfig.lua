@@ -179,6 +179,9 @@ return {
     end
     lspconfig.circleci.setup(default_config)
 
+    lspconfig.harper_ls.setup(default_config)
+    lspconfig.solargraph.setup(default_config)
+
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),
       callback = function(ev)
@@ -194,7 +197,6 @@ return {
           "rust_analyzer",
           "hls",
           "purescript"
-
         }
       }
     })
