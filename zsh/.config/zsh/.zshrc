@@ -105,3 +105,5 @@ alias python=python3
 if [ "$USERNAME" = "user" ]; then 
   source $HOME/.asdf/asdf.sh
 fi
+export PATH="/opt/homebrew/sbin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"

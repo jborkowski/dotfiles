@@ -5,9 +5,7 @@ return {
   build = "make",
   version = false,
   opts = {
-    provider = "claude",
-    -- provider = "hyperbolic",
-    vendors = {
+    providers = {
       hyperbolic = {
         __inherited_from = "openai",
         api_key_name = "HYPERBOLIC_API_KEY",
@@ -16,14 +14,13 @@ return {
         temperature = 0,
         max_tokens = 4096,
       },
-    },
-
-    claude = {
-      endpoint = "https://api.anthropic.com",
-      model = "claude-3-7-sonnet-latest",
-      timeout = 30000, -- Timeout in milliseconds
-      temperature = 0,
-      max_tokens = 20480,
+      claude = {
+        endpoint = "https://api.anthropic.com",
+        model = "claude-3-7-sonnet-latest",
+        timeout = 30000, -- Timeout in milliseconds
+        temperature = 0,
+        max_tokens = 20480,
+      },
     },
     mappings = {
       ask = "<leader>aa",
