@@ -11,15 +11,26 @@ return {
         api_key_name = "HYPERBOLIC_API_KEY",
         endpoint = "https://api.hyperbolic.xyz/v1",
         model = "deepseek-ai/DeepSeek-V3",
-        temperature = 0,
-        max_tokens = 4096,
+        extra_request_body = {
+          options = {
+            temperature = 0.75,
+            num_ctx = 20480,
+            keep_alive = "5m",
+          },
+        },
       },
       claude = {
         endpoint = "https://api.anthropic.com",
         model = "claude-3-7-sonnet-latest",
         timeout = 30000, -- Timeout in milliseconds
-        temperature = 0,
-        max_tokens = 20480,
+        extra_request_body = {
+          options = {
+            temperature = 0.75,
+            num_ctx = 20480,
+            keep_alive = "5m",
+            max_tokens = 20480,
+          },
+        },
       },
     },
     mappings = {
