@@ -13,10 +13,8 @@ return {
         endpoint = "https://api.hyperbolic.xyz/v1",
         model = "deepseek-ai/DeepSeek-V3",
         extra_request_body = {
-          options = {
-            temperature = 0.75,
-            max_tokens = 20480,
-          },
+          temperature = 0.75,
+          max_tokens = 20480,
         },
       },
       claude = {
@@ -24,10 +22,8 @@ return {
         model = "claude-sonnet-4-20250514",
         timeout = 30000, -- Timeout in milliseconds
         extra_request_body = {
-          options = {
-            temperature = 0.75,
-            max_tokens = 20480,
-          },
+          temperature = 0.75,
+          max_tokens = 20480,
         },
       },
     },
