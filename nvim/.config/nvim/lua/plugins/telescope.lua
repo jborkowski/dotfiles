@@ -27,14 +27,14 @@ return {
 
   keys = function()
     return {
-      { "<leader>bb", builtin('buffers'),     desc = "Search buffers" },
+      { "<leader>bb", builtin('buffers'),                             desc = "Search buffers" },
       {
         '<Leader><leader>',
         extension('file_browser', 'file_browser', { path = '%:p:h', hidden = true }),
         desc = 'Browse files',
       },
 
-      { "<leader>i",  builtin('diagnostics'), desc = "Telescope diagnostics" },
+      { "<leader>i",  builtin('diagnostics', { severity = "ERROR" }), desc = "Telescope diagnostics" },
       {
         "<Leader>ff",
         builtin('find_files', {

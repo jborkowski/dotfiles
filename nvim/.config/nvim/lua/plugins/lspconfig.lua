@@ -87,13 +87,13 @@ return {
                 respectful = true,
                 haddockStyle = "multi-line",
                 newlinesBetweenDecls = 1
-              }
+              },
+              globalOn = true
             }
           }
         }
       }
     }))
-
     lspconfig.purescriptls.setup(vim.tbl_extend('force', default_config, {
       on_attach = function(client, bufnr)
         require("nvimmer-ps").setup_on_attach(client, bufnr)
