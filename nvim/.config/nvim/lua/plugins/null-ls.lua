@@ -2,11 +2,35 @@ return {
   "nvimtools/none-ls.nvim",
   config = function()
     local null_ls = require("null-ls")
+    local methods = require("null-ls.methods")
+    local FORMATTING = methods.internal.FORMATTING
+
+    local h = require("null-ls.helpers")
+    local fourmolu = h.make_builtin({
+      name = "fourmolu",
+      method = FORMATTING,
+      filetypes = { "hs", "haskell" },
+      generator_opts = {
+        command = "fourmolu",
+        args = {
+          -- "--indentation=2",
+          -- "--comma-style=leading",
+          -- "--import-export-style=leading",
+          -- "--indent-wheres=true",
+          -- "--record-brace-space=true",
+          -- "--respectful=true",
+          -- "--haddock-style=multi-line",
+          -- "--newlines-between-decls=1",
+          "--stdin-input-file", "$FILENAME"
+        },
+        to_stdin = true,
+      },
+      factory = h.formatter_factory,
+    })
 
     null_ls.setup({
       sources = {
-        null_ls.builtins.formatting.zigfmt,
-        null_ls.builtins.formatting.rustfmt,
+        fourmolu
       },
       on_attach = function(client, bufnr)
         if client.supports_method("textDocument/formatting") then
@@ -19,6 +43,7 @@ return {
           })
         end
       end,
+
     })
   end,
 }
