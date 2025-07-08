@@ -30,19 +30,14 @@ return {
       { "<leader>bb", builtin('buffers'),                             desc = "Search buffers" },
       {
         '<Leader><leader>',
-        extension('file_browser', 'file_browser',
-          { path = '%:p:h', hidden = true, follow = true, hidden_files = true }),
+        extension('file_browser', 'file_browser', { path = '%:p:h' }),
         desc = 'Browse files',
       },
 
       { "<leader>i",  builtin('diagnostics', { severity = "ERROR" }), desc = "Telescope diagnostics" },
       {
         "<Leader>ff",
-        builtin('find_files', {
-          follow = true,
-          hidden = true,
-          hidden_files = true,
-        }),
+        builtin('find_files', {}),
         desc = "Search files"
       },
       { "<leader>/",   extension('inflect', 'ripgrep'),                     desc = "Inflect (ripgrep)" },
@@ -89,6 +84,13 @@ return {
         -- grep_previewer = previewers.cat.new
       },
       extensions = {
+        file_browser = {
+          hijack_netrw = true,
+          hidden = { file_browser = true, folder_browser = true },
+          respect_gitignore = vim.fn.executable "fd" == 1,
+          no_ignore = true,
+          follow_symlinks = true,
+        },
         fzf = {
           fuzzy = true,
           override_generic_sorter = true,
