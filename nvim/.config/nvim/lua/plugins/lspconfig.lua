@@ -79,6 +79,7 @@ return {
             },
             fourmolu = {
               config = {
+                external = true,
                 indentation = 2,
                 commaStyle = "leading",
                 importExportStyle = "leading",
@@ -88,7 +89,7 @@ return {
                 haddockStyle = "multi-line",
                 newlinesBetweenDecls = 1
               },
-              globalOn = true
+              globalOn = false
             }
           }
         }
