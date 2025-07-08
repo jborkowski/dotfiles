@@ -30,7 +30,8 @@ return {
       { "<leader>bb", builtin('buffers'),                             desc = "Search buffers" },
       {
         '<Leader><leader>',
-        extension('file_browser', 'file_browser', { path = '%:p:h', hidden = true }),
+        extension('file_browser', 'file_browser',
+          { path = '%:p:h', hidden = true, follow = true, hidden_files = true }),
         desc = 'Browse files',
       },
 
