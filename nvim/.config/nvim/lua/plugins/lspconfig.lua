@@ -76,6 +76,18 @@ return {
           plugin = {
             hlint = {
               globalOn = true
+            },
+            fourmolu = {
+              config = {
+                indentation = 2,
+                commaStyle = "leading",
+                importExportStyle = "leading",
+                indentWheres = true,
+                recordBraceSpace = true,
+                respectful = true,
+                haddockStyle = "multi-line",
+                newlinesBetweenDecls = 1
+              }
             }
           }
         }
