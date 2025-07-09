@@ -78,17 +78,6 @@ return {
               globalOn = true
             },
             fourmolu = {
-              config = {
-                external = true,
-                indentation = 2,
-                commaStyle = "leading",
-                importExportStyle = "leading",
-                indentWheres = true,
-                recordBraceSpace = true,
-                respectful = true,
-                haddockStyle = "multi-line",
-                newlinesBetweenDecls = 1
-              },
               globalOn = false
             }
           }

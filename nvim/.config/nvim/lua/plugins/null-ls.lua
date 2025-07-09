@@ -6,6 +6,11 @@ return {
     local FORMATTING = methods.internal.FORMATTING
 
     local h = require("null-ls.helpers")
+    local fourmolu_available = vim.fn.executable("fourmolu") == 1
+
+    local sources = {}
+
+
     local fourmolu = h.make_builtin({
       name = "fourmolu",
       method = FORMATTING,
@@ -28,10 +33,14 @@ return {
       factory = h.formatter_factory,
     })
 
+    if fourmolu_available then
+      table.insert(sources, fourmolu)
+    else
+      vim.notify("Fourmolu not found. Haskell formatting disabled.", vim.log.levels.WARN)
+    end
+
     null_ls.setup({
-      sources = {
-        fourmolu
-      },
+      sources = sources,
       on_attach = function(client, bufnr)
         if client.supports_method("textDocument/formatting") then
           vim.api.nvim_create_autocmd("BufWritePre", {
