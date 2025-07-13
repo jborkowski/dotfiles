@@ -110,5 +110,9 @@ export PATH="/opt/homebrew/bin:$PATH"
 
 
 devcontainer() {
-  command devcontainer "$@" --workspace-folder .
+  if [ "$1" = "exec" ] && [ $# -ge 2 ]; then
+ command devcontainer exec --workspace-folder . "$2" "${@:3}"
+  else
+    command devcontainer "$@" --workspace-folder .
+  fi
 }
