@@ -37,7 +37,11 @@ return {
       { "<leader>i",  builtin('diagnostics', { severity = "ERROR" }), desc = "Telescope diagnostics" },
       {
         "<Leader>ff",
-        builtin('find_files', {}),
+        builtin('find_files', {
+          follow = true,
+          hidden = true,
+          hidden_files = true,
+        }),
         desc = "Search files"
       },
       { "<leader>/",   extension('inflect', 'ripgrep'),                     desc = "Inflect (ripgrep)" },
