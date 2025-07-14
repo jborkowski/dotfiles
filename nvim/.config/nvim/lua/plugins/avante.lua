@@ -73,10 +73,13 @@ return {
     -- add any opts here
   },
   dependencies = {
-    "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+    "nvim-tree/nvim-web-devicons",
     "stevearc/dressing.nvim",
     "nvim-lua/plenary.nvim",
     "MunifTanjim/nui.nvim",
+    "ibhagwan/fzf-lua",
+    "stevearc/dressing.nvim",
+    "zbirenbaum/copilot.lua",
     {
       'MeanderingProgrammer/render-markdown.nvim',
       opts = {
