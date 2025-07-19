@@ -1,0 +1,86 @@
+#!/usr/bin/bash
+set -euo pipefail
+
+# Get Fedora version
+source /etc/os-release
+FEDORA_VERSION=$VERSION_ID
+
+echo "==> Fedora Silverblue version: $FEDORA_VERSION"
+
+# Add Ghostty COPR repo and install
+if ! rpm -q ghostty &> /dev/null; then
+    echo "==> Installing Ghostty..."
+    curl -fsSL "https://copr.fedorainfracloud.org/coprs/scottames/ghostty/repo/fedora-${FEDORA_VERSION}/scottames-ghostty-fedora-${FEDORA_VERSION}.repo" \
+        | sudo tee /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:scottames:ghostty.repo > /dev/null
+    rpm-ostree install ghostty
+else
+    echo "✔️  Ghostty already installed"
+fi
+
+# Install Discord via Flatpak
+if ! flatpak list | grep -i discord &> /dev/null; then
+    echo "==> Installing Discord (Flatpak)..."
+    flatpak install -y flathub com.discordapp.Discord
+else
+    echo "✔️  Discord already installed"
+fi
+
+# Install Slack via Flatpak
+if ! flatpak list | grep -i slack &> /dev/null; then
+    echo "==> Installing Slack (Flatpak)..."
+    flatpak install -y flathub com.slack.Slack
+else
+    echo "✔️  Slack already installed"
+fi
+
+# Install Neovim (latest)
+if ! rpm -q neovim &> /dev/null; then
+    echo "==> Installing Neovim..."
+    ## rpm-ostree install neovim
+else
+    echo "✔️  Neovim already installed"
+fi
+
+# Install Firefox with codecs
+if ! rpm -q firefox &> /dev/null; then
+    echo "==> Installing Firefox and codecs..."
+    # rpm-ostree install firefox ffmpeg-libs
+else
+    echo "✔️  Firefox already installed"
+fi
+
+# Podman as Docker replacement
+if ! command -v podman &> /dev/null; then
+    echo "==> Installing Podman..."
+    rpm-ostree install podman
+else
+    echo "✔️  Podman already installed"
+fi
+
+# Tidal
+if ! flatpak list | grep -i tidal &> /dev/null; then
+    echo "==> Installing Tidal..."
+    flatpak install tidal
+else
+    echo "✔️  Tidal already installed"
+fi
+
+# Install Bitwarden
+if ! flatpak list | grep -qi com.bitwarden.desktop; then
+    echo "==> Installing Bitwarden via Flatpak..."
+    flatpak install -y flathub com.bitwarden.desktop
+else
+    echo "✔️  Bitwarden is already installed via Flatpak."
+fi
+
+# git-crypt and stow
+if ! command -v stow &> /dev/null; then
+    echo "==> Installing GitCrypt and Stow..."
+    rpm-ostree install git-crypt stow
+else
+    echo "✔️  GitCrypt and Stow already installed"
+fi
+
+
+echo "==> All tasks complete. A reboot may be required to apply rpm-ostree changes."
+
