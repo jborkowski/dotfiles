@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+CONTAINER="nvim"
+RELEASE=42
+
+if toolbox list | grep -q "^${CONTAINER}[[:space:]]"; then
+  echo "Removing existing toolbox '${CONTAINER}'..."
+  toolbox rm "${CONTAINER}"
+fi
+
+echo "Creating toolbox '${CONTAINER}'..."
+toolbox create --release "${RELEASE}" "${CONTAINER}"
+
+echo "Installing packages inside '${CONTAINER}'..."
+toolbox run --container "${CONTAINER}" bash -c "
+
+sudo dnf install -y neovim lua lua-devel luarocks git \
+                   python3 python3-pip nodejs npm \
+                   fd-find ctags stow zsh golang gcc-c++
+
+curl --proto "=https" --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+export PATH="$HOME/.cargo/bin:$PATH"
+
+rustup component add rust-analysis rust-src rust-analyzer
+
+cargo install ripgrep --features pcre2
+
+python3 -m venv $HOME/.venvs/nvim-py-lsp
+source $HOME/.venvs/nvim-py-lsp/bin/activate
+pip install --upgrade pip
+pip install "python-lsp-server[all]"
+deactivate
+
+
+mkdir -p ~/.npm-global 
+npm config set prefix ~/.npm-global 
+export PATH=\$HOME/.npm-global/bin:\$PATH 
+npm install -g pyright typescript typescript-language-server
+cd "$HOME"
+[ -d dotfiles ] || git clone https://github.com/jborkowski/dotfiles.git
+cd dotfiles/nvim
+stow -R --target="$HOME" .
+"
+echo "Creating launcher in ~/.local/bin/nvim..."
+mkdir -p ~/.local/bin
+cat > ~/.local/bin/nvim <<'EOF'
+#!/usr/bin/env bash
+VENV_PYTHON="$HOME/.venvs/nvim-py-lsp"
+NPM_GLOBAL="$HOME/.npm-global"
+exec toolbox run --container nvim env \
+  PATH="$VENV_PYTHON/bin:$NPM_GLOBAL/bin:$PATH" \
+  /usr/bin/nvim "$@"
+EOF
+chmod +x ~/.local/bin/nvim
+
+echo "Done! Now you can run 'nvim' from anywhere, using your shared Neovim setup."
+
