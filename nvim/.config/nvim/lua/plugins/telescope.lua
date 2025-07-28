@@ -89,7 +89,7 @@ return {
       },
       extensions = {
         file_browser = {
-          hijack_netrw = true,
+          hijack_netrw = false,
           hidden = { file_browser = true, folder_browser = true },
           respect_gitignore = vim.fn.executable "fd" == 1,
           no_ignore = true,

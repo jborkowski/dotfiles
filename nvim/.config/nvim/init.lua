@@ -75,3 +75,16 @@ vim.api.nvim_create_user_command('Gitu', function()
   vim.fn.termopen("gitu")
   vim.cmd("startinsert")
 end, {})
+
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    if vim.fn.argc() == 0 and vim.fn.expand("%") == "" then
+      vim.schedule(function()
+        require("telescope.builtin").find_files({
+          hidden = true,
+          no_ignore = true,
+        })
+      end)
+    end
+  end,
+})
