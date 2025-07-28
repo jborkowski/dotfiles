@@ -80,10 +80,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     if vim.fn.argc() == 0 and vim.fn.expand("%") == "" then
       vim.schedule(function()
-        require("telescope.builtin").find_files({
-          hidden = true,
-          no_ignore = true,
-        })
+        require("snacks.picker").files()
       end)
     end
   end,
