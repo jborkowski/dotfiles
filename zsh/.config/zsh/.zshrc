@@ -17,7 +17,6 @@ bindkey -e
 
 # Aliases
 alias :q='exit'
-alias calc='emacs -f full-calc'
 alias cp='xcp'
 alias e='nvim'
 alias find='fd'
@@ -38,12 +37,11 @@ if command -v bat > /dev/null; then
   else
     theme=ansi-light
   fi
-  alias cat="COLORTERM=24bit bat --theme=$theme --style=changes,numbers"
+  alias cat="COLORTERM=24bit bat --theme=$theme --style=changes,numbers -p"
 
   export BAT_THEME=$theme
   alias cap='cat -p'
 fi
-
 
 alias ..='cd ..'
 alias ...='cd ../..'
