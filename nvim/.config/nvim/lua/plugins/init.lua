@@ -31,7 +31,6 @@ return {
         desc = 'Git Blame Line',
       },
       { "<leader>ot", function() require("snacks.terminal").toggle() end,                                desc = "Toggle Terminal" },
-      { "<leader>fF", function() require("snacks.picker").files() end,                                   desc = "Toggle Terminal" },
       { "<leader>gG", function() require("snacks").terminal({ "gitui" }) end,                            desc = "GitUi (cwd)" },
       { "<leader>gU", function() require("snacks").terminal({ "gitui" }, { cwd = vim.fn.getcwd() }) end, desc = "GitUi (root dir)" },
     },

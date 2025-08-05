@@ -27,22 +27,23 @@ return {
 
   keys = function()
     return {
-      { "<leader>bb", builtin('buffers'),                             desc = "Search buffers" },
+      { "<leader>bb", builtin('buffers'),                              desc = "Search buffers" },
       {
         '<Leader><leader>',
         extension('file_browser', 'file_browser', { path = '%:p:h' }),
         desc = 'Browse files',
       },
 
-      { "<leader>i",  builtin('diagnostics', { severity = "ERROR" }), desc = "Telescope diagnostics" },
+      { "<leader>i",  builtin('diagnostics', { severity = "ERROR" }),  desc = "Telescope diagnostics" },
+      { "<leader>ff", function() require("snacks.picker").files() end, desc = "Search files (snacks)" },
       {
-        "<Leader>ff",
+        "<Leader>fF",
         builtin('find_files', {
           follow = true,
           hidden = true,
           hidden_files = true,
         }),
-        desc = "Search files"
+        desc = "Search files (legacy)"
       },
       { "<leader>/",   extension('inflect', 'ripgrep'),                     desc = "Inflect (ripgrep)" },
       { "<Leader>fm",  builtin('marks'),                                    desc = 'Search marks' },
