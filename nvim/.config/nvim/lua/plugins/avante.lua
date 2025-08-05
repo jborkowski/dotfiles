@@ -5,7 +5,7 @@ return {
   build = "make",
   version = false,
   opts = {
-    provider = "claude",
+    provider = "hyperbolic",
     providers = {
       hyperbolic = {
         __inherited_from = "openai",
@@ -14,7 +14,7 @@ return {
         model = "deepseek-ai/DeepSeek-V3",
         extra_request_body = {
           temperature = 0.75,
-          max_tokens = 20480,
+          max_tokens = 512,
         },
       },
       claude = {
@@ -23,7 +23,7 @@ return {
         timeout = 30000, -- Timeout in milliseconds
         extra_request_body = {
           temperature = 0.75,
-          max_tokens = 20480,
+          max_tokens = 512,
         },
       },
     },
