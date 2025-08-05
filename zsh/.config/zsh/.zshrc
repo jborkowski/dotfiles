@@ -106,7 +106,6 @@ fi
 export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 
-
 devcontainer() {
   if [ "$1" = "exec" ] && [ $# -ge 2 ]; then
  command devcontainer exec --workspace-folder . "$2" "${@:3}"
