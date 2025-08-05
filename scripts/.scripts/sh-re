@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+BW_SESSION=$(bw sync >/dev/null && bw unlock --raw)
+BWS_SECRET=$(bw get password c36f1865-bbbe-4773-98eb-b33000b070b9 --session $BW_SESSION)
+
+ssh -o SetEnv=BW_SECRET=$BWS_SECRET re
