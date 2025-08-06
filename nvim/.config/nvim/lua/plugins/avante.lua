@@ -11,13 +11,14 @@ return {
         __inherited_from = "openai",
         api_key_name = "AVANTE_HYPERBOLIC_API_KEY",
         endpoint = "https://api.hyperbolic.xyz/v1",
-        model = "deepseek-ai/DeepSeek-V3",
+        -- model = "deepseek-ai/DeepSeek-V3",
+        model = "Qwen/Qwen3-Coder-480B-A35B-Instruct",
         extra_request_body = {
           temperature = 0.75,
           max_tokens = 512,
         },
       },
-      claude = {
+      claude     = {
         endpoint = "https://api.anthropic.com",
         model = "claude-sonnet-4-20250514",
         timeout = 30000, -- Timeout in milliseconds
