@@ -1,0 +1,37 @@
+# Secret environment variables
+.env.secret
+
+# History files
+.bash_history
+.history
+
+# Cache and temporary files
+.cache/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Plugin directories (can be regenerated)
+plugins/
+
+# Completion cache
+.compcache/
+.bash_completion.d/
+
+# ble.sh build artifacts
+*.ble.sh
+
+# Local modifications
+*.local
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Log files
+*.log
+
+# Session files
+.bash_sessions/
