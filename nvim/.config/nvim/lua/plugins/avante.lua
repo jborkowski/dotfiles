@@ -18,13 +18,19 @@ return {
           max_tokens = 512,
         },
       },
+      gemini     = {
+        endpoint = "https://generativelanguage.googleapis.com/v1beta/models/",
+        model = "gemini-2.5-pro-preview-03-25",
+        timeout = 30000
+      },
       claude     = {
         endpoint = "https://api.anthropic.com",
-        model = "claude-sonnet-4-20250514",
+        model = "claude-opus-4-1-20250805",
         timeout = 30000, -- Timeout in milliseconds
+        model = "claude-opus-4-1-20250805",
         extra_request_body = {
           temperature = 0.75,
-          max_tokens = 512,
+          max_tokens = 32000,
         },
       },
     },
