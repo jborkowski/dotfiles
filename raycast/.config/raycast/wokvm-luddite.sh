@@ -1,0 +1,1 @@
+/Users/jonatan/code/dotfiles/scripts/.scripts/wokvm-luddite.sh
