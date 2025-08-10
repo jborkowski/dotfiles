@@ -1,42 +1,469 @@
-// Zed settings
-//
-// For information on how to configure Zed, see the Zed
-// documentation: https://zed.dev/docs/configuring-zed
-//
-// To see all of Zed's default settings without changing your
-// custom settings, run the `open default settings` command
-// from the command palette or from `Zed` application menu.
+// Enhanced Zed settings with Neovim-like configuration
+// Matches the modern Neovim setup with similar features and behavior
 {
+  // SSH Connections
+  "features": {
+    "edit_prediction_provider": "zed"
+  },
+  "tab_bar": {
+    "show": true
+  },
   "ssh_connections": [
     {
-      "host": "daredevil",
+      "host": "rezed",
       "projects": [
         {
           "paths": [
-            "/data/sources/sea-breeze"
+            "/workspace"
+          ]
+        },
+        {
+          "paths": [
+            "/workspace/restaumatic"
           ]
         }
       ]
+    },
+    {
+      "host": "rezed",
+      "args": [
+        "-A"
+      ],
+      "projects": [
+        {
+          "paths": [
+            "/workspace/restaumatic/apps"
+          ]
+        }
+      ],
+      "nickname": "ReZed with A"
     }
   ],
+  // Telemetry
   "telemetry": {
     "metrics": false,
     "diagnostics": false
   },
-  "assistant": {
+  // AI Assistant Configuration
+  "agent": {
+    "inline_assistant_model": {
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-thinking-latest"
+    },
     "default_model": {
       "provider": "zed.dev",
       "model": "claude-3-5-sonnet-latest"
     },
-    "version": "2",
     "default_open_ai_model": null,
     "provider": {
       "name": "openai",
       "default_model": "gpt-3.5-turbo"
+    },
+    "dock": "right",
+    "default_width": 640
+  },
+  // Theme and UI
+  "theme": {
+    "mode": "system",
+    "dark": "Duskfox - opaque",
+    "light": "Dayfox - opaque"
+  },
+  "ui_font_size": 16,
+  "ui_font_family": "Liga SFMono Nerd Font",
+  "buffer_font_size": 15,
+  "buffer_font_family": "Liga SFMono Nerd Font",
+  "buffer_font_features": {
+    "calt": true,
+    "liga": true
+  },
+  "buffer_line_height": "comfortable",
+  // Vim Mode (matching Neovim)
+  "vim_mode": true,
+  "vim": {
+    "use_system_clipboard": "always",
+    "use_multiline_find": true,
+    "use_smartcase_find": true
+  },
+  "relative_line_numbers": true,
+  "cursor_blink": false,
+  "scrollbar": {
+    "show": "auto",
+    "cursors": true,
+    "git_diff": true,
+    "search_results": true,
+    "selected_symbol": true,
+    "diagnostics": "all"
+  },
+  // Editor Settings
+  "tab_size": 2,
+  "hard_tabs": false,
+  "soft_wrap": "none",
+  "preferred_line_length": 100,
+  "show_wrap_guides": true,
+  "wrap_guides": [
+    80,
+    100
+  ],
+  "show_indent_guides": true,
+  "indent_guides": {
+    "enabled": true,
+    "line_width": 1,
+    "active_line_width": 1,
+    "coloring": "indent_aware",
+    "background_coloring": "disabled"
+  },
+  "show_whitespaces": "selection",
+  "remove_trailing_whitespace_on_save": true,
+  "ensure_final_newline_on_save": true,
+  "format_on_save": "on",
+  "formatter": "language_server",
+  "code_actions_on_format": {
+    "source.fixAll": true,
+    "source.organizeImports": true
+  },
+  // Search and Navigation
+  "file_scan_exclusions": [
+    "**/.git",
+    "**/.svn",
+    "**/.hg",
+    "**/CVS",
+    "**/.DS_Store",
+    "**/Thumbs.db",
+    "**/node_modules",
+    "**/target",
+    "**/dist",
+    "**/build",
+    "**/.next",
+    "**/.nuxt",
+    "**/.vuepress/dist",
+    "**/.docusaurus",
+    "**/coverage",
+    "**/.nyc_output",
+    "**/.cache",
+    "**/.parcel-cache",
+    "**/.turbo",
+    "**/vendor",
+    "**/.stack-work",
+    "**/output"
+  ],
+  "file_finder": {
+    "file_icons": true,
+    "show_gitignored_files": false
+  },
+  "project_panel": {
+    "button": true,
+    "dock": "left",
+    "git_status": true,
+    "default_width": 240,
+    "file_icons": true,
+    "folder_icons": true,
+    "indent_size": 20,
+    "auto_reveal_entries": true,
+    "auto_fold_dirs": false,
+    "scrollbar": {
+      "show": "auto"
     }
   },
-  "theme": "Ayu Dark",
-  "ui_font_size": 16,
-  "buffer_font_size": 16,
-  "vim_mode": true
+  "outline_panel": {
+    "button": true,
+    "dock": "right",
+    "default_width": 240,
+    "file_icons": true,
+    "folder_icons": true,
+    "indent_size": 20,
+    "auto_reveal_entries": true,
+    "auto_fold_dirs": false
+  },
+  "terminal": {
+    "dock": "bottom",
+    "default_height": 320,
+    "working_directory": "current_project_directory",
+    "button": true,
+    "env": {},
+    "shell": "system",
+    "font_size": 15,
+    // "font_family": "JetBrains Mono",
+    "font_family": "Liga SFMono Nerd Font",
+    "line_height": "comfortable",
+    "blinking": "terminal_controlled",
+    "copy_on_select": true,
+    "toolbar": {
+      "title": false
+    },
+    "detect_venv": {
+      "on": {
+        "directories": [
+          ".env",
+          "env",
+          ".venv",
+          "venv",
+          ".envrc"
+        ],
+        "activate_script": "default"
+      }
+    }
+  },
+  "collaboration_panel": {
+    "button": false
+  },
+  "chat_panel": {
+    "button": "never"
+  },
+  "notification_panel": {
+    "button": true,
+    "dock": "right"
+  },
+  // Git Integration (like gitsigns.nvim)
+  "git": {
+    "inline_blame": {
+      "enabled": true,
+      "delay_ms": 1000
+    },
+    "git_gutter": "tracked_files",
+    "gutter_debounce": 0
+  },
+  // LSP and Completions
+  "lsp": {
+    "rust-analyzer": {
+      "initialization_options": {
+        "check": {
+          "command": "clippy"
+        },
+        "inlayHints": {
+          "bindingModeHints": {
+            "enable": true
+          },
+          "chainingHints": {
+            "enable": true
+          },
+          "closingBraceHints": {
+            "enable": true,
+            "minLines": 25
+          },
+          "closureReturnTypeHints": {
+            "enable": "always"
+          },
+          "discriminantHints": {
+            "enable": "always"
+          },
+          "expressionAdjustmentHints": {
+            "enable": "always"
+          },
+          "implicitDrops": {
+            "enable": true
+          },
+          "lifetimeElisionHints": {
+            "enable": "always",
+            "useParameterNames": true
+          },
+          "parameterHints": {
+            "enable": true
+          },
+          "rangeExclusiveHints": {
+            "enable": true
+          },
+          "reborrowHints": {
+            "enable": "always"
+          },
+          "renderColons": true,
+          "typeHints": {
+            "enable": true,
+            "hideClosureInitialization": false,
+            "hideNamedConstructor": false
+          }
+        }
+      }
+    },
+    "typescript-language-server": {
+      "initialization_options": {
+        "preferences": {
+          "includeInlayParameterNameHints": "all",
+          "includeInlayParameterNameHintsWhenArgumentMatchesName": true,
+          "includeInlayFunctionParameterTypeHints": true,
+          "includeInlayVariableTypeHints": true,
+          "includeInlayVariableTypeHintsWhenTypeMatchesName": true,
+          "includeInlayPropertyDeclarationTypeHints": true,
+          "includeInlayFunctionLikeReturnTypeHints": true,
+          "includeInlayEnumMemberValueHints": true
+        }
+      }
+    },
+    "gopls": {
+      "initialization_options": {
+        "hints": {
+          "assignVariableTypes": true,
+          "compositeLiteralFields": true,
+          "compositeLiteralTypes": true,
+          "constantValues": true,
+          "functionTypeParameters": true,
+          "parameterNames": true,
+          "rangeVariableTypes": true
+        }
+      }
+    }
+  },
+  "show_completions_on_input": true,
+  "show_completion_documentation": true,
+  "show_edit_predictions": false,
+  "completion_documentation_secondary_query_debounce": 300,
+  "use_autoclose": true,
+  "use_auto_surround": true,
+  "always_treat_brackets_as_autoclosed": true,
+  // Inlay Hints (like lsp-inlayhints.nvim)
+  "inlay_hints": {
+    "enabled": true,
+    "show_type_hints": true,
+    "show_parameter_hints": true,
+    "show_other_hints": true,
+    "edit_debounce_ms": 700,
+    "scroll_debounce_ms": 50
+  },
+  // Languages Configuration
+  "languages": {
+    "TypeScript": {
+      "format_on_save": {
+        "external": {
+          "command": "prettier",
+          "arguments": [
+            "--write",
+            "--stdin-filepath",
+            "{buffer_path}"
+          ]
+        }
+      },
+      "code_actions_on_format": {
+        "source.organizeImports": true,
+        "source.fixAll.eslint": true
+      }
+    },
+    "JavaScript": {
+      "format_on_save": {
+        "external": {
+          "command": "prettier",
+          "arguments": [
+            "--write",
+            "--stdin-filepath",
+            "{buffer_path}"
+          ]
+        }
+      },
+      "code_actions_on_format": {
+        "source.organizeImports": true,
+        "source.fixAll.eslint": true
+      }
+    },
+    "Rust": {
+      "format_on_save": "on",
+      "code_actions_on_format": {
+        "source.organizeImports": true
+      }
+    },
+    "Go": {
+      "format_on_save": "on",
+      "code_actions_on_format": {
+        "source.organizeImports": true
+      },
+      "tab_size": 4,
+      "hard_tabs": true
+    },
+    "Python": {
+      "format_on_save": {
+        "external": {
+          "command": "black",
+          "arguments": [
+            "-"
+          ]
+        }
+      },
+      "code_actions_on_format": {
+        "source.organizeImports": true
+      }
+    },
+    "Haskell": {
+      "format_on_save": {
+        "external": {
+          "command": "fourmolu",
+          "arguments": [
+            "--indentation=2",
+            "--comma-style=leading",
+            "--import-export-style=leading",
+            "--indent-wheres=true",
+            "--record-brace-space=true",
+            "--respectful=true",
+            "--haddock-style=multi-line",
+            "--newlines-between-decls=1",
+            "--stdin-input-file",
+            "{buffer_path}"
+          ]
+        }
+      }
+    },
+    "Markdown": {
+      "format_on_save": "on",
+      "soft_wrap": "preferred_line_length"
+    },
+    "AML": {
+      "tab_size": 2
+    },
+    "JSON": {
+      "tab_size": 2,
+      "format_on_save": {
+        "external": {
+          "command": "prettier",
+          "arguments": [
+            "--write",
+            "--stdin-filepath",
+            "{buffer_path}"
+          ]
+        }
+      }
+    }
+  },
+  // Preview tabs
+  "preview_tabs": {
+    "enabled": true,
+    "enable_preview_from_file_finder": true,
+    "enable_preview_from_code_navigation": true
+  },
+  // Autosave
+  "autosave": {
+    "after_delay": {
+      "milliseconds": 1000
+    }
+  },
+  // Toolbar
+  "toolbar": {
+    "breadcrumbs": true,
+    "quick_actions": true,
+    "selections_menu": true
+  },
+  // Tabs
+  "tabs": {
+    "close_position": "right",
+    "file_icons": true,
+    "git_status": true
+  },
+  "show_call_status_icon": true,
+  // Experimental Features
+  "unstable.desktop_scrollbar_thumb_size": "comfortable",
+  "journal": {
+    "path": "~/org/journal",
+    "hour_format": "hour24"
+  },
+  "restore_on_startup": "last_workspace",
+  "auto_update": true,
+  "base_keymap": "VSCode",
+  // Tasks
+  "task": {
+    "show_status_indicator": true
+  },
+  // Extensions to install (like plugins)
+  // These will be auto-installed when available
+  "auto_install_extensions": {
+    "html": true,
+    "toml": true,
+    "sql": true,
+    "dockerfile": true,
+    "terraform": true
+  }
 }

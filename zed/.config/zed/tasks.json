@@ -1,0 +1,353 @@
+[
+  {
+    "label": "Run tests",
+    "command": "cargo test",
+    "args": [],
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "never",
+    "tags": [
+      "test",
+      "rust"
+    ]
+  },
+  {
+    "label": "Build project",
+    "command": "cargo build",
+    "args": [
+      "--release"
+    ],
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "never",
+    "tags": [
+      "build",
+      "rust"
+    ]
+  },
+  {
+    "label": "Run dev server",
+    "command": "npm",
+    "args": [
+      "run",
+      "dev"
+    ],
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "never",
+    "tags": [
+      "dev",
+      "npm",
+      "node"
+    ]
+  },
+  {
+    "label": "Install dependencies",
+    "command": "npm",
+    "args": [
+      "install"
+    ],
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "on_success",
+    "tags": [
+      "install",
+      "npm",
+      "node"
+    ]
+  },
+  {
+    "label": "Format code",
+    "command": "prettier",
+    "args": [
+      "--write",
+      "."
+    ],
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "never",
+    "hide": "on_success",
+    "tags": [
+      "format",
+      "prettier"
+    ]
+  },
+  {
+    "label": "Lint code",
+    "command": "eslint",
+    "args": [
+      ".",
+      "--fix"
+    ],
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "never",
+    "tags": [
+      "lint",
+      "eslint"
+    ]
+  },
+  {
+    "label": "Python: Run tests",
+    "command": "pytest",
+    "args": [
+      "-v"
+    ],
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "never",
+    "tags": [
+      "test",
+      "python"
+    ]
+  },
+  {
+    "label": "Python: Format with Black",
+    "command": "black",
+    "args": [
+      "."
+    ],
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "never",
+    "hide": "on_success",
+    "tags": [
+      "format",
+      "python",
+      "black"
+    ]
+  },
+  {
+    "label": "Go: Run tests",
+    "command": "go",
+    "args": [
+      "test",
+      "./..."
+    ],
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "never",
+    "tags": [
+      "test",
+      "go"
+    ]
+  },
+  {
+    "label": "Go: Build",
+    "command": "go",
+    "args": [
+      "build",
+      "."
+    ],
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "never",
+    "tags": [
+      "build",
+      "go"
+    ]
+  },
+  {
+    "label": "Docker: Build",
+    "command": "docker",
+    "args": [
+      "build",
+      "-t",
+      "${project_name}",
+      "."
+    ],
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "never",
+    "tags": [
+      "docker",
+      "build"
+    ]
+  },
+  {
+    "label": "Docker: Compose up",
+    "command": "docker-compose",
+    "args": [
+      "up",
+      "-d"
+    ],
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "never",
+    "tags": [
+      "docker",
+      "compose"
+    ]
+  },
+  {
+    "label": "Git: Commit",
+    "command": "git",
+    "args": [
+      "commit",
+      "-m",
+      "$ZED_CUSTOM_INPUT"
+    ],
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "on_success",
+    "tags": [
+      "git",
+      "commit"
+    ]
+  },
+  {
+    "label": "Git: Push",
+    "command": "git",
+    "args": [
+      "push"
+    ],
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "on_success",
+    "tags": [
+      "git",
+      "push"
+    ]
+  },
+  {
+    "label": "Git: Pull",
+    "command": "git",
+    "args": [
+      "pull"
+    ],
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "on_success",
+    "tags": [
+      "git",
+      "pull"
+    ]
+  },
+  {
+    "label": "Make: Build",
+    "command": "make",
+    "args": [
+      "build"
+    ],
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "never",
+    "tags": [
+      "make",
+      "build"
+    ]
+  },
+  {
+    "label": "Make: Test",
+    "command": "make",
+    "args": [
+      "test"
+    ],
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "never",
+    "tags": [
+      "make",
+      "test"
+    ]
+  },
+  {
+    "label": "Make: Clean",
+    "command": "make",
+    "args": [
+      "clean"
+    ],
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "on_success",
+    "tags": [
+      "make",
+      "clean"
+    ]
+  },
+  {
+    "label": "Haskell: Build",
+    "command": "stack",
+    "args": [
+      "build"
+    ],
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "never",
+    "tags": [
+      "haskell",
+      "stack",
+      "build"
+    ]
+  },
+  {
+    "label": "Haskell: Test",
+    "command": "stack",
+    "args": [
+      "test"
+    ],
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "never",
+    "tags": [
+      "haskell",
+      "stack",
+      "test"
+    ]
+  },
+  {
+    "label": "Haskell: REPL",
+    "command": "stack",
+    "args": [
+      "repl"
+    ],
+    "env": {},
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "never",
+    "tags": [
+      "haskell",
+      "stack",
+      "repl"
+    ]
+  }
+]

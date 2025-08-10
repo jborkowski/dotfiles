@@ -1,0 +1,469 @@
+{
+  "typescript": {
+    "reactFunctionalComponent": {
+      "prefix": "rfc",
+      "body": [
+        "import React from 'react';",
+        "",
+        "interface ${1:ComponentName}Props {",
+        "  ${2:// props}",
+        "}",
+        "",
+        "export const ${1:ComponentName}: React.FC<${1:ComponentName}Props> = ({ ${3:props} }) => {",
+        "  return (",
+        "    <div>",
+        "      ${0:// component content}",
+        "    </div>",
+        "  );",
+        "};"
+      ],
+      "description": "Create a React functional component with TypeScript"
+    },
+    "reactHook": {
+      "prefix": "hook",
+      "body": [
+        "import { useState, useEffect } from 'react';",
+        "",
+        "export const use${1:HookName} = (${2:params}) => {",
+        "  const [${3:state}, set${3/(.*)/${1:/capitalize}/}] = useState(${4:initialValue});",
+        "",
+        "  useEffect(() => {",
+        "    ${5:// effect logic}",
+        "  }, [${6:dependencies}]);",
+        "",
+        "  return { ${3:state} };",
+        "};"
+      ],
+      "description": "Create a custom React hook"
+    },
+    "asyncFunction": {
+      "prefix": "async",
+      "body": [
+        "const ${1:functionName} = async (${2:params}) => {",
+        "  try {",
+        "    ${3:// async logic}",
+        "  } catch (error) {",
+        "    console.error('Error in ${1:functionName}:', error);",
+        "    throw error;",
+        "  }",
+        "};"
+      ],
+      "description": "Create an async function with error handling"
+    },
+    "consoleLog": {
+      "prefix": "cl",
+      "body": "console.log('${1:label}:', ${2:value});",
+      "description": "Console log with label"
+    },
+    "exportDefault": {
+      "prefix": "ed",
+      "body": "export default ${1:expression};",
+      "description": "Export default statement"
+    },
+    "import": {
+      "prefix": "imp",
+      "body": "import ${1:name} from '${2:module}';",
+      "description": "Import statement"
+    }
+  },
+  "javascript": {
+    "Console Log": {
+      "prefix": "cl",
+      "body": "console.log('${1:label}:', ${2:value});",
+      "description": "Console log with label"
+    },
+    "Function": {
+      "prefix": "fn",
+      "body": [
+        "function ${1:functionName}(${2:params}) {",
+        "  ${0:// function body}",
+        "}"
+      ],
+      "description": "Function declaration"
+    },
+    "Arrow Function": {
+      "prefix": "af",
+      "body": [
+        "const ${1:functionName} = (${2:params}) => {",
+        "  ${0:// function body}",
+        "};"
+      ],
+      "description": "Arrow function"
+    },
+    "Promise": {
+      "prefix": "prom",
+      "body": [
+        "new Promise((resolve, reject) => {",
+        "  ${1:// promise logic}",
+        "});"
+      ],
+      "description": "Create a new Promise"
+    }
+  },
+  "rust": {
+    "Function": {
+      "prefix": "fn",
+      "body": [
+        "fn ${1:function_name}(${2:params}) -> ${3:ReturnType} {",
+        "    ${0:// function body}",
+        "}"
+      ],
+      "description": "Function definition"
+    },
+    "Impl Block": {
+      "prefix": "impl",
+      "body": [
+        "impl ${1:Type} {",
+        "    ${0:// implementation}",
+        "}"
+      ],
+      "description": "Implementation block"
+    },
+    "Struct": {
+      "prefix": "struct",
+      "body": [
+        "#[derive(Debug, Clone)]",
+        "pub struct ${1:StructName} {",
+        "    ${2:field}: ${3:Type},",
+        "}"
+      ],
+      "description": "Struct definition with common derives"
+    },
+    "Match": {
+      "prefix": "match",
+      "body": [
+        "match ${1:expression} {",
+        "    ${2:pattern} => ${3:result},",
+        "    _ => ${4:default},",
+        "}"
+      ],
+      "description": "Match expression"
+    },
+    "Test": {
+      "prefix": "test",
+      "body": [
+        "#[cfg(test)]",
+        "mod tests {",
+        "    use super::*;",
+        "",
+        "    #[test]",
+        "    fn ${1:test_name}() {",
+        "        ${0:// test body}",
+        "    }",
+        "}"
+      ],
+      "description": "Test module with test function"
+    },
+    "Result": {
+      "prefix": "res",
+      "body": "Result<${1:T}, ${2:E}>",
+      "description": "Result type"
+    },
+    "Option": {
+      "prefix": "opt",
+      "body": "Option<${1:T}>",
+      "description": "Option type"
+    },
+    "Println": {
+      "prefix": "pr",
+      "body": "println!(\"${1:{}}\", ${2:value});",
+      "description": "Print line macro"
+    }
+  },
+  "python": {
+    "Function": {
+      "prefix": "def",
+      "body": [
+        "def ${1:function_name}(${2:params}):",
+        "    \"\"\"${3:docstring}\"\"\"",
+        "    ${0:pass}"
+      ],
+      "description": "Function definition"
+    },
+    "Class": {
+      "prefix": "class",
+      "body": [
+        "class ${1:ClassName}:",
+        "    \"\"\"${2:docstring}\"\"\"",
+        "",
+        "    def __init__(self, ${3:params}):",
+        "        ${0:pass}"
+      ],
+      "description": "Class definition"
+    },
+    "Main": {
+      "prefix": "main",
+      "body": [
+        "def main():",
+        "    ${1:pass}",
+        "",
+        "if __name__ == \"__main__\":",
+        "    main()"
+      ],
+      "description": "Main function with guard"
+    },
+    "Try Except": {
+      "prefix": "try",
+      "body": [
+        "try:",
+        "    ${1:# code}",
+        "except ${2:Exception} as e:",
+        "    ${3:# handle exception}"
+      ],
+      "description": "Try-except block"
+    },
+    "Import": {
+      "prefix": "imp",
+      "body": "import ${1:module}",
+      "description": "Import statement"
+    },
+    "From Import": {
+      "prefix": "from",
+      "body": "from ${1:module} import ${2:name}",
+      "description": "From import statement"
+    }
+  },
+  "go": {
+    "Function": {
+      "prefix": "func",
+      "body": [
+        "func ${1:functionName}(${2:params}) ${3:returnType} {",
+        "\t${0:// function body}",
+        "}"
+      ],
+      "description": "Function declaration"
+    },
+    "Method": {
+      "prefix": "meth",
+      "body": [
+        "func (${1:receiver} *${2:Type}) ${3:methodName}(${4:params}) ${5:returnType} {",
+        "\t${0:// method body}",
+        "}"
+      ],
+      "description": "Method declaration"
+    },
+    "If Error": {
+      "prefix": "iferr",
+      "body": [
+        "if err != nil {",
+        "\treturn ${1:nil, }err",
+        "}"
+      ],
+      "description": "Error handling"
+    },
+    "Struct": {
+      "prefix": "struct",
+      "body": [
+        "type ${1:StructName} struct {",
+        "\t${2:field} ${3:type}",
+        "}"
+      ],
+      "description": "Struct declaration"
+    },
+    "Interface": {
+      "prefix": "interface",
+      "body": [
+        "type ${1:InterfaceName} interface {",
+        "\t${2:Method}() ${3:returnType}",
+        "}"
+      ],
+      "description": "Interface declaration"
+    },
+    "Package Main": {
+      "prefix": "main",
+      "body": [
+        "package main",
+        "",
+        "import (",
+        "\t\"fmt\"",
+        ")",
+        "",
+        "func main() {",
+        "\t${0:// main logic}",
+        "}"
+      ],
+      "description": "Main package with main function"
+    },
+    "Test Function": {
+      "prefix": "test",
+      "body": [
+        "func Test${1:FunctionName}(t *testing.T) {",
+        "\t${0:// test logic}",
+        "}"
+      ],
+      "description": "Test function"
+    },
+    "Printf": {
+      "prefix": "pf",
+      "body": "fmt.Printf(\"${1:%v}\\n\", ${2:value})",
+      "description": "Printf statement"
+    }
+  },
+  "haskell": {
+    "Function": {
+      "prefix": "fn",
+      "body": [
+        "${1:functionName} :: ${2:Type}",
+        "${1:functionName} ${3:params} = ${0:undefined}"
+      ],
+      "description": "Function with type signature"
+    },
+    "Data Type": {
+      "prefix": "data",
+      "body": [
+        "data ${1:TypeName} = ${2:Constructor}",
+        "  deriving (Show, Eq)"
+      ],
+      "description": "Data type declaration"
+    },
+    "Newtype": {
+      "prefix": "newtype",
+      "body": [
+        "newtype ${1:TypeName} = ${2:Constructor} ${3:Type}",
+        "  deriving (Show, Eq)"
+      ],
+      "description": "Newtype declaration"
+    },
+    "Type Alias": {
+      "prefix": "type",
+      "body": "type ${1:TypeAlias} = ${2:Type}",
+      "description": "Type alias"
+    },
+    "Module": {
+      "prefix": "module",
+      "body": [
+        "module ${1:ModuleName} where",
+        "",
+        "${0:-- module content}"
+      ],
+      "description": "Module declaration"
+    },
+    "Import": {
+      "prefix": "import",
+      "body": "import ${1:qualified }${2:ModuleName}${3: as ${4:Alias}}",
+      "description": "Import statement"
+    },
+    "Case": {
+      "prefix": "case",
+      "body": [
+        "case ${1:expression} of",
+        "  ${2:pattern} -> ${3:result}",
+        "  _ -> ${4:default}"
+      ],
+      "description": "Case expression"
+    },
+    "Let": {
+      "prefix": "let",
+      "body": [
+        "let ${1:binding} = ${2:value}",
+        " in ${3:expression}"
+      ],
+      "description": "Let expression"
+    },
+    "Where": {
+      "prefix": "where",
+      "body": [
+        "${1:expression}",
+        "  where",
+        "    ${2:binding} = ${3:value}"
+      ],
+      "description": "Where clause"
+    }
+  },
+  "markdown": {
+    "Code Block": {
+      "prefix": "code",
+      "body": [
+        "```${1:language}",
+        "${0:code}",
+        "```"
+      ],
+      "description": "Fenced code block"
+    },
+    "Link": {
+      "prefix": "link",
+      "body": "[${1:text}](${2:url})",
+      "description": "Markdown link"
+    },
+    "Image": {
+      "prefix": "img",
+      "body": "![${1:alt text}](${2:url})",
+      "description": "Markdown image"
+    },
+    "Table": {
+      "prefix": "table",
+      "body": [
+        "| ${1:Header 1} | ${2:Header 2} | ${3:Header 3} |",
+        "|----------|----------|----------|",
+        "| ${4:Cell 1}  | ${5:Cell 2}  | ${6:Cell 3}  |"
+      ],
+      "description": "Markdown table"
+    },
+    "Task List": {
+      "prefix": "task",
+      "body": "- [ ] ${1:task}",
+      "description": "Task list item"
+    },
+    "Details": {
+      "prefix": "details",
+      "body": [
+        "<details>",
+        "<summary>${1:Summary}</summary>",
+        "",
+        "${0:content}",
+        "",
+        "</details>"
+      ],
+      "description": "Collapsible details section"
+    }
+  },
+  "html": {
+    "HTML5 Template": {
+      "prefix": "html5",
+      "body": [
+        "<!DOCTYPE html>",
+        "<html lang=\"en\">",
+        "<head>",
+        "    <meta charset=\"UTF-8\">",
+        "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+        "    <title>${1:Document}</title>",
+        "</head>",
+        "<body>",
+        "    ${0}",
+        "</body>",
+        "</html>"
+      ],
+      "description": "HTML5 boilerplate"
+    },
+    "Div": {
+      "prefix": "div",
+      "body": "<div class=\"${1:class}\">${0}</div>",
+      "description": "Div with class"
+    },
+    "Link": {
+      "prefix": "a",
+      "body": "<a href=\"${1:url}\">${2:text}</a>",
+      "description": "Anchor tag"
+    }
+  },
+  "css": {
+    "Flexbox Container": {
+      "prefix": "flex",
+      "body": [
+        "display: flex;",
+        "justify-content: ${1:center};",
+        "align-items: ${2:center};"
+      ],
+      "description": "Flexbox container properties"
+    },
+    "Grid Container": {
+      "prefix": "grid",
+      "body": [
+        "display: grid;",
+        "grid-template-columns: ${1:repeat(3, 1fr)};",
+        "gap: ${2:1rem};"
+      ],
+      "description": "Grid container properties"
+    }
+  }
+}

@@ -1,35 +1,248 @@
 [
+  // Global keybindings (work in all modes)
+  {
+    "context": "Global",
+    "bindings": {
+      // File tree (like neo-tree)
+      "cmd-n": "workspace::ToggleLeftDock",
+      "cmd-shift-e": "project_panel::RevealInFileManager",
+      // Terminal
+      "ctrl-`": "terminal_panel::ToggleFocus",
+      // Command palette
+      "cmd-shift-p": "command_palette::Toggle",
+      // Settings
+      "cmd-,": "zed::OpenSettings",
+      // Save all
+      "cmd-shift-s": "workspace::SaveAll"
+    }
+  },
+  // Vim Normal Mode keybindings (matching Neovim leader key mappings)
   {
     "context": "Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
     "bindings": {
-      // put key-bindings here if you want them to work in normal & visual mode
+      // File Management
       "space f f": "file_finder::Toggle",
-      "space g b": "editor::ToggleGitBlame",
+      "space f g": "pane::DeploySearch",
+      "space f o": "projects::OpenRecent",
+      "space f h": "command_palette::Toggle",
+      "space f /": "buffer_search::Deploy",
+      // Git 
+      "space g b": "git::Blame",
+      "space g s": "editor::OpenExcerpts",
+      "space g c": "editor::ToggleGitBlameInline",
+      "space g d": "editor::GoToDiagnostic",
+      "space g h": "editor::GoToHunk",
+      // Code/LSP 
+      "space c a": "editor::ToggleCodeActions",
+      "space c f": "editor::Format",
+      "space c d": "diagnostics::Deploy",
+      "space c s": "outline::Toggle",
+      "space c S": "project_symbols::Toggle",
+      "space c r": "editor::Rename",
+      "g d": "editor::GoToDefinition",
+      "g D": "editor::GoToDeclaration",
+      "g r": "editor::FindAllReferences",
+      "g i": "editor::GoToImplementation",
+      "g t": "editor::GoToTypeDefinition",
+      "K": "editor::Hover",
+      // Window Management
+      "space w": "workspace::Save",
+      "space w w": "pane::ActivateNextItem",
+      "space w q": "pane::CloseActiveItem",
+      "space w s": "pane::SplitDown",
+      "space w v": "pane::SplitRight",
+      "space w h": "workspace::ActivatePaneLeft",
+      "space w j": "workspace::ActivatePaneDown",
+      "space w k": "workspace::ActivatePaneUp",
+      "space w l": "workspace::ActivatePaneRight",
+      "space w o": "pane::CloseOtherItems",
+      // Project Management
       "space p p": "projects::OpenRecent",
+      "space p f": "file_finder::Toggle",
+      "space p s": "pane::DeploySearch",
+      // File Explorer (neo-tree equivalent)
+      "space e": "workspace::ToggleLeftDock",
+      "space E": "project_panel::RevealInFileManager",
+      // Search 
+      "space s k": "command_palette::Toggle",
+      "space s c": "command_palette::Toggle",
+      "space s q": "diagnostics::Deploy",
+      "space s t": "outline::Toggle",
+      "space s g": "pane::DeploySearch",
+      // Diagnostics
+      "space x d": "editor::Hover",
+      "space x n": "editor::GoToDiagnostic",
+      "space x p": "editor::GoToPreviousDiagnostic",
+      "space x l": "diagnostics::Deploy",
+      "] d": "editor::GoToDiagnostic",
+      "[ d": "editor::GoToPreviousDiagnostic",
+      // Toggle features
+      "space t l": "editor::ToggleLineNumbers",
+      "space t w": "editor::ToggleSoftWrap",
+      "space t i": "editor::ToggleInlayHints",
+      "space t b": "editor::ToggleGitBlameInline",
+      "space t d": "diagnostics::ToggleWarnings",
+      // Terminal
+      "space o t": "terminal_panel::ToggleFocus",
       "ctrl-w t": "terminal_panel::ToggleFocus",
-      "space w": "workspace::Save"
+      // Assistant (AI features)
+      "space a a": "agent::ToggleFocus",
+      "space a i": "assistant::InlineAssist",
+      "space a c": "assistant::CycleMessageRole",
+      // Quick actions
+      "space space": "file_finder::Toggle",
+      "space ,": "command_palette::Toggle",
+      "space .": "project_panel::ToggleFocus",
+      "space /": "pane::DeploySearch",
+      // Navigation
+      "ctrl-o": "pane::GoBack",
+      "ctrl-i": "pane::GoForward",
+      "ctrl-6": "pane::AlternateFile",
+      // Folding
+      "z a": "editor::ToggleFold",
+      "z A": "editor::ToggleFoldAll",
+      "z c": "editor::Fold",
+      "z C": "editor::FoldAll",
+      // "z o": "editor::Unfold",
+      "z O": "editor::UnfoldAll",
+      "z m": "editor::FoldAll",
+      "z M": "editor::FoldAll",
+      "z r": "editor::UnfoldAll",
+      "z R": "editor::UnfoldAll",
+      // Buffer/Tab management
+      "space b b": "tab_switcher::Toggle",
+      "space b d": "pane::CloseActiveItem",
+      "space b D": "pane::CloseOtherItems",
+      "space b n": "pane::ActivateNextItem",
+      "space b p": "pane::ActivatePreviousItem",
+      "] b": "pane::ActivateNextItem",
+      "[ b": "pane::ActivatePreviousItem",
+      // Quick fix / Location list
+      "space q q": "diagnostics::Deploy",
+      "space q n": "editor::GoToDiagnostic",
+      "space q p": "editor::GoToPreviousDiagnostic",
+      // Session management (workspace)
+      "space s s": "workspace::Save",
+      "space s r": "projects::OpenRecent"
     }
   },
+  // Vim Normal Mode specific
   {
     "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
     "bindings": {
-      // put key-bindings here if you want them to work only in normal mode
-      // "down": ["workspace::SendKeystrokes", "4 j"]
-      // "up": ["workspace::SendKeystrokes", "4 k"]
+      // Center screen after navigation
+      "n": [
+        "vim::MoveToNextMatch",
+        "editor::ScrollCursorCenter"
+      ],
+      "shift-n": [
+        "vim::MoveToPreviousMatch",
+        "editor::ScrollCursorCenter"
+      ],
+      "ctrl-d": [
+        "vim::ScrollDown",
+        "editor::ScrollCursorCenter"
+      ],
+      "ctrl-u": [
+        "vim::ScrollUp",
+        "editor::ScrollCursorCenter"
+      ],
+      // Quick window switching
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "g g": "editor::MoveToBeginning",
+      "shift-g": "editor::MoveToEnd",
+      // Quick save
+      "ctrl-s": "workspace::Save",
+      // Commentary/Comments
+      "g c c": "editor::ToggleComments",
+      // Hover documentation
+      "shift-k": "editor::Hover"
     }
   },
+  // Vim Visual Mode specific
   {
     "context": "Editor && vim_mode == visual && !VimWaiting && !menu",
     "bindings": {
-      // visual, visual line & visual block modes
+      // Visual mode specific bindings
+      "shift-j": "editor::MoveLineDown",
+      "shift-k": "editor::MoveLineUp",
+      // Indentation
+      "<": "editor::Outdent",
+      ">": "editor::Indent",
+      // Comments in visual mode
+      "g c": "editor::ToggleComments",
+      "space c c": "editor::ToggleComments",
+      // Code actions on selection
+      "space c a": "editor::ToggleCodeActions",
+      // Search for selection
+      "space f s": "pane::DeploySearch",
+      // Format selection
+      "space c f": "editor::Format"
     }
   },
+  // Vim Insert Mode specific
   {
     "context": "Editor && vim_mode == insert && !menu",
     "bindings": {
-      // put key-bindings here if you want them to work in insert mode
-      // e.g.
-      // "j j": "vim::NormalBefore" // remap jj in insert mode to escape.
+      // Insert mode escape alternatives
+      "j j": "vim::NormalBefore",
+      "j k": "vim::NormalBefore",
+      // Completion
+      "ctrl-space": "editor::ShowCompletions",
+      "ctrl-s": "workspace::Save"
+    }
+  },
+  // Terminal specific bindings
+  {
+    "context": "Terminal",
+    "bindings": {
+      // Terminal navigation
+      "cmd-k": "terminal::Clear",
+      "cmd-c": "terminal::Copy",
+      "cmd-v": "terminal::Paste",
+      "ctrl-w h": "workspace::ActivatePaneLeft",
+      "ctrl-w j": "workspace::ActivatePaneDown",
+      "ctrl-w k": "workspace::ActivatePaneUp",
+      "ctrl-w l": "workspace::ActivatePaneRight",
+      "ctrl-`": "workspace::ToggleBottomDock"
+    }
+  },
+  // Project Panel (File Tree) specific
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "a": "project_panel::NewFile",
+      "shift-a": "project_panel::NewDirectory",
+      "d": "project_panel::Delete",
+      "r": "project_panel::Rename",
+      "x": "project_panel::Cut",
+      "c": "project_panel::Copy",
+      "p": "project_panel::Paste",
+      "space": "project_panel::ExpandSelectedEntry",
+      "enter": "project_panel::Open",
+      "o": "project_panel::Open",
+      "shift-o": "project_panel::OpenPermanent",
+      "h": "project_panel::CollapseSelectedEntry",
+      "l": "project_panel::ExpandSelectedEntry",
+      "j": "menu::SelectNext",
+      "k": "menu::SelectPrevious",
+      "shift-h": "project_panel::CollapseAllEntries",
+      // "/": "project_panel::StartSearchInDirectory",
+      "escape": "workspace::ToggleLeftDock"
+    }
+  },
+  // Search/Replace Panel
+  {
+    "context": "BufferSearchBar",
+    "bindings": {
+      "enter": "search::SelectNextMatch",
+      "shift-enter": "search::SelectPreviousMatch",
+      "escape": "buffer_search::Dismiss",
+      "ctrl-n": "search::SelectNextMatch",
+      "ctrl-p": "search::SelectPreviousMatch"
     }
   }
 ]
