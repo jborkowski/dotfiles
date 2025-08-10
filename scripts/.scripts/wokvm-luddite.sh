@@ -2,6 +2,12 @@
 
 set -euo pipefail
 
+# Required parameters:
+# @raycast.schemaVersion 1
+# @raycast.title Luddite Power Button
+# @raycast.mode silent
+# @raycast.icon 🤖
+
 KVMHOST="ludditekvm"
 POWER_PIN="503"
 RESET_PIN="505"

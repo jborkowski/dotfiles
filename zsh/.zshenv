@@ -39,4 +39,5 @@ fi
 
 # export LIBGL_ALWAYS_SOFTWARE=1
 
-# [ -f "$HOME/.config/zsh/.env.secret" ] && source "$HOME/.config/zsh/.env.secret"  || echo  ""
+[ -f "$HOME/.config/zsh/.env.secret" ] && source "$HOME/.config/zsh/.env.secret"  || echo  ""
+
