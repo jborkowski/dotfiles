@@ -11,7 +11,7 @@ set -euo pipefail
 KVMHOST="ludditekvm"
 POWER_PIN="503"
 RESET_PIN="505"
-GPIO_PATH="/sys/class/gpio/gpio${POWER_PI}"
+GPIO_PATH="/sys/class/gpio/gpio${POWER_PIN}"
 
 if ssh "root@${KVMHOST}" -q -o ConnectTimeout=1 -o BatchMode=yes <<EOF
 g
