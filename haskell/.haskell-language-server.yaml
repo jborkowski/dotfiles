@@ -1,0 +1,21 @@
+formatters:
+  fourmolu:
+    external: true
+    globalOn: false
+    config:
+      indentation: 2
+      comma-style: leading
+      import-export-style: leading
+      indent-wheres: true
+      record-brace-space: true
+      respectful: true
+      haddock-style: multi-line
+      newlines-between-decls: 1
+
+plugins:
+  hlint:
+    globalOn: true
+  fourmolu:
+    globalOn: false
+
+formattingProvider: "none"

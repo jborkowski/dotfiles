@@ -26,13 +26,13 @@
       "space f o": "projects::OpenRecent",
       "space f h": "command_palette::Toggle",
       "space f /": "buffer_search::Deploy",
-      // Git 
+      // Git
       "space g b": "git::Blame",
       "space g s": "editor::OpenExcerpts",
       "space g c": "editor::ToggleGitBlameInline",
       "space g d": "editor::GoToDiagnostic",
       "space g h": "editor::GoToHunk",
-      // Code/LSP 
+      // Code/LSP
       "space c a": "editor::ToggleCodeActions",
       "space c f": "editor::Format",
       "space c d": "diagnostics::Deploy",
@@ -63,7 +63,7 @@
       // File Explorer (neo-tree equivalent)
       "space e": "workspace::ToggleLeftDock",
       "space E": "project_panel::RevealInFileManager",
-      // Search 
+      // Search
       "space s k": "command_palette::Toggle",
       "space s c": "command_palette::Toggle",
       "space s q": "diagnostics::Deploy",
@@ -214,13 +214,22 @@
   {
     "context": "ProjectPanel",
     "bindings": {
-      "a": "project_panel::NewFile",
-      "shift-a": "project_panel::NewDirectory",
-      "d": "project_panel::Delete",
-      "r": "project_panel::Rename",
-      "x": "project_panel::Cut",
-      "c": "project_panel::Copy",
+      // File operations optimized for vim users - using keys that don't conflict with filename typing
+      ">": "project_panel::NewFile",
+      "shift->": "project_panel::NewDirectory",
+      "d d": "project_panel::Delete",
+      "r r": "project_panel::Rename",
+      "y y": "project_panel::Copy",
       "p": "project_panel::Paste",
+      "shift-x": "project_panel::Cut",
+      // Alternative convenient keys
+      "F2": "project_panel::Rename",
+      "delete": "project_panel::Delete",
+      "shift-delete": "project_panel::Delete",
+      // Quick single-key alternatives (using less common filename chars)
+      "=": "project_panel::NewFile",
+      "+": "project_panel::NewDirectory",
+      // Navigation and expansion (safe keys)
       "space": "project_panel::ExpandSelectedEntry",
       "enter": "project_panel::Open",
       "o": "project_panel::Open",

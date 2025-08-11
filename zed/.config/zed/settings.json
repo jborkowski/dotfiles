@@ -37,6 +37,21 @@
         }
       ],
       "nickname": "ReZed with A"
+    },
+    {
+      "host": "luddite",
+      "projects": [
+        {
+          "paths": [
+            "/home/jonatan/sources/auto-dark-mode.nvim"
+          ]
+        },
+        {
+          "paths": [
+            "/home/jonatan/sources/llmfn"
+          ]
+        }
+      ]
     }
   ],
   // Telemetry
@@ -51,8 +66,8 @@
       "model": "claude-sonnet-4-thinking-latest"
     },
     "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-3-5-sonnet-latest"
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-thinking-latest"
     },
     "default_open_ai_model": null,
     "provider": {

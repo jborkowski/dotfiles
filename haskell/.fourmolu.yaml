@@ -1,0 +1,11 @@
+# Fourmolu configuration file
+# Documentation: https://hackage.haskell.org/package/fourmolu/docs/Ormolu-Config.html
+
+indentation: 2
+comma-style: leading
+import-export-style: leading
+indent-wheres: true
+record-brace-space: true
+respectful: true
+haddock-style: multi-line
+newlines-between-decls: 1
