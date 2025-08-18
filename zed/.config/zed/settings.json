@@ -1,5 +1,3 @@
-// Enhanced Zed settings with Neovim-like configuration
-// Matches the modern Neovim setup with similar features and behavior
 {
   // SSH Connections
   "features": {
@@ -8,6 +6,7 @@
   "tab_bar": {
     "show": true
   },
+  "read_ssh_config": true,
   "ssh_connections": [
     {
       "host": "rezed",
@@ -23,20 +22,6 @@
           ]
         }
       ]
-    },
-    {
-      "host": "rezed",
-      "args": [
-        "-A"
-      ],
-      "projects": [
-        {
-          "paths": [
-            "/workspace/restaumatic/apps"
-          ]
-        }
-      ],
-      "nickname": "ReZed with A"
     },
     {
       "host": "luddite",
