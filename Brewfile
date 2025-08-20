@@ -248,8 +248,6 @@ brew "poppler"
 brew "postgresql@14"
 # Modern replacement for ps written in Rust
 brew "procs"
-# Strongly typed programming language that compiles to JavaScript
-brew "purescript"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.11"
 # Ruby version manager
@@ -277,7 +275,7 @@ brew "telnet"
 # Tool to build, change, and version infrastructure
 brew "terraform"
 # Free software distribution for the TeX typesetting system
-brew "texlive"
+# brew "texlive"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
 # CLI/TUI that launches VSCode projects, with a focus on dev containers
@@ -375,3 +373,5 @@ cask "wireshark-app"
 cask "zed"
 
 
+cask "orbstack"
+cask "orbstack"

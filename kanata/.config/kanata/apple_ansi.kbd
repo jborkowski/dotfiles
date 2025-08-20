@@ -1,0 +1,100 @@
+(defcfg
+  linux-dev "/dev/input/by-path/platform-39b10c000.spi-cs-0-event-kbd"
+  block-unmapped-keys no
+  macos-dev-names-include (
+    "Apple Internal Keyboard / Trackpad"
+  )
+  movemouse-inherit-accel-state yes
+  movemouse-smooth-diagonals yes 
+  concurrent-tap-hold yes
+)
+
+(defalias
+    nav  (layer-toggle navigation)
+    fns  (layer-toggle fns))
+
+(defchordsv2
+  (z x) z 80 all-released (fns navigation)
+  (x c) v 50 all-released (fns navigation)
+  (m ,) m 80 all-released (fns navigation)
+  (, .) / 80 all-released (fns navigation))
+
+(defalias
+    fn_l  (tap-hold 150 150 fn @fns)
+    spc_n (tap-hold 200 200 spc @nav)
+    ma    (tap-hold 150 150 a lmet)
+    ar    (tap-hold 150 150 r lalt)
+    ax    (tap-hold 150 150 x ralt)
+    cs    (tap-hold 150 150 s lctl)
+    st    (tap-hold 170 170 t lsft)
+
+    sn    (tap-hold 170 170 n rsft)
+    ce    (tap-hold 150 150 e rctl)
+    ai    (tap-hold 150 150 i lalt)
+    a.    (tap-hold 150 150 . ralt)
+    mo    (tap-hold 150 150 o rmet)
+)
+
+(defalias
+  ;; CMD+(C|V): copy or paste shortcut
+  cpy M-c
+  pst M-v
+
+  cc (tap-hold-release 200 200 c @cpy)
+  cv (tap-hold-release 200 200 v @pst)
+)
+
+
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  fn   lctl lalt lmet           spc             rmet ralt
+)
+
+
+(deflayer colemak-dhm
+  esc brdn brup  _    _    _    _    prev pp   next mute vold volu
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    f    p    b    j    l    u    y    ;    [    ]    \ 
+  esc  @ma  @ar  @cs  @st  g    k    @sn  @ce  @ai  @mo  '    ret
+  z    @ax  @cc   d   @cv    _    m    h    ,  @a.  /    rsft
+  lctl @fn_l lalt lmet          @spc_n           rmet ralt
+)
+
+(deflayer fns
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  _     _   _    _    _    _    _    _    _    _    _    _    _    bspc
+  _     _   _    _    _    _    _    _    _    _    _    _    _    _
+  _     _   _    _    _    _    _    _    _    _    _    _    _
+  _     _   _    _    _    _    _    _    _    _    _    _
+  _     _   _    _           _                 _    _
+)
+
+(defalias
+  mwu (mwheel-up 50 120)
+  mwd (mwheel-down 50 120)
+
+  ma↑ (movemouse-accel-up 1 1000 1 5)
+  ma← (movemouse-accel-left 1 1000 1 5)
+  ma↓ (movemouse-accel-down 1 1000 1 5)
+  ma→ (movemouse-accel-right 1 1000 1 5)
+  slw (movemouse-speed 300)
+
+  ms↑ (movemouse-up 1 1)
+  ms← (movemouse-left 1 1)
+  ms↓ (movemouse-down 1 1)
+  ms→ (movemouse-right 1 1)
+)
+
+(deflayer navigation
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  _     _   _    _    _    _    _    _    _    _    _    _    _    bspc
+  _     _   _    @ms↑ _    _    @mwu mlft mrgt _    _    _    _    _
+  esc  @slw  @ms← @ms↓ @ms→ _    @mwd lft  down up   rght _   ret
+  _    _    _    _    _    _    _    _    _    _    _    rsft
+  lctl cmp lalt lmet           _              _    ralt
+)
