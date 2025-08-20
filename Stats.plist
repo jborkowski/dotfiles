@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Battery_barChart_position</key>
+	<integer>4</integer>
+	<key>Battery_batteryDetails_position</key>
+	<integer>0</integer>
+	<key>Battery_battery_position</key>
+	<integer>1</integer>
+	<key>Battery_label_position</key>
+	<integer>3</integer>
+	<key>Battery_mini_position</key>
+	<integer>2</integer>
+	<key>Battery_state</key>
+	<false/>
+	<key>Battery_widget</key>
+	<string>battery,battery_details,mini,label,bar_chart</string>
+	<key>Disk_state</key>
+	<false/>
+	<key>GPU_barChart_position</key>
+	<integer>3</integer>
+	<key>GPU_label_position</key>
+	<integer>1</integer>
+	<key>GPU_lineChart_position</key>
+	<integer>2</integer>
+	<key>GPU_mini_position</key>
+	<integer>0</integer>
+	<key>GPU_state</key>
+	<true/>
+	<key>GPU_tachometer_position</key>
+	<integer>4</integer>
+	<key>GPU_widget</key>
+	<string>mini</string>
+	<key>LaunchAtLoginNext</key>
+	<true/>
+	<key>NSNavPanelExpandedSizeForSaveMode</key>
+	<string>{800, 448}</string>
+	<key>NSNavPanelExpandedStateForSaveMode</key>
+	<true/>
+	<key>NSStatusItem Preferred Position CPU_mini</key>
+	<real>411</real>
+	<key>NSStatusItem Preferred Position RAM_mini</key>
+	<real>364</real>
+	<key>NSStatusItem Restore Position Battery_battery</key>
+	<integer>275</integer>
+	<key>NSStatusItem Restore Position Disk_mini</key>
+	<integer>317</integer>
+	<key>NSToolbar Configuration eu.exelban.Stats.Settings.Toolbar</key>
+	<dict>
+		<key>TB Display Mode</key>
+		<integer>1</integer>
+		<key>TB Icon Size Mode</key>
+		<integer>1</integer>
+		<key>TB Is Shown</key>
+		<true/>
+		<key>TB Size Mode</key>
+		<integer>1</integer>
+	</dict>
+	<key>NSWindow Frame NSNavPanelAutosaveName</key>
+	<string>500 440 800 448 0 0 1800 1129 </string>
+	<key>Network_VPNMode</key>
+	<true/>
+	<key>Network_label_position</key>
+	<integer>4</integer>
+	<key>Network_networkChart_position</key>
+	<integer>2</integer>
+	<key>Network_processes</key>
+	<integer>0</integer>
+	<key>Network_publicIP</key>
+	<false/>
+	<key>Network_reader</key>
+	<string>interface</string>
+	<key>Network_speed_position</key>
+	<integer>0</integer>
+	<key>Network_state</key>
+	<true/>
+	<key>Network_state_position</key>
+	<integer>1</integer>
+	<key>Network_textWidgetValue</key>
+	<string>$download</string>
+	<key>Network_text_position</key>
+	<integer>3</integer>
+	<key>Network_widget</key>
+	<string>speed</string>
+	<key>runAtLoginInitialized</key>
+	<true/>
+	<key>setupProcess</key>
+	<true/>
+	<key>support_ts</key>
+	<integer>1753871350</integer>
+	<key>telemetry</key>
+	<false/>
+	<key>update-interval</key>
+	<string>Once per day</string>
+	<key>updater_check_ts</key>
+	<integer>1755666929</integer>
+	<key>version</key>
+	<string>2.11.49</string>
+</dict>
+</plist>

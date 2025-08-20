@@ -6,7 +6,6 @@
   "tab_bar": {
     "show": true
   },
-  "read_ssh_config": true,
   "ssh_connections": [
     {
       "host": "rezed",
@@ -37,6 +36,10 @@
           ]
         }
       ]
+    },
+    {
+      "host": "re",
+      "projects": []
     }
   ],
   // Telemetry
@@ -66,7 +69,7 @@
   "theme": {
     "mode": "system",
     "dark": "Duskfox - opaque",
-    "light": "Dayfox - opaque"
+    "light": "One Light"
   },
   "ui_font_size": 16,
   "ui_font_family": "Liga SFMono Nerd Font",
