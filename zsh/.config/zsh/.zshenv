@@ -34,7 +34,7 @@ export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 
 # ESP32
 export LIBCLANG_PATH="$HOME/.espressif/tools/xtensa-esp32-elf-clang/esp-15.0.0-20221014-aarch64-apple-darwin/esp-clang/lib/"
-. "$HOME/.cargo/env"
+[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"  || echo  ""
 
 
 if [ -z "$TERM" ] || [ "$TERM" != "xterm-ghostty" ]; then
