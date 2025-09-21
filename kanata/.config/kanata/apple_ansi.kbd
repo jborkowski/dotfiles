@@ -5,8 +5,9 @@
     "Apple Internal Keyboard / Trackpad"
   )
   movemouse-inherit-accel-state yes
-  movemouse-smooth-diagonals yes 
+  movemouse-smooth-diagonals yes
   concurrent-tap-hold yes
+  process-unmapped-keys no
 )
 
 (defalias
@@ -56,13 +57,25 @@
 )
 
 
-(deflayer colemak-dhm
-  esc brdn brup  _    _    _    _    prev pp   next mute vold volu
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab  q    w    f    p    b    j    l    u    y    ;    [    ]    \ 
-  esc  @ma  @ar  @cs  @st  g    k    @sn  @ce  @ai  @mo  '    ret
-  z    @ax  @cc   d   @cv    _    m    h    ,  @a.  /    rsft
-  lctl @fn_l lalt lmet          @spc_n           rmet ralt
+;; (deflayer colemak-dhm
+;;  esc brdn brup  _    _    _    _    prev pp   next mute vold volu
+;;  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+;;  tab  q    w    f    p    b    j    l    u    y    ;    [    ]    \
+;;  esc  @ma  @ar  @cs  @st  g    k    @sn  @ce  @ai  @mo  '    ret
+;;  z    @ax  @cc   d   @cv    _    m    h    ,  @a.  /    rsft
+;;  lctl @fn_l lalt lmet          @spc_n           rmet ralt
+;; )
+
+(deflayer colemak-dhm-asymm-wide
+  ;; This layer keeps the left hand standard but shifts the right hand
+  ;; one column to the right for a wider, asymmetrical stance.
+
+  esc  brdn brup  _     _     _     _     prev pp   next mute vold volu
+  grv  1    2     3     4     5     6     7    8    9    0    -    =    bspc
+  tab  q    w     f     p     b     \    j    l    u    y    ;    [    ]
+  esc  @ma  @ar   @cs   @st   g     '    k    @sn  @ce  @ai  @mo  ret
+  z    @ax  @cc   d     @cv   _     _    m    h    ,    @a.  /
+  lctl @fn_l lalt lmet        @spc_n           rmet ralt
 )
 
 (deflayer fns
@@ -93,8 +106,8 @@
 (deflayer navigation
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   _     _   _    _    _    _    _    _    _    _    _    _    _    bspc
-  _     _   _    @ms↑ _    _    @mwu mlft mrgt _    _    _    _    _
-  esc  @slw  @ms← @ms↓ @ms→ _    @mwd lft  down up   rght _   ret
+  _     _   _    @ms↑ _    _    _    @mwu mlft mrgt _    _    _    _
+  esc  @slw  @ms← @ms↓ @ms→ _    _   @mwd lft  down up   rght ret
   _    _    _    _    _    _    _    _    _    _    _    rsft
   lctl cmp lalt lmet           _              _    ralt
 )
