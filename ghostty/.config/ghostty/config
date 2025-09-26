@@ -4,7 +4,7 @@ font-size = 14
 app-notifications = no-clipboard-copy
 
 # theme = dark:GitHub-Dark-Colorblind,light:GitHub-Light-Colorblind
-theme = dark:duskfox,light:dayfox
+theme = dark:nightfox,light:dayfox
 clipboard-read = allow
 
 clipboard-paste-protection = false

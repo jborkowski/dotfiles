@@ -49,3 +49,4 @@ export PATH="/opt/homebrew/opt/sphinx-doc/bin:$PATH"
 export ZK_NOTEBOOK_DIR=$HOME/sources/zettels
 
 [ -f "$HOME/.config/zsh/.env.secret" ] && source "$HOME/.config/zsh/.env.secret"  || echo  ""
+. "$HOME/.cargo/env"
