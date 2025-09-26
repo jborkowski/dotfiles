@@ -102,8 +102,8 @@
 
 (deflayer navigation
   _     _   _    _    _    _    _    _    _    _    _    _    _    bspc
-  _     _   _    @ms↑ _    _    _    @mwu mlft mrgt _    _    _    _
-  esc  @slw  @ms← @ms↓ @ms→ _    _   @mwd lft  down up   rght ret
+  _     _   _    @ms↑ _    _    @mwu mlft mrgt _    _    _    _    _
+  esc  @slw  @ms← @ms↓ @ms→ _   @mwd lft  down up   rght _    ret
   _    _    _    _    _    _    _    _    _    _    _    rsft
   lctl cmp lalt lmet           _              _    ralt
 )
