@@ -1,5 +1,14 @@
 {
   // SSH Connections
+  "context_servers": {
+    "mcp-server-github": {
+      "source": "extension",
+      "enabled": true,
+      "settings": {
+        "github_personal_access_token": "GH_TOKEN"
+      }
+    }
+  },
   "features": {
     "edit_prediction_provider": "zed"
   },
@@ -50,25 +59,35 @@
   // AI Assistant Configuration
   "agent": {
     "inline_assistant_model": {
-      "provider": "anthropic",
-      "model": "claude-sonnet-4-thinking-latest"
+      "provider": "ollama",
+      "model": "qwen3:30b"
     },
     "default_model": {
-      "provider": "anthropic",
-      "model": "claude-sonnet-4-thinking-latest"
-    },
-    "default_open_ai_model": null,
-    "provider": {
-      "name": "openai",
-      "default_model": "gpt-3.5-turbo"
+      "provider": "ollama",
+      "model": "qwen3:30b"
     },
     "dock": "right",
     "default_width": 640
   },
+  "language_models": {
+    "ollama": {
+      "api_url": "http://localhost:11434",
+      "available_models": [
+        {
+          "name": "qwen3-coder:30b",
+          "display_name": "qwen 3 coder",
+          "max_tokens": 256000,
+          "supports_tools": true,
+          "supports_thinking": true,
+          "supports_images": true
+        }
+      ]
+    }
+  }, 
   // Theme and UI
   "theme": {
     "mode": "system",
-    "dark": "Duskfox - opaque",
+    "dark": "Duskfox - blurred",
     "light": "One Light"
   },
   "ui_font_size": 16,
@@ -150,8 +169,7 @@
     "**/output"
   ],
   "file_finder": {
-    "file_icons": true,
-    "show_gitignored_files": false
+    "file_icons": true
   },
   "project_panel": {
     "button": true,
@@ -185,12 +203,12 @@
     "env": {},
     "shell": "system",
     "font_size": 15,
-    // "font_family": "JetBrains Mono",
     "font_family": "Liga SFMono Nerd Font",
     "line_height": "comfortable",
     "blinking": "terminal_controlled",
     "copy_on_select": true,
     "toolbar": {
+      "breadcrumbs": true,
       "title": false
     },
     "detect_venv": {
@@ -457,8 +475,8 @@
   "auto_update": true,
   "base_keymap": "VSCode",
   // Tasks
-  "task": {
-    "show_status_indicator": true
+  "tasks": {
+    "enabled": true
   },
   // Extensions to install (like plugins)
   // These will be auto-installed when available
