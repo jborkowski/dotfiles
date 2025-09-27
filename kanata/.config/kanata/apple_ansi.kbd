@@ -8,6 +8,7 @@
   movemouse-smooth-diagonals yes
   concurrent-tap-hold yes
   process-unmapped-keys yes
+  rapid-event-delay 5
 )
 
 (defalias
@@ -27,9 +28,9 @@
     ar    (tap-hold 160 160 r lalt)
     ax    (tap-hold 180 180 x ralt)
     cs    (tap-hold 160 160 s lctl)
-    st    (tap-hold 140 140 t lsft)
+    st    (tap-hold 150 150 t lsft)
 
-    sn    (tap-hold 140 140 n rsft)
+    sn    (tap-hold 150 150 n rsft)
     ce    (tap-hold 160 160 e rctl)
     ai    (tap-hold 160 160 i lalt)
     a.    (tap-hold 180 180 . ralt)
