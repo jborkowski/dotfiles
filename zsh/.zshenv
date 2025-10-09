@@ -41,3 +41,5 @@ fi
 
 [ -f "$HOME/.config/zsh/.env.secret" ] && source "$HOME/.config/zsh/.env.secret"  || echo  ""
 
+
+. "$HOME/.local/bin/env"
