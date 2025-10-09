@@ -54,5 +54,11 @@ if [[ -d "$HOME/.npm-global" ]]; then
 fi
 
 
-[ -f "$HOME/.config/zsh/.env.secret" ] && source "$HOME/.config/zsh/.env.secret"  || echo  ""
+if [ -f "$HOME/.config/zsh/.env.secret" ]; then
+    if head -c 10 "$HOME/.config/zsh/.env.secret" 2>/dev/null | grep -q "GITCRYPT"; then
+        (cd "$HOME/.dotfiles" && git-crypt unlock 2>/dev/null) || true
+    fi
+    source "$HOME/.config/zsh/.env.secret" 2>/dev/null || true
+fi
+
 . "$HOME/.cargo/env"
