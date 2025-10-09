@@ -31,7 +31,6 @@ source ~/.config/zsh/plugins/zsh-autopair/zsh-autopair.plugin.zsh
 source ~/.config/zsh/plugins/zsh-nix-shell/nix-shell.plugin.zsh
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
-
 # ESP32
 export LIBCLANG_PATH="$HOME/.espressif/tools/xtensa-esp32-elf-clang/esp-15.0.0-20221014-aarch64-apple-darwin/esp-clang/lib/"
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"  || echo  ""
@@ -47,6 +46,13 @@ fi
 
 export PATH="/opt/homebrew/opt/sphinx-doc/bin:$PATH"
 export ZK_NOTEBOOK_DIR=$HOME/sources/zettels
+
+
+if [[ -d "$HOME/.npm-global" ]]; then
+  export NPM_CONFIG_PREFIX=$HOME/.npm-global
+  export PATH=$HOME/.npm-global/bin:$PATH
+fi
+
 
 [ -f "$HOME/.config/zsh/.env.secret" ] && source "$HOME/.config/zsh/.env.secret"  || echo  ""
 . "$HOME/.cargo/env"
