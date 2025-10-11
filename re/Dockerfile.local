@@ -1,0 +1,289 @@
+ARG DEVCONTAINER_VERSION
+FROM public.ecr.aws/o6y6k3s0/devcontainer:devcontainer-${DEVCONTAINER_VERSION} AS base
+
+# ==============================================================================
+# Stage 1: Build Neovim from source
+# ==============================================================================
+FROM base AS neovim-builder
+
+USER root
+RUN apt update && apt install -y \
+    build-essential cmake gettext unzip curl ninja-build \
+    libpng-dev libxpm-dev libjpeg-dev libgif-dev libtiff-dev libgnutls28-dev \
+    libncurses-dev texinfo libjansson4 libjansson-dev \
+    libgccjit0 libgccjit-10-dev gcc-10 g++-10 libxml2-dev libenchant-2-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+USER user
+WORKDIR /tmp
+RUN git clone https://github.com/neovim/neovim.git \
+    && cd neovim \
+    && make distclean && CCACHE_DISABLE=true make -j$(nproc) CMAKE_BUILD_TYPE=Release
+
+# ==============================================================================
+# Stage 2: Build tree-sitter from source
+# ==============================================================================
+FROM base AS tree-sitter-builder
+
+USER root
+RUN apt update && apt install -y build-essential git \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /tmp
+RUN git clone https://github.com/tree-sitter/tree-sitter.git \
+    && cd tree-sitter \
+    && make -j$(nproc) \
+    && make install \
+    && ldconfig
+
+# ==============================================================================
+# Stage 3: Final devcontainer image
+# ==============================================================================
+FROM base AS final
+
+USER root
+
+# Install Tailscale
+RUN curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/jammy.noarmor.gpg | tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null \
+    && curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/jammy.tailscale-keyring.list | tee /etc/apt/sources.list.d/tailscale.list
+
+# Install system packages
+RUN apt update && apt install -y \
+    build-essential cmake gettext unzip curl stow git git-crypt bat direnv hasktags \
+    python3-pip fd-find tree wl-clipboard ninja-build dconf-cli libssl-dev \
+    aspell aspell-en aspell-pl python3-proselint \
+    libpng-dev libxpm-dev libjpeg-dev libgif-dev libtiff-dev libgnutls28-dev \
+    libncurses-dev texinfo libjansson4 libjansson-dev \
+    libgccjit0 libgccjit-10-dev gcc-10 g++-10 libxml2-dev libenchant-2-dev shellcheck mg \
+    kitty-terminfo lftp hunspell hunspell-en-us hunspell-pl hunspell-es libtool-bin python3-pynvim \
+    tailscale \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy built neovim from builder stage
+COPY --from=neovim-builder /tmp/neovim/build/bin/nvim /usr/local/bin/nvim
+COPY --from=neovim-builder /tmp/neovim/runtime /usr/local/share/nvim/runtime
+
+# Copy built tree-sitter library from builder stage (CLI not needed - library only)
+COPY --from=tree-sitter-builder /usr/local/lib/libtree-sitter.* /usr/local/lib/
+COPY --from=tree-sitter-builder /usr/local/include/tree_sitter /usr/local/include/tree_sitter/
+RUN ldconfig
+
+# Copy Bitwarden secrets loader
+COPY load_bws_secrets.sh /etc/profile.d/load_bws_secrets.sh
+
+# Create supervisor configs for Tailscale
+RUN mkdir -p /etc/supervisor/conf.d && \
+    cat > /etc/supervisor/conf.d/tailscaled.conf << 'EOF'
+[program:tailscaled]
+command=sudo /usr/sbin/tailscaled --state=/var/lib/tailscale/tailscaled.state --socket=/var/run/tailscale/tailscaled.sock
+directory=/tmp
+stdout_logfile=/tmp/tailscaled.log
+stdout_logfile_maxbytes=0
+stderr_logfile=/tmp/tailscaled.log
+stderr_logfile_maxbytes=0
+autostart=true
+autorestart=true
+stopasgroup=true
+stopsignal=QUIT
+priority=1
+EOF
+
+# Create supervisor config for Tailscale connection
+RUN cat > /etc/supervisor/conf.d/tailscale-connect.conf << 'EOF'
+[program:tailscale-connect]
+command=/usr/local/bin/tailscale_connect.sh
+directory=/tmp
+stdout_logfile=/tmp/tailscale-connect.log
+stdout_logfile_maxbytes=0
+stderr_logfile=/tmp/tailscale-connect.log
+stderr_logfile_maxbytes=0
+autostart=true
+autorestart=false
+startsecs=0
+exitcodes=0
+priority=10
+EOF
+
+# Ensure supervisor includes conf.d directory
+RUN if ! grep -q "^\[include\]" /etc/supervisor/supervisord.conf; then \
+        echo "" >> /etc/supervisor/supervisord.conf && \
+        echo "[include]" >> /etc/supervisor/supervisord.conf && \
+        echo "files = /etc/supervisor/conf.d/*.conf" >> /etc/supervisor/supervisord.conf; \
+    elif ! grep -q "conf\.d/\*\.conf" /etc/supervisor/supervisord.conf; then \
+        sed -i '/^\[include\]/a files = /etc/supervisor/conf.d/*.conf' /etc/supervisor/supervisord.conf; \
+    fi
+
+# Create Tailscale connection script
+RUN cat > /usr/local/bin/tailscale_connect.sh << 'EOF'
+#!/bin/bash
+# Connect to Tailscale - shows QR code on first run, uses state file after
+
+# Wait for daemon to be ready
+for i in {1..10}; do
+    if sudo tailscale status >/dev/null 2>&1; then
+        break
+    fi
+    sleep 1
+done
+
+# Check if already connected
+if sudo tailscale status --json 2>/dev/null | grep -q '"BackendState":"Running"'; then
+    echo "✅ Already connected to Tailscale" >&2
+    sudo tailscale status
+    exit 0
+fi
+
+# Use specific hostname from TS_HOSTNAME or default to devcontainer
+HOSTNAME="${TS_HOSTNAME:-devcontainer}"
+
+echo "🔗 Connecting to Tailscale as '$HOSTNAME'..." >&2
+
+# Connect with QR code if no authkey, otherwise use authkey
+if [[ -n "$TS_AUTHKEY" ]]; then
+    sudo tailscale up \
+        --authkey="$TS_AUTHKEY" \
+        --accept-routes \
+        --advertise-routes=10.244.129.0/24 \
+        --advertise-tags=tag:re-devcontainer \
+        --hostname="$HOSTNAME" \
+        --force-reauth
+else
+    # Check if in SSH session - show URL only, no QR code
+    if [[ -n "$SSH_CONNECTION" || -n "$SSH_CLIENT" || -n "$SSH_TTY" ]]; then
+        echo "" >&2
+        echo "🔗 Visit this URL to authenticate (SSH session detected):" >&2
+        echo "" >&2
+        sudo tailscale up \
+            --accept-routes \
+            --advertise-routes=10.244.129.0/24 \
+            --advertise-tags=tag:re-devcontainer \
+            --hostname="$HOSTNAME"
+    else
+        echo "" >&2
+        echo "📱 Scan QR code or visit the URL to authenticate:" >&2
+        echo "" >&2
+        sudo tailscale up \
+            --accept-routes \
+            --advertise-routes=10.244.129.0/24 \
+            --advertise-tags=tag:re-devcontainer \
+            --hostname="$HOSTNAME" \
+            --qr
+    fi
+fi
+
+echo "" >&2
+echo "✅ Connected to Tailscale (advertising subnet 10.244.129.0/24)" >&2
+EOF
+
+RUN chmod +x /usr/local/bin/tailscale_connect.sh
+
+# Create custom environment setup that loads before user's .zshenv
+RUN mkdir -p /etc/zsh && cat > /etc/zsh/zshenv << 'EOF'
+# Custom environment setup for devcontainer (loaded before ~/.zshenv)
+export TERM=xterm
+export NPM_CONFIG_PREFIX=$HOME/.npm-global
+export PATH=$HOME/.npm-global/bin:$PATH
+
+# Unlock git-crypt encrypted files in dotfiles if .gnupg is available
+if [[ -d "$HOME/.gnupg" && -d "$HOME/.dotfiles/.git" ]]; then
+    if command -v git-crypt >/dev/null 2>&1; then
+        if [[ -f "$HOME/.dotfiles/.git-crypt" ]]; then
+            (
+                cd "$HOME/.dotfiles"
+
+                # Check if already unlocked by looking for encrypted files
+                if git-crypt status 2>/dev/null | grep -q "encrypted"; then
+                    # Check if working directory is clean
+                    if git diff --quiet && git diff --cached --quiet 2>/dev/null; then
+                        # Clean directory - safe to unlock
+                        if git-crypt unlock 2>/dev/null; then
+                            echo "🔓 Unlocked git-crypt in ~/.dotfiles" >&2
+                        fi
+                    else
+                        echo "⚠️  Skipping git-crypt unlock - working directory not clean" >&2
+                    fi
+                fi
+            ) 2>/dev/null || true
+        fi
+    fi
+fi
+
+# Source .env.secret if it exists
+[ -f "$HOME/.config/zsh/.env.secret" ] && source "$HOME/.config/zsh/.env.secret" || echo ""
+
+# Load asdf if available
+if [[ -f "$HOME/.asdf/asdf.sh" ]]; then
+    source "$HOME/.asdf/asdf.sh"
+fi
+EOF
+
+# Configure SSH to accept environment variables
+RUN printf "AcceptEnv LANG LC_* GH_* BW_* TS_*\n" | tee /etc/ssh/sshd_config.d/allow_envs.conf > /dev/null
+
+# Allow user to run tailscale commands without password
+RUN echo "user ALL=(ALL) NOPASSWD: /usr/bin/tailscale, /usr/sbin/tailscaled" | tee /etc/sudoers.d/tailscale > /dev/null \
+    && chmod 0440 /etc/sudoers.d/tailscale \
+    && mkdir -p /var/lib/tailscale /var/run/tailscale \
+    && chmod 755 /var/lib/tailscale /var/run/tailscale
+
+USER user
+WORKDIR /home/user
+
+# Set up npm to use user-writable global directory (fixes Claude update permissions)
+ENV NPM_CONFIG_PREFIX=/home/user/.npm-global
+ENV PATH="/home/user/.npm-global/bin:${PATH}"
+RUN mkdir -p /home/user/.npm-global
+
+# Install Rust and Rust tools
+RUN rm -rf /home/user/.rustup \
+    && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain none \
+    && rustup default stable \
+    && /home/user/.cargo/bin/cargo install --force xcp eza fd-find bottom gitu --locked \
+    && /home/user/.cargo/bin/cargo install --force ripgrep --features pcre2 --locked \
+    && rm -rf /home/user/.cargo/registry /home/user/.cargo/git
+
+# Install latest fzf from source (0.48.0+)
+RUN rm -rf ~/.fzf \
+    && git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
+    && ~/.fzf/install --bin \
+    && sudo ln -sf ~/.fzf/bin/fzf /usr/local/bin/fzf
+
+# Install Node.js packages (now without sudo - user can update these!)
+RUN npm install -g npm typescript-language-server typescript prettier purs-tidy purescript-language-server spago \
+    && npm install -g @anthropic-ai/claude-code
+
+# Install Python tools
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Install Bitwarden CLI tools
+RUN curl -L "https://vault.bitwarden.com/download/?app=cli&platform=linux" -o bw.zip \
+    && unzip bw.zip \
+    && sudo mv bw /usr/local/bin/ \
+    && sudo chmod +x /usr/local/bin/bw \
+    && rm bw.zip \
+    && curl -L "https://github.com/bitwarden/sdk-sm/releases/download/bws-v1.0.0/bws-x86_64-unknown-linux-gnu-1.0.0.zip" -o bws.zip \
+    && unzip bws.zip \
+    && sudo mv bws /usr/local/bin/ \
+    && sudo chmod +x /usr/local/bin/bws \
+    && rm bws.zip
+
+# Configure terminal and shell
+RUN curl -L https://gitlab.com/jclosure/dotfiles/-/raw/develop/common/install-terminfo-xterm-24bit.sh | sh
+
+# Add GitHub to SSH known_hosts for git operations
+RUN mkdir -p $HOME/.ssh \
+    && ssh-keyscan github.com >> $HOME/.ssh/known_hosts 2>/dev/null \
+    && chmod 700 $HOME/.ssh \
+    && chmod 644 $HOME/.ssh/known_hosts
+
+# Install dotfiles and configure shell (at the end for better caching)
+RUN rm -rf $HOME/.dotfiles \
+    && git clone https://github.com/jborkowski/dotfiles.git $HOME/.dotfiles \
+    && rm -rf $HOME/.zshrc $HOME/.zshenv \
+    && cd $HOME/.dotfiles \
+    && git remote add ssh git@github.com:jborkowski/dotfiles.git || true \
+    && git pull https://github.com/jborkowski/dotfiles.git main \
+    && stow -R zsh git nvim \
+    && $HOME/.config/zsh/install-plugins.sh \
+    && echo 'export NPM_CONFIG_PREFIX=$HOME/.npm-global' >> $HOME/.zshrc \
+    && echo 'export PATH=$HOME/.npm-global/bin:$PATH' >> $HOME/.zshrc
