@@ -18,6 +18,7 @@ return {
             "$FILENAME",
           },
           stdin = true,
+          cwd = require("conform.util").root_file({ "fourmolu.yaml", "cabal.project", "stack.yaml", ".git" }),
           condition = function()
             return vim.fn.executable("fourmolu") == 1
           end,
