@@ -15,7 +15,6 @@ return {
   },
   config = function()
     local cmp_lsp = require 'cmp_nvim_lsp'
-    local lspconfig = require 'lspconfig'
     local common = require('plugins.lspconfig.common')
     local navic = require("nvim-navic")
 
@@ -39,8 +38,8 @@ return {
       flags = default_flags,
     }
 
-    lspconfig.lua_ls.setup(vim.tbl_extend('force', default_config, {
-      n_init = function(client)
+    vim.lsp.config('lua_ls', vim.tbl_extend('force', default_config, {
+      on_init = function(client)
         local path = client.workspace_folders[1].name
         if not vim.loop.fs_stat(path .. '/.luarc.json') and not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
           client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
@@ -66,10 +65,11 @@ return {
         return true
       end
     }))
+    vim.lsp.enable('lua_ls')
 
-    lspconfig.hls.setup(vim.tbl_extend('force', default_config, {
+    vim.lsp.config('hls', vim.tbl_extend('force', default_config, {
       cmd = { "haskell-language-server-wrapper", "--lsp" },
-      root_dir = lspconfig.util.root_pattern("*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"),
+      root_dir = vim.fs.root(0, {"*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"}),
       settings = {
         haskell = {
           formattingProvider = "fourmolu",
@@ -84,7 +84,9 @@ return {
         }
       }
     }))
-    lspconfig.purescriptls.setup(vim.tbl_extend('force', default_config, {
+    vim.lsp.enable('hls')
+
+    vim.lsp.config('purescriptls', vim.tbl_extend('force', default_config, {
       on_attach = function(client, bufnr)
         require("nvimmer-ps").setup_on_attach(client, bufnr)
       end,
@@ -96,7 +98,7 @@ return {
         if path:match("/.spago/") then
           return nil
         end
-        return lspconfig.util.root_pattern("bower.json", "psc-package.json", "spago.dhall")(path)
+        return vim.fs.root(path, {"bower.json", "psc-package.json", "spago.dhall"})
       end,
       settings = {
         purescript = {
@@ -109,23 +111,42 @@ return {
         debounce_text_changes = 150,
       }
     }))
+    vim.lsp.enable('purescriptls')
 
-    lspconfig.rnix.setup(default_config)
-    lspconfig.cssls.setup(default_config)
-    lspconfig.html.setup(default_config)
-    lspconfig.clangd.setup(default_config)
-    lspconfig.marksman.setup(default_config)
-    lspconfig.bashls.setup(default_config)
-    lspconfig.ts_ls.setup(default_config)
-    lspconfig.svelte.setup(default_config)
-    lspconfig.terraform_lsp.setup(vim.tbl_extend('force', default_config, {
+    vim.lsp.config('rnix', default_config)
+    vim.lsp.enable('rnix')
+
+    vim.lsp.config('cssls', default_config)
+    vim.lsp.enable('cssls')
+
+    vim.lsp.config('html', default_config)
+    vim.lsp.enable('html')
+
+    vim.lsp.config('clangd', default_config)
+    vim.lsp.enable('clangd')
+
+    vim.lsp.config('marksman', default_config)
+    vim.lsp.enable('marksman')
+
+    vim.lsp.config('bashls', default_config)
+    vim.lsp.enable('bashls')
+
+    vim.lsp.config('ts_ls', default_config)
+    vim.lsp.enable('ts_ls')
+
+    vim.lsp.config('svelte', default_config)
+    vim.lsp.enable('svelte')
+
+    vim.lsp.config('terraform_lsp', vim.tbl_extend('force', default_config, {
       filetypes = { "terraform", "terraform-vars", "hcl" },
-      root_dir = lspconfig.util.root_pattern(".terraform", ".git"),
+      root_dir = vim.fs.root(0, {".terraform", ".git"}),
     }))
-    lspconfig.gopls.setup(vim.tbl_extend('force', default_config, {
+    vim.lsp.enable('terraform_lsp')
+
+    vim.lsp.config('gopls', vim.tbl_extend('force', default_config, {
       cmd = { "gopls" },
       filetypes = { "go", "gomod", "gowork", "gotmpl" },
-      root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
+      root_dir = vim.fs.root(0, {"go.work", "go.mod", ".git"}),
       settings = {
         gopls = {
           analyses = {
@@ -134,55 +155,47 @@ return {
           staticcheck = true,
         },
       },
-    })
-    )
+    }))
+    vim.lsp.enable('gopls')
 
-    lspconfig.postgres_lsp.setup(default_config)
-    lspconfig.pylsp.setup(default_config)
-    lspconfig.yamlls.setup(default_config)
+    vim.lsp.config('postgres_lsp', default_config)
+    vim.lsp.enable('postgres_lsp')
 
+    vim.lsp.config('pylsp', default_config)
+    vim.lsp.enable('pylsp')
 
-    lspconfig.zls.setup(vim.tbl_extend('force', default_config, {
+    vim.lsp.config('yamlls', default_config)
+    vim.lsp.enable('yamlls')
+
+    vim.lsp.config('zls', vim.tbl_extend('force', default_config, {
       settings = {
         zls = {
           -- zig_exe_path = '~/.local/bin/zls',
         }
       }
     }))
+    vim.lsp.enable('zls')
 
-    local configs = require 'lspconfig.configs'
+    vim.lsp.config('redsl', vim.tbl_extend('force', default_config, {
+      cmd = { "dsl", "lsp" },
+      filetypes = { "redsl", "haskell", "purescript", "typescript" },
+      root_dir = vim.fs.root(0, {".git"}),
+    }))
+    vim.lsp.enable('redsl')
 
-    if not configs.redsl then
-      configs.redsl = {
-        default_config = {
-          cmd = { "dsl", "lsp" },
-          filetypes = { "redsl", "haskell", "purescript", "typescript" },
-          root_dir = function(fname)
-            return lspconfig.util.find_git_ancestor(fname)
-          end,
-          settings = {},
-        },
-      }
-    end
-    lspconfig.redsl.setup(default_config)
+    vim.lsp.config('circleci', vim.tbl_extend('force', default_config, {
+      cmd = { "circleci-yaml-language-server", "--stdio" },
+      filetypes = { "yaml", "yml" },
+      root_dir = vim.fs.root(0, {".circleci/config.yml", ".git"}),
+      single_file_support = true,
+    }))
+    vim.lsp.enable('circleci')
 
-    if not configs.circleci then
-      configs.circleci = {
-        default_config = {
-          cmd = { "circleci-yaml-language-server", "--stdio" },
-          filetypes = { "yaml", "yml" },
-          root_dir = function(fname)
-            return lspconfig.util.root_pattern(".circleci/config.yml", ".git")(fname)
-          end,
-          settings = {},
-          single_file_support = true,
-        },
-      }
-    end
-    lspconfig.circleci.setup(default_config)
+    vim.lsp.config('harper_ls', default_config)
+    vim.lsp.enable('harper_ls')
 
-    lspconfig.harper_ls.setup(default_config)
-    lspconfig.solargraph.setup(default_config)
+    vim.lsp.config('solargraph', default_config)
+    vim.lsp.enable('solargraph')
 
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),
