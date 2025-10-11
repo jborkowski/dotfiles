@@ -1,0 +1,1 @@
+re/docker-compose.local.yaml filter=git-crypt diff=git-crypt
