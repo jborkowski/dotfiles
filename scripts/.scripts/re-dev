@@ -1,3 +1,5 @@
 #!/bin/bash 
 
-ssh revm -tt "docker exec -it devcontainer-dev-1 zsh"
+## ssh revm -tt "docker exec -it devcontainer-dev-1 zsh"
+#ssh revm -tt "docker exec -it devcontainer-dev-1 zsh"
+et luddite -c "docker exec -it devcontainer-dev-1 zsh "

@@ -29,3 +29,4 @@ window-theme = auto
 background-blur = false
 
 unfocused-split-opacity = 0.95
+keybind = shift+enter=text:\x1b\r

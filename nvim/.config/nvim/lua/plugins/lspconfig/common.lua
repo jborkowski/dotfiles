@@ -76,8 +76,6 @@ M.set_mappings = function(client, bufnr, nmap_mappings)
   for key, item in pairs(mappings) do
     vim.keymap.set('n', key, item.cmd, { buffer = bufnr, desc = item.desc, noremap = true, silent = true })
   end
-
-  M.format_on_save(client, bufnr)
 end
 
 return M

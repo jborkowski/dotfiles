@@ -1,5 +1,6 @@
 {
   // SSH Connections
+  "agent_servers": {},
   "context_servers": {
     "mcp-server-github": {
       "source": "extension",
@@ -22,6 +23,11 @@
         {
           "paths": [
             "/workspace"
+          ]
+        },
+        {
+          "paths": [
+            "/workspace/indexer-py"
           ]
         },
         {
@@ -58,18 +64,50 @@
   },
   // AI Assistant Configuration
   "agent": {
+    "always_allow_tool_actions": true,
     "inline_assistant_model": {
-      "provider": "ollama",
-      "model": "qwen3:30b"
+      "provider": "anthropic",
+      "model": "claude-3-opus-latest"
     },
     "default_model": {
-      "provider": "ollama",
-      "model": "qwen3:30b"
+      "provider": "zed.dev",
+      "model": "claude-3-7-sonnet"
     },
     "dock": "right",
     "default_width": 640
   },
   "language_models": {
+    "openai_compatible": {
+      "Hyperbolic": {
+        "api_url": "https://api.hyperbolic.xyz/v1",
+        "available_models": [
+          {
+            "name": "meta-llama/Meta-Llama-3.1-405B-Instruct",
+            "max_tokens": 200000,
+            "max_output_tokens": 32000,
+            "max_completion_tokens": 200000,
+            "capabilities": {
+              "tools": true,
+              "images": false,
+              "parallel_tool_calls": false,
+              "prompt_cache_key": false
+            }
+          },
+          {
+            "name": "openai/gpt-oss-120b",
+            "max_tokens": 200000,
+            "max_output_tokens": 32000,
+            "max_completion_tokens": 200000,
+            "capabilities": {
+              "tools": true,
+              "images": false,
+              "parallel_tool_calls": false,
+              "prompt_cache_key": false
+            }
+          }
+        ]
+      }
+    },
     "ollama": {
       "api_url": "http://localhost:11434",
       "available_models": [
@@ -78,12 +116,20 @@
           "display_name": "qwen 3 coder",
           "max_tokens": 256000,
           "supports_tools": true,
+          "supports_thinking": false,
+          "supports_images": false
+        },
+        {
+          "name": "qwen3:30b",
+          "display_name": "qwen 3",
+          "max_tokens": 256000,
+          "supports_tools": true,
           "supports_thinking": true,
           "supports_images": true
         }
       ]
     }
-  }, 
+  },
   // Theme and UI
   "theme": {
     "mode": "system",
