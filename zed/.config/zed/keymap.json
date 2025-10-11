@@ -243,6 +243,15 @@
       "escape": "workspace::ToggleLeftDock"
     }
   },
+  {
+    "context": "ProjectPanel && (rename_active || create_active)",
+    "bindings": {
+      // Ensure these basic editor keys work normally
+      // "enter": "project_panel::ConfirmRename",
+      "escape": "menu::Cancel",
+      "enter": "menu::Confirm"
+    }
+  },
   // Search/Replace Panel
   {
     "context": "BufferSearchBar",
