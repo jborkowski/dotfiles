@@ -1,0 +1,5 @@
+# Stow local ignore patterns
+# Files matching these patterns won't be stowed to the target directory
+
+README\.md
+\.stow-local-ignore
