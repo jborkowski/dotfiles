@@ -250,7 +250,7 @@ RUN rm -rf ~/.fzf \
 
 # Install Node.js packages (now without sudo - user can update these!)
 RUN npm install -g npm typescript-language-server typescript prettier purs-tidy purescript-language-server spago \
-    && npm install -g @anthropic-ai/claude-code
+    && npm install -g @anthropic-ai/claude-code humanlayer @google/gemini-cli@preview github/copilot  
 
 # Install Python tools
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh
