@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+REMOTE="rezed:/workspace/"
+MOUNT_POINT="$HOME/dev-workspace"
+
+mount_workspace() {
+    if mount | grep -q "$MOUNT_POINT"; then
+        echo "dev-workspace is already mounted"
+        return 0
+    fi
+
+    if [ ! -d "$MOUNT_POINT" ]; then
+        mkdir -p "$MOUNT_POINT"
+    fi
+
+    echo "Mounting $REMOTE to $MOUNT_POINT..."
+    sshfs "$REMOTE" "$MOUNT_POINT"
+    echo "Successfully mounted dev-workspace"
+}
+
+umount_workspace() {
+    if ! mount | grep -q "$MOUNT_POINT"; then
+        echo "dev-workspace is not mounted"
+        return 0
+    fi
+
+    echo "Unmounting $MOUNT_POINT..."
+    diskutil umount force "$MOUNT_POINT"
+    echo "Successfully unmounted dev-workspace"
+}
+
+status_workspace() {
+    if mount | grep -q "$MOUNT_POINT"; then
+        echo "dev-workspace is mounted at $MOUNT_POINT"
+        mount | grep "$MOUNT_POINT"
+    else
+        echo "dev-workspace is not mounted"
+    fi
+}
+
+case "${1:-}" in
+    mount)
+        mount_workspace
+        ;;
+    umount|unmount)
+        umount_workspace
+        ;;
+    status)
+        status_workspace
+        ;;
+    toggle)
+        if mount | grep -q "$MOUNT_POINT"; then
+            umount_workspace
+        else
+            mount_workspace
+        fi
+        ;;
+    *)
+        echo "Usage: $(basename "$0") {mount|umount|status|toggle}"
+        echo ""
+        echo "Commands:"
+        echo "  mount   - Mount the dev-workspace"
+        echo "  umount  - Unmount the dev-workspace"
+        echo "  status  - Check if dev-workspace is mounted"
+        echo "  toggle  - Toggle mount/umount"
+        exit 1
+        ;;
+esac
