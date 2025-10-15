@@ -19,10 +19,16 @@
   "ssh_connections": [
     {
       "host": "rezed",
+      "args": [],
       "projects": [
         {
           "paths": [
             "/workspace"
+          ]
+        },
+        {
+          "paths": [
+            "/workspace/captura-errores"
           ]
         },
         {
@@ -39,6 +45,7 @@
     },
     {
       "host": "luddite",
+      "args": [],
       "projects": [
         {
           "paths": [
@@ -54,6 +61,7 @@
     },
     {
       "host": "re",
+      "args": [],
       "projects": []
     }
   ],

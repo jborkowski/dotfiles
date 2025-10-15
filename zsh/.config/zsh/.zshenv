@@ -21,6 +21,7 @@ export PATH="/Library/TeX/texbin:/Library/TeX/texbin:$HOME/.espressif/tools/xten
 export PATH=$HOME/.roswell/bin:$PATH
 export PATH=$HOME/.orbstack/bin:$PATH
 export PATH=$HOME/.config/local/bin:$PATH
+export PATH=$HOME/.scripts/:$PATH
 export PATH="/opt/homebrew/opt/sphinx-doc/bin:$PATH"
 
 # Source Plugins
