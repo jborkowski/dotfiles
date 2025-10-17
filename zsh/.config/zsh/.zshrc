@@ -21,6 +21,8 @@ alias cp='xcp'
 alias e='nvim'
 alias find='fd'
 
+alias avante='nvim -c "lua vim.defer_fn(function()require(\"avante.api\").zen_mode()end, 100)"'
+
 
 if command -v btm > /dev/null; then 
   alias top='btm'

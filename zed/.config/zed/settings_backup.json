@@ -1,28 +1,13 @@
 {
   // SSH Connections
-  "agent_servers": {},
+  "agent_servers": {
+    "your_agent": {
+      "command": "path_to_executable",
+      "args": [],
+      "env": {}
+    }
+  },
   "context_servers": {
-    "mcp-server-tavily": {
-      "source": "extension",
-      "enabled": true,
-      "settings": {
-        "tavily_api_key": "TAVILY_API_KEY"
-      }
-    },
-    "mcp-server-exa-search": {
-      "source": "extension",
-      "enabled": true,
-      "settings": {
-        "exa_api_key": "EXA_API_KEY"
-      }
-    },
-    "mcp-server-context7": {
-      "source": "extension",
-      "enabled": true,
-      "settings": {
-        "context7_api_key": "CONTEXT7_API_KEY"
-      }
-    },
     "mcp-server-github": {
       "source": "extension",
       "enabled": true,
@@ -408,7 +393,7 @@
   // Languages Configuration
   "languages": {
     "TypeScript": {
-      "formatter": {
+      "format_on_save": {
         "external": {
           "command": "prettier",
           "arguments": [
@@ -418,14 +403,13 @@
           ]
         }
       },
-      "format_on_save": "on",
       "code_actions_on_format": {
         "source.organizeImports": true,
         "source.fixAll.eslint": true
       }
     },
     "JavaScript": {
-      "formatter": {
+      "format_on_save": {
         "external": {
           "command": "prettier",
           "arguments": [
@@ -435,7 +419,6 @@
           ]
         }
       },
-      "format_on_save": "on",
       "code_actions_on_format": {
         "source.organizeImports": true,
         "source.fixAll.eslint": true
@@ -456,7 +439,7 @@
       "hard_tabs": true
     },
     "Python": {
-      "formatter": {
+      "format_on_save": {
         "external": {
           "command": "black",
           "arguments": [
@@ -464,13 +447,12 @@
           ]
         }
       },
-      "format_on_save": "on",
       "code_actions_on_format": {
         "source.organizeImports": true
       }
     },
     "Haskell": {
-      "formatter": {
+      "format_on_save": {
         "external": {
           "command": "fourmolu",
           "arguments": [
@@ -486,8 +468,7 @@
             "{buffer_path}"
           ]
         }
-      },
-      "format_on_save": "on"
+      }
     },
     "Markdown": {
       "format_on_save": "on",
@@ -497,7 +478,8 @@
       "tab_size": 2
     },
     "JSON": {
-      "formatter": {
+      "tab_size": 2,
+      "format_on_save": {
         "external": {
           "command": "prettier",
           "arguments": [
@@ -506,9 +488,7 @@
             "{buffer_path}"
           ]
         }
-      },
-      "tab_size": 2,
-      "format_on_save": "on"
+      }
     }
   },
   // Preview tabs
