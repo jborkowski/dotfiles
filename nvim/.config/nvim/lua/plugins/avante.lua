@@ -5,7 +5,30 @@ return {
   build = "make",
   version = false,
   opts = {
-    provider = "hyperbolic",
+    provider = "claude-code",
+    acp_providers = {
+      ["claude-code"] = {
+        command = "npx",
+        args = { "@zed-industries/claude-code-acp" },
+        env = {
+          NODE_NO_WARNINGS = "1",
+          ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY"),
+        },
+      },
+      ["claude-code-cli"] = {
+        command = "claude-code-acp",
+        args = {},
+        env = {},
+      },
+      ["gemini-cli"] = {
+        command = "gemini",
+        args = { "--experimental-acp" },
+        env = {
+          NODE_NO_WARNINGS = "1",
+          GEMINI_API_KEY = os.getenv("GEMINI_API_KEY"),
+        },
+      },
+    },
     providers = {
       hyperbolic = {
         __inherited_from = "openai",

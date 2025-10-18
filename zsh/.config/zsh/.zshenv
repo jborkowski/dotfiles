@@ -61,3 +61,4 @@ if [ -f "$HOME/.config/zsh/.env.secret" ]; then
 fi
 
 . "$HOME/.cargo/env"
+

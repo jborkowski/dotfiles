@@ -1,0 +1,15 @@
+{
+  "enabledPlugins": {
+    "essentials@restaumatic-toolkit": true,
+    "jonatan-toolkit@restaumatic-toolkit": true
+  },
+  "alwaysThinkingEnabled": false,
+  "env": {
+       "CLAUDE_CODE_ENABLE_TELEMETRY": "1",
+       "OTEL_METRICS_EXPORTER": "otlp",
+       "OTEL_LOGS_EXPORTER": "otlp",
+       "OTEL_EXPORTER_OTLP_PROTOCOL": "grpc",
+       "OTEL_EXPORTER_OTLP_ENDPOINT": "http://luddite:4317",
+       "OTEL_SERVICE_NAME": "claude-veilfire"
+     }
+}

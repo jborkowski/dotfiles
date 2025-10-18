@@ -1,0 +1,21 @@
+{
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    }
+  },
+  "output": {
+    "format": "json"
+  },
+  "ui": {
+    "theme": "Shades Of Purple"
+  },
+  "telemetry": {
+    "enabled": true,
+    "target": "local",
+    "otlpEndpoint": "http://luddite:4317"
+  },
+  "env": {
+    "OTEL_SERVICE_NAME": "gemini-veilfire"
+  }
+}

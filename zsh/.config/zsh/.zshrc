@@ -115,3 +115,5 @@ devcontainer() {
     command devcontainer "$@" --workspace-folder .
   fi
 }
+
+. "$HOME/.config/local/bin/env"
