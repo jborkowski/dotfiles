@@ -28,5 +28,8 @@ window-theme = auto
 
 background-blur = false
 
+# Bell configuration
+bell-features = system,audio,attention,title
+
 unfocused-split-opacity = 0.95
 keybind = shift+enter=text:\x1b\r
