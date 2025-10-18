@@ -19,6 +19,15 @@
   },
   "env": {
     "OTEL_SERVICE_NAME": "gemini-veilfire"
+  },
+  "mcp": {
+    "allowed": ["hub"],
+    "excluded": []
+  },
+  "mcpServers": {
+    "hub": {
+      "httpUrl": "http://luddite:3000/mcp"
+    }
   }
 }
 
