@@ -13,9 +13,12 @@
   "telemetry": {
     "enabled": true,
     "target": "local",
-    "otlpEndpoint": "http://luddite:4317"
+    "otlpEndpoint": "http://luddite:4317",
+    "otlpProtocol": "grpc",
+    "logPrompt": "false"
   },
   "env": {
     "OTEL_SERVICE_NAME": "gemini-veilfire"
   }
 }
+
