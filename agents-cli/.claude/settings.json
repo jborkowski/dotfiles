@@ -13,7 +13,9 @@
     "taskmaster@taskmaster": true,
     "taskmaster": {
       "marketplace": "taskmaster"
-    }
+    },
+    "document-skills@skills": true,
+    "example-skills@skills": true
   },
   "alwaysThinkingEnabled": true,
   "mcpServers": {
@@ -40,6 +42,11 @@
         "source": "github",
         "repo": "restaumatic/claude-code-toolkit"
       }
+    },
+    "skills": { 
+      "source": {
+        "source": "github",
+        "repo": "anthropics/skills"
     }
   }
 }
