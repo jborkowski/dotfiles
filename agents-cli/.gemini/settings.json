@@ -21,13 +21,18 @@
     "OTEL_SERVICE_NAME": "gemini-veilfire"
   },
   "mcp": {
-    "allowed": ["hub", "task-master-ai"],
+    "allowed": [
+      "hub",
+      "task-master-ai"
+    ],
     "excluded": []
   },
   "mcpServers": {
     "hub": {
       "httpUrl": "http://luddite:3000/mcp"
     }
+  },
+  "general": {
+    "vimMode": false
   }
 }
-

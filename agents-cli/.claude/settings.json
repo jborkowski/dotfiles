@@ -9,7 +9,11 @@
   },
   "enabledPlugins": {
     "essentials@restaumatic-toolkit": true,
-    "jonatan-toolkit@restaumatic-toolkit": true
+    "jonatan-toolkit@restaumatic-toolkit": true,
+    "taskmaster@taskmaster": true,
+    "taskmaster": {
+      "marketplace": "taskmaster"
+    }
   },
   "alwaysThinkingEnabled": true,
   "mcpServers": {
@@ -23,5 +27,19 @@
       "hub"
     ],
     "excluded": []
+  },
+  "extraKnownMarketplaces": {
+    "task-master": {
+      "source": {
+        "source": "github",
+        "repo": "eyaltoledano/claude-task-master"
+      }
+    },
+    "restaumatic-toolkit": {
+      "source": {
+        "source": "github",
+        "repo": "restaumatic/claude-code-toolkit"
+      }
+    }
   }
 }
