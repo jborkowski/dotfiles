@@ -212,14 +212,14 @@
   },
   // Project Panel (File Tree) specific
   {
-    "context": "ProjectPanel",
+    "context": "ProjectPanel && not_editing",
     "bindings": {
       // File operations optimized for vim users - using keys that don't conflict with filename typing
-      ">": "project_panel::NewFile",
-      "shift->": "project_panel::NewDirectory",
-      "d d": "project_panel::Delete",
-      "r r": "project_panel::Rename",
-      "y y": "project_panel::Copy",
+      "%": "project_panel::NewFile",
+      "d": "project_panel::NewDirectory",
+      "D": "project_panel::Delete",
+      "r": "project_panel::Rename",
+      "y": "project_panel::Copy",
       "p": "project_panel::Paste",
       "shift-x": "project_panel::Cut",
       // Alternative convenient keys
@@ -241,15 +241,6 @@
       "shift-h": "project_panel::CollapseAllEntries",
       // "/": "project_panel::StartSearchInDirectory",
       "escape": "workspace::ToggleLeftDock"
-    }
-  },
-  {
-    "context": "ProjectPanel && (rename_active || create_active)",
-    "bindings": {
-      // Ensure these basic editor keys work normally
-      // "enter": "project_panel::ConfirmRename",
-      "escape": "menu::Cancel",
-      "enter": "menu::Confirm"
     }
   },
   // Search/Replace Panel

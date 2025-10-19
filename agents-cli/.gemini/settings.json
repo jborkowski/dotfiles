@@ -21,7 +21,7 @@
     "OTEL_SERVICE_NAME": "gemini-veilfire"
   },
   "mcp": {
-    "allowed": ["hub"],
+    "allowed": ["hub", "task-master-ai"],
     "excluded": []
   },
   "mcpServers": {

@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "hub": {
+      "transport": "http",
+      "url": "http://luddite:3000/mcp"
+    }
+  }
+}
