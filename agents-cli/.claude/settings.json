@@ -34,11 +34,19 @@
       }
     }
   },
-  "alwaysThinkingEnabled": true,
+  "alwaysThinkingEnabled": false,
   "mcp": {
     "allowed": [
       "hub"
     ],
     "excluded": []
+  },
+  "permissions": {
+    "allow": [
+      "Bash(task-master: :*)",
+      "Bash(uv: :*)"
+    ],
+    "deny": [],
+    "ask": []
   }
 }
