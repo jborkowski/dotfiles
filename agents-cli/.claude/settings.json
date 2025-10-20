@@ -7,6 +7,14 @@
     "OTEL_EXPORTER_OTLP_ENDPOINT": "http://luddite:4317",
     "OTEL_SERVICE_NAME": "claude-veilfire"
   },
+  "permissions": {
+    "allow": [
+      "Bash(task-master: :*)",
+      "Bash(uv: :*)"
+    ],
+    "deny": [],
+    "ask": []
+  },
   "enabledPlugins": {
     "essentials@restaumatic-toolkit": true,
     "jonatan-toolkit@restaumatic-toolkit": true,
@@ -34,19 +42,11 @@
       }
     }
   },
-  "alwaysThinkingEnabled": false,
+  "alwaysThinkingEnabled": true,
   "mcp": {
     "allowed": [
       "hub"
     ],
     "excluded": []
-  },
-  "permissions": {
-    "allow": [
-      "Bash(task-master: :*)",
-      "Bash(uv: :*)"
-    ],
-    "deny": [],
-    "ask": []
   }
 }

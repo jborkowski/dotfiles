@@ -1,0 +1,90 @@
+{
+  "categories": {
+    "api-layer": {
+      "description": "API endpoints, routes, and handlers",
+      "files": [
+        "src/api/**/*.{ts,js}",
+        "src/routes/**/*.{ts,js}",
+        "src/handlers/**/*.{ts,js}",
+        "src/controllers/**/*.{ts,js}"
+      ]
+    },
+    "database": {
+      "description": "Database models, migrations, and queries",
+      "files": [
+        "src/models/**/*.{ts,js}",
+        "src/migrations/**/*.{ts,js,sql}",
+        "src/repositories/**/*.{ts,js}",
+        "prisma/**/*.prisma"
+      ]
+    },
+    "frontend": {
+      "description": "Frontend components and pages",
+      "files": [
+        "src/components/**/*.{tsx,jsx}",
+        "src/pages/**/*.{tsx,jsx}",
+        "src/views/**/*.{tsx,jsx}",
+        "components/**/*.{tsx,jsx}"
+      ]
+    },
+    "services": {
+      "description": "Business logic and service layer",
+      "files": [
+        "src/services/**/*.{ts,js}",
+        "src/lib/**/*.{ts,js}",
+        "lib/**/*.{ts,js}"
+      ]
+    },
+    "tests": {
+      "description": "Test files (unit, integration, e2e)",
+      "files": [
+        "**/*.test.{ts,js,tsx,jsx}",
+        "**/*.spec.{ts,js,tsx,jsx}",
+        "tests/**/*",
+        "test/**/*",
+        "__tests__/**/*"
+      ]
+    },
+    "config": {
+      "description": "Configuration files",
+      "files": [
+        "*.config.{ts,js,json}",
+        "config/**/*.{ts,js,json}",
+        ".env*",
+        "*.yaml",
+        "*.yml"
+      ]
+    },
+    "types": {
+      "description": "TypeScript type definitions",
+      "files": [
+        "src/types/**/*.{ts,d.ts}",
+        "types/**/*.{ts,d.ts}",
+        "**/*.d.ts"
+      ]
+    },
+    "docs": {
+      "description": "Documentation files",
+      "files": [
+        "docs/**/*.md",
+        "*.md",
+        "README*"
+      ]
+    },
+    "haskell-core": {
+      "description": "Haskell source files",
+      "files": [
+        "src/**/*.hs",
+        "app/**/*.hs",
+        "lib/**/*.hs"
+      ]
+    },
+    "haskell-tests": {
+      "description": "Haskell test files",
+      "files": [
+        "test/**/*.hs",
+        "tests/**/*.hs"
+      ]
+    }
+  }
+}
