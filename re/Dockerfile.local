@@ -240,6 +240,7 @@ RUN rm -rf /home/user/.rustup \
     && rustup default stable \
     && /home/user/.cargo/bin/cargo install --force xcp eza fd-find bottom gitu --locked \
     && /home/user/.cargo/bin/cargo install --force ripgrep --features pcre2 --locked \
+    && /home/user/.cargo/bin/cargo install --git https://github.com/restaumatic/captura-errores errstream \
     && rm -rf /home/user/.cargo/registry /home/user/.cargo/git
 
 # Install latest fzf from source (0.48.0+)
@@ -250,7 +251,7 @@ RUN rm -rf ~/.fzf \
 
 # Install Node.js packages (now without sudo - user can update these!)
 RUN npm install -g npm typescript-language-server typescript prettier purs-tidy purescript-language-server spago \
-    && npm install -g @anthropic-ai/claude-code humanlayer @google/gemini-cli@preview github/copilot  
+    && npm install -g @anthropic-ai/claude-code humanlayer @google/gemini-cli@preview @github/copilot task-master-ai
 
 # Install Python tools
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh
