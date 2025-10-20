@@ -11,27 +11,11 @@
     "essentials@restaumatic-toolkit": true,
     "jonatan-toolkit@restaumatic-toolkit": true,
     "taskmaster@taskmaster": true,
-    "taskmaster": {
-      "marketplace": "taskmaster"
-    },
-    "document-skills@skills": true,
-    "example-skills@skills": true
-  },
-  "alwaysThinkingEnabled": true,
-  "mcpServers": {
-    "hub": {
-      "transport": "http",
-      "url": "http://luddite:3000/mcp"
-    }
-  },
-  "mcp": {
-    "allowed": [
-      "hub"
-    ],
-    "excluded": []
+    "document-skills@anthropic-agent-skills": true,
+    "example-skills@anthropic-agent-skills": true
   },
   "extraKnownMarketplaces": {
-    "task-master": {
+    "taskmaster": {
       "source": {
         "source": "github",
         "repo": "eyaltoledano/claude-task-master"
@@ -43,10 +27,18 @@
         "repo": "restaumatic/claude-code-toolkit"
       }
     },
-    "skills": { 
+    "skills": {
       "source": {
         "source": "github",
         "repo": "anthropics/skills"
+      }
     }
+  },
+  "alwaysThinkingEnabled": true,
+  "mcp": {
+    "allowed": [
+      "hub"
+    ],
+    "excluded": []
   }
 }
