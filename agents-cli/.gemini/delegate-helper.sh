@@ -43,14 +43,8 @@ case "$COMMAND_TYPE" in
         ;;
 esac
 
-# Determine output directory
-if [ -d ".gemini/output" ]; then
-    OUTPUT_DIR=".gemini/output"
-elif [ -d "$(pwd)/.gemini/output" ]; then
-    OUTPUT_DIR="$(pwd)/.gemini/output"
-else
-    OUTPUT_DIR="$HOME/.dotfiles/agents-cli/.gemini/output"
-fi
+# Always use current project's .gemini/output directory
+OUTPUT_DIR=".gemini/output"
 
 # Create output directory if it doesn't exist
 mkdir -p "$OUTPUT_DIR"
