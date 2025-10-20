@@ -5,31 +5,7 @@ description: Delegate code analysis to Gemini - analyzes implementation details 
 Execute this shell command to delegate the task to Gemini CLI:
 
 ```bash
-OUTPUT_FILE=".gemini/output/analyze-$(date +%s).md"
-
-# Parse categories from input if provided
-INPUT="$@"
-CATEGORIES=""
-QUERY="$INPUT"
-
-if [[ "$INPUT" =~ CATEGORIES:[[:space:]]*([a-zA-Z0-9,_-]+) ]]; then
-    CATEGORIES="${BASH_REMATCH[1]}"
-    QUERY="${INPUT#*CATEGORIES:*([a-zA-Z0-9,_-])*}"
-    QUERY="${QUERY## }"
-fi
-
-# Build the prompt
-PROMPT="OUTPUT_FILE: $OUTPUT_FILE"
-
-if [ -n "$CATEGORIES" ]; then
-    PROMPT="$PROMPT | CATEGORIES: $CATEGORIES"
-fi
-
-PROMPT="$PROMPT | $QUERY"
-
-# Invoke Gemini
-gemini "/codebase-analyzer" "$PROMPT"
-echo "Gemini completed. Results saved to: $OUTPUT_FILE"
+OUTPUT_FILE=$(bash ~/.dotfiles/agents-cli/.gemini/delegate-helper.sh analyze "$@")
 ```
 
 After completion, read the output file and present the findings to the user.

@@ -90,6 +90,8 @@ Edit `.gemini/context-categories.json` to define your categories:
 ### Available Categories
 
 Default categories (customize as needed):
+- `project-context` - **Project-specific patterns and rules** (RECOMMENDED for custom frameworks)
+- `opaleye` - Opaleye database layer with extensible records
 - `api-layer` - API endpoints, routes, handlers
 - `database` - Models, migrations, repositories
 - `frontend` - Components, pages, views
@@ -100,6 +102,28 @@ Default categories (customize as needed):
 - `docs` - Documentation files
 - `haskell-core` - Haskell source files
 - `haskell-tests` - Haskell test files
+
+#### Special Category: `project-context`
+
+The `project-context` category includes `PROJECT_CONTEXT.md`, which contains project-specific patterns and rules that differ from standard frameworks. **Always include this category when working with custom code!**
+
+**What goes in PROJECT_CONTEXT.md:**
+- Custom ORM patterns (e.g., Opaleye with extensible records)
+- Field order sensitivity and constraints
+- Framework-specific conventions
+- Common mistakes to avoid
+- Non-standard architectural patterns
+
+**Example PROJECT_CONTEXT.md content:**
+```markdown
+## Database Layer: Opaleye with Extensible Records
+
+### Critical Rule: Field Order Sensitivity
+Extensible records are ORDER-SENSITIVE. Field order matters:
+- `'["id" := Int, "name" := Text]` ≠ `'["name" := Text, "id" := Int]`
+- Always maintain consistent field order
+- Check existing record definitions before adding new ones
+```
 
 ## Usage
 

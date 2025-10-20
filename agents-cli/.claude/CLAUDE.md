@@ -145,3 +145,4 @@
 - **Relationship mapping** - Connect entities to build knowledge graph
 - **Continuous cleanup** - Remove outdated info immediately
 - **Rich observations** - Be specific and detailed in observations
+- Do not add promotional footer to the comments.

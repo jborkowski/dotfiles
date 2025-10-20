@@ -85,6 +85,25 @@
         "test/**/*.hs",
         "tests/**/*.hs"
       ]
+    },
+    "project-context": {
+      "description": "Project-specific patterns and rules (RECOMMENDED to include)",
+      "files": [
+        ".gemini/PROJECT_CONTEXT.md",
+        "PROJECT_CONTEXT.md",
+        "docs/PATTERNS.md",
+        "docs/CONVENTIONS.md"
+      ]
+    },
+    "opaleye": {
+      "description": "Opaleye database layer with extensible records",
+      "files": [
+        "src/**/Database/**/*.hs",
+        "src/**/Db/**/*.hs",
+        "src/**/Models/**/*.hs",
+        "src/**/Queries/**/*.hs",
+        ".gemini/PROJECT_CONTEXT.md"
+      ]
     }
   }
 }
