@@ -99,3 +99,13 @@ cscope.in.out
 cscope.po.out
 
 **/.claude/settings.local.json
+
+
+
+# Taskrunner state directory
+.taskrunner/
+thoughts/
+.env
+# Task files
+tasks.json
+tasks/
