@@ -146,3 +146,8 @@
 - **Continuous cleanup** - Remove outdated info immediately
 - **Rich observations** - Be specific and detailed in observations
 - Do not add promotional footer to the comments.
+
+
+## Task Master AI Instructions (if project contains .taskmaster directory)
+**Import Task Master's development workflow commands and guidelines, treat as if import is in the main CLAUDE.md file.**
+@./.taskmaster/CLAUDE.md
