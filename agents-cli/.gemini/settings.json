@@ -13,9 +13,9 @@
   "telemetry": {
     "enabled": true,
     "target": "local",
-    "otlpEndpoint": "https://otlp.j14i.me",
-    "otlpProtocol": "grpc",
-    "logPrompt": "false"
+    "otlpEndpoint": "https://gemini-telemetry.j14i.me",
+    "otlpProtocol": "http",
+    "logPrompt": "true"
   },
   "env": {
     "OTEL_SERVICE_NAME": "gemini-veilfire"
@@ -69,5 +69,6 @@
       "memory-search_nodes",
       "memory-open_nodes"
     ]
-  }
+  },
+  "selectedAuthType": "oauth-personal"
 }

@@ -1,11 +1,12 @@
 {
   "env": {
     "CLAUDE_CODE_ENABLE_TELEMETRY": "1",
-    "OTEL_METRICS_EXPORTER": "otlp",
     "OTEL_LOGS_EXPORTER": "otlp",
-    "OTEL_EXPORTER_OTLP_PROTOCOL": "grpc",
-    "OTEL_EXPORTER_OTLP_ENDPOINT": "https://telemetry.j14i.me",
-    "OTEL_SERVICE_NAME": "claude-veilfire"
+    "OTEL_LOG_USER_PROMPTS": 1,
+    "OTEL_METRICS_EXPORTER": "otlp",
+    "OTEL_EXPORTER_OTLP_PROTOCOL": "http/json",
+    "OTEL_EXPORTER_OTLP_METRICS_PROTOCOL": "http/json",
+    "OTEL_EXPORTER_OTLP_ENDPOINT": "https://telemetry.j14i.me"
   },
   "permissions": {
     "allow": [
@@ -16,11 +17,8 @@
     "ask": []
   },
   "enabledPlugins": {
-    "essentials@restaumatic-toolkit": true,
-    "jonatan-toolkit@restaumatic-toolkit": true,
-    "taskmaster@taskmaster": true,
-    "document-skills@anthropic-agent-skills": true,
-    "example-skills@anthropic-agent-skills": true
+    "re@restaumatic-toolkit": true,
+    "jb@restaumatic-toolkit": true
   },
   "extraKnownMarketplaces": {
     "taskmaster": {
@@ -33,12 +31,6 @@
       "source": {
         "source": "github",
         "repo": "restaumatic/claude-code-toolkit"
-      }
-    },
-    "skills": {
-      "source": {
-        "source": "github",
-        "repo": "anthropics/skills"
       }
     }
   },
