@@ -13,7 +13,7 @@
   "telemetry": {
     "enabled": true,
     "target": "local",
-    "otlpEndpoint": "http://luddite:4317",
+    "otlpEndpoint": "https://otlp.j14i.me",
     "otlpProtocol": "grpc",
     "logPrompt": "false"
   },
