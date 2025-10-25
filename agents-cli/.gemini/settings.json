@@ -13,12 +13,13 @@
   "telemetry": {
     "enabled": true,
     "target": "local",
-    "otlpEndpoint": "https://gemini-telemetry.j14i.me",
-    "otlpProtocol": "http",
+    "otlpEndpoint": "https://otel.j14i.me",
+    "otlpProtocol": "grpc",
     "logPrompt": "true"
   },
   "env": {
-    "OTEL_SERVICE_NAME": "gemini-veilfire"
+    "OTEL_SERVICE_NAME": "gemini-veilfire",
+    "GEMINI_TELEMETRY_USE_COLLECTOR": "true"
   },
   "mcp": {
     "allowed": [
@@ -71,4 +72,77 @@
     ]
   },
   "selectedAuthType": "oauth-personal"
+}
+{
+  "mcpServers": {
+    "hub": {
+      "httpUrl": "http://luddite:3000/mcp"
+    }
+  },
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    }
+  },
+  "telemetry": {
+    "enabled": true,
+    "target": "local",
+    "otlpEndpoint": "https://otel.j14i.me",
+    "otlpProtocol": "grpc",
+    "logPrompt": "true"
+  },
+  "output": {
+    "format": "json"
+  },
+  "ui": {
+    "theme": "Shades Of Purple"
+  },
+  "env": {
+    "GEMINI_TELEMETRY_USE_COLLECTOR": "true"
+  },
+  "mcp": {
+    "allowed": [
+      "hub",
+      "task-master-ai"
+    ],
+    "excluded": []
+  },
+  "general": {
+    "vimMode": false
+  },
+  "tools": {
+    "allowed": [
+      "replace",
+      "glob",
+      "google_web_search",
+      "read_file",
+      "read_many_files",
+      "write_file",
+      "save_memory",
+      "search_file_content",
+      "run_shell_command",
+      "web_fetch",
+      "list_directory",
+      "duckduckgo-search",
+      "duckduckgo-fetch_content",
+      "exa-web_search_exa",
+      "exa-get_code_context_exa",
+      "tavily-tavily-search",
+      "tavily-tavily-extract",
+      "tavily-tavily-crawl",
+      "tavily-tavily-map",
+      "fetch-fetch",
+      "context7-resolve-library-id",
+      "context7-get-library-docs",
+      "memory-create_entities",
+      "memory-create_relations",
+      "memory-add_observations",
+      "memory-delete_entities",
+      "memory-delete_observations",
+      "memory-delete_relations",
+      "memory-read_graph",
+      "memory-search_nodes",
+      "memory-open_nodes"
+    ]
+  }
 }
