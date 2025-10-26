@@ -44,5 +44,17 @@
       "hub"
     ],
     "excluded": []
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.dotfiles/agents-cli/.claude/hooks/load-memory.sh"
+          }
+        ]
+      }
+    ]
   }
 }

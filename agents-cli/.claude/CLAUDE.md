@@ -78,9 +78,11 @@
 
 **Memory is your persistent knowledge base - use it continuously throughout every session**
 
+**AUTOMATIC LOADING**: Memory context is automatically loaded at session start via SessionStart hook. The knowledge graph is already available in your context when the session begins.
+
 ### Core Principle
 
-**Proactive & Iterative**: Don't just read memory at the start and write at the end. Continuously fetch, update, and enrich your knowledge graph as you work.
+**Proactive & Iterative**: Memory is automatically loaded, but you must continuously update and enrich it. Don't just rely on the initial context - keep updating as you discover new information.
 
 ### Available Memory Tools
 
@@ -139,13 +141,31 @@
 
 ### Best Practices
 
-- **Proactive fetching** - Search memory before AND during work
+- **Proactive fetching** - Search memory before AND during work (even though it's auto-loaded)
 - **Immediate updates** - Don't batch memory operations, update as you go
 - **Iterative enrichment** - Add details as you learn more
 - **Relationship mapping** - Connect entities to build knowledge graph
 - **Continuous cleanup** - Remove outdated info immediately
 - **Rich observations** - Be specific and detailed in observations
+- **Manual save command** - Use `/save-memory` to explicitly save session learnings
 - Do not add promotional footer to the comments.
+
+### Automation & Hooks
+
+**SessionStart Hook**: Automatically loads relevant Mem0 context at the beginning of each session
+- Hook location: `.claude/hooks/load-memory.sh`
+- Injects knowledge graph context into session automatically
+- No manual intervention needed
+
+**Batch Processing**: Background script processes conversation logs periodically
+- Script location: `.claude/scripts/update-memory-batch.sh`
+- Analyzes transcripts for learnings and updates memory
+- Can be run via cron/launchd for automatic updates
+
+**Manual Command**: Use `/save-memory` when you discover important information
+- Analyzes current session context
+- Updates knowledge graph with learnings
+- Reports what was saved
 
 
 ## Task Master AI Instructions (if project contains .taskmaster directory)
