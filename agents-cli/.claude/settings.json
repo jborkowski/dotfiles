@@ -2,7 +2,7 @@
   "env": {
     "CLAUDE_CODE_ENABLE_TELEMETRY": "1",
     "OTEL_LOGS_EXPORTER": "otlp",
-    "OTEL_LOG_USER_PROMPTS": 1,
+    "OTEL_LOG_USER_PROMPTS": "1",
     "OTEL_METRICS_EXPORTER": "otlp",
     "OTEL_EXPORTER_OTLP_PROTOCOL": "http/json",
     "OTEL_EXPORTER_OTLP_METRICS_PROTOCOL": "http/json",
@@ -16,13 +16,24 @@
     "deny": [],
     "ask": []
   },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/load-memory.sh"
+          }
+        ]
+      }
+    ]
+  },
   "enabledPlugins": {
-    "essentials@restaumatic-toolkit": true,
-    "jonatan-toolkit@restaumatic-toolkit": true,
+    "re@restaumatic-toolkit": true,
+    "jb@restaumatic-toolkit": true,
     "taskmaster@taskmaster": true,
     "document-skills@anthropic-agent-skills": true,
-    "example-skills@anthropic-agent-skills": true,
-    "jb@restaumatic-toolkit": true
+    "example-skills@anthropic-agent-skills": true
   },
   "extraKnownMarketplaces": {
     "taskmaster": {
@@ -44,17 +55,5 @@
       "hub"
     ],
     "excluded": []
-  },
-  "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$HOME/.claude/hooks/load-memory.sh"
-          }
-        ]
-      }
-    ]
   }
 }
