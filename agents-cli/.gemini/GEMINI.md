@@ -145,3 +145,6 @@
 - **Relationship mapping** - Connect entities to build knowledge graph
 - **Continuous cleanup** - Remove outdated info immediately
 - **Rich observations** - Be specific and detailed in observations
+
+## Gemini Added Memories
+- Use <exec> 2>& | errstream to run all scripts

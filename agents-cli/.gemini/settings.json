@@ -1,14 +1,13 @@
 {
+  "mcpServers": {
+    "hub": {
+      "httpUrl": "http://luddite:3000/mcp"
+    }
+  },
   "security": {
     "auth": {
       "selectedType": "oauth-personal"
     }
-  },
-  "output": {
-    "format": "json"
-  },
-  "ui": {
-    "theme": "Shades Of Purple"
   },
   "telemetry": {
     "enabled": true,
@@ -16,6 +15,12 @@
     "otlpEndpoint": "https://otel.j14i.me",
     "otlpProtocol": "grpc",
     "logPrompt": "true"
+  },
+  "output": {
+    "format": "json"
+  },
+  "ui": {
+    "theme": "GitHub Light"
   },
   "env": {
     "OTEL_SERVICE_NAME": "gemini-veilfire",
@@ -27,11 +32,6 @@
       "task-master-ai"
     ],
     "excluded": []
-  },
-  "mcpServers": {
-    "hub": {
-      "httpUrl": "http://luddite:3000/mcp"
-    }
   },
   "general": {
     "vimMode": false
@@ -70,6 +70,7 @@
       "memory-search_nodes",
       "memory-open_nodes"
     ]
+<<<<<<< Updated upstream
   },
   "selectedAuthType": "oauth-personal"
 }

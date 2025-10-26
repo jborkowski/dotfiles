@@ -59,6 +59,16 @@
         },
         {
           "paths": [
+            "/workspace/r/RS-10852-bug-change-product-av"
+          ]
+        },
+        {
+          "paths": [
+            "/workspace/r/ros-menu-item-availability-restriction/./"
+          ]
+        },
+        {
+          "paths": [
             "/workspace/restaumatic"
           ]
         }
@@ -93,9 +103,14 @@
   },
   // AI Assistant Configuration
   "agent": {
+    "inline_assistant_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-4o"
+    },
+    "default_profile": "minimal",
     "default_model": {
       "provider": "copilot_chat",
-      "model": "gpt-4.1"
+      "model": "gpt-5"
     },
     "always_allow_tool_actions": true,
     "model_parameters": []

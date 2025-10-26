@@ -26,3 +26,7 @@
 	insteadOf = https://github.com/restaumatic
 [url "git@github.com:jborkowski"]
 	insteadOf = https://github.com/jborkowski
+[core]
+	excludesfile = /Users/jonatan/.gitignore_global
+[merge]
+	conflictstyle = zdiff3

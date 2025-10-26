@@ -17,7 +17,11 @@
     "ask": []
   },
   "enabledPlugins": {
-    "re@restaumatic-toolkit": true,
+    "essentials@restaumatic-toolkit": true,
+    "jonatan-toolkit@restaumatic-toolkit": true,
+    "taskmaster@taskmaster": true,
+    "document-skills@anthropic-agent-skills": true,
+    "example-skills@anthropic-agent-skills": true,
     "jb@restaumatic-toolkit": true
   },
   "extraKnownMarketplaces": {
@@ -34,7 +38,7 @@
       }
     }
   },
-  "alwaysThinkingEnabled": true,
+  "alwaysThinkingEnabled": false,
   "mcp": {
     "allowed": [
       "hub"
