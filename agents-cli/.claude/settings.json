@@ -51,7 +51,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "$HOME/.dotfiles/agents-cli/.claude/hooks/load-memory.sh"
+            "command": "$HOME/.claude/hooks/load-memory.sh"
           }
         ]
       }
