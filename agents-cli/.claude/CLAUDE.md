@@ -74,98 +74,33 @@
 
 ## Memory & Knowledge Management
 
-**CRITICAL: Always iteratively and proactively fetch and update information in memory**
+**Memory context is automatically loaded at session start** - The knowledge graph is injected into your context when the session begins.
 
-**Memory is your persistent knowledge base - use it continuously throughout every session**
+### How It Works
 
-**AUTOMATIC LOADING**: Memory context is automatically loaded at session start via SessionStart hook. The knowledge graph is already available in your context when the session begins.
-
-### Core Principle
-
-**Proactive & Iterative**: Memory is automatically loaded, but you must continuously update and enrich it. Don't just rely on the initial context - keep updating as you discover new information.
-
-### Available Memory Tools
-
-- `memory-read_graph` - Read the entire knowledge graph
-- `memory-search_nodes` - Search for nodes based on a query
-- `memory-open_nodes` - Open specific nodes by their names
-- `memory-create_entities` - Create new entities in the knowledge graph
-- `memory-add_observations` - Add observations to existing entities
-- `memory-create_relations` - Create relations between entities
-- `memory-delete_entities` - Delete entities from the graph
-- `memory-delete_observations` - Delete specific observations
-- `memory-delete_relations` - Delete relations between entities
-
-### Iterative Memory Workflow
-
-**1. START: Always fetch context first**
-   - Use `memory-read_graph` to see all stored knowledge
-   - Use `memory-search_nodes` to find relevant entities
-   - Use `memory-open_nodes` to get details on specific concepts
-
-**2. DURING: Update as you discover**
-   - **Create entities** immediately when encountering new concepts:
-     - Projects, codebases, technologies
-     - Important files, modules, or components
-     - User preferences and decisions
-
-   - **Add observations** continuously as you learn:
-     - Update context in real-time
-     - Document patterns and conventions as you find them
-     - Note important relationships immediately
-
-   - **Create relations** to link concepts:
-     - Connect related components
-     - Link decisions to implementations
-     - Map dependencies as you discover them
-
-**3. ITERATE: Refetch and refine**
-   - Search memory again when context changes
-   - Update observations with new insights
-   - Remove outdated information immediately
-   - Enrich entities with additional details
-
-**4. PERSIST: Save important discoveries**
-   - Store architectural decisions
-   - Persist user preferences
-   - Document patterns for future use
-
-### When to Use Memory
-
-- **Every session start** - Fetch existing knowledge
-- **Every new concept** - Create entities immediately
-- **Every discovery** - Add observations in real-time
-- **Every pattern found** - Document for future sessions
-- **Every user preference** - Persist for consistency
-- **Every important decision** - Store architectural choices
-
-### Best Practices
-
-- **Proactive fetching** - Search memory before AND during work (even though it's auto-loaded)
-- **Immediate updates** - Don't batch memory operations, update as you go
-- **Iterative enrichment** - Add details as you learn more
-- **Relationship mapping** - Connect entities to build knowledge graph
-- **Continuous cleanup** - Remove outdated info immediately
-- **Rich observations** - Be specific and detailed in observations
-- **Manual save command** - Use `/save-memory` to explicitly save session learnings
-- Do not add promotional footer to the comments.
-
-### Automation & Hooks
-
-**SessionStart Hook**: Automatically loads relevant Mem0 context at the beginning of each session
+**Passive Auto-Loading**: Memory context loads automatically via SessionStart hook
 - Hook location: `.claude/hooks/load-memory.sh`
-- Injects knowledge graph context into session automatically
-- No manual intervention needed
+- Fetches relevant context from Mem0 based on project, directory, and user preferences
+- No manual fetching needed - context is already available when session starts
+
+**Manual Saving**: Use `/save-memory` command when you discover important information worth persisting
+- Only save meaningful learnings, patterns, decisions, or preferences
+- The command analyzes session context and updates Mem0
+- Focus on quality over quantity
 
 **Batch Processing**: Background script processes conversation logs periodically
 - Script location: `.claude/scripts/update-memory-batch.sh`
-- Analyzes transcripts for learnings and updates memory
-- Can be run via cron/launchd for automatic updates
+- Can be run via cron/launchd for automatic memory updates from transcripts
+- Complements manual saves by capturing patterns over time
 
-**Manual Command**: Use `/save-memory` when you discover important information
-- Analyzes current session context
-- Updates knowledge graph with learnings
-- Reports what was saved
+### When to Use `/save-memory`
+
+Use the manual save command when you discover:
+- Important architectural decisions
+- User preferences or workflow patterns
+- Project-specific conventions or best practices
+- Technology stack or tooling choices
+- Patterns that should be remembered across sessions
 
 
 ## Task Master AI Instructions (if project contains .taskmaster directory)

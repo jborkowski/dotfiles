@@ -69,6 +69,11 @@
         },
         {
           "paths": [
+            "/workspace/r/rs-10852/menu-availability-optimization"
+          ]
+        },
+        {
+          "paths": [
             "/workspace/restaumatic"
           ]
         }

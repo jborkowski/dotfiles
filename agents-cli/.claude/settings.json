@@ -49,11 +49,12 @@
       }
     }
   },
-  "alwaysThinkingEnabled": false,
+  "alwaysThinkingEnabled": true,
   "mcp": {
     "allowed": [
       "hub"
     ],
     "excluded": []
-  }
+  },
+  "cleanupPeriodDays": 99999
 }
