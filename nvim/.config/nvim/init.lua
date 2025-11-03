@@ -57,6 +57,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins")
 
+-- Auto-install LSP servers from Mason
+require("auto-install-lsp").setup()
+
 vim.g.vlime_enable_autodoc = true
 
 -- exit from terminal mode

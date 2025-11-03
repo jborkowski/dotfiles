@@ -1,7 +1,7 @@
 local commented = {
   "folke/noice.nvim",
   event = "VeryLazy",
-  enabled = true,
+  enabled = false,
 
   keys = {
     --    {"<leader>ne", "<cmd>NoiceErrors<cr>"},
@@ -12,7 +12,7 @@ local commented = {
   opts = function(_, opts)
     -- {{{ Cmdline
     opts.cmdline    = {
-      enabled = true,
+      enabled = false,
       view = "cmdline_popup",
       opts = {
         cmdline_popup = {
@@ -71,7 +71,7 @@ local commented = {
       },
 
       message = {
-        enabled = true,
+        enabled = false,
         view = "mini",
         opts = {},
       },
@@ -118,7 +118,7 @@ local commented = {
     -- {{{ Messages
 
     opts.messages   = {
-      enabled = true,
+      enabled = false,
       view = "mini",
       view_error = "mini",
       view_warn = "mini",
@@ -138,7 +138,7 @@ local commented = {
     -- {{{ Popupmenu
 
     opts.popupmenu  = {
-      enabled = true,
+      enabled = false,
       backend = "nui",
       scrollbar = false,
       -- kind_icons = {},

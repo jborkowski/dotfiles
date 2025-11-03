@@ -19,7 +19,6 @@ return {
     'nvim-telescope/telescope-project.nvim',
     'nvim-telescope/telescope-file-browser.nvim',
     'jborkowski/telescope-github.nvim',
-    'jborkowski/telescope-inflect.nvim'
   },
 
   enabled = true,
@@ -35,7 +34,7 @@ return {
       },
 
       { "<leader>i",   builtin('diagnostics', { severity = "ERROR" }),      desc = "Telescope diagnostics" },
-      { "<leader>/",   extension('inflect', 'ripgrep'),                     desc = "Inflect (ripgrep)" },
+      { "<leader>/",   builtin('live_grep'),                     desc = "Live grep (ripgrep)" },
       { "<Leader>fm",  builtin('marks'),                                    desc = 'Search marks' },
       { "<leader>hm",  extension('harpoon', 'marks'),                       desc = "Harpoon marks" },
       { "<Leader>fo",  builtin('oldfiles'),                                 desc = "Search recent files" },
@@ -140,7 +139,6 @@ return {
     telescope.load_extension('project')
     telescope.load_extension('harpoon')
     telescope.load_extension('gh')
-    telescope.load_extension("inflect")
 
     require('refactoring').setup({})
     telescope.load_extension('refactoring')

@@ -1,7 +1,7 @@
 local utils = require('utils')
 
 utils.set_keymap("J", "5j")
-utils.set_keymap("K", "5k")
+utils.set_keymap("gk", "5k")  -- Use gk instead of K
 utils.set_keymap("H", "5h")
 utils.set_keymap("L", "5l")
 
