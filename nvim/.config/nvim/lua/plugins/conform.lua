@@ -28,8 +28,8 @@ return {
         -- Get the file path
         local filepath = vim.api.nvim_buf_get_name(bufnr)
 
-        -- Skip formatting if path contains "generated"
-        if filepath:match("generated") then
+        -- Only skip if "generated" is in a directory (not filename)
+        if filepath:match("/generated/") then
           return nil
         end
 
