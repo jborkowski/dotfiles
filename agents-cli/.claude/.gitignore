@@ -1,0 +1,9 @@
+.credentials.json
+debug/
+file-history/
+history.jsonl
+projects
+projects/
+shell-snapshots/
+todos/
+statsig/
