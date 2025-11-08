@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/jonatan/.claude/**)",
+      "Read(//Users/jonatan/.gemini/**)",
+      "Read(//opt/homebrew/Cellar/gemini-cli/0.9.0/libexec/lib/node_modules/@google/gemini-cli/dist/**)",
+      "Bash(chmod:*)",
+      "Bash(curl:*)",
+      "Bash(bash:*)",
+      "Bash(for dir in ~/.chromium-extensions/*/)",
+      "Bash(ls:*)",
+      "Bash(done)",
+      "Bash(for dir in */)",
+      "Bash(do echo \"=== $dir ===\")",
+      "Bash(test:*)",
+      "Bash(test -f:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

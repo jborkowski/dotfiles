@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gemini --help)",
+      "Read(//Users/jonatan/.gemini/**)",
+      "Read(//Users/jonatan/**)",
+      "Bash(ln -sf ../.dotfiles/agents-cli/.gemini/GEMINI.md GEMINI.md)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
