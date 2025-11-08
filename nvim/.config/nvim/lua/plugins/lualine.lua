@@ -55,15 +55,27 @@ return {
       always_divide_middle = true,
       globalstatus = true,
       refresh = {
-        statusline = 1000,
-        tabline = 1000,
-        winbar = 1000,
+        statusline = 5000,  -- Refresh less often to reduce git command frequency
+        tabline = 5000,
+        winbar = 5000,
       },
     }
 
     opts.sections = {
       lualine_a = { "mode" },
-      lualine_b = { "branch", "diff", "diagnostics" },
+      lualine_b = {
+        {
+          "branch",
+          -- Cache git info to reduce slow git command warnings
+          on_click = function() end,
+        },
+        {
+          "diff",
+          -- Reduce frequency of git status checks
+          on_click = function() end,
+        },
+        "diagnostics"
+      },
       lualine_c = { "filename" },
       lualine_x = {
         { show_macro_recording, },

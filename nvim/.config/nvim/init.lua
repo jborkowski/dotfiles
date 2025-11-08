@@ -88,3 +88,13 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end
   end,
 })
+
+-- Handle readonly files from symlinks
+vim.api.nvim_create_autocmd("BufRead", {
+  callback = function()
+    if vim.bo.readonly and not vim.bo.modifiable then
+      vim.bo.modifiable = true
+      vim.notify("Readonly file made editable", vim.log.levels.WARN)
+    end
+  end,
+})

@@ -76,6 +76,25 @@ return {
         path_display = { "smart" },
         -- grep_previewer = custom_cat_previewer,
         -- grep_previewer = previewers.cat.new
+
+        -- Optimize ripgrep for large repos
+        vimgrep_arguments = {
+          "rg",
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
+          "--hidden",
+          "--no-ignore-vcs",
+          "--glob=!.git/",
+          "--glob=!node_modules/",
+          "--glob=!.stack-work/",
+          "--glob=!dist/",
+          "--glob=!target/",
+          "--max-filesize=1M",  -- Skip files larger than 1MB
+        },
       },
       extensions = {
         file_browser = {
@@ -130,6 +149,15 @@ return {
         }
       },
       pickers = {
+        find_files = {
+          follow = true,  -- Follow symlinks
+          hidden = true,
+        },
+        live_grep = {
+          additional_args = function()
+            return { "--max-filesize=1M" }
+          end,
+        },
       },
     }
 
