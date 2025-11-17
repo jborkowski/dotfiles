@@ -18,7 +18,6 @@ export PATH=/opt/homebrew/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/
 export PATH="$HOME/.emacs.d/.cache/lsp/lua-language-server/bin/":$PATH
 export PATH="$HOME/.espressif/tools/xtensa-esp32-elf-gcc/8_4_0-esp-2021r2-patch3-aarch64-apple-darwin/bin/:$HOME/.espressif/tools/xtensa-esp32s2-elf-gcc/8_4_0-esp-2021r2-patch3-aarch64-apple-darwin/bin/:$HOME/.espressif/tools/xtensa-esp32s3-elf-gcc/8_4_0-esp-2021r2-patch3-aarch64-apple-darwin/bin/:$PATH"
 export PATH="/Library/TeX/texbin:/Library/TeX/texbin:$HOME/.espressif/tools/xtensa-esp32-elf-gcc/8_4_0-esp-2021r2-patch3-aarch64-apple-darwin/bin/:$HOME/.espressif/tools/xtensa-esp32s2-elf-gcc/8_4_0-esp-2021r2-patch3-aarch64-apple-darwin/bin/:$HOME/.espressif/tools/xtensa-esp32s3-elf-gcc/8_4_0-esp-2021r2-patch3-aarch64-apple-darwin/bin/:/opt/homebrew/opt/mysql-client/bin:/opt/homebrew/opt/llvm/bin:/opt/homebrew/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbinu:$HOME/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:$HOME/.local/bin:$HOME/.ghcup/bin:/Applications/kitty.app/Contents/MacOS:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.cabal/bin:$PATH"
-export PATH=$HOME/.roswell/bin:$PATH
 export PATH=$HOME/.orbstack/bin:$PATH
 export PATH=$HOME/.config/local/bin:$PATH
 export PATH=$HOME/.scripts/:$PATH
@@ -50,14 +49,6 @@ export ZK_NOTEBOOK_DIR=$HOME/sources/zettels
 if [[ -d "$HOME/.npm-global" ]]; then
   export NPM_CONFIG_PREFIX=$HOME/.npm-global
   export PATH=$HOME/.npm-global/bin:$PATH
-fi
-
-
-if [ -f "$HOME/.config/zsh/.env.secret" ]; then
-    if head -c 10 "$HOME/.config/zsh/.env.secret" 2>/dev/null | grep -q "GITCRYPT"; then
-        (cd "$HOME/.dotfiles" && git-crypt unlock 2>/dev/null) || true
-    fi
-    source "$HOME/.config/zsh/.env.secret" 2>/dev/null || true
 fi
 
 . "$HOME/.cargo/env"
