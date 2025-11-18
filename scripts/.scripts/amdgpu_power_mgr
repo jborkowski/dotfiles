@@ -1,0 +1,84 @@
+#!/bin/bash
+
+# Usage: sudo ./amdgpu_power_mgr on|off|low|auto|status
+
+DRIVER="amdgpu"
+CARD_PATH="/sys/class/drm/card0/device"
+PCI_ID=$(basename "$(readlink "$CARD_PATH")")
+POWER_FILE="$CARD_PATH/power_dpm_force_performance_level"
+PCI_CONTROL="/sys/bus/pci/devices/$PCI_ID/power/control"
+
+if [[ $EUID -ne 0 ]]; then
+    echo "❌ Please run this script as root (sudo)."
+    exit 1
+fi
+
+if [[ $# -ne 1 ]]; then
+    echo "Usage: $0 on|off|low|auto|status"
+    exit 1
+fi
+
+case "$1" in
+  off)
+    echo "🔌 Unbinding and unloading GPU..."
+    echo "$PCI_ID" > /sys/bus/pci/drivers/$DRIVER/unbind 2>/dev/null
+    echo 0 > /sys/class/vtconsole/vtcon0/bind 2>/dev/null || true
+    echo 0 > /sys/class/vtconsole/vtcon1/bind 2>/dev/null || true
+    modprobe -r amdgpu ttm drm_kms_helper drm i2c_algo_bit
+    ;;
+
+  on)
+    echo "⚡ Loading and rebinding GPU..."
+    modprobe $DRIVER
+    echo "$PCI_ID" > /sys/bus/pci/drivers/$DRIVER/bind
+    ;;
+
+  low)
+    if [[ -f "$POWER_FILE" ]]; then
+      echo "🌙 Setting GPU to LOW power..."
+      echo low > "$POWER_FILE"
+    else
+      echo "⚠️ Power state control not available."
+    fi
+    ;;
+
+  auto)
+    if [[ -f "$POWER_FILE" ]]; then
+      echo "🚀 Setting GPU to AUTO performance..."
+      echo auto > "$POWER_FILE"
+    else
+      echo "⚠️ Power state control not available."
+    fi
+    ;;
+
+  status)
+    echo "🔍 AMDGPU Status:"
+    echo -n "  ➤ Driver loaded: "
+    lsmod | grep -q "$DRIVER" && echo "yes" || echo "no"
+
+    echo -n "  ➤ GPU bound to driver: "
+    if [[ -L "/sys/bus/pci/drivers/$DRIVER/$PCI_ID" ]]; then
+      echo "yes"
+    else
+      echo "no"
+    fi
+
+    # Show current power performance level if possible
+    if [[ -f "$POWER_FILE" ]]; then
+      POWER_LEVEL=$(cat "$POWER_FILE")
+      echo "  ➤ Current power performance level: $POWER_LEVEL"
+    elif [[ -f "$PCI_CONTROL" ]]; then
+      PCI_STATE=$(cat "$PCI_CONTROL")
+      echo "  ➤ Current PCI power control state: $PCI_STATE"
+    else
+      echo "  ➤ Current power performance level: unavailable"
+    fi
+    ;;
+
+  *)
+    echo "❌ Invalid option: $1"
+    echo "Usage: $0 on|off|low|auto|status"
+    exit 1
+    ;;
+esac
+

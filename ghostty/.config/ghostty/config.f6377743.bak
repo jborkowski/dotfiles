@@ -1,0 +1,31 @@
+font-family = "Liga SFMono Nerd Font"
+font-size = 14
+
+app-notifications = no-clipboard-copy
+
+# theme = dark:GitHub-Dark-Colorblind,light:GitHub-Light-Colorblind
+theme = dark:duskfox,light:dayfox
+clipboard-read = allow
+
+clipboard-paste-protection = false
+background-blur = false
+auto-update = download
+
+cursor-style = block
+
+window-decoration = true
+# macos-titlebar-style = tabs
+
+shell-integration-features = no-cursor
+keybind = ctrl+insert=copy_to_clipboard
+keybind = shift+insert=paste_from_clipboard
+
+keybind = shift+ctrl+right=next_tab
+keybind = shift+ctrl+left=previous_tab
+keybind = cmd+enter=new_split:right
+
+window-theme = auto
+
+background-blur = false
+
+unfocused-split-opacity = 0.95

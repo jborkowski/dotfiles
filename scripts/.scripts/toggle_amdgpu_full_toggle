@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# AMD GPU full toggle script:
+# - Switch between low power mode and driver unloaded (GPU off)
+# - Run with sudo
+
+DRIVER="amdgpu"
+CARD_PATH="/sys/class/drm/card0/device"
+POWER_FILE="$CARD_PATH/power_dpm_force_performance_level"
+
+# Check if driver is loaded
+if lsmod | grep -q "^$DRIVER"; then
+    echo "Driver '$DRIVER' is loaded."
+
+    # Check current power profile
+    if [[ -f "$POWER_FILE" ]]; then
+        CURRENT_STATE=$(sudo cat "$POWER_FILE")
+    else
+        echo "Power control file not found, skipping power state toggle."
+        CURRENT_STATE=""
+    fi
+
+    # If currently in low power mode, unload driver to save max power
+    if [[ "$CURRENT_STATE" == "low" ]]; then
+        echo "Currently in LOW power mode, unloading driver to disable GPU..."
+        echo "unbind device from driver"
+        # Unbind device from driver
+        PCI_ID=$(basename $(readlink "$CARD_PATH"))
+        echo "$PCI_ID" | sudo tee /sys/bus/pci/drivers/$DRIVER/unbind > /dev/null
+        # Remove driver module
+        sudo modprobe -r $DRIVER
+        echo "GPU disabled."
+    else
+        echo "Setting GPU to LOW power mode..."
+        echo "low" | sudo tee "$POWER_FILE" > /dev/null
+
+        # echo "low" > /sys/class/drm/card0/device/power_dpm_force_performance_level
+        echo "GPU set to low power, not unloaded."
+    fi
+
+else
+    echo "Driver '$DRIVER' is NOT loaded. Loading and enabling GPU..."
+
+    # Load driver
+    sudo modprobe $DRIVER
+
+    # Bind device back to driver
+    PCI_ID=$(basename $(readlink "$CARD_PATH"))
+    echo "$PCI_ID" | sudo tee /sys/bus/pci/drivers/$DRIVER/bind > /dev/null
+
+    # Set power profile to AUTO (normal performance)
+    if [[ -f "$POWER_FILE" ]]; then
+        echo auto | sudo tee "$POWER_FILE" > /dev/null
+        echo "GPU set to AUTO performance."
+    fi
+
+    echo "GPU enabled."
+fi
+
