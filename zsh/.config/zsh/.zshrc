@@ -89,8 +89,6 @@ autoload -U compinit; compinit
 
 eval "$(direnv hook zsh)"
 
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
@@ -117,3 +115,19 @@ devcontainer() {
 }
 
 . "$HOME/.config/local/bin/env"
+
+# Function to manually switch to forwarded SSH agent
+use-forwarded-agent() {
+    if [ -n "$SSH_CONNECTION" ]; then
+        local forwarded_sock=$(find /tmp/ssh-* -name "agent.*" 2>/dev/null | head -1)
+        if [ -n "$forwarded_sock" ]; then
+            export SSH_AUTH_SOCK="$forwarded_sock"
+            echo "Using forwarded agent: $SSH_AUTH_SOCK"
+            ssh-add -l
+        else
+            echo "No forwarded agent socket found. Did you connect with 'ssh -A'?"
+        fi
+    else
+        echo "Not in an SSH session"
+    fi
+}
