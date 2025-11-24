@@ -69,7 +69,9 @@ return {
 
     vim.lsp.config('hls', vim.tbl_extend('force', default_config, {
       cmd = { "haskell-language-server-wrapper", "--lsp" },
-      root_dir = vim.fs.root(0, {"*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"}),
+      root_dir = function(bufnr)
+        return vim.fs.root(bufnr, {"*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"})
+      end,
       settings = {
         haskell = {
           formattingProvider = "fourmolu",
@@ -94,11 +96,12 @@ return {
         require("nvimmer-ps").setup_on_init(client)
       end,
       filetypes = { "purescript" },
-      root_dir = function(path)
+      root_dir = function(bufnr)
+        local path = vim.api.nvim_buf_get_name(bufnr)
         if path:match("/.spago/") then
           return nil
         end
-        return vim.fs.root(path, {"bower.json", "psc-package.json", "spago.dhall"})
+        return vim.fs.root(bufnr, {"bower.json", "psc-package.json", "spago.dhall"})
       end,
       settings = {
         purescript = {
@@ -139,14 +142,18 @@ return {
 
     vim.lsp.config('terraform_lsp', vim.tbl_extend('force', default_config, {
       filetypes = { "terraform", "terraform-vars", "hcl" },
-      root_dir = vim.fs.root(0, {".terraform", ".git"}),
+      root_dir = function(bufnr)
+        return vim.fs.root(bufnr, {".terraform", ".git"})
+      end,
     }))
     vim.lsp.enable('terraform_lsp')
 
     vim.lsp.config('gopls', vim.tbl_extend('force', default_config, {
       cmd = { "gopls" },
       filetypes = { "go", "gomod", "gowork", "gotmpl" },
-      root_dir = vim.fs.root(0, {"go.work", "go.mod", ".git"}),
+      root_dir = function(bufnr)
+        return vim.fs.root(bufnr, {"go.work", "go.mod", ".git"})
+      end,
       settings = {
         gopls = {
           analyses = {
@@ -179,14 +186,18 @@ return {
     vim.lsp.config('redsl', vim.tbl_extend('force', default_config, {
       cmd = { "dsl", "lsp" },
       filetypes = { "redsl", "haskell", "purescript", "typescript" },
-      root_dir = vim.fs.root(0, {".git"}),
+      root_dir = function(bufnr)
+        return vim.fs.root(bufnr, {".git"})
+      end,
     }))
     vim.lsp.enable('redsl')
 
     vim.lsp.config('circleci', vim.tbl_extend('force', default_config, {
       cmd = { "circleci-yaml-language-server", "--stdio" },
       filetypes = { "yaml", "yml" },
-      root_dir = vim.fs.root(0, {".circleci/config.yml", ".git"}),
+      root_dir = function(bufnr)
+        return vim.fs.root(bufnr, {".circleci/config.yml", ".git"})
+      end,
       single_file_support = true,
     }))
     vim.lsp.enable('circleci')
