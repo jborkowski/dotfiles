@@ -20,8 +20,7 @@ alias :q='exit'
 alias cp='xcp'
 alias e='nvim'
 alias find='fd'
-
-alias avante='nvim -c "lua vim.defer_fn(function()require(\"avante.api\").zen_mode()end, 100)"'
+alias ssh-re='ssh -o SetEnv=OP_SERVICE_ACCOUNT_TOKEN="$(unset OP_SERVICE_ACCOUNT_TOKEN; op read op://Restaumatic/sa-token-devcontainer/credential)" re'
 
 
 if command -v btm > /dev/null; then 
@@ -45,9 +44,6 @@ if command -v bat > /dev/null; then
   alias cap='cat -p'
 fi
 
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
 
 if command  -v lsd > /dev/null; then 
   alias ls='lsd'
@@ -60,9 +56,6 @@ elif command -v eza > /dev/null; then
   alias la='eza -laF'
   alias ll='eza -lF'
   alias tree='eza --tree'
-elif command -v exa > /dev/null; then 
-  alias ll='exa -lF --color-scale --no-user --no-time --no-permissions --group-directories-first --icons -a'
-  alias ls='exa -lF --group-directories-first --icons -a'
 else
   alias ls='ls --color=auto --group-directories-first'
   alias l='ls -A'
@@ -75,13 +68,6 @@ alias ps='ps'
 alias top='btm'
 alias tree='tree -a -C'
 alias vim='nvim'
-alias s='kitty +kitten ssh'
-alias get_idf='. ~/code/embedded/rust-build/export-esp.sh'
-alias get_esp32='. ~/.config/zsh/export-esp32.sh'
-alias get_esprs='. $HOME/export-esp.sh'
-#alias get_idf='. $HOME/esp/esp-idf/export.sh'
-#
-
 alias ggc='git add . && git commit -m.'
 
 # Load
@@ -92,19 +78,19 @@ eval "$(direnv hook zsh)"
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
-[ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-[ -f "/home/jonatan/.ghcup/env" ] && source "/home/jonatan/.ghcup/env" # ghcup-env
+[ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
+[ -f "$HOME/.config/local/bin/env" ] && source "$HOME/.config/local/bin/env"
+[ -f "$HOME/.config/op/plugins.h" ] && source "$HOME/.config/op/plugins.h"
+
 export ZK_NOTEBOOK_DIR=$HOME/sources/zettels
 alias python=python3
 
-if [ "$USERNAME" = "user" ]; then 
+if [ "$USERNAME" = "user" ]; then
   source $HOME/.asdf/asdf.sh
 fi
-export PATH="/opt/homebrew/sbin:$PATH"
-export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/opt/homebrew/sbin:/opt/homebrew/bin:$PATH"
 
 devcontainer() {
   if [ "$1" = "exec" ] && [ $# -ge 2 ]; then
@@ -114,7 +100,7 @@ devcontainer() {
   fi
 }
 
- source <(load-env-from-1password.sh)
+source <(load-env-from-1password.sh)
 
 # Function to manually switch to forwarded SSH agent
 use-forwarded-agent() {

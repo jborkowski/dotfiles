@@ -1,0 +1,40 @@
+{
+  "recommendations": [
+    // Modal editing / keymaps
+    "vscodevim.vim",
+
+    // Themes (pick one Nightfox-like pair you like)
+    "GitHub.github-vscode-theme",
+    "catppuccin.catppuccin-vsc",
+
+    // Git / PRs
+    "eamodio.gitlens",
+    "github.vscode-pull-request-github",
+
+    // Spell checking / writing
+    "streetsidesoftware.code-spell-checker",
+
+    // Language servers & tooling
+    "haskell.haskell",
+    "nwolverson.ide-purescript",
+    "ziglang.vscode-zig",          // Zig + zls
+    "bbenoist.Nix",
+    "hashicorp.terraform",
+    "svelte.svelte-vscode",
+    "ms-python.python",
+    "ms-vscode.cpptools",
+    "ms-vscode.vscode-typescript-next",
+    "redhat.vscode-yaml",
+    "ms-azuretools.vscode-docker",
+
+    // Markdown / notes
+    "yzhang.markdown-all-in-one",
+
+    // Devcontainers
+    "ms-vscode-remote.remote-containers",
+
+    // Testing helpers (language-specific still apply)
+    "vitest.explorer"
+  ]
+}
+
