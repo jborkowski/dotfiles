@@ -17,3 +17,4 @@ emacs/.config/
 zsh/.config/zsh/.zprofile
 zed/.config/zed/prompts
 
+tmux/.config/tmux/plugins/
