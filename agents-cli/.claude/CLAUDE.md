@@ -3,6 +3,7 @@
 ## Code Style
 
 - **Use comments sparingly** - Only comment complex code
+- do not comment - scss
 - **No promotional footers** - Do not add `🤖 Generated with [Claude Code](https://claude.com/claude-code)`
 
 ## Git Workflow

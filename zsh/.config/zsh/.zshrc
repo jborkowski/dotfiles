@@ -114,7 +114,7 @@ devcontainer() {
   fi
 }
 
-. "$HOME/.config/local/bin/env"
+ source <(load-env-from-1password.sh)
 
 # Function to manually switch to forwarded SSH agent
 use-forwarded-agent() {

@@ -1,14 +1,5 @@
 {
   "cleanupPeriodDays": 99999,
-  "env": {
-    "CLAUDE_CODE_ENABLE_TELEMETRY": "1",
-    "OTEL_LOGS_EXPORTER": "otlp",
-    "OTEL_LOG_USER_PROMPTS": "1",
-    "OTEL_METRICS_EXPORTER": "otlp",
-    "OTEL_EXPORTER_OTLP_PROTOCOL": "http/json",
-    "OTEL_EXPORTER_OTLP_METRICS_PROTOCOL": "http/json",
-    "OTEL_EXPORTER_OTLP_ENDPOINT": "https://telemetry.j14i.me"
-  },
   "permissions": {
     "allow": [
       "Bash(task-master: :*)",
@@ -17,32 +8,18 @@
     "deny": [],
     "ask": []
   },
-  "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$HOME/.claude/hooks/load-memory.sh"
-          }
-        ]
-      }
-    ]
-  },
+  "hooks": {},
   "enabledPlugins": {
     "re@restaumatic-toolkit": true,
     "jb@restaumatic-toolkit": true,
-    "taskmaster@taskmaster": true,
-    "document-skills@anthropic-agent-skills": true,
-    "example-skills@anthropic-agent-skills": true
+    "frontend-design@claude-code-plugins": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "purescript-lsp": true
+  },
+  "pluginPaths": {
+    "purescript-lsp": "/home/user/.claude/plugins/purescript-lsp"
   },
   "extraKnownMarketplaces": {
-    "taskmaster": {
-      "source": {
-        "source": "github",
-        "repo": "eyaltoledano/claude-task-master"
-      }
-    },
     "restaumatic-toolkit": {
       "source": {
         "source": "github",
@@ -50,7 +27,6 @@
       }
     }
   },
-  "alwaysThinkingEnabled": true,
   "mcp": {
     "allowed": [
       "hub"
