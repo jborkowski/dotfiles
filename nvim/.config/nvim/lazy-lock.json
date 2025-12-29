@@ -2,7 +2,7 @@
   "CamelCaseMotion": { "branch": "master", "commit": "e69b0024f8f63db10c5d0df26d4920760755d454" },
   "FixCursorHold.nvim": { "branch": "master", "commit": "1900f89dc17c603eec29960f57c00bd9ae696495" },
   "LuaSnip": { "branch": "master", "commit": "5a1e39223db9a0498024a77b8441169d260c8c25" },
-  "auto-dark-mode.nvim": { "branch": "master", "commit": "542d96a7ac992b8176f053db7f88452799820137" },
+  "OSC11.nvim": { "branch": "main", "commit": "919e015336b737c3c567f56de677740684a41cf5" },
   "auto-session": { "branch": "main", "commit": "292492ab7af4bd8b9e37e28508bc8ce995722fd5" },
   "avante.nvim": { "branch": "main", "commit": "a9e9890fc620c46e39bc22c0ccea5d57beefc0e7" },
   "cargo.nvim": { "branch": "main", "commit": "2b470e72a5bcf9e5b4185944cf76b9a24fb093ec" },
