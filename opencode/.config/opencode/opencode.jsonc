@@ -1,0 +1,85 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "share": "disabled",
+  "provider": {
+    "zai-coding-plan": {
+      "options": {
+        "apiKey": "{env:ZAI_API_TOKEN}"
+      }
+    }
+  },
+
+  "model": "anthropic/claude-opus-4-5",
+  "small_model": "anthropic/claude-haiku-4-5",
+  "lsp": {
+    "purescript": {
+      "command": ["purescript-language-server", "--stdio"],
+      "extensions": [".purs"]
+    }
+  },
+  "mcp": {
+    "atlassian": {
+      "type": "local",
+      "command": ["npx", "-y", "mcp-remote", "https://mcp.atlassian.com/v1/sse"]
+    },
+    "figma": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "mcp-remote",
+        "https://mcp.figma.com/mcp",
+        "--header",
+        "Authorization:${FIGMA_AUTH_HEADER}"
+      ],
+      "environment": {
+        "FIGMA_AUTH_HEADER": "Bearer {env:FIGMA_ACCESS_TOKEN}"
+      }
+    },
+    "zai-mcp-server": {
+      "type": "local",
+      "command": ["npx", "-y", "@z_ai/mcp-server"],
+      "environment": {
+        "Z_AI_MODE": "ZAI",
+        "Z_AI_API_KEY": "{env:ZAI_API_TOKEN}"
+      }
+    },
+    "web-search-prime": {
+      "type": "remote",
+      "url": "https://api.z.ai/api/mcp/web_search_prime/mcp",
+      "headers": {
+        "Authorization": "Bearer {env:ZAI_API_TOKEN}"
+      }
+    },
+    "web-reader": {
+      "type": "remote",
+      "url": "https://api.z.ai/api/mcp/web_reader/mcp",
+      "headers": {
+        "Authorization": "Bearer {env:ZAI_API_TOKEN}"
+      }
+    },
+    "zread": {
+      "type": "remote",
+      "url": "https://api.z.ai/api/mcp/zread/mcp",
+      "headers": {
+        "Authorization": "Bearer {env:ZAI_API_TOKEN}"
+      }
+    }
+  },
+
+  // Enable MCP tools for subagents
+  "agent": {
+    "general": {
+      "tools": {
+        "zai-mcp-server_*": true,
+        "atlassian_*": true
+      }
+    },
+    "explore": {
+      "tools": {
+        "zai-mcp-server_*": true,
+        "atlassian_*": true
+      }
+    }
+  }
+}
