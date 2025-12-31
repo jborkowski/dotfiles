@@ -83,7 +83,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     if vim.fn.argc() == 0 and vim.fn.expand("%") == "" then
       vim.schedule(function()
-        require("fff").find_files()
+        local ok, fff = pcall(require, "fff")
+        if ok and fff.find_files then
+          fff.find_files()
+        end
       end)
     end
   end,

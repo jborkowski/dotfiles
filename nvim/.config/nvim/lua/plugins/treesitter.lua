@@ -9,16 +9,20 @@ return {
         "rust", "ruby", "sql", "toml", "tsx", "typescript", "vim", "vimdoc", "yaml", "zig"
       }
 
-      -- Install missing parsers on startup
       vim.api.nvim_create_autocmd("VimEnter", {
         callback = function()
-          local installed = require("nvim-treesitter.config").get_installed()
-          local to_install = vim.tbl_filter(function(p)
-            return not vim.tbl_contains(installed, p)
-          end, parsers)
-          if #to_install > 0 then
-            require("nvim-treesitter.install").install(to_install)
-          end
+          vim.defer_fn(function()
+            local ok, config = pcall(require, "nvim-treesitter.config")
+            if not ok then return end
+            local installed = config.get_installed()
+            local to_install = vim.tbl_filter(function(p)
+              return not vim.tbl_contains(installed, p)
+            end, parsers)
+            if #to_install > 0 then
+              vim.notify("Installing " .. #to_install .. " treesitter parsers...", vim.log.levels.INFO)
+              require("nvim-treesitter.install").install(to_install)
+            end
+          end, 100)
         end,
         once = true,
       })

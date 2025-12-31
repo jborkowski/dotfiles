@@ -18,6 +18,12 @@ return {
     local common = require('plugins.lspconfig.common')
     local navic = require("nvim-navic")
 
+    local function safe_enable(server, cmd)
+      if cmd and vim.fn.executable(cmd) == 0 then
+        return
+      end
+      pcall(vim.lsp.enable, server)
+    end
 
     local on_attach = function(client, bufnr)
       common.set_mappings(client, bufnr)
@@ -65,7 +71,7 @@ return {
         return true
       end
     }))
-    vim.lsp.enable('lua_ls')
+    safe_enable('lua_ls', 'lua-language-server')
 
     vim.lsp.config('hls', vim.tbl_extend('force', default_config, {
       cmd = { "haskell-language-server-wrapper", "--lsp" },
@@ -86,7 +92,7 @@ return {
         }
       }
     }))
-    vim.lsp.enable('hls')
+    safe_enable('hls', 'haskell-language-server-wrapper')
 
     vim.lsp.config('purescriptls', vim.tbl_extend('force', default_config, {
       on_attach = function(client, bufnr)
@@ -114,31 +120,31 @@ return {
         debounce_text_changes = 150,
       }
     }))
-    vim.lsp.enable('purescriptls')
+    safe_enable('purescriptls', 'purescript-language-server')
 
     vim.lsp.config('rnix', default_config)
-    vim.lsp.enable('rnix')
+    safe_enable('rnix', 'rnix-lsp')
 
     vim.lsp.config('cssls', default_config)
-    vim.lsp.enable('cssls')
+    safe_enable('cssls', 'vscode-css-language-server')
 
     vim.lsp.config('html', default_config)
-    vim.lsp.enable('html')
+    safe_enable('html', 'vscode-html-language-server')
 
     vim.lsp.config('clangd', default_config)
-    vim.lsp.enable('clangd')
+    safe_enable('clangd', 'clangd')
 
     vim.lsp.config('marksman', default_config)
-    vim.lsp.enable('marksman')
+    safe_enable('marksman', 'marksman')
 
     vim.lsp.config('bashls', default_config)
-    vim.lsp.enable('bashls')
+    safe_enable('bashls', 'bash-language-server')
 
     vim.lsp.config('ts_ls', default_config)
-    vim.lsp.enable('ts_ls')
+    safe_enable('ts_ls', 'typescript-language-server')
 
     vim.lsp.config('svelte', default_config)
-    vim.lsp.enable('svelte')
+    safe_enable('svelte', 'svelteserver')
 
     vim.lsp.config('terraform_lsp', vim.tbl_extend('force', default_config, {
       filetypes = { "terraform", "terraform-vars", "hcl" },
@@ -146,7 +152,7 @@ return {
         return vim.fs.root(bufnr, {".terraform", ".git"})
       end,
     }))
-    vim.lsp.enable('terraform_lsp')
+    safe_enable('terraform_lsp', 'terraform-lsp')
 
     vim.lsp.config('gopls', vim.tbl_extend('force', default_config, {
       cmd = { "gopls" },
@@ -163,25 +169,24 @@ return {
         },
       },
     }))
-    vim.lsp.enable('gopls')
+    safe_enable('gopls', 'gopls')
 
     vim.lsp.config('postgres_lsp', default_config)
-    vim.lsp.enable('postgres_lsp')
+    safe_enable('postgres_lsp', 'postgres_lsp')
 
     vim.lsp.config('pylsp', default_config)
-    vim.lsp.enable('pylsp')
+    safe_enable('pylsp', 'pylsp')
 
     vim.lsp.config('yamlls', default_config)
-    vim.lsp.enable('yamlls')
+    safe_enable('yamlls', 'yaml-language-server')
 
     vim.lsp.config('zls', vim.tbl_extend('force', default_config, {
       settings = {
         zls = {
-          -- zig_exe_path = '~/.local/bin/zls',
         }
       }
     }))
-    vim.lsp.enable('zls')
+    safe_enable('zls', 'zls')
 
     vim.lsp.config('redsl', vim.tbl_extend('force', default_config, {
       cmd = { "dsl", "lsp" },
@@ -190,7 +195,7 @@ return {
         return vim.fs.root(bufnr, {".git"})
       end,
     }))
-    vim.lsp.enable('redsl')
+    safe_enable('redsl', 'dsl')
 
     vim.lsp.config('circleci', vim.tbl_extend('force', default_config, {
       cmd = { "circleci-yaml-language-server", "--stdio" },
@@ -200,13 +205,13 @@ return {
       end,
       single_file_support = true,
     }))
-    vim.lsp.enable('circleci')
+    safe_enable('circleci', 'circleci-yaml-language-server')
 
     vim.lsp.config('harper_ls', default_config)
-    vim.lsp.enable('harper_ls')
+    safe_enable('harper_ls', 'harper-ls')
 
     vim.lsp.config('solargraph', default_config)
-    vim.lsp.enable('solargraph')
+    safe_enable('solargraph', 'solargraph')
 
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),

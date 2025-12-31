@@ -24,6 +24,8 @@ return {
     graph_style = "kitty",
     process_spinner = true,
     auto_show_console = false,
+    console_timeout = 10000,
+    notification_icon = "",
   }
 
 }
