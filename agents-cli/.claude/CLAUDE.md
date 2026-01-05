@@ -2,8 +2,9 @@
 
 ## Code Style
 
-- **Use comments sparingly** - Only comment complex code
-- do not comment - scss
+- **No comments in code** - Do not add comments unless absolutely necessary for complex logic
+- **No comments in SCSS**
+- **No comments in implementation plans** - Plans should be self-explanatory
 - **No promotional footers** - Do not add `🤖 Generated with [Claude Code](https://claude.com/claude-code)`
 
 ## Git Workflow

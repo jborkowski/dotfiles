@@ -21,12 +21,11 @@
   b  = branch
   ll = log --pretty=oneline --abbrev-commit
   sofar = "!sh -c 'git add . && git commit -a -m \"Changes so far\"'"
-
-[url "git@github.com:restaumatic"]
-	insteadOf = https://github.com/restaumatic
 [url "git@github.com:jborkowski"]
 	insteadOf = https://github.com/jborkowski
 [core]
 	excludesfile = /Users/jonatan/.gitignore_global
 [merge]
 	conflictstyle = diff3
+[url "git@github.com:restaumatic"]
+	insteadof = https://github.com/restaumatic

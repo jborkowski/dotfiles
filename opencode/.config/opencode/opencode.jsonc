@@ -13,8 +13,19 @@
   "small_model": "anthropic/claude-haiku-4-5",
   "lsp": {
     "purescript": {
-      "command": ["purescript-language-server", "--stdio"],
-      "extensions": [".purs"]
+      "command": ["npx", "purescript-language-server", "--stdio"],
+      "extensions": [".purs"],
+      "initialization": {
+        "purescript": {
+          "formatter": "purs-tidy",
+          "addPscPackageSources": true,
+          "addNpmPath": true
+        }
+      }
+    },
+    "scss": {
+      "command": ["npx", "vscode-css-language-server", "--stdio"],
+      "extensions": [".scss", ".sass"]
     }
   },
   "mcp": {

@@ -131,3 +131,4 @@ use-forwarded-agent() {
         echo "Not in an SSH session"
     fi
 }
+export HAPPY_SERVER_URL=https://happy-server.lab.j14i.me
