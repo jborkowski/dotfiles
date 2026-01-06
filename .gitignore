@@ -22,5 +22,6 @@ agents-cli/.claude/plugins/
 agents-cli/.claude/plans/
 agents-cli/.claude/telemetry/
 agents-cli/.claude/stats-cache.json
+agents-cli/.claude/settings.local.json
 nvim/.config/nvim/.nvimlog
 vscode/.config/Code/User/
