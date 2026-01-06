@@ -7,3 +7,6 @@ projects/
 shell-snapshots/
 todos/
 statsig/
+CLAUDE.local.md
+settings.local.json
+stats-cache.json
