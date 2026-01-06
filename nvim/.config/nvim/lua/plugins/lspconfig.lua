@@ -177,6 +177,9 @@ return {
     vim.lsp.config('pylsp', default_config)
     safe_enable('pylsp', 'pylsp')
 
+    vim.lsp.config('ty', default_config)
+    vim.lsp.enable('ty')
+
     vim.lsp.config('yamlls', default_config)
     safe_enable('yamlls', 'yaml-language-server')
 

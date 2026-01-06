@@ -6,6 +6,7 @@
 - **No comments in SCSS**
 - **No comments in implementation plans** - Plans should be self-explanatory
 - **No promotional footers** - Do not add `🤖 Generated with [Claude Code](https://claude.com/claude-code)`
+- do not comment - scss
 
 ## Git Workflow
 

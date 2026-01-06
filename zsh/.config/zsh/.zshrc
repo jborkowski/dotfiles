@@ -22,6 +22,8 @@ alias e='nvim'
 alias find='fd'
 alias ssh-re='ssh -o SetEnv=OP_SERVICE_ACCOUNT_TOKEN="$(unset OP_SERVICE_ACCOUNT_TOKEN; op read op://Restaumatic/sa-token-devcontainer/credential)" re'
 
+alias claude='claude --allow-dangerously-skip-permissions'
+
 
 if command -v btm > /dev/null; then 
   alias top='btm'
@@ -117,4 +119,19 @@ use-forwarded-agent() {
         echo "Not in an SSH session"
     fi
 }
+
+
+## Only on my MBP16
+[[ ! -f ~/sources/envs-injector/op-ssh-hook.plugin.zsh ]] || source ~/sources/envs-injector/op-ssh-hook.plugin.zsh
+
+alias opencode="op run /opt/homebrew/bin/opencode"
+
+
+alias wake_luddite="ssh admin@fd88::1 '/tool wol mac=BC:FC:E7:0A:67:88 interface=bridge'"
+alias suspend_luddite="ssh luddite.local 'sudo systemctl suspend'"
+
 export HAPPY_SERVER_URL=https://happy-server.lab.j14i.me
+
+# bun completions
+[ -s "/Users/jonatan/.bun/_bun" ] && source "/Users/jonatan/.bun/_bun"
+export PATH="$HOME/.bun/bin:$PATH"

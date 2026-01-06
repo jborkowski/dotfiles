@@ -43,7 +43,7 @@
   tab  q    w    f    p    b    j    l    u    y    ;    [    ]
   esc  @ma  @ar  @cs  @st  g    k    @sn  @ce  @ai  @mo  '    \    ret
   lsft z    @ax  @cc  d    @cv  _    m    h    ,    @a.  /    rsft
-  lctl cmp lalt lmet          @spc_n           rmet ralt
+  _    _   _    _             @spc_n           _    _
 )
 
 (deflayer extend

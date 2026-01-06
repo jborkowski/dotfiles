@@ -1,23 +1,23 @@
 {
   "cleanupPeriodDays": 99999,
+  "env": {
+    "API_TIMEOUT_MS": "3000000"
+  },
   "permissions": {
     "allow": [
-      "Bash(task-master: :*)",
       "Bash(uv: :*)"
     ],
     "deny": [],
     "ask": []
   },
+  "model": "opus",
   "hooks": {},
   "enabledPlugins": {
     "re@restaumatic-toolkit": true,
     "jb@restaumatic-toolkit": true,
-    "frontend-design@claude-code-plugins": true,
-    "typescript-lsp@claude-plugins-official": true,
-    "purescript-lsp": true
-  },
-  "pluginPaths": {
-    "purescript-lsp": "/home/user/.claude/plugins/purescript-lsp"
+    "frontend-design@claude-code-plugins": false,
+    "superpowers@superpowers-marketplace": false,
+    "glm-plan-usage@zai-coding-plugins": true
   },
   "extraKnownMarketplaces": {
     "restaumatic-toolkit": {
@@ -27,9 +27,16 @@
       }
     }
   },
+  "alwaysThinkingEnabled": true,
+  "mcpServers": {
+    "figma": {
+      "type": "http",
+      "url": "http://127.0.0.1:3845/mcp"
+    }
+  },
   "mcp": {
     "allowed": [
-      "hub"
+      "figma"
     ],
     "excluded": []
   }

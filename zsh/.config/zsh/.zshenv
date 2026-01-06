@@ -53,3 +53,5 @@ fi
 
 . "$HOME/.cargo/env"
 
+export ZAI_API_TOKEN="op://Personal/ZAI_API_TOKEN/password"
+

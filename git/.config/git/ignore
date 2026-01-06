@@ -109,3 +109,4 @@ thoughts/
 # Task files
 tasks.json
 tasks/
+.claude

@@ -1,11 +1,7 @@
-[filter "lfs"]
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
 [user]
 	email = jonatan@thebo.me
 	name = Jonatan Borkowski
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEfzCk42l2FWj8zQ2BduhxRmRybAlUH5d4bBQtxz4PDW
 
 [init]
 	defaultBranch = main
@@ -16,7 +12,7 @@
   s  = status
   co = checkout
   ci = commit
-  c  = commit 
+  c  = commit
   br = branch
   b  = branch
   ll = log --pretty=oneline --abbrev-commit
@@ -29,3 +25,20 @@
 	conflictstyle = diff3
 [url "git@github.com:restaumatic"]
 	insteadof = https://github.com/restaumatic
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+; [commit]
+	; gpgsign = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[lfs "customtransfer.xet"]
+	path = git-xet
+	args = transfer
+	concurrent = true
+[lfs]
+	concurrenttransfers = 3

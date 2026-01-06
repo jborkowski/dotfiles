@@ -8,7 +8,6 @@ theme = dark:nightfox,light:dayfox
 clipboard-read = allow
 
 clipboard-paste-protection = false
-background-blur = false
 auto-update = download
 
 cursor-style = block
@@ -26,7 +25,7 @@ keybind = cmd+enter=new_split:right
 
 window-theme = auto
 
-background-blur = false
+background-blur = true
 
 # Bell configuration
 
@@ -34,3 +33,5 @@ unfocused-split-opacity = 0.95
 keybind = shift+enter=text:\x1b\r
 
 desktop-notifications = true
+
+# scrollback-limit = 10000

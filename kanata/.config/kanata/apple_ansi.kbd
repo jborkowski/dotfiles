@@ -13,27 +13,20 @@
 
 (defalias
     nav  (layer-toggle navigation)
-    fns  (layer-toggle fns))
-
-(defchordsv2
-  (z x) z 80 all-released (fns navigation)
-  (x c) v 50 all-released (fns navigation)
-  (m ,) m 80 all-released (fns navigation)
-  (, .) / 80 all-released (fns navigation))
+    fns  (layer-toggle fns)
+    )
 
 (defalias
-    fn_l  (tap-hold 180 180 fn @fns)
+    fn_l  (tap-hold 150 150 fn @fns)
     spc_n (tap-hold 220 220 spc @nav)
     ma    (tap-hold 180 180 a lmet)
     ar    (tap-hold 160 160 r lalt)
-    ax    (tap-hold 180 180 x ralt)
     cs    (tap-hold 160 160 s lctl)
     st    (tap-hold 150 150 t lsft)
 
     sn    (tap-hold 150 150 n rsft)
     ce    (tap-hold 160 160 e rctl)
     ai    (tap-hold 160 160 i lalt)
-    a.    (tap-hold 180 180 . ralt)
     mo    (tap-hold 180 180 o rmet)
 )
 
@@ -54,17 +47,17 @@
   caps a    s    d    f    g    h    j    k    l    ;    '    ret
 
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  fn   lctl lalt lmet           spc             rmet ralt
+  fn lctl lalt lmet           spc             rmet ralt
 )
 
-
 (deflayer colemak-dhm
-  esc brdn brup  _    _    _    _    prev pp   next mute vold volu
+  esc  brdn brup _    _    _    _    prev pp   next mute vold volu
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    f    p    b    j    l    u    y    ;    [    ]    \
   esc  @ma  @ar  @cs  @st  g    k    @sn  @ce  @ai  @mo  '    ret
-  z    @ax  @cc   d   @cv    _    m    h    ,  @a.  /    rsft
-  lctl @fn_l lalt lmet          @spc_n           rmet ralt
+
+  z    x    @cc  d    @cv  _    m    h    ,    .    /    rsft
+  @fn_l _    _    _              @spc_n          _    _
 )
 
 ;; (deflayer colemak-dhm-asymm-wide
@@ -81,11 +74,12 @@
 
 (deflayer fns
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  _     _   _    _    _    _    _    _    _    _    _    _    _    bspc
-  _     _   _    _    _    _    _    _    _    _    _    _    _    _
-  _     _   _    _    _    _    _    _    _    _    _    _    _
-  _     _   _    _    _    _    _    _    _    _    _    _
-  _     _   _    _           _                 _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    bspc
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _  _    _    _              _               _    _
 )
 
 (defalias
@@ -106,9 +100,10 @@
 
 (deflayer navigation
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  _     _   _    _    _    _    _    _    _    _    _    _    _    bspc
-  _     _   _    @ms↑ _    _    @mwu mlft mrgt _    _    _    _    _
-  esc  @slw  @ms← @ms↓ @ms→ _   @mwd lft  down up   rght _    ret
+  _    _    _    _    _    _    _    _    _    _    _    _    _    bspc
+  _    _    _    @ms↑ _    _    @mwu mlft mrgt _    _    _    _    _
+  esc  @slw @ms← @ms↓ @ms→ _    @mwd lft  down up   rght _    ret
+
   _    _    _    _    _    _    _    _    _    _    _    rsft
-  lctl cmp lalt lmet           _              _    ralt
+  _  _    _    _              _               _    _
 )
