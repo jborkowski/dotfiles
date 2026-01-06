@@ -21,3 +21,5 @@ tmux/.config/tmux/plugins/
 agents-cli/.claude/plugins/
 agents-cli/.claude/plans/
 agents-cli/.claude/telemetry/
+nvim/.config/nvim/.nvimlog
+vscode/.config/Code/User/
