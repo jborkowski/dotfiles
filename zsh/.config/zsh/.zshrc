@@ -124,7 +124,7 @@ use-forwarded-agent() {
 ## Only on my MBP16
 [[ ! -f ~/sources/envs-injector/op-ssh-hook.plugin.zsh ]] || source ~/sources/envs-injector/op-ssh-hook.plugin.zsh
 
-alias opencode="op run /opt/homebrew/bin/opencode"
+opencode() { op run --no-masking -- opencode "$@" }
 
 
 alias wake_luddite="ssh admin@fd88::1 '/tool wol mac=BC:FC:E7:0A:67:88 interface=bridge'"
