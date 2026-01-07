@@ -12,6 +12,7 @@ return {
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
     "HiPhish/nvim-cmp-vlime",
+    "zbirenbaum/copilot-cmp",
   },
 
   enabled = true,
@@ -212,6 +213,7 @@ return {
     -- {{{ Source mapping and formatting
 
     local source_mapping = {
+      copilot       = "[Copilot]",
       spell         = "[Spell]",
       buffer        = "[Buffer]",
       latex_symbols = "[LaTeX]",
@@ -236,6 +238,7 @@ return {
     -- {{{ Sources
 
     local sources = {
+      { name = "copilot",       keyword_length = 0, max_item_count = 3,  priority = 900 },
       { name = "nvim_lsp",      keyword_length = 1, max_item_count = 10, priority = 350 },
       { name = "nvlime",        keyword_length = 1, max_item_count = 10, priority = 350 },
       { name = "spell",         keyword_length = 3, max_item_count = 10, priority = 300 },
