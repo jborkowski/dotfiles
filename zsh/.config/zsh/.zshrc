@@ -136,4 +136,4 @@ export HAPPY_SERVER_URL=https://happy-server.lab.j14i.me
 # bun completions
 [ -s "/Users/jonatan/.bun/_bun" ] && source "/Users/jonatan/.bun/_bun"
 export PATH="$HOME/.bun/bin:$PATH"
-alias=init-personal-thoughts=humanlayer thoughts init --profile personal
+alias init_personal_thoughts="humanlayer thoughts init --profile personal"
