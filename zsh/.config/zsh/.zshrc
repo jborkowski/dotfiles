@@ -102,7 +102,8 @@ devcontainer() {
   fi
 }
 
-source <(load-env-from-1password.sh)
+
+command -v load-env-from-1password.sh >/dev/null && source <(load-env-from-1password.sh)
 
 # Function to manually switch to forwarded SSH agent
 use-forwarded-agent() {
