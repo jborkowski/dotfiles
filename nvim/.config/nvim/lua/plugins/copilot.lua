@@ -3,6 +3,13 @@ return {
   cmd = "Copilot",
   event = "InsertEnter",
   config = function()
+    -- Install bun if not available (needed for Copilot on systems with old Node)
+    local bun_path = vim.fn.expand("~/.bun/bin/bun")
+    if vim.fn.executable(bun_path) == 0 then
+      vim.notify("Installing bun for Copilot...", vim.log.levels.INFO)
+      vim.fn.system("curl -fsSL https://bun.sh/install | bash")
+    end
+
     require("copilot").setup({
       suggestion = {
         enabled = true,
@@ -22,6 +29,7 @@ return {
         markdown = true,
         help = true,
       },
+      copilot_node_command = vim.fn.expand("~/.bun/bin/bun"),
     })
 
     -- Tab to accept suggestion (like Zed), fallback to normal Tab
