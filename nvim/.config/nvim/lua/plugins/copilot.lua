@@ -12,13 +12,13 @@ return {
 
     -- Create wrapper script that fakes node version for Copilot
     local wrapper_path = vim.fn.stdpath("cache") .. "/copilot-node-wrapper"
-    local wrapper_script = string.format([[#!/bin/bash
+    local wrapper_script = string.format([=[#!/bin/bash
 if [[ "$1" == "--version" ]] || [[ "$1" == "-v" ]]; then
   echo "v22.0.0"
 else
   exec "%s" "$@"
 fi
-]], bun_path)
+]=], bun_path)
     local f = io.open(wrapper_path, "w")
     if f then
       f:write(wrapper_script)
