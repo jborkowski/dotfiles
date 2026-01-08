@@ -3,27 +3,25 @@ return {
   cmd = "Copilot",
   event = "InsertEnter",
   config = function()
-    -- Install bun if not available (Copilot runtime)
-    local bun_path = vim.fn.expand("~/.bun/bin/bun")
-    if vim.fn.executable(bun_path) == 0 then
-      vim.notify("Installing bun for Copilot...", vim.log.levels.INFO)
-      vim.fn.system("curl -fsSL https://bun.sh/install | bash")
+    -- Use mise to manage node for Copilot (requires Node 20+)
+    local mise_path = vim.fn.expand("~/.local/bin/mise")
+
+    -- Install mise if not available
+    if vim.fn.executable(mise_path) == 0 then
+      vim.notify("Installing mise for Copilot...", vim.log.levels.INFO)
+      vim.fn.system("curl https://mise.run | sh")
     end
 
-    -- Create wrapper script that fakes node version for Copilot
-    local wrapper_path = vim.fn.stdpath("cache") .. "/copilot-node-wrapper"
-    local wrapper_script = string.format([=[#!/bin/bash
-if [[ "$1" == "--version" ]] || [[ "$1" == "-v" ]]; then
-  echo "v22.0.0"
-else
-  exec "%s" "$@"
-fi
-]=], bun_path)
-    local f = io.open(wrapper_path, "w")
-    if f then
-      f:write(wrapper_script)
-      f:close()
-      vim.fn.system("chmod +x " .. wrapper_path)
+    -- Install node via mise (not global, just available)
+    local node_path = vim.fn.expand("~/.local/share/mise/installs/node/22/bin/node")
+    if vim.fn.executable(node_path) == 0 then
+      vim.notify("Installing Node 22 via mise for Copilot...", vim.log.levels.INFO)
+      vim.fn.system(mise_path .. " install node@22")
+      -- Find actual installed path
+      local installs = vim.fn.glob(vim.fn.expand("~/.local/share/mise/installs/node/*/bin/node"), false, true)
+      if #installs > 0 then
+        node_path = installs[#installs] -- Use latest
+      end
     end
 
     require("copilot").setup({
@@ -45,7 +43,7 @@ fi
         markdown = true,
         help = true,
       },
-      copilot_node_command = wrapper_path,
+      copilot_node_command = node_path,
     })
 
     -- Tab to accept suggestion (like Zed), fallback to normal Tab
