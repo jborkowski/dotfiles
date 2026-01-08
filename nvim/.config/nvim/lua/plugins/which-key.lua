@@ -21,11 +21,6 @@ return {
       { "<leader>h",  group = "Harpoon" },
       { "<leader>p",  group = "Project" },
       { "<leader>f",  group = "Files" },
-      { "<leader>n",  group = "Notes" },
-      { "<leader>nd", "<cmd>ObsidianToday<cr>",  desc = "Daily Note" },
-      { "<leader>ns", "<cmd>ObsidianSearch<cr>", desc = "Search" },
-      { "<leader>nn", "<cmd>ObsidianNew<cr>",    desc = "New Note" },
-      { "<leader>no", "<cmd>ObsidianOpen<cr>",   desc = "Open Note" },
     })
   end,
 }

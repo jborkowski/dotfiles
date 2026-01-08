@@ -41,7 +41,6 @@ return {
       { "<Leader>fs",  builtin('grep_string'),                              desc = "Search from word under cursor" },
       { "<leader>pp",  extension('project', 'project'),                     desc = "Telescope Project" },
       { "<Leader>fls", builtin('lsp_document_symbols'),                     desc = "List lsp symbols for current buffer" },
-      { "<leader>rr",  extension('refactoring', 'refactors'),               mode = 'v',                                  desc = 'Search refactors' },
       { "<leader>sl",  extension('session-lens', 'search_session'),         desc = 'Search list' },
       { "<leader>gLa", extension('gh', 'pull_request', { state = "open" }), desc = 'List PRs' },
       {
@@ -168,8 +167,6 @@ return {
     telescope.load_extension('harpoon')
     telescope.load_extension('gh')
 
-    require('refactoring').setup({})
-    telescope.load_extension('refactoring')
 
     vim.api.nvim_create_autocmd("User", {
       pattern = "TelescopeProjectSelected",

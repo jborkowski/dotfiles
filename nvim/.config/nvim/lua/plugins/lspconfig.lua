@@ -11,7 +11,6 @@ return {
     'L3MON4D3/LuaSnip',
     'saadparwaiz1/cmp_luasnip',
     'srghma/nvimmer-ps',
-    'ThePrimeagen/refactoring.nvim',
   },
   config = function()
     local cmp_lsp = require 'cmp_nvim_lsp'
