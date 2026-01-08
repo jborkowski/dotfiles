@@ -3,25 +3,38 @@ return {
   cmd = "Copilot",
   event = "InsertEnter",
   config = function()
-    -- Use mise to manage node for Copilot (requires Node 20+)
-    local mise_path = vim.fn.expand("~/.local/bin/mise")
+    local node_path = "node" -- Default to system node
 
-    -- Install mise if not available
-    if vim.fn.executable(mise_path) == 0 then
-      vim.notify("Installing mise for Copilot...", vim.log.levels.INFO)
-      vim.fn.system("curl https://mise.run | sh")
+    -- Check if system node exists and is version 20+
+    local function get_node_major_version(path)
+      local output = vim.fn.system(path .. " --version 2>/dev/null")
+      local major = output:match("v(%d+)")
+      return major and tonumber(major) or 0
     end
 
-    -- Install node via mise (not global, just available)
-    local node_path = vim.fn.expand("~/.local/share/mise/installs/node/22/bin/node")
-    if vim.fn.executable(node_path) == 0 then
-      vim.notify("Installing Node 22 via mise for Copilot...", vim.log.levels.INFO)
-      -- Skip GPG verification to avoid permission issues
-      vim.fn.system("MISE_NODE_VERIFY=0 " .. mise_path .. " install node@22")
-      -- Find actual installed path
+    local system_version = get_node_major_version("node")
+    if system_version < 20 then
+      -- System node is too old or missing, use mise
+      local mise_path = vim.fn.expand("~/.local/bin/mise")
+
+      -- Install mise if not available
+      if vim.fn.executable(mise_path) == 0 then
+        vim.notify("Installing mise for Copilot (Node 20+ required)...", vim.log.levels.INFO)
+        vim.fn.system("curl https://mise.run | sh")
+      end
+
+      -- Check if node already installed via mise
       local installs = vim.fn.glob(vim.fn.expand("~/.local/share/mise/installs/node/*/bin/node"), false, true)
       if #installs > 0 then
-        node_path = installs[#installs] -- Use latest
+        node_path = installs[#installs]
+      else
+        -- Install node via mise
+        vim.notify("Installing Node 22 via mise for Copilot...", vim.log.levels.INFO)
+        vim.fn.system("MISE_NODE_VERIFY=0 " .. mise_path .. " install node@22")
+        installs = vim.fn.glob(vim.fn.expand("~/.local/share/mise/installs/node/*/bin/node"), false, true)
+        if #installs > 0 then
+          node_path = installs[#installs]
+        end
       end
     end
 
@@ -31,7 +44,7 @@ return {
         auto_trigger = true,
         debounce = 50,
         keymap = {
-          accept = false, -- Handle Tab manually below
+          accept = false,
           accept_word = "<M-w>",
           accept_line = "<M-j>",
           next = "<M-]>",
@@ -47,7 +60,6 @@ return {
       copilot_node_command = node_path,
     })
 
-    -- Tab to accept suggestion (like Zed), fallback to normal Tab
     vim.keymap.set("i", "<Tab>", function()
       if require("copilot.suggestion").is_visible() then
         require("copilot.suggestion").accept()
