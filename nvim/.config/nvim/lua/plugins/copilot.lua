@@ -16,7 +16,8 @@ return {
     local node_path = vim.fn.expand("~/.local/share/mise/installs/node/22/bin/node")
     if vim.fn.executable(node_path) == 0 then
       vim.notify("Installing Node 22 via mise for Copilot...", vim.log.levels.INFO)
-      vim.fn.system(mise_path .. " install node@22")
+      -- Skip GPG verification to avoid permission issues
+      vim.fn.system("MISE_NODE_VERIFY=0 " .. mise_path .. " install node@22")
       -- Find actual installed path
       local installs = vim.fn.glob(vim.fn.expand("~/.local/share/mise/installs/node/*/bin/node"), false, true)
       if #installs > 0 then
