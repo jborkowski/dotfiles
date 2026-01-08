@@ -12,13 +12,11 @@ return {
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
     "HiPhish/nvim-cmp-vlime",
-    "zbirenbaum/copilot-cmp",
   },
 
   enabled = true,
   opts = function(_, opts)
     local cmp = require("cmp")
-    local luasnip = require("luasnip")
 
     -- --------------------------------------------------------------------- }}}
     -- {{{ Confirmaiton options
@@ -75,14 +73,11 @@ return {
     -- --------------------------------------------------------------------- }}}
     -- {{{ Has words before
 
-    -- local function has_words_before()
-    --   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    --   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
-    -- end
-
-    local check_backspace = function()
-      local col = vim.fn.col "." - 1
-      return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
+    -- Proper has_words_before for Copilot (handles empty lines correctly)
+    local has_words_before = function()
+      if vim.api.nvim_get_option_value("buftype", { buf = 0 }) == "prompt" then return false end
+      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+      return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
     end
 
     -- --------------------------------------------------------------------- }}}
@@ -138,13 +133,6 @@ return {
       vsnip = " ",
     }
     -- --------------------------------------------------------------------- }}}
-    -- {{{ Snippets
-
-    local snippet = {
-      expand = function(args) luasnip.lsp_expand(args.body) end,
-    }
-
-    -- --------------------------------------------------------------------- }}}
     -- {{{ Mappings
 
     local mapping = {
@@ -184,25 +172,17 @@ return {
 
       ["<CR>"] = cmp.mapping.confirm { select = true },
 
-      ["<Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
+      ["<Tab>"] = vim.schedule_wrap(function(fallback)
+        if cmp.visible() and has_words_before() then
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-        elseif luasnip.expandable() then
-          luasnip.expand()
-        elseif luasnip.expand_or_jumpable() then
-          luasnip.expand_or_jump()
-        elseif check_backspace() then
-          fallback()
         else
           fallback()
         end
-      end, { "i", "s" }),
+      end),
 
       ["<S-Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-        elseif luasnip.jumpable(-1) then
-          luasnip.jump(-1)
         else
           fallback()
         end
@@ -213,11 +193,8 @@ return {
     -- {{{ Source mapping and formatting
 
     local source_mapping = {
-      copilot       = "[Copilot]",
       spell         = "[Spell]",
       buffer        = "[Buffer]",
-      latex_symbols = "[LaTeX]",
-      luasnip       = "[Snippet]",
       nvim_lsp      = "[LSP]",
       nvim_lua      = "[Lua]",
       path          = "[Path]",
@@ -230,6 +207,11 @@ return {
       format = function(entry, vim_item)
         vim_item.kind = string.format('%s', kind_icons[vim_item.kind])
         vim_item.menu = (source_mapping)[entry.source.name]
+        -- Truncate long completions to prevent display issues
+        local maxwidth = 60
+        if vim_item.abbr and #vim_item.abbr > maxwidth then
+          vim_item.abbr = vim_item.abbr:sub(1, maxwidth) .. "…"
+        end
         return vim_item
       end
     }
@@ -238,23 +220,14 @@ return {
     -- {{{ Sources
 
     local sources = {
-      { name = "copilot",       keyword_length = 0, max_item_count = 3,  priority = 900 },
-      { name = "nvim_lsp",      keyword_length = 1, max_item_count = 10, priority = 350 },
-      { name = "nvlime",        keyword_length = 1, max_item_count = 10, priority = 350 },
-      { name = "spell",         keyword_length = 3, max_item_count = 10, priority = 300 },
-      { name = "buffer",        keyword_length = 3, max_item_count = 10, priority = 500 },
-      { name = "calc",          keyword_length = 3, max_item_count = 10, priority = 250 },
-      { name = "latex_symbols", keyword_length = 1, max_item_count = 10, priority = 300 },
-      { name = "luasnip",       keyword_length = 1, max_item_count = 10, priority = 825 },
-      { name = "nvim_lua",      keyword_length = 1, max_item_count = 10, priority = 800 },
-      { name = "path",          keyword_length = 3, max_item_count = 20, priority = 250 },
+      { name = "nvim_lsp",      group_index = 1, keyword_length = 1, max_item_count = 10 },
+      { name = "nvim_lua",      group_index = 1, keyword_length = 1, max_item_count = 10 },
+      { name = "path",          group_index = 1, keyword_length = 3, max_item_count = 10 },
+      { name = "buffer",        group_index = 2, keyword_length = 3, max_item_count = 5 },
+      { name = "spell",         group_index = 2, keyword_length = 3, max_item_count = 5 },
+      { name = "calc",          group_index = 2, keyword_length = 3, max_item_count = 5 },
+      { name = "nvlime",        group_index = 1, keyword_length = 1, max_item_count = 10 },
     }
-
-
-    -- Sort sources by priority
-    table.sort(sources, function(a, b)
-      return (a.priority or 0) > (b.priority or 0)
-    end)
 
     -- --------------------------------------------------------------------- }}}
     -- {{{ Update the function argument opts with local choices made.
@@ -262,7 +235,6 @@ return {
     opts.confirm_opts = confirm_opts
     opts.formatting = formatting
     opts.mapping = mapping
-    opts.snippet = snippet
     opts.sources = sources
     opts.window = window
 
@@ -270,9 +242,6 @@ return {
   end,
 
   config = function(_, opts)
-    for _, source in ipairs(opts.sources) do
-      source.group_index = source.group_index or 1
-    end
     require("cmp").setup(opts)
   end,
 }

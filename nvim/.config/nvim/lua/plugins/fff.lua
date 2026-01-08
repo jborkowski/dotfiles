@@ -1,8 +1,8 @@
 return {
   "dmtrKovalenko/fff.nvim",
+  branch = "main",
   build = "cargo build --release",
-  opts = {
-  },
+  opts = {},
   keys = {
     {
       "ff",
