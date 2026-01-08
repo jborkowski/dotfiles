@@ -3,11 +3,18 @@ return {
   cmd = "Copilot",
   event = "InsertEnter",
   config = function()
-    -- Install bun if not available (needed for Copilot on systems with old Node)
-    local bun_path = vim.fn.expand("~/.bun/bin/bun")
-    if vim.fn.executable(bun_path) == 0 then
-      vim.notify("Installing bun for Copilot...", vim.log.levels.INFO)
-      vim.fn.system("curl -fsSL https://bun.sh/install | bash")
+    -- Install mise + node if needed (Copilot requires Node 20+)
+    local mise_path = vim.fn.expand("~/.local/bin/mise")
+    local node_path = vim.fn.expand("~/.local/share/mise/installs/node/22/bin/node")
+
+    if vim.fn.executable(mise_path) == 0 then
+      vim.notify("Installing mise for Copilot...", vim.log.levels.INFO)
+      vim.fn.system("curl https://mise.run | sh")
+    end
+
+    if vim.fn.executable(node_path) == 0 and vim.fn.executable(mise_path) == 1 then
+      vim.notify("Installing Node 22 via mise for Copilot...", vim.log.levels.INFO)
+      vim.fn.system(mise_path .. " use -g node@22")
     end
 
     require("copilot").setup({
@@ -29,7 +36,7 @@ return {
         markdown = true,
         help = true,
       },
-      copilot_node_command = vim.fn.expand("~/.bun/bin/bun"),
+      copilot_node_command = node_path,
     })
 
     -- Tab to accept suggestion (like Zed), fallback to normal Tab
