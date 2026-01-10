@@ -1,5 +1,6 @@
 return {
   "zbirenbaum/copilot.lua",
+  enabled = false, -- Temporarily disabled in favor of cobupilot-nvim
   cmd = "Copilot",
   event = "InsertEnter",
   config = function()
