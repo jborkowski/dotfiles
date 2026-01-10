@@ -15,6 +15,9 @@ return {
           ratio = 0.4,
         },
       },
+      filetypes = {
+        markdown = true,
+      },
     })
   end,
 }
