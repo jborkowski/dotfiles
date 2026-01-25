@@ -93,6 +93,8 @@ return {
 
     vim.lsp.config('purescriptls', vim.tbl_extend('force', default_config, {
       on_attach = function(client, bufnr)
+        common.set_mappings(client, bufnr)
+        navic.attach(client, bufnr)
         require("nvimmer-ps").setup_on_attach(client, bufnr)
       end,
       on_init = function(client)
@@ -104,28 +106,44 @@ return {
         if path:match("/.spago/") then
           return nil
         end
-        return vim.fs.root(bufnr, {"bower.json", "psc-package.json", "spago.dhall"})
+        return vim.fs.root(bufnr, { "spago.yaml", "spago.dhall", "bower.json", "psc-package.json" })
       end,
       settings = {
         purescript = {
           formatter = "purs-tidy",
+          addSpagoSources = true,
           addPscPackageSources = true,
-          addNpmPath = true
+          addNpmPath = true,
+          buildCommand = "spago build --purs-args --json-errors"
         }
       },
-      flags = {
-        debounce_text_changes = 150,
-      }
+      flags = { debounce_text_changes = 150 }
     }))
     safe_enable('purescriptls', 'purescript-language-server')
 
-    vim.lsp.config('rnix', default_config)
-    safe_enable('rnix', 'rnix-lsp')
-
-    vim.lsp.config('cssls', default_config)
+    vim.lsp.config('cssls', vim.tbl_extend('force', default_config, {
+      settings = {
+        css = {
+          validate = true,
+          lint = { unknownAtRules = "ignore" }
+        },
+        scss = {
+          validate = true,
+          lint = { unknownAtRules = "ignore" }
+        },
+        less = { validate = true }
+      }
+    }))
     safe_enable('cssls', 'vscode-css-language-server')
 
-    vim.lsp.config('html', default_config)
+    vim.lsp.config('html', vim.tbl_extend('force', default_config, {
+      filetypes = { "html", "handlebars", "htmldjango", "blade" },
+      init_options = {
+        configurationSection = { "html", "css", "javascript" },
+        embeddedLanguages = { css = true, javascript = true },
+        provideFormatter = true
+      }
+    }))
     safe_enable('html', 'vscode-html-language-server')
 
     vim.lsp.config('clangd', default_config)

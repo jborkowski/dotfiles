@@ -5,7 +5,7 @@ local M = {}
 -- Mapping of filetypes to Mason package names
 local lsp_servers = {
   -- Languages
-  python = "pyright",
+  python = "python-lsp-server",
   javascript = "typescript-language-server",
   typescript = "typescript-language-server",
   lua = "lua-language-server",
