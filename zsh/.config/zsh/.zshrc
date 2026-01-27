@@ -22,7 +22,6 @@ alias e='nvim'
 alias find='fd'
 alias ssh-re='ssh -o SetEnv=OP_SERVICE_ACCOUNT_TOKEN="$(unset OP_SERVICE_ACCOUNT_TOKEN; op read op://Restaumatic/sa-token-devcontainer/credential)" re'
 
-alias claude='claude --allow-dangerously-skip-permissions'
 
 
 if command -v btm > /dev/null; then 
@@ -132,6 +131,11 @@ alias wake_luddite="ssh admin@fd88::1 '/tool wol mac=BC:FC:E7:0A:67:88 interface
 alias suspend_luddite="ssh luddite.local 'sudo systemctl suspend'"
 
 export HAPPY_SERVER_URL=https://happy-server.lab.j14i.me
+export CCS_PROXY_HOST=ccs.lab.j14i.me
+
+alias claude='claude --allow-dangerously-skip-permissions'
+alias ccs='ccs --allow-dangerously-skip-permissions'
+
 
 # bun completions
 [ -s "/Users/jonatan/.bun/_bun" ] && source "/Users/jonatan/.bun/_bun"

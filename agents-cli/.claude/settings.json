@@ -1,8 +1,5 @@
 {
   "cleanupPeriodDays": 99999,
-  "env": {
-    "API_TIMEOUT_MS": "3000000"
-  },
   "permissions": {
     "allow": [
       "Bash(uv: :*)"
@@ -15,9 +12,7 @@
   "enabledPlugins": {
     "re@restaumatic-toolkit": true,
     "jb@restaumatic-toolkit": true,
-    "frontend-design@claude-code-plugins": false,
-    "superpowers@superpowers-marketplace": false,
-    "glm-plan-usage@zai-coding-plugins": true
+    "clean-coder@slopfiles": true
   },
   "extraKnownMarketplaces": {
     "restaumatic-toolkit": {
@@ -29,14 +24,9 @@
   },
   "alwaysThinkingEnabled": true,
   "mcpServers": {
-    "figma": {
-      "type": "http",
-      "url": "http://127.0.0.1:3845/mcp"
-    }
   },
   "mcp": {
     "allowed": [
-      "figma"
     ],
     "excluded": []
   }
