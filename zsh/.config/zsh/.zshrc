@@ -150,6 +150,7 @@ declare -A CCS_MODELS=(
   [qwen]="qwen3-80b"
   [gpt]="gpt-5.2"
   [nemotron]="nemotron-30b"
+  [kimi]="moonshotai/Kimi-K2.5"
 )
 
 # alias claude='claude --allow-dangerously-skip-permissions'
