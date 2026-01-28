@@ -92,6 +92,7 @@ if [ "$USERNAME" = "user" ]; then
   source $HOME/.asdf/asdf.sh
 fi
 export PATH="/opt/homebrew/sbin:/opt/homebrew/bin:$PATH"
+export PATH="$HOME/.config/cache/.bun/bin:$PATH"
 
 devcontainer() {
   if [ "$1" = "exec" ] && [ $# -ge 2 ]; then
@@ -141,3 +142,49 @@ alias ccs='ccs --allow-dangerously-skip-permissions'
 [ -s "/Users/jonatan/.bun/_bun" ] && source "/Users/jonatan/.bun/_bun"
 export PATH="$HOME/.bun/bin:$PATH"
 alias init_personal_thoughts="humanlayer thoughts init --profile personal"
+
+
+declare -A CCS_MODELS=(
+  [ghcp]="gpt-5.2"
+  [glm]="glm-4.7"
+  [qwen]="qwen3-80b"
+  [gpt]="gpt-5.2"
+  [nemotron]="nemotron-30b"
+)
+
+# alias claude='claude --allow-dangerously-skip-permissions'
+
+claude() {
+  local CCS_PROXY_URL="https://ccs-proxy.lab.j14i.me"
+  ## PUBLIC TOKEN - no security risk
+  local CCS_PROXY_TOKEN="dc60333283c92bedd4009f3f87db35ad84e63e01ced4348340971c1e27aed487" 
+
+  if [[ "$1" == "models" || "$1" == "list" ]]; then
+    echo "Shortcuts:"
+    echo "  ghcp     → claude-sonnet-4.5 (GitHub Copilot)"
+    echo "  glm      → glm-4.7"
+    echo "  qwen     → qwen3-80b (Hyperbolic)"
+    echo "  gpt      → gpt-5.2 (GitHub Copilot)"
+    echo "  nemotron → nemotron-30b (TokenFactory)"
+    echo ""
+    echo "All models from proxy:"
+    curl -s "$CCS_PROXY_URL/v1/models" \
+      -H "Authorization: Bearer $CCS_PROXY_TOKEN" 2>/dev/null \
+      | jq -r '.data[].id' | sort | column
+    return
+  fi
+
+  if [[ -n "${CCS_MODELS[$1]}" ]]; then
+    local model="${CCS_MODELS[$1]}"
+    shift
+    ANTHROPIC_BASE_URL="$CCS_PROXY_URL" \
+    ANTHROPIC_AUTH_TOKEN="$CCS_PROXY_TOKEN" \
+    command claude --model "$model" "$@"
+  elif [[ "$1" =~ ^(glm-|qwen|nemotron|gpt-|claude-sonnet-4\.5|claude-opus-4\.5|GLM-|Nemotron) ]]; then
+    ANTHROPIC_BASE_URL="$CCS_PROXY_URL" \
+    ANTHROPIC_AUTH_TOKEN="$CCS_PROXY_TOKEN" \
+    command claude --model "$@" --allow-dangerously-skip-permissions
+  else
+    command claude "$@" --allow-dangerously-skip-permissions 
+  fi
+}
