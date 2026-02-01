@@ -213,6 +213,15 @@ return {
     vim.lsp.config('solargraph', default_config)
     safe_enable('solargraph', 'solargraph')
 
+    vim.lsp.config('sourcekit', vim.tbl_extend('force', default_config, {
+      cmd = { "sourcekit-lsp" },
+      filetypes = { "swift", "objc", "objcpp" },
+      root_dir = function(bufnr)
+        return vim.fs.root(bufnr, {"Package.swift", "*.xcodeproj", "*.xcworkspace", ".git"})
+      end,
+    }))
+    safe_enable('sourcekit', 'sourcekit-lsp')
+
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),
       callback = function(ev)

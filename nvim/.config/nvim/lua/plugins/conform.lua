@@ -9,6 +9,7 @@ return {
       formatters_by_ft = {
         haskell = { "fourmolu" },
         hs = { "fourmolu" },
+        swift = { "swiftformat" },
       },
       formatters = {
         fourmolu = {

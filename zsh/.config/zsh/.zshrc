@@ -134,7 +134,6 @@ alias suspend_luddite="ssh luddite.local 'sudo systemctl suspend'"
 export HAPPY_SERVER_URL=https://happy-server.lab.j14i.me
 export CCS_PROXY_HOST=ccs.lab.j14i.me
 
-alias claude='claude --allow-dangerously-skip-permissions'
 alias ccs='ccs --allow-dangerously-skip-permissions'
 
 
@@ -152,8 +151,6 @@ declare -A CCS_MODELS=(
   [nemotron]="nemotron-30b"
   [kimi]="moonshotai/Kimi-K2.5"
 )
-
-# alias claude='claude --allow-dangerously-skip-permissions'
 
 claude() {
   local CCS_PROXY_URL="https://ccs-proxy.lab.j14i.me"

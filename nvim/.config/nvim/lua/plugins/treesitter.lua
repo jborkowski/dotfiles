@@ -6,7 +6,7 @@ return {
       local parsers = {
         "bash", "c", "cpp", "dockerfile", "html", "javascript", "json", "haskell",
         "lua", "markdown", "markdown_inline", "python", "query", "regex",
-        "rust", "ruby", "sql", "toml", "tsx", "typescript", "vim", "vimdoc", "yaml", "zig"
+        "rust", "ruby", "sql", "swift", "toml", "tsx", "typescript", "vim", "vimdoc", "yaml", "zig"
       }
 
       vim.api.nvim_create_autocmd("VimEnter", {
