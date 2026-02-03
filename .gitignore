@@ -18,6 +18,7 @@ zsh/.config/zsh/.zprofile
 zed/.config/zed/prompts
 
 tmux/.config/tmux/plugins/
+tmux/.config/tmux/local.conf
 agents-cli/.claude/plugins/
 agents-cli/.claude/plans/
 agents-cli/.claude/telemetry/

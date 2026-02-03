@@ -131,6 +131,13 @@ opencode() { op run --no-masking -- opencode "$@" }
 alias wake_luddite="ssh admin@fd88::1 '/tool wol mac=BC:FC:E7:0A:67:88 interface=bridge'"
 alias suspend_luddite="ssh luddite.local 'sudo systemctl suspend'"
 
+# Remote tmux: tm <host> [session-name]
+tm() {
+  local host="${1:-luddite}"
+  local session="${2:-main}"
+  ssh -t "$host" "tmux new -A -s $session"
+}
+
 export HAPPY_SERVER_URL=https://happy-server.lab.j14i.me
 export CCS_PROXY_HOST=ccs.lab.j14i.me
 
