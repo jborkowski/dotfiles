@@ -1,0 +1,10 @@
+-- Load Fennel
+package.path = package.path .. ";/opt/homebrew/share/lua/5.4/?.lua;"
+package.cpath = package.cpath .. ";/opt/homebrew/lib/lua/5.4/?.so;"
+local fennel = require("fennel")
+fennel.install()
+
+-- Load Fennel config
+fennel.dofile(os.getenv("HOME") .. "/.hammerspoon/home-mods.fnl")
+
+hs.alert.show("Hammerspoon + Fennel loaded")
