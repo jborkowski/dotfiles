@@ -32,7 +32,7 @@ alias ssh-fix='SSH_SOCK=$(find /tmp/ssh-* -name "agent.*" -user $USER 2>/dev/nul
   fi'
 
 # Alias to attach to tmux with SSH agent refresh
-alias tmax='ssh-fix && tmux new-session -A -s main'
+alias tmux='ssh-fix && tmux new-session -A -s main'
 
 # Auto-attach to tmux on SSH login (with SSH agent refresh)
 if [[ -n "$SSH_CONNECTION" ]] && [[ -z "$TMUX" ]] && [[ $- == *i* ]] && command -v tmux &>/dev/null; then
