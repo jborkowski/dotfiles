@@ -5,6 +5,7 @@ zsh/.config/zsh/.history-mac
 zsh/.config/zsh/.zcompcache/brew_casks
 zsh/.config/zsh/.zcompcache/brew_formulae
 zsh/.config/zsh/.zsh_history
+zsh/.zsh_history
 zsh/.config/zsh/.zsh_sessions/
 nvim/.config/nvim/plugin/packer_compiled.lua
 
@@ -26,3 +27,4 @@ agents-cli/.claude/stats-cache.json
 agents-cli/.claude/settings.local.json
 nvim/.config/nvim/.nvimlog
 vscode/.config/Code/User/
+zsh/

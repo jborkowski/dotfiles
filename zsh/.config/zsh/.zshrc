@@ -1,3 +1,8 @@
+# Auto-attach tmux (local interactive sessions only)
+if [[ -z "$TMUX" && -z "$VSCODE_RESOLVING_ENVIRONMENT" ]]; then
+  exec tmux new-session -A -s main
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -58,7 +63,7 @@ elif command -v eza > /dev/null; then
   alias ll='eza -lF'
   alias tree='eza --tree'
 else
-  alias ls='ls --color=auto --group-directories-first'
+  alias ls='ls -G'
   alias l='ls -A'
   alias la='ls -lAF'
   alias ll='ls -lF'
@@ -74,7 +79,8 @@ alias ggc='git add . && git commit -m.'
 # Load
 autoload -U compinit; compinit
 
-eval "$(direnv hook zsh)"
+command -v direnv > /dev/null && eval "$(direnv hook zsh)"
+
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
