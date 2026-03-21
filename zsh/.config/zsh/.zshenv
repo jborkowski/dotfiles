@@ -54,3 +54,6 @@ fi
 . "$HOME/.cargo/env"
 
 export ZAI_API_TOKEN="op://Personal/ZAI_API_TOKEN/password"
+source /Users/jonatan/.config/op/plugins.sh
+
+export GH_TOKEN="op://Personal/GitHub Jonatan/token"

@@ -17,9 +17,6 @@ local props    = event.properties
 local log      = hs.logger.new("keys", "info")
 
 -- ── Synthetic event marker ──────────────────────────────────────────
--- kCGEventSourceUserData = CGEventField 42.  We stamp every event we
--- create with a magic value so we can skip it instantly on re-entry.
-
 local SYN_PROP = 42           -- kCGEventSourceUserData
 local SYN_VAL  = 0x484D4F44  -- "HMOD"
 
@@ -27,14 +24,12 @@ local function is_ours(evt)
     return evt:getProperty(SYN_PROP) == SYN_VAL
 end
 
---- Post an event we created, after stamping it.
 local function post(e)
     e:setProperty(SYN_PROP, SYN_VAL)
     e:post()
 end
 
 -- ── Keycode constants (macOS virtual keycodes) ──────────────────────
-
 local KC = {
     A = 0,  S = 1,  D = 2,  F = 3,  H = 4,  G = 5,
     Z = 6,  X = 7,  C = 8,  V = 9,  B = 11,
@@ -50,8 +45,6 @@ local KC = {
 }
 
 -- ── QWERTY → Colemak-DHm remap ─────────────────────────────────────
-
----@type table<integer, integer>
 local remap = {
     [KC.E] = KC.F,  [KC.R] = KC.P,  [KC.T] = KC.B,
     [KC.Y] = KC.J,  [KC.U] = KC.L,  [KC.I] = KC.U,
@@ -63,13 +56,6 @@ local remap = {
 }
 
 -- ── Home row mods ───────────────────────────────────────────────────
-
----@class HomeRowMod
----@field tap integer
----@field mod string
----@field timeout number
-
----@type table<integer, HomeRowMod>
 local home_mods = {
     [KC.A]         = { tap = KC.A, mod = "cmd",   timeout = 0.180 },
     [KC.S]         = { tap = KC.R, mod = "alt",   timeout = 0.160 },
@@ -82,8 +68,6 @@ local home_mods = {
 }
 
 -- ── Nav layer (space hold) ──────────────────────────────────────────
-
----@type table<integer, integer>
 local nav_remap = {
     [KC.J]         = KC.LEFT,
     [KC.K]         = KC.DOWN,
@@ -94,7 +78,6 @@ local nav_remap = {
 local SPACE_TIMEOUT = 0.220
 
 -- ── State ───────────────────────────────────────────────────────────
-
 ---@type table<integer, "waiting"|"held">
 local mod_states = {}
 ---@type table<integer, hs.timer>
@@ -105,19 +88,12 @@ local space_state = nil
 local space_timer = nil
 local lshift_down = false
 
----@class BufferEntry
----@field orig_code integer
----@field up_received boolean|nil
-
 ---@type BufferEntry[]
 local buffer = {}
-
---- consume_ups[orig_code]: number = emit that keycode's keyUp, true = just swallow
 ---@type table<integer, integer|boolean>
 local consume_ups = {}
 
 -- ── Reset ───────────────────────────────────────────────────────────
-
 local function reset_state()
     for _, timer in pairs(mod_timers) do timer:stop() end
     mod_timers = {}
@@ -130,7 +106,6 @@ local function reset_state()
 end
 
 -- ── Helpers ─────────────────────────────────────────────────────────
-
 local function is_repeat(evt)
     return evt:getProperty(props.keyboardEventAutorepeat) ~= 0
 end
@@ -150,13 +125,9 @@ local function has_held_mods()
     return false
 end
 
---- Build combined modifier flags as a string-array.
---- Merges physical keyboard modifiers with home-row mod held flags.
---- Returns e.g. {"cmd", "shift"} — the format newKeyEvent expects.
 local function active_flags()
     local flags = {}
     local seen  = {}
-    -- Physical modifiers from the keyboard right now
     local phys = eventtap.checkKeyboardModifiers()
     for _, name in ipairs({"cmd", "alt", "ctrl", "shift", "fn"}) do
         if phys[name] then
@@ -164,7 +135,6 @@ local function active_flags()
             flags[#flags + 1] = name
         end
     end
-    -- Home-row mod held flags
     for code, st in pairs(mod_states) do
         if st == "held" then
             local mod = home_mods[code] and home_mods[code].mod
@@ -177,7 +147,6 @@ local function active_flags()
     return flags
 end
 
---- Resolve a buffered orig_code to the keycode to emit.
 local function resolve_keycode(orig_code)
     if space_state == "held" and nav_remap[orig_code] then
         return nav_remap[orig_code]
@@ -237,9 +206,7 @@ local function mark_buffer_up(code)
 end
 
 -- ── Core handler (called inside pcall) ──────────────────────────────
-
 local function handle(evt)
-    -- Skip our own synthetic events (tagged with SYN_PROP)
     if is_ours(evt) then return false end
 
     local etype = evt:getType()
@@ -281,7 +248,6 @@ local function handle(evt)
             return true
         end
 
-        -- Physical Cmd, Ctrl, Option, RShift: pass through unchanged
         return false
     end
 
@@ -289,10 +255,9 @@ local function handle(evt)
     local code    = evt:getKeyCode()
     local is_down = (etype == types.keyDown)
 
-    -- Clear stale consume_ups on any fresh keyDown
     if is_down then consume_ups[code] = nil end
 
-    -- Early consume_ups for keyUp (handles all synthetic-down cases)
+    -- Early consume_ups for keyUp
     if not is_down and consume_ups[code] then
         local action = consume_ups[code]
         consume_ups[code] = nil
@@ -302,7 +267,7 @@ local function handle(evt)
         return true
     end
 
-    -- Consume keyUp for keys still sitting in the buffer
+    -- Consume keyUp for keys still in the buffer
     if not is_down and mark_buffer_up(code) then
         return true
     end
@@ -340,9 +305,6 @@ local function handle(evt)
         buffer[#buffer + 1] = { orig_code = code }
         return true
     end
-    if space_state == "waiting" and not is_down then
-        return true
-    end
 
     -- ── Nav interception (space held + nav-mapped key) ──────────
     if space_state == "held" and nav_remap[code] then
@@ -360,6 +322,17 @@ local function handle(evt)
     if mod_cfg and is_down then
         if is_repeat(evt) then return true end
         if mod_states[code] then return true end
+        -- If another mod is already held, this key is just a tap
+        -- (e.g., hold J for shift, tap K → Shift+E, not ctrl)
+        if has_held_mods() or space_state == "held" then
+            local mapped = mod_cfg.tap
+            if space_state == "held" and nav_remap[code] then
+                mapped = nav_remap[code]
+            end
+            emit_key(mapped, active_flags())
+            consume_ups[code] = true
+            return true
+        end
         mod_states[code] = "waiting"
         mod_timers[code] = hs.timer.doAfter(mod_cfg.timeout, function()
             local ok, err = pcall(promote_to_held, code)
@@ -392,14 +365,12 @@ local function handle(evt)
             return true
         end
 
-        -- Home-row mods held: synthetic event with combined flags
         if has_held_mods() then
             emit_key(mapped, active_flags())
             consume_ups[code] = true
             return true
         end
 
-        -- No home-row mods: remap in-place, preserves physical mod flags
         if remap[code] then
             evt:setKeyCode(mapped)
         end
@@ -407,7 +378,6 @@ local function handle(evt)
 
     -- ── NON-MOD KEY UP ──────────────────────────────────────────
     elseif not mod_cfg and not is_down then
-        if any_waiting() then return true end
         if remap[code] then
             evt:setKeyCode(remap[code])
         end
@@ -418,7 +388,6 @@ local function handle(evt)
 end
 
 -- ── Eventtap with pcall protection ──────────────────────────────────
-
 local tap = eventtap.new(
     { types.keyDown, types.keyUp, types.flagsChanged },
     function(evt)
@@ -432,7 +401,6 @@ local tap = eventtap.new(
 )
 
 -- ── Watchdog: restart eventtap if it dies ────────────────────────────
-
 local watchdog = hs.timer.new(3, function()
     if not tap:isEnabled() then
         log.w("eventtap died — resetting state and restarting")
@@ -443,7 +411,6 @@ local watchdog = hs.timer.new(3, function()
 end)
 
 -- ── Auto-reload on config file change ───────────────────────────────
-
 local watcher = hs.pathwatcher.new(hs.configdir, function(files)
     for _, f in ipairs(files) do
         if f:find("init%.lua$") then
@@ -454,7 +421,6 @@ local watcher = hs.pathwatcher.new(hs.configdir, function(files)
 end)
 
 -- ── Start ───────────────────────────────────────────────────────────
-
 tap:start()
 watchdog:start()
 watcher:start()
