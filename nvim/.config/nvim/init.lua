@@ -60,8 +60,6 @@ require("lazy").setup("plugins")
 -- Auto-install LSP servers from Mason
 -- require("auto-install-lsp").setup()
 
-vim.g.vlime_enable_autodoc = true
-
 -- exit from terminal mode
 vim.api.nvim_set_keymap('n', '<Leader>w', ':w<cr>', { noremap = true })
 

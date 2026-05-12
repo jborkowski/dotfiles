@@ -4,7 +4,7 @@ return {
   enabled = true,
   opts = {
     check_ts = true,
-    disable_filetype = {"TelescopePrompt", "spectre_panel"},
+    disable_filetype = {"TelescopePrompt", "spectre_panel", "lisp"},
     disable_in_macro = false,
     enable_afterquote = true,
     enable_check_bracket_line = false,

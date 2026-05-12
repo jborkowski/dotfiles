@@ -9,6 +9,10 @@ return {
         "rust", "ruby", "sql", "swift", "toml", "tsx", "typescript", "vim", "vimdoc", "yaml", "zig"
       }
 
+      if vim.fn.executable("sbcl") == 1 then
+        table.insert(parsers, "commonlisp")
+      end
+
       vim.api.nvim_create_autocmd("VimEnter", {
         callback = function()
           vim.defer_fn(function()
