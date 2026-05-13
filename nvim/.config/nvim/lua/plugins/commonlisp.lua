@@ -50,8 +50,18 @@ return {
   {
     "monkoose/nvlime",
     ft  = "lisp",
-    cmd = { "NvlimeConnect", "NvlimeStartServer", "NvlimeServer" },
     dependencies = { "monkoose/parsley" },
+    config = function()
+      vim.api.nvim_create_user_command("NvlimeServer", function()
+        vim.fn["nvlime#server#New"]()
+      end, { desc = "Start a new Nvlime server and auto-connect" })
+      vim.api.nvim_create_user_command("NvlimeConnect", function()
+        vim.fn["nvlime#plugin#ConnectREPL"]()
+      end, { desc = "Connect to an existing Nvlime/SWANK server" })
+      vim.api.nvim_create_user_command("NvlimeStop", function()
+        vim.fn["nvlime#plugin#StopCurrentServer"]()
+      end, { desc = "Stop the current Nvlime server" })
+    end,
   },
 
   {

@@ -32,8 +32,16 @@ return {
   config = function()
     local themery = require("themery")
 
-    -- Set initial theme
-    themery.setThemeByName("duskfox", false)
+    local function system_is_dark()
+      if vim.fn.has("mac") == 1 then
+        -- `defaults read -g AppleInterfaceStyle` prints "Dark" in dark mode
+        -- and exits non-zero ("does not exist") in light mode.
+        return vim.fn.system({ "defaults", "read", "-g", "AppleInterfaceStyle" }):match("Dark") ~= nil
+      end
+      return vim.o.background == "dark"
+    end
+
+    themery.setThemeByName(system_is_dark() and "duskfox" or "dayfox", false)
 
     require("osc11").setup({
       on_dark = function()
