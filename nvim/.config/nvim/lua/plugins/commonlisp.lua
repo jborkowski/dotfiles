@@ -51,6 +51,7 @@ return {
     "monkoose/nvlime",
     ft  = "lisp",
     cmd = { "NvlimeConnect", "NvlimeStartServer", "NvlimeServer" },
+    dependencies = { "monkoose/parsley" },
   },
 
   {
