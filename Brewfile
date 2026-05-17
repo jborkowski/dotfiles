@@ -6,13 +6,11 @@ tap "homebrew/services"
 tap "jcudit/webkitgtk"
 tap "minio/stable"
 tap "mistertea/et"
-tap "openresty/brew"
-tap "osx-cross/arm"
-tap "osx-cross/avr"
-tap "qmk/qmk"
+#tap "osx-cross/arm"
+#tap "osx-cross/avr"
+#tap "qmk/qmk"
 tap "shaunsingh/sfmono-nerd-font-ligaturized"
 tap "supabase/tap"
-tap "tabbyml/tabby"
 # Color management engine supporting ICC profiles
 brew "little-cms2"
 # Codec library for encoding and decoding AV1 video streams
@@ -30,7 +28,7 @@ brew "boost"
 # Library for USB device access
 brew "libusb"
 # Atmel AVR MCU programmer
-brew "avrdude"
+# brew "avrdude"
 # Official Amazon AWS command-line interface
 brew "awscli"
 # C library implementing the SSH2 protocol
@@ -42,11 +40,11 @@ brew "bat"
 # Platform built on V8 to build network applications
 brew "node"
 # Secure and free password manager for all of your devices
-brew "bitwarden-cli"
+# brew "bitwarden-cli"
 # Object-file caching compiler wrapper
 brew "ccache"
 # GNU CLISP, a Common Lisp implementation
-brew "clisp"
+# brew "clisp"
 # Cross-platform make
 brew "cmake"
 # Dependency manager for Cocoa projects
@@ -54,7 +52,7 @@ brew "cocoapods"
 # Container runtimes on MacOS (and Linux) with minimal setup
 brew "colima"
 # Proof assistant for higher-order logic
-brew "coq"
+# brew "coq"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
 # Container Signing
@@ -66,7 +64,7 @@ brew "dfu-util"
 # Load/unload environment variables based on $PWD
 brew "direnv"
 # DjVu viewer
-brew "djvulibre"
+# brew "djvulibre"
 # Lightweight DNS forwarder and DHCP server
 brew "dnsmasq"
 
@@ -89,7 +87,7 @@ brew "e2fsprogs"
 # Lean Theorem Prover installer and version manager
 # brew "elan-init"
 # Spellchecker wrapping library
-brew "enchant"
+# brew "enchant"
 # Easiest way to build and release mobile apps
 brew "fastlane"
 # Simple, fast and user-friendly alternative to find
@@ -115,7 +113,7 @@ brew "gh"
 # Distributed revision control system
 brew "git"
 # Syntax-highlighting pager for git and diff output
-brew "git-delta"
+# brew "git-delta"
 # Git extension for versioning large files
 brew "git-lfs"
 # Blazing fast terminal-ui for git written in rust
@@ -135,31 +133,31 @@ brew "go"
 # Package compiler and linker metadata toolkit
 brew "pkgconf"
 # Generate introspection data for GObject libraries
-brew "gobject-introspection"
+# brew "gobject-introspection"
 # GitHub Markdown previewer
-brew "grip"
+# brew "grip"
 # GUI toolkit
-brew "gtk+"
+# brew "gtk+"
 # Toolkit for creating graphical user interfaces
-brew "gtk+3"
+# brew "gtk+3"
 # Post-modern modal text editor
-brew "helix"
+# brew "helix"
 # Improved top (interactive process viewer)
 brew "htop"
 # User-friendly cURL replacement (command-line HTTP client)
-brew "httpie"
+# brew "httpie"
 # Client library for huggingface.co hub
 brew "huggingface-cli", link: false
 # Spell checker and morphological analyzer
 brew "hunspell"
 # C/C++ and Java libraries for Unicode and globalization
-brew "icu4c@76"
+# brew "icu4c@76"
 # Next-gen compiler infrastructure
-brew "llvm@12"
+# brew "llvm@12"
 # Pure functional programming language with dependent types
-brew "idris"
+# brew "idris"
 # Pure functional programming language with dependent types
-brew "idris2"
+# brew "idris2"
 # ISO/IEC 23008-12:2017 HEIF file format decoder and encoder
 brew "libheif"
 # Library for reading RAW files from digital photo cameras
@@ -167,15 +165,16 @@ brew "libraw"
 # Tools and libraries to manipulate images in many formats
 brew "imagemagick"
 # Install and debug iPhone apps from the command-line
-brew "ios-deploy"
+# brew "ios-deploy"
 # Synchronize a maildir with an IMAP server
-brew "isync"
+# brew "isync"
 # Filter JSON and JSON Lines data with Python syntax
 brew "jello"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
 # Selection-based modal text editor
-brew "kakoune"
+# brew "kakoune"
+
 # Provides library functionality for FIDO U2F & FIDO 2.0, including USB
 brew "libfido2"
 # Thin wrapper over POSIX syscalls
@@ -197,31 +196,31 @@ brew "lima-additional-guestagents"
 # Next-gen compiler infrastructure
 brew "llvm"
 # Language Server for the Lua language
-brew "lua-language-server"
+# brew "lua-language-server"
 # Just-In-Time Compiler (JIT) for the Lua programming language
-brew "luajit"
+# brew "luajit"
 # Package manager for the Lua programming language
-brew "luarocks"
+# brew "luarocks"
 # Small build system for use with gyp or CMake
 brew "ninja"
 # Fast and user friendly build system
 brew "meson"
 # Small, simple certificate authority
-brew "minica"
+# brew "minica"
 # Modern programming language in the Lisp/Scheme family
-brew "minimal-racket"
+# brew "minimal-racket"
 # Implementation of the Vulkan graphics and compute API on top of Metal
-brew "molten-vk"
+# brew "molten-vk"
 # Remote terminal application
 brew "mosh"
 # Tool for searching e-mail messages stored in the maildir-format
-brew "mu"
+# brew "mu"
 # General-purpose lossless data-compression library
 brew "zlib"
 # Open source relational database management system
-brew "mysql-client"
+# brew "mysql-client"
 # Scalable overlay networking tool for connecting computers anywhere
-brew "nebula"
+# brew "nebula"
 # Incremental parsing library
 brew "tree-sitter"
 # Ambitious Vim-fork focused on extensibility and agility
@@ -231,49 +230,49 @@ brew "nvm"
 # Create, run, and share large language models (LLMs)
 brew "ollama", link: false
 # OCaml package manager
-brew "opam"
+# brew "opam"
 # Tool for creating identical machine images for multiple platforms
-brew "packer"
+# brew "packer"
 # Swiss-army knife of markup format conversion
 brew "pandoc"
 # Highly capable, feature-rich programming language
-brew "perl"
+# brew "perl"
 # Friendly PIL fork (Python Imaging Library)
-brew "pillow"
+# brew "pillow"
 # Pinentry for GPG on Mac
-brew "pinentry-mac"
+# brew "pinentry-mac"
 # PDF rendering library (based on the xpdf-3.0 code base)
-brew "poppler"
+# brew "poppler"
 # Object-relational database system
-brew "postgresql@14"
+# brew "postgresql@14"
 # Modern replacement for ps written in Rust
-brew "procs"
+# brew "procs"
 # Interpreted, interactive, object-oriented programming language
-brew "python@3.11"
+# brew "python@3.11"
 # Ruby version manager
-brew "rbenv"
+# brew "rbenv"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Readline wrapper: adds readline support to tools that lack it
-brew "rlwrap"
+# brew "rlwrap"
 # Lisp installer and launcher for major environments
-brew "roswell"
+# brew "roswell"
 # Steel Bank Common Lisp system
-brew "sbcl"
+# brew "sbcl"
 # Tool to create intelligent and beautiful documentation
 brew "sphinx-doc"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
 # Open source continuous file synchronization application
-brew "syncthing", restart_service: :changed
+# brew "syncthing", restart_service: :changed
 # Easiest, most secure way to use WireGuard and 2FA
-brew "tailscale", restart_service: :changed
+# brew "tailscale", restart_service: :changed
 # Tool Command Language
-brew "tcl-tk"
+# brew "tcl-tk"
 # User interface to the TELNET protocol
-brew "telnet"
+# brew "telnet"
 # Tool to build, change, and version infrastructure
-brew "terraform"
+# brew "terraform"
 # Free software distribution for the TeX typesetting system
 # brew "texlive"
 # Display directories as trees (with optional color/HTML output)
@@ -287,17 +286,17 @@ brew "wget"
 # Tools for the WireGuard secure network tunnel
 brew "wireguard-tools"
 # Network analyzer and capture tool - without graphical user interface
-brew "wireshark", link: false
+# brew "wireshark", link: false
 # Generate your Xcode project from a spec file and your folder structure
 brew "xcodegen"
 # JavaScript package manager
 brew "yarn"
 # Programming language designed for robustness, optimality, and clarity
-brew "zig"
+# brew "zig"
 # Plain text note-taking assistant
-brew "zk"
+# brew "zk"
 # Interpreted, interactive, object-oriented programming language
-brew "kamilturek/python2/python@2"
+#brew "kamilturek/python2/python@2"
 # MinIO Client for object storage and filesystems
 brew "minio/stable/mc"
 # Remote terminal with IP roaming
@@ -313,21 +312,21 @@ brew "supabase/tap/supabase"
 # Command-line interface for 1Password
 cask "1password-cli"
 # GPU-accelerated terminal emulator
-cask "alacritty"
+# cask "alacritty"
 # Android SDK component
-cask "android-platform-tools"
+#cask "android-platform-tools"
 # Memory training application
-cask "anki"
+# cask "anki"
 # Display management tool
 cask "betterdisplay"
 # E-books management software
-cask "calibre"
+# cask "calibre"
 # Free and open-source web browser
 cask "chromium"
 # Create and run Linux containers using lightweight virtual machines
 cask "container"
 # Remote desktop client
-cask "cord"
+# cask "cord"
 # Tool to write Fedora images to portable media files
 cask "fedora-media-writer"
 cask "font-iosevka-nerd-font"
@@ -336,41 +335,41 @@ cask "font-jetbrains-mono-nerd-font"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
 # Open Source Multimedia Framework
-cask "gstreamer-runtime"
+# cask "gstreamer-runtime"
 # Desktop automation application
-cask "hammerspoon"
+# cask "hammerspoon"
 # Shortcut manager
-cask "icanhazshortcut"
+# cask "icanhazshortcut"
 # Play music online with friends
-cask "jamulus"
+# cask "jamulus"
 # Standalone Java Decompiler GUI
-cask "jd-gui"
+# cask "jd-gui"
 # Download manager
-cask "jdownloader"
+# cask "jdownloader"
 # File archiver
 cask "keka"
 # GPU-based terminal emulator
 # cask "kitty"
 # VPN client for secure internet access and private browsing
-cask "nordvpn"
+# cask "nordvpn"
 # Get up and running with large language models locally
-cask "ollama-app"
+# cask "ollama-app"
 # Bridges Proton Mail to email clients supporting IMAP and SMTP protocols
-cask "proton-mail-bridge"
+# cask "proton-mail-bridge"
 # PDF reader and note-taking application
 cask "skim"
 # System monitor for the menu bar
 cask "stats"
 # Tool to install Linux/BSD distributions to a partition or USB drive
-cask "unetbootin"
+# cask "unetbootin"
 # Administration tool for MikroTik RouterOS
 cask "winbox"
 # Compatibility layer to run Windows applications
-cask "wine-stable"
+# cask "wine-stable"
 # Network protocol analyzer
-cask "wireshark-app"
+# cask "wireshark-app"
 # Multiplayer code editor
-cask "zed"
+# cask "zed"
 
 
 cask "orbstack"

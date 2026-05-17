@@ -28,3 +28,4 @@ agents-cli/.claude/settings.local.json
 nvim/.config/nvim/.nvimlog
 vscode/.config/Code/User/
 zsh/
+agents-cli/.claude/backups/.claude.json.backup.1776533654532

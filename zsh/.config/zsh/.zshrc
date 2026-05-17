@@ -1,5 +1,11 @@
-# Auto-attach tmux (local interactive sessions only)
-if [[ -z "$TMUX" && -z "$VSCODE_RESOLVING_ENVIRONMENT" ]]; then
+if [[ -o interactive ]] \
+  && [[ -z "$TMUX" ]] \
+  && [[ -z "$VSCODE_RESOLVING_ENVIRONMENT" ]] \
+  && [[ "$TERM_PROGRAM" != "vscode" ]] \
+  && [[ "$TERM_PROGRAM" != "cursor" ]] \
+  && [[ "$TERM" != "dumb" ]] \
+  && [[ -t 0 && -t 1 ]] \
+  && command -v tmux >/dev/null; then
   exec tmux new-session -A -s main
 fi
 
@@ -25,9 +31,6 @@ alias :q='exit'
 alias cp='xcp'
 alias e='nvim'
 alias find='fd'
-alias ssh-re='ssh -o SetEnv=OP_SERVICE_ACCOUNT_TOKEN="$(unset OP_SERVICE_ACCOUNT_TOKEN; op read op://Restaumatic/sa-token-devcontainer/credential)" re'
-
-
 
 if command -v btm > /dev/null; then 
   alias top='btm'
@@ -87,11 +90,9 @@ command -v direnv > /dev/null && eval "$(direnv hook zsh)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-[ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
 [ -f "$HOME/.config/local/bin/env" ] && source "$HOME/.config/local/bin/env"
 [ -f "$HOME/.config/op/plugins.h" ] && source "$HOME/.config/op/plugins.h"
 
-export ZK_NOTEBOOK_DIR=$HOME/sources/zettels
 alias python=python3
 
 if [ "$USERNAME" = "user" ]; then
@@ -99,15 +100,6 @@ if [ "$USERNAME" = "user" ]; then
 fi
 export PATH="/opt/homebrew/sbin:/opt/homebrew/bin:$PATH"
 export PATH="$HOME/.config/cache/.bun/bin:$PATH"
-
-devcontainer() {
-  if [ "$1" = "exec" ] && [ $# -ge 2 ]; then
- command devcontainer exec --workspace-folder . "$2" "${@:3}"
-  else
-    command devcontainer "$@" --workspace-folder .
-  fi
-}
-
 
 command -v load-env-from-1password.sh >/dev/null && source <(load-env-from-1password.sh)
 
@@ -128,11 +120,7 @@ use-forwarded-agent() {
 }
 
 
-## Only on my MBP16
 [[ ! -f ~/sources/envs-injector/op-ssh-hook.plugin.zsh ]] || source ~/sources/envs-injector/op-ssh-hook.plugin.zsh
-
-opencode() { op run --no-masking -- opencode "$@" }
-
 
 alias wake_luddite="ssh admin@fd88::1 '/tool wol mac=BC:FC:E7:0A:67:88 interface=bridge'"
 alias suspend_luddite="ssh luddite.local 'sudo systemctl suspend'"
@@ -144,79 +132,13 @@ tm() {
   ssh -t "$host" "tmux new -A -s $session"
 }
 
-export HAPPY_SERVER_URL=https://happy-server.lab.j14i.me
-export CCS_PROXY_HOST=ccs.lab.j14i.me
-
-alias ccs='ccs --allow-dangerously-skip-permissions'
-
-
-# bun completions
 [ -s "/Users/jonatan/.bun/_bun" ] && source "/Users/jonatan/.bun/_bun"
 export PATH="$HOME/.bun/bin:$PATH"
 alias init_personal_thoughts="humanlayer thoughts init --profile personal"
 
 
-# declare -A CCS_MODELS=(
-#   [ghcp]="gpt-5.2"
-#   [glm]="glm-4.7"
-#   [qwen]="qwen3-80b"
-#   [gpt]="gpt-5.2"
-#   [nemotron]="nemotron-30b"
-#   [kimi]="moonshotai/Kimi-K2.5"
-# )
-
-# claude() {
-#   local CCS_PROXY_URL="https://ccs-proxy.lab.j14i.me"
-#   ## PUBLIC TOKEN - no security risk
-#   local CCS_PROXY_TOKEN="dc60333283c92bedd4009f3f87db35ad84e63e01ced4348340971c1e27aed487"
-
-#   if [[ "$1" == "models" || "$1" == "list" ]]; then
-#     echo "Shortcuts:"
-#     echo "  ghcp     → claude-sonnet-4.5 (GitHub Copilot)"
-#     echo "  glm      → glm-4.7"
-#     echo "  qwen     → qwen3-80b (Hyperbolic)"
-#     echo "  gpt      → gpt-5.2 (GitHub Copilot)"
-#     echo "  nemotron → nemotron-30b (TokenFactory)"
-#     echo "  nebius   → Kimi-K2.5 (Nebius local proxy)"
-#     echo ""
-#     echo "All models from proxy:"
-#     curl -s "$CCS_PROXY_URL/v1/models" \
-#       -H "Authorization: Bearer $CCS_PROXY_TOKEN" 2>/dev/null \
-#       | jq -r '.data[].id' | sort | column
-#     return
-#   fi
-
-#   # Nebius local proxy (requires nebius-proxy running)
-#   if [[ "$1" == "nebius" ]]; then
-#     shift
-#     local NEBIUS_URL="http://localhost:8080"
-#     if ! curl -s "$NEBIUS_URL/health" > /dev/null 2>&1; then
-#       echo "Starting nebius-proxy..." >&2
-#       nebius-proxy --daemon
-#       sleep 1
-#     fi
-#     ANTHROPIC_BASE_URL="$NEBIUS_URL" \
-#     ANTHROPIC_API_KEY="dummy" \
-#     command claude --model "moonshotai/Kimi-K2.5" "$@"
-#     return
-#   fi
-
-#   if [[ -n "${CCS_MODELS[$1]}" ]]; then
-#     local model="${CCS_MODELS[$1]}"
-#     shift
-#     ANTHROPIC_BASE_URL="$CCS_PROXY_URL" \
-#     ANTHROPIC_AUTH_TOKEN="$CCS_PROXY_TOKEN" \
-#     command claude --model "$model" "$@"
-#   elif [[ "$1" =~ ^(glm-|qwen|nemotron|gpt-|claude-sonnet-4\.5|claude-opus-4\.5|GLM-|Nemotron) ]]; then
-#     ANTHROPIC_BASE_URL="$CCS_PROXY_URL" \
-#     ANTHROPIC_AUTH_TOKEN="$CCS_PROXY_TOKEN" \
-#     command claude --model "$@" --allow-dangerously-skip-permissions
-#   else
-#     command claude "$@" --allow-dangerously-skip-permissions
-#   fi
-# }
-#
-
 claude () {
   command claude --allow-dangerously-skip-permissions
 }
+
+. "$HOME/.config/local/bin/env"

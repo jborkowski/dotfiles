@@ -1,16 +1,20 @@
 {
   "cleanupPeriodDays": 99999,
+  "env": {},
   "permissions": {
     "allow": [
       "Bash(uv: :*)"
     ],
     "deny": [],
-    "ask": []
+    "ask": [],
+    "defaultMode": "auto"
   },
   "hooks": {},
   "enabledPlugins": {
     "jb@restaumatic-toolkit": true,
-    "clean-coder@slopfiles": true
+    "clean-coder@slopfiles": true,
+    "frontend-design@claude-plugins-official": true,
+    "swift-lsp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "restaumatic-toolkit": {
@@ -21,8 +25,9 @@
     }
   },
   "alwaysThinkingEnabled": true,
-  "effortLevel": "high",
   "skipDangerousModePermissionPrompt": true,
+  "theme": "auto",
+  "skipAutoPermissionPrompt": true,
   "env_off": {
     "API_TIMEOUT_MS": "3000000",
     "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": 1,
