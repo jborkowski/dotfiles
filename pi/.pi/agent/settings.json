@@ -1,0 +1,15 @@
+{
+  "lastChangelogVersion": "0.75.0",
+  "defaultProvider": "zai",
+  "defaultModel": "glm-5.1",
+  "defaultThinkingLevel": "high",
+  "packages": [
+    "npm:@ff-labs/pi-fff",
+    "npm:pi-jj"
+  ],
+  "showHardwareCursor": false,
+  "collapseChangelog": true,
+  "quietStartup": false,
+  "enableInstallTelemetry": false,
+  "treeFilterMode": "default"
+}
