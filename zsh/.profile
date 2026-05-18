@@ -43,6 +43,7 @@ if [[ -n "$SSH_CONNECTION" ]] && [[ -z "$TMUX" ]] && [[ $- == *i* ]] && command 
     fi
     tmux new-session -A -s main
 fi
+
 . "$HOME/.cargo/env"
 
-. "$HOME/.config/local/share/../bin/env"
+. "$HOME/.config/local/bin/env"

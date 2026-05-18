@@ -4,12 +4,17 @@
   "defaultModel": "glm-5.1",
   "defaultThinkingLevel": "high",
   "packages": [
+    "../../sources/cl-pi",
     "npm:@ff-labs/pi-fff",
     "npm:pi-jj"
   ],
   "showHardwareCursor": false,
   "collapseChangelog": true,
-  "quietStartup": false,
+  "quietStartup": true,
   "enableInstallTelemetry": false,
-  "treeFilterMode": "default"
+  "treeFilterMode": "default",
+  "warnings": {
+    "anthropicExtraUsage": false
+  },
+  "hideThinkingBlock": true
 }

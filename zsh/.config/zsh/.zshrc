@@ -132,8 +132,10 @@ tm() {
   ssh -t "$host" "tmux new -A -s $session"
 }
 
-[ -s "/Users/jonatan/.bun/_bun" ] && source "/Users/jonatan/.bun/_bun"
-export PATH="$HOME/.bun/bin:$PATH"
+[ -s "$HOME/.bun" ] && ( 
+   export PATH="$HOME/.bun/bin:$PATH" &&
+   source "$HOME/.bun/_bun"
+ )
 alias init_personal_thoughts="humanlayer thoughts init --profile personal"
 
 
