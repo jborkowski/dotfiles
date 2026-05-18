@@ -29,3 +29,13 @@ nvim/.config/nvim/.nvimlog
 vscode/.config/Code/User/
 zsh/
 agents-cli/.claude/backups/.claude.json.backup.1776533654532
+agents-cli/.claude/.last-cleanup
+agents-cli/.claude/policy-limits.json
+agents-cli/.claude/remote-settings.json
+agents-cli/.claude/paste-cache/*
+agents-cli/.claude/cache/*
+agents-cli/.claude/backups/*
+pi/.pi/exa-usage.json
+agents-cli/.claude/mcp-needs-auth-cache.json
+agents-cli/.claude/skills/*
+uv/.config/uv/uv-receipt.json

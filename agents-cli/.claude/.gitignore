@@ -12,3 +12,14 @@ tasks/
 CLAUDE.local.md
 settings.local.json
 stats-cache.json
+paste-cache/*
+plans/*
+telemetry/*
+stats-cache.json
+remote-settings.json
+policy-limits.json
+mcp-needs-auth-cache.json
+skills/*
+cache/*
+backups/*
+last-cleanup

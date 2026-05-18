@@ -84,3 +84,9 @@ Other models partial-read, add duplicate code, create unnecessary files, and res
 **When you follow these rules, you write code like Uncle Bob: Simple. Correct. Minimal.**
 
 **Trust your full-file read. Delete aggressively. Never create what already exists. ALWAYS REDUCE AND DELETE AS MUCH CODE AS POSSIBLE WHILE ALSO ADDING NEW FEATURES.**
+
+## gstack
+
+- Use the `/browse` skill from gstack for ALL web browsing.
+- NEVER use `mcp__claude-in-chrome__*` tools.
+- Available skills: /office-hours, /plan-ceo-review, /plan-eng-review, /plan-design-review, /design-consultation, /design-shotgun, /design-html, /review, /ship, /land-and-deploy, /canary, /benchmark, /browse, /connect-chrome, /qa, /qa-only, /design-review, /setup-browser-cookies, /setup-deploy, /setup-gbrain, /retro, /investigate, /document-release, /codex, /cso, /autoplan, /plan-devex-review, /devex-review, /careful, /freeze, /guard, /unfreeze, /gstack-upgrade, /learn
