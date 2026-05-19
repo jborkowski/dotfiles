@@ -25,11 +25,13 @@
   "theme": "light",
   "piSec": {
     "oauthProviders": [
-      "anthropic"
+      "anthropic",
+      "github-copilot"
     ],
     "providers": [
       "zai",
-      "deepseek"
+      "deepseek",
+      "cursor"
     ]
   }
 }
