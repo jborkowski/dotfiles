@@ -1,12 +1,15 @@
 {
   "lastChangelogVersion": "0.75.0",
-  "defaultProvider": "zai",
-  "defaultModel": "glm-5.1",
+  "defaultProvider": "deepseek",
+  "defaultModel": "deepseek-v4-pro",
   "defaultThinkingLevel": "high",
   "packages": [
     "../../sources/cl-pi",
     "npm:@ff-labs/pi-fff",
-    "npm:pi-jj"
+    "npm:pi-jj",
+    "git:github.com/jborkowski/bear-pi",
+    "git:github.com/jborkowski/zai-search-pi",
+    "git:github.com/jborkowski/pi-sec"
   ],
   "showHardwareCursor": false,
   "collapseChangelog": true,
@@ -16,5 +19,18 @@
   "warnings": {
     "anthropicExtraUsage": false
   },
-  "hideThinkingBlock": true
+  "hideThinkingBlock": true,
+  "piJj": {
+    "restoreMode": "operation"
+  },
+  "theme": "light",
+  "piSec": {
+    "oauthProviders": [
+      "anthropic"
+    ],
+    "providers": [
+      "zai",
+      "deepseek"
+    ]
+  }
 }
