@@ -4,7 +4,6 @@
   "defaultModel": "deepseek-v4-pro",
   "defaultThinkingLevel": "high",
   "packages": [
-    "../../sources/cl-pi",
     "npm:@ff-labs/pi-fff",
     "npm:pi-jj",
     "git:github.com/jborkowski/bear-pi",
