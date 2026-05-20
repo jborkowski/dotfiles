@@ -38,9 +38,13 @@ export LIBCLANG_PATH="$HOME/.espressif/tools/xtensa-esp32-elf-clang/esp-15.0.0-2
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"  || echo  ""
 
 
-if [ -z "$TERM" ] || [ "$TERM" != "xterm-ghostty" ]; then
-    export TERM=xterm-24bit
-fi
+# Keep TERM as-is inside tmux/screen and under Ghostty; otherwise fall back to
+# the custom xterm-24bit terminfo. Overriding tmux-256color → xterm-24bit makes
+# nvim send DA/XTVERSION queries that leak Ghostty's DCS reply onto the screen.
+case "$TERM" in
+    xterm-ghostty|tmux*|screen*) ;;
+    *) export TERM=xterm-24bit ;;
+esac
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
