@@ -144,3 +144,8 @@ claude () {
 }
 
 . "$HOME/.config/local/bin/env"
+
+# Load custom functions
+for f in "$HOME/.config/zsh/functions/"*.zsh; do
+  [ -f "$f" ] && source "$f"
+done

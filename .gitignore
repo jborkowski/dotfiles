@@ -39,3 +39,20 @@ pi/.pi/exa-usage.json
 agents-cli/.claude/mcp-needs-auth-cache.json
 agents-cli/.claude/skills/*
 uv/.config/uv/uv-receipt.json
+agents-cli/.gemini/antigravity/*
+agents-cli/.gemini/config/
+agents-cli/.gemini/tmp/
+
+# Agent sessions and runtime state
+agents-cli/.claude/sessions/
+agents-cli/.gemini/settings.json
+agents-cli/.gemini/state.json
+agents-cli/.gemini/google_accounts.json
+agents-cli/.gemini/oauth_creds.json
+agents-cli/.gemini/installation_id
+agents-cli/.gemini/trustedFolders.json
+agents-cli/.gemini/projects.json
+agents-cli/.gemini/history/
+pi/.pi/pi-acp/
+pi/.pi/agent/settings.json
+agents-cli/.claude/settings.json

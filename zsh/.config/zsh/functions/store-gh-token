@@ -1,0 +1,39 @@
+# store-gh-token: Store a GitHub token in macOS Keychain for a given profile.
+#
+# Usage:
+#   store-gh-token                        # stores current gh token as "default"
+#   store-gh-token work                   # stores current gh token as "work"
+#   store-gh-token work "ghp_xxxxx"       # stores explicit token as "work"
+#
+# The stored token is read by _nr.zsh and .zshenv via:
+#   security find-generic-password -s "gh:github.com" -a "<profile>" -w
+
+store-gh-token() {
+  local profile="${1:-default}"
+  local token="$2"
+
+  if [[ -z "$token" ]]; then
+    token="$(gh auth token 2>/dev/null)" || {
+      echo "No active gh session. Provide a token or run gh auth login first." >&2
+      echo
+      echo "  # Authenticate via browser (recommended):" >&2
+      echo "  gh auth login" >&2
+      echo
+      echo "  # Then re-run:" >&2
+      echo "  store-gh-token $profile" >&2
+      echo
+      echo "  # Or pass a token directly:" >&2
+      echo "  store-gh-token $profile ghp_xxxxxxxxxxxx" >&2
+      return 1
+    }
+  fi
+
+  security add-generic-password \
+    -s "gh:github.com" \
+    -a "$profile" \
+    -w "$token" \
+    -U \
+    -J "GitHub token for profile '$profile'"
+
+  echo "✓ GitHub token stored in Keychain for profile '$profile'"
+}
