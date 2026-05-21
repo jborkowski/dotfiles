@@ -35,5 +35,5 @@ store-gh-token() {
     -U \
     -J "GitHub token for profile '$profile'"
 
-  echo "✓ GitHub token stored in Keychain for profile '$profile'"
+  echo "GitHub token stored in Keychain for profile '$profile'"
 }

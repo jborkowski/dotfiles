@@ -43,7 +43,7 @@ _nr() {
   fi
 
   # 1. Create the dir and init jj (git-backed, colocated)
-  echo "⟐ Creating project '$name' in $base_dir..."
+  echo "Creating project '$name' in $base_dir..."
   jj git init "$project_path" || return 1
   cd "$project_path" || return 1
 
@@ -78,7 +78,7 @@ _nr() {
   fi
 
   local gh_ok=false
-  echo "⟐ Creating GitHub repo ($visibility) as profile '$gh_profile'..."
+  echo "Creating GitHub repo ($visibility) as profile '$gh_profile'..."
   if [[ "$gh_profile" == "default" ]]; then
     if gh repo create "${gh_args[@]}"; then
       gh_ok=true
@@ -97,7 +97,7 @@ _nr() {
       __gh_token="$(gh auth token --user "$gh_profile" 2>/dev/null)" || true
     fi
     if [[ -z "$__gh_token" ]]; then
-      echo "✗ No token found for profile '$gh_profile'." >&2
+      echo "No token found for profile '$gh_profile'." >&2
       echo "  Run: gh auth login  (then re-run _nr)" >&2
       return 1
     fi
@@ -108,17 +108,17 @@ _nr() {
   fi
 
   if $gh_ok; then
-    echo "✓ GitHub repo created"
+    echo "GitHub repo created"
     # Set up remote and push via jj
     local gh_user="$(gh api user --jq .login 2>/dev/null || echo "$USER")"
     local repo_url="git@github.com:${gh_user}/${name}.git"
     jj git remote add origin "$repo_url" 2>/dev/null || true
-    jj git push --remote origin --change @ 2>/dev/null && echo "✓ Pushed to GitHub" || true
+    jj git push --remote origin --change @ 2>/dev/null && echo "Pushed to GitHub" || true
   else
-    echo "⚠  gh repo create failed — see above for details" >&2
+    echo "gh repo create failed — see above for details" >&2
   fi
 
-  echo "✓ Done! Project '$name' is ready in $(pwd)"
+  echo "Done! Project '$name' is ready in $(pwd)"
   echo "  jj log  — view history"
   echo "  jj git push  — push to GitHub"
 }
