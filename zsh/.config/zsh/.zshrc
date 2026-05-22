@@ -15,7 +15,7 @@ plug "wintermi/zsh-mise"
 autoload -Uz compinit
 compinit
 
-# Auto-launch tmux
+# Auto-launch tmux (skip if `main` is already attached elsewhere)
 if [[ -o interactive ]] \
   && [[ -z "$TMUX" ]] \
   && [[ -z "$VSCODE_RESOLVING_ENVIRONMENT" ]] \
@@ -23,7 +23,8 @@ if [[ -o interactive ]] \
   && [[ "$TERM_PROGRAM" != "cursor" ]] \
   && [[ "$TERM" != "dumb" ]] \
   && [[ -t 0 && -t 1 ]] \
-  && command -v tmux >/dev/null; then
+  && command -v tmux >/dev/null \
+  && ! tmux list-clients -t main 2>/dev/null | grep -q .; then
   exec tmux new-session -A -s main
 fi
 
