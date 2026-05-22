@@ -1,0 +1,40 @@
+{
+  "lastChangelogVersion": "0.75.0",
+  "defaultProvider": "deepseek",
+  "defaultModel": "deepseek-v4-flash",
+  "defaultThinkingLevel": "high",
+  "packages": [
+    "npm:@ff-labs/pi-fff",
+    "npm:pi-jj",
+    "git:github.com/jborkowski/bear-pi",
+    "git:github.com/jborkowski/zai-search-pi",
+    "git:github.com/jborkowski/pi-sec",
+    "git:github.com/thearyanag/pi-gemini-oauth-extension"
+  ],
+  "showHardwareCursor": false,
+  "collapseChangelog": true,
+  "quietStartup": true,
+  "enableInstallTelemetry": false,
+  "treeFilterMode": "default",
+  "warnings": {
+    "anthropicExtraUsage": false
+  },
+  "hideThinkingBlock": true,
+  "piJj": {
+    "restoreMode": "file",
+    "promptForInit": false,
+    "promptForPublishMode": false
+  },
+  "theme": "dark",
+  "piSec": {
+    "oauthProviders": [
+      "anthropic",
+      "github-copilot"
+    ],
+    "providers": [
+      "zai",
+      "deepseek",
+      "cursor"
+    ]
+  }
+}
