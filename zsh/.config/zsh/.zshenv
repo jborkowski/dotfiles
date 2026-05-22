@@ -22,6 +22,8 @@ export PATH=$HOME/.orbstack/bin:$PATH
 export PATH=$HOME/.config/local/bin:$PATH
 export PATH=$HOME/.scripts/:$PATH
 export PATH="/opt/homebrew/opt/sphinx-doc/bin:$PATH"
+export PATH="$(bun pm bin -g):$PATH"
+
 
 
 # ESP32
