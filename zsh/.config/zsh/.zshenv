@@ -23,16 +23,7 @@ export PATH=$HOME/.config/local/bin:$PATH
 export PATH=$HOME/.scripts/:$PATH
 export PATH="/opt/homebrew/opt/sphinx-doc/bin:$PATH"
 
-# Source Plugins
-source ~/.config/zsh/plugins/powerlevel10k/powerlevel10k.zsh-theme
-source ~/.config/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.config/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-source ~/.config/zsh/plugins/zsh-edit/zsh-edit.plugin.zsh
-source ~/.config/zsh/plugins/zsh-autopair/zsh-autopair.plugin.zsh
-source ~/.config/zsh/plugins/zsh-nix-shell/nix-shell.plugin.zsh
-export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
-export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+
 # ESP32
 export LIBCLANG_PATH="$HOME/.espressif/tools/xtensa-esp32-elf-clang/esp-15.0.0-20221014-aarch64-apple-darwin/esp-clang/lib/"
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"  || echo  ""
@@ -46,16 +37,12 @@ case "$TERM" in
     *) export TERM=xterm-24bit ;;
 esac
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 export ZK_NOTEBOOK_DIR=$HOME/sources/zettels
 
 if [[ -d "$HOME/.npm-global" ]]; then
   export NPM_CONFIG_PREFIX=$HOME/.npm-global
   export PATH=$HOME/.npm-global/bin:$PATH
 fi
-
-. "$HOME/.cargo/env"
 
 if [[ "$(uname)" == "Darwin" ]]; then
   alias bearcli='/Applications/Bear.app/Contents/MacOS/bearcli'

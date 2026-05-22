@@ -14,7 +14,7 @@
 
 _nr() {
   local name="$1"
-  shift 2>/dev/null
+  shift
 
   if [[ -z "$name" ]]; then
     echo "Usage: _nr <project-name> [--public] [--description \"...\"]" >&2
@@ -42,12 +42,10 @@ _nr() {
     return 1
   fi
 
-  # 1. Create the dir and init jj (git-backed, colocated)
   echo "Creating project '$name' in $base_dir..."
-  jj git init "$project_path" || return 1
-  cd "$project_path" || return 1
+  jj git init "$project_path"
+  cd "$project_path"
 
-  # 2. Write a sensible .gitignore
   cat > .gitignore <<- 'EOF'
 	# OS
 	.DS_Store
@@ -66,13 +64,9 @@ _nr() {
 	*~
 	EOF
 
-  # 3. Create initial commit
-  jj new
   jj describe -m "chore: scaffold project structure"
-  git branch -M main 2>/dev/null || true
+  jj bookmark create main
 
-  # gh repo create without --push (jj doesn't use git branches, push fails)
-  # We push via jj git push after the repo is created.
   local gh_args=("$name" "$visibility")
   if [[ -n "$description" ]]; then
     gh_args+=("--description" "$description")
@@ -85,17 +79,17 @@ _nr() {
       gh_ok=true
     fi
   else
-    local __gh_token=""
+    local __gh_token
     if [[ "$(uname)" == "Darwin" ]]; then
-      __gh_token="$(security find-generic-password -s 'gh:github.com' -a "$gh_profile" -w 2>/dev/null)" || true
+      __gh_token="$(security find-generic-password -s 'gh:github.com' -a "$gh_profile" -w 2>/dev/null)"
       if [[ -z "$__gh_token" ]]; then
-        __gh_token="$(gh auth token --user "$gh_profile" 2>/dev/null)" || true
+        __gh_token="$(gh auth token --user "$gh_profile" 2>/dev/null)"
         if [[ -n "$__gh_token" ]]; then
-          security add-generic-password -s 'gh:github.com' -a "$gh_profile" -w "$__gh_token" -U 2>/dev/null || true
+          security add-generic-password -s 'gh:github.com' -a "$gh_profile" -w "$__gh_token" -U
         fi
       fi
     else
-      __gh_token="$(gh auth token --user "$gh_profile" 2>/dev/null)" || true
+      __gh_token="$(gh auth token --user "$gh_profile" 2>/dev/null)"
     fi
     if [[ -z "$__gh_token" ]]; then
       echo "No token found for profile '$gh_profile'." >&2
@@ -110,16 +104,16 @@ _nr() {
 
   if $gh_ok; then
     echo "GitHub repo created"
-    # Set up remote and push via jj
-    local gh_user="$(gh api user --jq .login 2>/dev/null || echo "$USER")"
+    local gh_user="$(gh api user --jq .login)"
     local repo_url="git@github.com:${gh_user}/${name}.git"
-    jj git remote add origin "$repo_url" 2>/dev/null || true
-    jj git push --remote origin --change @ 2>/dev/null && echo "Pushed to GitHub" || true
+    jj git remote add origin "$repo_url"
+    jj bookmark track main --remote origin
+    jj git push && echo "✓ Pushed to GitHub"
   else
     echo "gh repo create failed — see above for details" >&2
   fi
 
   echo "Done! Project '$name' is ready in $(pwd)"
-  echo "  jj log  — view history"
   echo "  jj git push  — push to GitHub"
+  git symbolic-ref HEAD refs/heads/main
 }
