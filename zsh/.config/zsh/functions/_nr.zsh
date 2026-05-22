@@ -69,6 +69,7 @@ _nr() {
   # 3. Create initial commit
   jj new
   jj describe -m "chore: scaffold project structure"
+  git branch -M main 2>/dev/null || true
 
   # gh repo create without --push (jj doesn't use git branches, push fails)
   # We push via jj git push after the repo is created.
