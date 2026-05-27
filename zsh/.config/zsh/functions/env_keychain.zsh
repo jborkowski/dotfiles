@@ -2,8 +2,8 @@
 # Keychain, rewriting each migrated line to fetch its value back at source-time.
 #
 # Usage:
-#   import_env [path]      # default ./.env
-#   env_status [path]      # show which keys are migrated vs plain
+#   import_env [-u|--upgrade] [path]   # default ./.env
+#   env_status [path]                  # show which keys are migrated vs plain
 #
 # Flow: write secrets as raw KEY=value in .env, run import_env. Secret-looking
 # keys (name matches KEY/TOKEN/SECRET/PASSWORD/PASS/API, case-insensitive) move
@@ -12,10 +12,22 @@
 # Idempotent: already-migrated lines are skipped. To update a secret, paste a
 # fresh raw KEY=value over its $(envkc get …) line and re-run.
 #
+# --upgrade also converts legacy `KEY=$( security find-generic-password … )`
+# lines: reads the value from the old keychain (no TouchID) and re-stores it in
+# the TouchID-gated keychain. Leaves the old item in place — delete it yourself
+# with `security delete-generic-password` once you've confirmed the new one.
+#
 # Requires: envkc (build with build-envkc.sh), a project = git repo basename.
 
 import_env() {
-  local file="${1:-./.env}"
+  local file="./.env" upgrade=false
+  while (( $# )); do
+    case "$1" in
+      -u|--upgrade) upgrade=true ;;
+      *) file="$1" ;;
+    esac
+    shift
+  done
   if [[ ! -f "$file" ]]; then
     echo "import_env: no such file: $file" >&2
     return 1
@@ -29,16 +41,42 @@ import_env() {
   project="$(git -C "${file:h}" rev-parse --show-toplevel 2>/dev/null)" \
     && project="${project:t}" || project="${PWD:t}"
 
-  local tmp imported=0 kept=0 skipped=0
+  local tmp imported=0 upgraded=0 kept=0 skipped=0
   tmp="$(mktemp)" || return 1
 
-  local line key rhs value marker
+  local line key rhs value marker svc acc
   while IFS= read -r line || [[ -n "$line" ]]; do
     # Pass through blanks, comments, and non-assignments untouched.
     if [[ ! "$line" =~ '^(export[[:space:]]+)?([A-Za-z_][A-Za-z0-9_]*)=(.*)$' ]]; then
       print -r -- "$line" >>"$tmp"; continue
     fi
     local prefix="$match[1]" ; key="$match[2]" ; rhs="$match[3]"
+
+    # --upgrade: convert legacy `$( security find-generic-password … )` lines by
+    # reading the old keychain item and re-storing it TouchID-gated. We parse out
+    # -s/-a and call security ourselves (no eval of the .env line).
+    if $upgrade && [[ "$rhs" == *'security find-generic-password'* ]]; then
+      svc="" ; acc=""
+      [[ "$rhs" =~ "-s[[:space:]]+['\"]?([^'\" ]+)" ]] && svc="$match[1]"
+      [[ "$rhs" =~ "-a[[:space:]]+['\"]?([^'\" ]+)" ]] && acc="$match[1]"
+      if [[ -z "$svc" ]]; then
+        echo "import_env: can't parse security line for $key — leaving as-is" >&2
+        print -r -- "$line" >>"$tmp"; ((skipped++)); continue
+      fi
+      local -a aopt; aopt=(); [[ -n "$acc" ]] && aopt=(-a "$acc")
+      value="$(security find-generic-password -s "$svc" "${aopt[@]}" -w 2>/dev/null)"
+      if [[ -z "$value" ]]; then
+        echo "import_env: legacy lookup failed for $key (-s $svc) — leaving as-is" >&2
+        print -r -- "$line" >>"$tmp"; ((skipped++)); continue
+      fi
+      if ! printf '%s' "$value" | envkc set -p "$project" -k "$key"; then
+        echo "import_env: failed to store $key — leaving as-is" >&2
+        print -r -- "$line" >>"$tmp"; continue
+      fi
+      value=""
+      print -r -- "${prefix}${key}=\"\$(envkc get -p '${project}' -k '${key}')\"" >>"$tmp"
+      ((upgraded++)); continue
+    fi
 
     # Already migrated / dynamic value (any command substitution) → leave as-is.
     if [[ "$rhs" == *'$('* ]]; then
@@ -78,7 +116,7 @@ import_env() {
   chmod "$(stat -f '%Lp' "$file")" "$tmp" 2>/dev/null
   mv "$tmp" "$file" || { rm -f "$tmp"; return 1; }
 
-  echo "import_env [$project]: $imported imported, $kept kept plain, $skipped already migrated"
+  echo "import_env [$project]: $imported imported, $upgraded upgraded, $kept kept plain, $skipped skipped"
 }
 
 env_status() {
