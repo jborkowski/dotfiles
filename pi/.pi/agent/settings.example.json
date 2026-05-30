@@ -1,7 +1,4 @@
 {
-  "lastChangelogVersion": "0.78.0",
-  "defaultProvider": "cursor",
-  "defaultModel": "default",
   "defaultThinkingLevel": "high",
   "packages": [
     "npm:@ff-labs/pi-fff",
