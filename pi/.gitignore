@@ -1,6 +1,7 @@
 .pi/agent/auth.json
 .pi/agent/auth.*
 .pi/agent/sessions/*
+.pi/agent/settings.json
 .pi/agent/settings.local.json
 .pi/agent/run-history.jsonl
 .pi/agent/models.json
@@ -10,4 +11,5 @@
 .pi/agent/skills/companion-clis/
 .pi/agent/skills/flash/
 .pi/agent/skills/runpodctl/
+.pi/agent/skills/*/
 .pi/pi-acp/ 

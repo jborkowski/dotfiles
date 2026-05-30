@@ -1,4 +1,6 @@
 {
+  "lastChangelogVersion": "0.78.0",
+  "defaultModel": "default",
   "defaultThinkingLevel": "high",
   "packages": [
     "npm:@ff-labs/pi-fff",
@@ -24,11 +26,8 @@
     "promptForInit": false,
     "promptForPublishMode": false
   },
-  "theme": "dark",
   "piSec": {
     "oauthProviders": [
-      "anthropic",
-      "github-copilot"
     ],
     "providers": [
       "zai",
