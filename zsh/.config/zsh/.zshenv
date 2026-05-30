@@ -48,6 +48,7 @@ fi
 
 if [[ "$(uname)" == "Darwin" ]]; then
   alias bearcli='/Applications/Bear.app/Contents/MacOS/bearcli'
+  export LLM_WIKI_ROOT="$HOME/Documents/llm-wiki"
 fi
 
 export NVM_DIR="$HOME/.nvm"
