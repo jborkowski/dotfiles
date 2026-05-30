@@ -9,6 +9,7 @@ fi
 alias claude="claude --allow-dangerously-skip-permissions"
 alias e="nvim"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$PATH:$HOME/.lmstudio/bin"
 
 alias thoughts-init='thoughts init'
 
@@ -37,8 +38,7 @@ if [[ -n "$SSH_CONNECTION" ]] && [[ -z "$TMUX" ]] && [[ $- == *i* ]] && command 
     tmux new-session -A -s main
 fi
 
-. "$HOME/.cargo/env"
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+[ -f "$HOME/.config/local/bin/env" ] && . "$HOME/.config/local/bin/env"
 
-. "$HOME/.config/local/bin/env"
 
-export PATH="$HOME/.local/bin:$PATH"

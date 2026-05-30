@@ -4,9 +4,10 @@
 .pi/agent/settings.local.json
 .pi/agent/run-history.jsonl
 .pi/agent/models.json
-.pi/memory/*
+.pi/memory/
 .pi/exa-usage.jsonl
 
 .pi/agent/skills/companion-clis/
 .pi/agent/skills/flash/
 .pi/agent/skills/runpodctl/
+.pi/pi-acp/ 

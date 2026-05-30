@@ -56,3 +56,12 @@ agents-cli/.gemini/history/
 pi/.pi/pi-acp/
 pi/.pi/agent/settings.json
 agents-cli/.claude/settings.json
+agents-cli/.claude/.*
+agents-cli/.claude/*.log
+agents-cli/.claude/.last-update-result.json
+agents-cli/.claude/.last-update-result.json
+agents-cli/.claude/daemon.log
+agents-cli/.claude/daemon/roster.json
+agents-cli/.claude/jobs/pins.json
+agents-cli/.claude/daemon/roster.json
+agents-cli/.claude/settings.json.bak

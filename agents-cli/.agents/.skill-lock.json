@@ -1,0 +1,70 @@
+{
+  "version": 3,
+  "skills": {
+    "runpodctl": {
+      "source": "runpod/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/runpod/skills.git",
+      "skillPath": "runpodctl/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-04-18T19:54:55.114Z",
+      "updatedAt": "2026-04-18T19:54:55.114Z"
+    },
+    "flash": {
+      "source": "runpod/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/runpod/skills.git",
+      "skillPath": "flash/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-04-18T19:54:55.979Z",
+      "updatedAt": "2026-04-18T19:54:55.979Z"
+    },
+    "companion-clis": {
+      "source": "runpod/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/runpod/skills.git",
+      "skillPath": "companion-clis/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-04-18T19:54:56.830Z",
+      "updatedAt": "2026-04-18T19:54:56.830Z"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/skills.git",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-04-18T19:55:02.807Z",
+      "updatedAt": "2026-04-18T19:55:02.807Z"
+    },
+    "improve-agents-md": {
+      "source": "jborkowski/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/jborkowski/skills.git",
+      "skillPath": "plugins/improve-agents-md/skills/improve-agents-md/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-04-21T09:47:33.061Z",
+      "updatedAt": "2026-04-21T09:47:33.061Z"
+    }
+  },
+  "dismissed": {
+    "findSkillsPrompt": true
+  },
+  "lastSelectedAgents": [
+    "amp",
+    "antigravity",
+    "cline",
+    "codex",
+    "cursor",
+    "deepagents",
+    "dexto",
+    "firebender",
+    "gemini-cli",
+    "github-copilot",
+    "kimi-cli",
+    "opencode",
+    "warp",
+    "pi",
+    "claude-code"
+  ]
+}
