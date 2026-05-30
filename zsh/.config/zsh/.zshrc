@@ -46,10 +46,12 @@ alias find='fd'
 alias python=python3
 alias ps='ps'
 alias vim='nvim'
-alias ggc='git add . && git commit -m.'
+alias jjp='jj git push'
 alias init_personal_thoughts="humanlayer thoughts init --profile personal"
 alias wake_luddite="ssh admin@fd88::1 '/tool wol mac=BC:FC:E7:0A:67:88 interface=bridge'"
 alias suspend_luddite="ssh luddite.local 'sudo systemctl suspend'"
+
+alias pi="bun $HOME/.config/cache/.bun/bin/pi"
 
 if command -v btm > /dev/null; then
   alias top='btm'
