@@ -46,7 +46,6 @@ alias find='fd'
 alias python=python3
 alias ps='ps'
 alias vim='nvim'
-alias jjp='jj git push'
 alias init_personal_thoughts="humanlayer thoughts init --profile personal"
 alias wake_luddite="ssh admin@fd88::1 '/tool wol mac=BC:FC:E7:0A:67:88 interface=bridge'"
 alias suspend_luddite="ssh luddite.local 'sudo systemctl suspend'"
@@ -103,10 +102,6 @@ command -v direnv > /dev/null && eval "$(direnv hook zsh)"
 
 command -v load-env-from-1password.sh >/dev/null && source <(load-env-from-1password.sh)
 
-if [ "$USERNAME" = "user" ]; then
-  source $HOME/.asdf/asdf.sh
-fi
-
 [ -s "$HOME/.bun" ] && (
    export PATH="$HOME/.bun/bin:$PATH" &&
    source "$HOME/.bun/_bun"
@@ -131,12 +126,6 @@ use-forwarded-agent() {
     else
         echo "Not in an SSH session"
     fi
-}
-
-tm() {
-  local host="${1:-luddite}"
-  local session="${2:-main}"
-  ssh -t "$host" "tmux new -A -s $session"
 }
 
 claude () {

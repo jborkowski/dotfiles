@@ -65,3 +65,6 @@ agents-cli/.claude/daemon/roster.json
 agents-cli/.claude/jobs/pins.json
 agents-cli/.claude/daemon/roster.json
 agents-cli/.claude/settings.json.bak
+agents-cli/.gemini/antigravity-ide/
+agents-cli/.gemini/antigravity-ide/
+agents-cli/.gemini/antigravity-ide

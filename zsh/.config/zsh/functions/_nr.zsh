@@ -1,5 +1,5 @@
 # _nr: Project bootstrapper
-# Creates a directory, inits jj (git-backed), adds .gitignore, creates a private GitHub repo.
+# Creates a directory, inits git, adds .gitignore, creates a private GitHub repo.
 #
 # Usage:
 #   _nr <project-name>                  private repo, default profile
@@ -10,7 +10,7 @@
 # Auth: reads token from macOS Keychain (service: gh:github.com, account: <profile>).
 #   Falls back to gh auth token if no Keychain entry exists, and auto-caches it.
 #
-# Requirements: jj, gh
+# Requirements: git, gh
 
 _nr() {
   local name="$1"
@@ -43,8 +43,9 @@ _nr() {
   fi
 
   echo "Creating project '$name' in $base_dir..."
-  jj git init "$project_path"
+  mkdir -p "$project_path"
   cd "$project_path"
+  git init --initial-branch=main
 
   cat > .gitignore <<- 'EOF'
 	# OS
@@ -64,8 +65,8 @@ _nr() {
 	*~
 	EOF
 
-  jj describe -m "chore: scaffold project structure"
-  jj bookmark create main
+  git add -A
+  git commit -m "chore: scaffold project structure"
 
   local gh_args=("$name" "$visibility")
   if [[ -n "$description" ]]; then
@@ -106,14 +107,12 @@ _nr() {
     echo "GitHub repo created"
     local gh_user="$(gh api user --jq .login)"
     local repo_url="git@github.com:${gh_user}/${name}.git"
-    jj git remote add origin "$repo_url"
-    jj bookmark track main --remote origin
-    jj git push && echo "✓ Pushed to GitHub"
+    git remote add origin "$repo_url"
+    git push -u origin main && echo "✓ Pushed to GitHub"
   else
     echo "gh repo create failed — see above for details" >&2
   fi
 
   echo "Done! Project '$name' is ready in $(pwd)"
-  echo "  jj git push  — push to GitHub"
-  git symbolic-ref HEAD refs/heads/main
+  echo "  git push  — push to GitHub"
 }
