@@ -36,30 +36,7 @@ user-invocable: true
 
 3. **Confirm** before committing — list files and full messages; ask to proceed.
 
-4. **Run pre-commit hooks** via subagent (keeps lint/test output out of main context).
-
-   Launch a `delegate` subagent with `context: "fresh"` and this task:
-
-   ```
-   Run the commit pre-commit hooks and report pass/fail. Do not edit any files.
-
-   1. Run the skill hook (always): bash ~/.pi/agent/skills/commit/hooks/pre-commit
-   2. If .pi/hooks/pre-commit exists at the project root, run it too.
-
-   Environment for every hook:
-     COMMIT_FILES="<space-separated paths>"
-     COMMIT_MESSAGE="<full message>"
-     VCS="git"
-     PROJECT_ROOT="<repo root>"
-
-   Report: "PASS" or "FAIL: <reason>" plus each hook's exit code and last 3
-   lines of output on failure. If you had to cd into a directory for the
-   project, reset back after.
-   ```
-
-   If the subagent reports FAIL, **abort** the commit and tell the user why.
-
-5. **Execute** after hooks pass:
+4. **Execute** (hooks run automatically via `~/.pi/agent/extensions/commit-hooks.ts`):
 
 ```bash
 git add <explicit paths>   # never -A, ., or -i
@@ -72,32 +49,14 @@ git status
 
 Multiple commits: repeat add + commit per group. Finish with `git log --oneline -n <count>`.
 
-6. **Run post-commit hooks** via subagent after every successful commit.
 
-   Launch a `delegate` subagent with `context: "fresh"` and `async: true`:
-
-   ```
-   Run the commit post-commit hooks and summarize. Do not edit any files.
-
-   1. Run the skill hook (always): bash ~/.pi/agent/skills/commit/hooks/post-commit
-   2. If .pi/hooks/post-commit exists at the project root, run it too.
-
-   Environment for every hook:
-     COMMIT_FILES="<space-separated paths>"
-     COMMIT_MESSAGE="<full message>"
-     VCS="git"
-     PROJECT_ROOT="<repo root>"
-
-   Report the commit hash, files changed, and any hook warnings.
-   Non-zero hook exit is a warning, not a rollback — report it but don't
-   treat it as failure.
-   ```
 
 ## Hooks
 
-Hook scripts run inside **subagents** — not inline — to keep the main session
-clean. The subagent runs the shell scripts, reports pass/fail, and the main
-agent decides whether to proceed, abort, or warn.
+Hooks run automatically via the `commit-hooks` extension — no subagent needed.
+The extension intercepts `git commit` bash calls at the pi lifecycle level:
+pre-commit blocks the commit on failure, post-commit fires after success.
+Hook output stays out of the main session.
 
 | Tier | Location | When |
 |------|----------|------|
