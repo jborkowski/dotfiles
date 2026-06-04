@@ -53,6 +53,7 @@ agents-cli/.gemini/installation_id
 agents-cli/.gemini/trustedFolders.json
 agents-cli/.gemini/projects.json
 agents-cli/.gemini/history/
+agents-cli/.gemini/antigravity*
 pi/.pi/pi-acp/
 pi/.pi/agent/settings.json
 agents-cli/.claude/settings.json
@@ -68,3 +69,6 @@ agents-cli/.claude/settings.json.bak
 agents-cli/.gemini/antigravity-ide/
 agents-cli/.gemini/antigravity-ide/
 agents-cli/.gemini/antigravity-ide
+agents-cli/.gemini/antigravity-ide/brain/*
+pi/.pi/agent/skills/shannon-adhd
+agents-cli/.claude/settings.json.bak.*

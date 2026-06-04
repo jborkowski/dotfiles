@@ -10,7 +10,7 @@ because you miss a lot of delicate logic which then causes you to add more bad c
 - All pushes should be `git push -u origin BRANCH_NAME`
 - All pulls should be `git pull upstream main --no-ff`
 - **Do not commit user's thoughts** - Don't commit Jonatan's thoughts/notes unless explicitly asked
-- All commits should be free promotional footers - like `🤖 Generated with Claude Code`
+- No promotional footers on commits
 
 
 ## 📋 WORKTREES
