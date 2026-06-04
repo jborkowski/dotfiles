@@ -29,29 +29,7 @@ Read the file completely before changing it (aim for 1500+ lines / the whole fil
 Pushes require a 1Password TouchID physical key touch. If a `git push` (or any git op) fails, STOP immediately and report what happened — do not retry. Jonatan will prompt you when ready.
 </important>
 
-<important if="the repo is managed with Jujutsu — `jj root` succeeds">
-
-Use `jj` instead of raw `git`. There is no staging area — all tracked changes are part of the working-copy change (`@`). A change ≈ a git commit; a workspace ≈ a git worktree; revisions are immutable.
-
-| Command | What it does |
-|---|---|
-| `jj status` / `jj diff` | What's changed in `@` / its diff |
-| `jj describe -m "msg"` | Set message for `@` |
-| `jj new [<rev>]` | Open a new empty change on top of `@` (or `<rev>`) |
-| `jj commit -m "msg"` | Describe + open new change in one step |
-| `jj squash` | Fold `@` into its parent |
-| `jj log` / `jj log -r 'trunk()'` | Revision graph / main tip |
-| `jj bookmark create\|set BRANCH -r @` | Create/move a bookmark (jj's branch) |
-| `jj bookmark list` | List bookmarks |
-| `jj git push --bookmark BRANCH` | Push a bookmark to origin |
-| `jj git fetch [--remote upstream]` | Fetch remotes |
-| `jj rebase -d trunk()` | Rebase `@` onto trunk |
-| `jj resolve` / `jj abandon` | Resolve conflicts / discard `@` |
-| `jj undo` | Undo last jj operation (safe) |
-| `jj op log` / `jj op restore <op-id>` | Operation history / restore to a prior state |
-</important>
-
-<important if="you are creating an isolated working copy (worktree or jj workspace)">
+<important if="you are creating an isolated working copy (worktree)">
 
 Path convention (SHORT_NAME per workspace):
 - Devcontainer: `/workspace/r/SHORT_NAME`
@@ -59,9 +37,8 @@ Path convention (SHORT_NAME per workspace):
 
 Create with:
 - git: `git worktree add -b BRANCH_NAME <PATH>`
-- jj: `jj workspace add <PATH> --name SHORT_NAME` (manage with `jj workspace list` / `jj workspace forget SHORT_NAME`)
 
-After creating, you MUST copy `.claude/settings.local.json` and `.env` into the new directory, then `cd` in and confirm a clean working copy (`jj status`). Inside a jj workspace, all jj commands operate on that workspace's `@` — always `cd` in first.
+After creating, you MUST copy `.claude/settings.local.json` and `.env` into the new directory, then `cd` in and confirm a clean working copy (`git status`). 
 </important>
 
 <important if="you are writing a one-off Python script">
