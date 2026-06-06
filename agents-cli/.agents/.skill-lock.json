@@ -81,6 +81,25 @@
       "skillFolderHash": "865fadff4c3fcc3db2bb68e64f323c7a5562c5da",
       "installedAt": "2026-06-03T20:53:03.378Z",
       "updatedAt": "2026-06-03T20:53:03.378Z"
+    },
+    "linear-cli": {
+      "source": "schpet/linear-cli",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/schpet/linear-cli.git",
+      "skillPath": "skills/linear-cli/SKILL.md",
+      "skillFolderHash": "6f29c4345b675d4787e82ded44b90dd78625d50a",
+      "pluginName": "linear-cli",
+      "installedAt": "2026-06-05T19:48:50.644Z",
+      "updatedAt": "2026-06-05T19:48:50.644Z"
+    },
+    "adhd": {
+      "source": "UditAkhourii/adhd",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/UditAkhourii/adhd.git",
+      "skillPath": "skills/adhd/SKILL.md",
+      "skillFolderHash": "20295ca5b738965bcae4385db387faf2bfb8fc1e",
+      "installedAt": "2026-06-06T12:20:23.728Z",
+      "updatedAt": "2026-06-06T12:20:23.728Z"
     }
   },
   "dismissed": {

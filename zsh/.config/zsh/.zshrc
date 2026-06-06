@@ -100,7 +100,7 @@ command -v direnv > /dev/null && eval "$(direnv hook zsh)"
 [ -f "$HOME/.config/op/plugins.h" ] && source "$HOME/.config/op/plugins.h"
 [[ ! -f ~/sources/envs-injector/op-ssh-hook.plugin.zsh ]] || source ~/sources/envs-injector/op-ssh-hook.plugin.zsh
 
-command -v load-env-from-1password.sh >/dev/null && source <(load-env-from-1password.sh)
+# command -v load-env-from-1password.sh >/dev/null && source <(load-env-from-1password.sh)
 
 [ -s "$HOME/.bun" ] && (
    export PATH="$HOME/.bun/bin:$PATH" &&
@@ -129,5 +129,5 @@ use-forwarded-agent() {
 }
 
 claude () {
-  command claude --allow-dangerously-skip-permissions
+  command claude --allow-dangerously-skip-permissions "$@";
 }

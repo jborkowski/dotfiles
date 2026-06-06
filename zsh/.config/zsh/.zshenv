@@ -39,8 +39,6 @@ case "$TERM" in
     *) export TERM=xterm-24bit ;;
 esac
 
-export ZK_NOTEBOOK_DIR=$HOME/sources/zettels
-
 if [[ -d "$HOME/.npm-global" ]]; then
   export NPM_CONFIG_PREFIX=$HOME/.npm-global
   export PATH=$HOME/.npm-global/bin:$PATH
