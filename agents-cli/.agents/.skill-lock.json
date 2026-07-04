@@ -1,0 +1,125 @@
+{
+  "version": 3,
+  "skills": {
+    "runpodctl": {
+      "source": "runpod/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/runpod/skills.git",
+      "skillPath": "runpodctl/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-04-18T19:54:55.114Z",
+      "updatedAt": "2026-04-18T19:54:55.114Z"
+    },
+    "flash": {
+      "source": "runpod/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/runpod/skills.git",
+      "skillPath": "flash/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-04-18T19:54:55.979Z",
+      "updatedAt": "2026-04-18T19:54:55.979Z"
+    },
+    "companion-clis": {
+      "source": "runpod/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/runpod/skills.git",
+      "skillPath": "companion-clis/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-04-18T19:54:56.830Z",
+      "updatedAt": "2026-04-18T19:54:56.830Z"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/skills.git",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-04-18T19:55:02.807Z",
+      "updatedAt": "2026-04-18T19:55:02.807Z"
+    },
+    "improve-agents-md": {
+      "source": "jborkowski/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/jborkowski/skills.git",
+      "skillPath": "plugins/improve-agents-md/skills/improve-agents-md/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-04-21T09:47:33.061Z",
+      "updatedAt": "2026-04-21T09:47:33.061Z"
+    },
+    "wiki": {
+      "source": "jborkowski/llm-wiki",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/jborkowski/llm-wiki.git",
+      "skillPath": "skills/wiki/SKILL.md",
+      "skillFolderHash": "ffdd2c8f08bdcb03ee68b8fdc31da949454996db7b6c5bb26c8b76fad2b732b1",
+      "installedAt": "2026-05-30T20:05:25.323Z",
+      "updatedAt": "2026-05-30T20:05:25.323Z"
+    },
+    "gstack": {
+      "source": "garrytan/gstack",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/garrytan/gstack.git",
+      "skillPath": "SKILL.md",
+      "skillFolderHash": "b88223677b8d30874d8855e3c1c5aa98a6ceb965",
+      "installedAt": "2026-05-30T20:40:57.808Z",
+      "updatedAt": "2026-05-30T20:40:57.808Z"
+    },
+    "shannon-adhd": {
+      "source": "jborkowski/shannon-adhd",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/jborkowski/shannon-adhd.git",
+      "skillPath": "skills/shannon-adhd/SKILL.md",
+      "skillFolderHash": "137810f6af97f0b52edcdb7bb93e4eee6f88e10b143f82a4720d0606da93df24",
+      "installedAt": "2026-06-03T19:43:48.792Z",
+      "updatedAt": "2026-06-03T21:07:51.605Z"
+    },
+    "gog": {
+      "source": "steipete/clawdis",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/steipete/clawdis.git",
+      "skillPath": "skills/gog/SKILL.md",
+      "skillFolderHash": "865fadff4c3fcc3db2bb68e64f323c7a5562c5da",
+      "installedAt": "2026-06-03T20:53:03.378Z",
+      "updatedAt": "2026-06-03T20:53:03.378Z"
+    },
+    "linear-cli": {
+      "source": "schpet/linear-cli",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/schpet/linear-cli.git",
+      "skillPath": "skills/linear-cli/SKILL.md",
+      "skillFolderHash": "6f29c4345b675d4787e82ded44b90dd78625d50a",
+      "pluginName": "linear-cli",
+      "installedAt": "2026-06-05T19:48:50.644Z",
+      "updatedAt": "2026-06-05T19:48:50.644Z"
+    },
+    "adhd": {
+      "source": "UditAkhourii/adhd",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/UditAkhourii/adhd.git",
+      "skillPath": "skills/adhd/SKILL.md",
+      "skillFolderHash": "20295ca5b738965bcae4385db387faf2bfb8fc1e",
+      "installedAt": "2026-06-06T12:20:23.728Z",
+      "updatedAt": "2026-06-06T12:20:23.728Z"
+    }
+  },
+  "dismissed": {
+    "findSkillsPrompt": true
+  },
+  "lastSelectedAgents": [
+    "amp",
+    "antigravity",
+    "antigravity-cli",
+    "cline",
+    "codex",
+    "cursor",
+    "deepagents",
+    "gemini-cli",
+    "github-copilot",
+    "kimi-code-cli",
+    "opencode",
+    "warp",
+    "zed",
+    "pi",
+    "claude-code"
+  ]
+}

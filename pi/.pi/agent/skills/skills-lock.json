@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "llm-wiki": {
+      "source": "jborkowski/llm-wiki",
+      "sourceType": "github",
+      "skillPath": "skills/llm-wiki/SKILL.md",
+      "computedHash": "f40bccaeb1caedc79dab98a70b3c15e7207464cd24d5590bae8321863f298d2d"
+    }
+  }
+}

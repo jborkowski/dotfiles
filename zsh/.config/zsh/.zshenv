@@ -22,42 +22,34 @@ export PATH=$HOME/.orbstack/bin:$PATH
 export PATH=$HOME/.config/local/bin:$PATH
 export PATH=$HOME/.scripts/:$PATH
 export PATH="/opt/homebrew/opt/sphinx-doc/bin:$PATH"
+export PATH="$(bun pm bin -g):$PATH"
 
-# Source Plugins
-source ~/.config/zsh/plugins/powerlevel10k/powerlevel10k.zsh-theme
-source ~/.config/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.config/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-source ~/.config/zsh/plugins/zsh-edit/zsh-edit.plugin.zsh
-source ~/.config/zsh/plugins/zsh-autopair/zsh-autopair.plugin.zsh
-source ~/.config/zsh/plugins/zsh-nix-shell/nix-shell.plugin.zsh
-export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
-export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+
+
 # ESP32
 export LIBCLANG_PATH="$HOME/.espressif/tools/xtensa-esp32-elf-clang/esp-15.0.0-20221014-aarch64-apple-darwin/esp-clang/lib/"
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"  || echo  ""
 
 
-if [ -z "$TERM" ] || [ "$TERM" != "xterm-ghostty" ]; then
-    export TERM=xterm-24bit
-fi
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-export ZK_NOTEBOOK_DIR=$HOME/sources/zettels
+# Keep TERM as-is inside tmux/screen and under Ghostty; otherwise fall back to
+# the custom xterm-24bit terminfo. Overriding tmux-256color → xterm-24bit makes
+# nvim send DA/XTVERSION queries that leak Ghostty's DCS reply onto the screen.
+case "$TERM" in
+    xterm-ghostty|tmux*|screen*) ;;
+    *) export TERM=xterm-24bit ;;
+esac
 
 if [[ -d "$HOME/.npm-global" ]]; then
   export NPM_CONFIG_PREFIX=$HOME/.npm-global
   export PATH=$HOME/.npm-global/bin:$PATH
 fi
 
-. "$HOME/.cargo/env"
-
-export ZAI_API_TOKEN="op://Personal/ZAI_API_TOKEN/password"
-source /Users/jonatan/.config/op/plugins.sh
-
-export GH_TOKEN="op://Personal/GitHub Jonatan/token"
-
 if [[ "$(uname)" == "Darwin" ]]; then
   alias bearcli='/Applications/Bear.app/Contents/MacOS/bearcli'
+  export LLM_WIKI_ROOT="$HOME/Documents/llm-wiki"
 fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+

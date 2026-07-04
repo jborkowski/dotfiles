@@ -1,83 +1,94 @@
 ---
 name: commit
 description: >-
-  Create git commits with conventional commit messages (type: description).
-  Use when asked to commit, save changes to git, or write a commit message.
+  Create commits with conventional messages (type: description). Use when
+  asked to commit or write a message.
 user-invocable: true
 ---
 
 # Commit (conventional commits)
 
-Create focused git commits using the [Blockly conventional commit format](https://developers.google.com/blockly/guides/contribute/get-started/commits).
-
-## Message format
+[Blockly conventional commit format](https://developers.google.com/blockly/guides/contribute/get-started/commits):
 
 ```
 <type>[!]: <description>
 
 [optional body]
-
-[optional footer]
 ```
 
-- **Type** (required, lowercase): `chore` | `deprecate` | `feat` | `fix` | `release`
-- **Breaking change**: append `!` after the type (e.g. `fix!: remove legacy API`)
-- **Description** (required): imperative, concise, under 256 characters
-- **Body** (optional): blank line after description; wrap lines at 256 characters
-- **Footer** (optional): blank line after body
-
-### Type guide
+- **Type**: `chore` | `deprecate` | `feat` | `fix` | `release` (lowercase)
+- **Breaking**: `!` after type (e.g. `fix!: remove legacy API`)
+- **Description**: imperative, under 256 chars
 
 | Type | Use for |
 |------|---------|
-| `feat` | New behavior or capability |
-| `fix` | Bug or error correction |
-| `chore` | Tooling, deps, CI, routine maintenance |
-| `deprecate` | Deprecating existing behavior |
-| `release` | Version or release prep |
-
-Examples: `feat: add worktree baseRef setting`, `fix: ignore stale lock files`, `chore: bump eslint`
+| `feat` | New behavior |
+| `fix` | Bug fix |
+| `chore` | Tooling, deps, CI |
+| `deprecate` | Deprecating behavior |
+| `release` | Version / release prep |
 
 ## Workflow
 
-1. **Inspect** (run in parallel):
-   - `git status`
-   - `git diff` (staged and unstaged)
-   - `git log -5 --oneline` (match repo tone)
+1. **Inspect**: `git status`, `git diff`, `git log -5 --oneline`
 
-2. **Plan** one or more atomic commits:
-   - Group related files only
-   - Pick the correct type per commit
-   - Draft each message in conventional form
-   - Do not stage secrets (`.env`, credentials, keys)
+2. **Plan** atomic commits: related files only, correct type, no secrets (`.env`, keys).
 
-3. **Confirm** before committing:
-   - List files per commit
-   - Show each full message (`type: description` plus body if any)
-   - Ask: "I plan to create [N] commit(s) with these messages. Proceed?"
+3. **Confirm** before committing — list files and full messages; ask to proceed.
 
-4. **Execute** after approval:
-   - `git add` with explicit paths only (never `git add -A`, `git add .`, or `git add -i`)
-   - Commit with a HEREDOC:
+4. **Execute** (hooks run automatically via `~/.pi/agent/extensions/commit-hooks.ts`):
 
 ```bash
+git add <explicit paths>   # never -A, ., or -i
 git commit -m "$(cat <<'EOF'
 feat: short imperative summary
-
-Optional body explaining why, not what line-by-line.
-
 EOF
 )"
+git status
 ```
 
-   - `git status` after each commit
-   - `git log --oneline -n <count>` when done
+Multiple commits: repeat add + commit per group. Finish with `git log --oneline -n <count>`.
+
+
+
+## Hooks
+
+Hooks run automatically via the `commit-hooks` extension — no subagent needed.
+The extension intercepts `git commit` bash calls at the pi lifecycle level:
+pre-commit blocks the commit on failure, post-commit fires after success.
+Hook output stays out of the main session.
+
+| Tier | Location | When |
+|------|----------|------|
+| Skill | `~/.pi/agent/skills/commit/hooks/pre-commit` | Always |
+| Skill | `~/.pi/agent/skills/commit/hooks/post-commit` | Always |
+| Project | `$PROJECT_ROOT/.pi/hooks/pre-commit` | If present |
+| Project | `$PROJECT_ROOT/.pi/hooks/post-commit` | If present |
+
+Skill hooks ship with sensible defaults (secrets scan, lint, log). Project hooks
+let you add repo-specific checks (typecheck, test suite, changelog update).
+
+Empty project hooks (zero-byte or just comments) are skipped — no-op.
+
+### Writing project hooks
+
+Any executable script works. The agent passes `COMMIT_FILES`, `COMMIT_MESSAGE`,
+`VCS`, and `PROJECT_ROOT` as environment variables. Exit non-zero to fail
+pre-commit (block the commit) or warn post-commit (report only).
+
+Example `.pi/hooks/pre-commit`:
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+echo "→ running typecheck…"
+(cd "$PROJECT_ROOT" && npx tsc --noEmit)
+echo "  ✓ typecheck ok"
+```
 
 ## Rules
 
-- Write messages as the user would; no `Co-Authored-By`, no "Generated with …" footers
-- Never update git config
-- Never skip hooks (`--no-verify`) unless the user explicitly asks
-- Never amend unless the user explicitly asks and amend preconditions are met
-- If there is nothing to commit, say so — do not create an empty commit
-- Only commit when the user asked to commit (this skill does not imply permission to push)
+- No `Co-Authored-By` or "Generated with …" footers
+- Never update git config; never skip hooks unless user asks
+- Never amend/squash unless user asks and preconditions are met
+- Nothing to commit → say so; do not empty-commit
+- Commit only when asked (no push unless asked)
