@@ -11,6 +11,11 @@ plug "chisui/zsh-nix-shell"
 plug "rkh/zsh-jj"
 plug "wintermi/zsh-mise"
 
+# Prompt: show host name instead of the lightning icon.
+# Example: (Solmigo) ➜ the-ai-research-log (! main)
+PROMPT="%B%{$fg[blue]%}(%m) %(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )%{$fg[cyan]%}%c%{$reset_color%}"
+PROMPT+="\$vcs_info_msg_0_ "
+
 # Load and initialise completion system
 autoload -Uz compinit
 compinit
@@ -49,8 +54,11 @@ alias vim='nvim'
 alias init_personal_thoughts="humanlayer thoughts init --profile personal"
 alias wake_luddite="ssh admin@fd88::1 '/tool wol mac=BC:FC:E7:0A:67:88 interface=bridge'"
 alias suspend_luddite="ssh luddite.local 'sudo systemctl suspend'"
+alias nr='_nr'
 
-alias pi="bun $HOME/.config/cache/.bun/bin/pi"
+if [[ -f "$HOME/.config/cache/.bun/bin/pi" ]]; then
+  alias pi="bun $HOME/.config/cache/.bun/bin/pi"
+fi
 
 if command -v btm > /dev/null; then
   alias top='btm'

@@ -1,8 +1,10 @@
 # _nr: Project bootstrapper
 # Creates a directory, inits git, adds .gitignore, creates a private GitHub repo.
+# Registers the repo in Orca when the orca CLI is available.
 #
 # Usage:
 #   _nr <project-name>                  private repo, default profile
+#   nr <project-name>                   alias for _nr
 #   _nr <project-name> --public         public repo
 #   _nr <project-name> --profile work   use a different GitHub account
 #   _nr <project-name> -d "desc"        with description
@@ -111,6 +113,15 @@ _nr() {
     git push -u origin main && echo "✓ Pushed to GitHub"
   else
     echo "gh repo create failed — see above for details" >&2
+  fi
+
+  if command -v orca > /dev/null; then
+    echo "Registering repo in Orca..."
+    if orca repo add --path "$project_path"; then
+      echo "✓ Added to Orca"
+    else
+      echo "orca repo add failed — repo is still ready locally" >&2
+    fi
   fi
 
   echo "Done! Project '$name' is ready in $(pwd)"
