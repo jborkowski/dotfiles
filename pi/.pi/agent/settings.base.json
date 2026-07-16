@@ -5,7 +5,6 @@
   "packages": [
     "npm:@ff-labs/pi-fff",
     "npm:@ff-labs/pi-fff",
-    "git:github.com/jborkowski/bear-pi",
     "git:github.com/jborkowski/zai-search-pi",
     "git:github.com/jborkowski/pi-sec",
     "git:github.com/thearyanag/pi-gemini-oauth-extension",
