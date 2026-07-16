@@ -5,6 +5,8 @@
 .pi/agent/settings.local.json
 .pi/agent/run-history.jsonl
 .pi/agent/models.json
+.pi/agent/bin/*
+!.pi/agent/bin/pi
 .pi/memory/
 .pi/exa-usage.jsonl
 

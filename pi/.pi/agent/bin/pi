@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+find_bun() {
+  if [ -n "${PI_BUN:-}" ] && [ -x "$PI_BUN" ]; then printf '%s\n' "$PI_BUN"; return; fi
+  if [ -n "${BUN_INSTALL:-}" ] && [ -x "$BUN_INSTALL/bin/bun" ]; then printf '%s\n' "$BUN_INSTALL/bin/bun"; return; fi
+  if [ -x "$HOME/.bun/bin/bun" ]; then printf '%s\n' "$HOME/.bun/bin/bun"; return; fi
+  command -v bun 2>/dev/null
+}
+
+find_cli() {
+  if [ -n "${PI_CODING_AGENT_CLI:-}" ] && [ -f "$PI_CODING_AGENT_CLI" ]; then printf '%s\n' "$PI_CODING_AGENT_CLI"; return; fi
+  for dir in \
+    "$HOME/.bun/install/global/node_modules" \
+    "$HOME/.local/lib/node_modules" \
+    "/opt/homebrew/lib/node_modules" \
+    "/usr/local/lib/node_modules"; do
+    cli="$dir/@earendil-works/pi-coding-agent/dist/cli.js"
+    if [ -f "$cli" ]; then printf '%s\n' "$cli"; return; fi
+  done
+}
+
+bun_bin="$(find_bun || true)"
+cli="$(find_cli || true)"
+
+if [ -z "$bun_bin" ]; then
+  echo "pi: bun not found; install Bun or set PI_BUN" >&2
+  exit 127
+fi
+
+if [ -z "$cli" ]; then
+  echo "pi: pi-coding-agent cli not found; install pi or set PI_CODING_AGENT_CLI" >&2
+  exit 127
+fi
+
+exec "$bun_bin" "$cli" "$@"
