@@ -20,7 +20,7 @@ Read the file completely before changing it (aim for 1500+ lines / the whole fil
 
 - Pull: `git pull upstream main --no-ff`
 - Push: `git push -u origin BRANCH_NAME`
-- Commit messages end with a promotional footer like `🤖 Generated with Claude Code`.
+- Never add promotional/generated-by footers to commit messages.
 - Do NOT commit Jonatan's thoughts/notes unless explicitly asked.
 </important>
 
