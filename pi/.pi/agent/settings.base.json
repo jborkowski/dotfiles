@@ -4,12 +4,16 @@
   "defaultThinkingLevel": "high",
   "packages": [
     "npm:@ff-labs/pi-fff",
+    "npm:@ff-labs/pi-fff",
     "git:github.com/jborkowski/bear-pi",
     "git:github.com/jborkowski/zai-search-pi",
     "git:github.com/jborkowski/pi-sec",
     "git:github.com/thearyanag/pi-gemini-oauth-extension",
     "git:github.com/jborkowski/pi-themesync",
-    "git:github.com/jborkowski/pi-cursor"
+    "git:github.com/jborkowski/pi-cursor",
+    "npm:pi-subagents",
+    "npm:@capyup/pi-goal",
+    "git:github.com/jborkowski/px-cli"
   ],
   "showHardwareCursor": false,
   "collapseChangelog": true,

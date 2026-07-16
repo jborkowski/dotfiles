@@ -8,7 +8,6 @@ plug "zsh-users/zsh-history-substring-search"
 plug "marlonrichert/zsh-edit"
 plug "hlissner/zsh-autopair"
 plug "chisui/zsh-nix-shell"
-plug "rkh/zsh-jj"
 plug "wintermi/zsh-mise"
 
 # Prompt: show host name instead of the lightning icon.
