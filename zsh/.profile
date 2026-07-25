@@ -40,5 +40,3 @@ fi
 
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 [ -f "$HOME/.config/local/bin/env" ] && . "$HOME/.config/local/bin/env"
-
-

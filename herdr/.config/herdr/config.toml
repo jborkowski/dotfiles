@@ -1,0 +1,44 @@
+# Herdr keybindings, aligned with ~/.config/tmux/tmux.conf.
+# Press Ctrl-a, release it, then press the action key.
+
+onboarding = false
+
+[terminal]
+shell_mode = "auto"
+new_cwd = "follow"
+
+[keys]
+prefix = "ctrl+a"
+
+# Session management
+detach = "prefix+d"
+reload_config = "prefix+shift+r"
+
+# Tabs (tmux windows)
+new_tab = ["prefix+c", "prefix+n"]
+previous_tab = "prefix+p"
+next_tab = "prefix+shift+n"
+switch_tab = "prefix+1..9"
+
+# Panes: keep Herdr's mnemonic split key as a fallback.
+split_vertical = ["prefix+|", "prefix+v"]
+split_horizontal = "prefix+minus"
+focus_pane_left = ["prefix+h", "prefix+left"]
+focus_pane_down = ["prefix+j", "prefix+down"]
+focus_pane_up = ["prefix+k", "prefix+up"]
+focus_pane_right = ["prefix+l", "prefix+right"]
+close_pane = "prefix+x"
+zoom = "prefix+z"
+resize_mode = "prefix+r"
+
+# Vi-style scrollback/copy mode
+copy_mode = "prefix+["
+edit_scrollback = "prefix+e"
+
+[ui]
+mouse_capture = true
+copy_on_select = true
+agent_panel_sort = "spaces"
+
+[ui.sound]
+enabled = false

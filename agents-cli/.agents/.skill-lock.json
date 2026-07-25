@@ -99,7 +99,16 @@
       "skillPath": "skills/adhd/SKILL.md",
       "skillFolderHash": "20295ca5b738965bcae4385db387faf2bfb8fc1e",
       "installedAt": "2026-06-06T12:20:23.728Z",
-      "updatedAt": "2026-06-06T12:20:23.728Z"
+      "updatedAt": "2026-07-19T17:16:37.847Z"
+    },
+    "computer-use": {
+      "source": "stablyai/orca",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/stablyai/orca.git",
+      "skillPath": "skills/computer-use/SKILL.md",
+      "skillFolderHash": "b3fb19187d9775774df2a93d59e9e0003093e4a2",
+      "installedAt": "2026-06-20T08:32:05.311Z",
+      "updatedAt": "2026-06-20T08:32:05.311Z"
     }
   },
   "dismissed": {

@@ -47,6 +47,7 @@ fi
 if [[ "$(uname)" == "Darwin" ]]; then
   alias bearcli='/Applications/Bear.app/Contents/MacOS/bearcli'
   export LLM_WIKI_ROOT="$HOME/Documents/llm-wiki"
+  export SSH_SK_PROVIDER=/usr/lib/ssh-keychain.dylib
 fi
 
 export NVM_DIR="$HOME/.nvm"

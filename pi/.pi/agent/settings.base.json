@@ -19,14 +19,9 @@
   "quietStartup": true,
   "enableInstallTelemetry": false,
   "treeFilterMode": "default",
-  "warnings": {
-    "anthropicExtraUsage": false
-  },
   "hideThinkingBlock": false,
   "piSec": {
     "oauthProviders": [
-      "anthropic",
-      "github-copilot"
     ],
     "providers": [
       "zai",
