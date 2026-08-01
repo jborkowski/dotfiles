@@ -24,7 +24,16 @@ export PATH=$HOME/.scripts/:$PATH
 export PATH="/opt/homebrew/opt/sphinx-doc/bin:$PATH"
 export PATH="$(bun pm bin -g):$PATH"
 
-
+# nebius-claude — ~/sources checkout on PATH; best-effort clone if missing
+() {
+  local dir="${HOME}/sources/nebius-claude"
+  local bin="${dir}/nebius-claude"
+  if [[ ! -x "$bin" && ! -d "${dir}/.git" ]] && (( $+commands[git] )); then
+    mkdir -p "${HOME}/sources"
+    git clone --quiet --depth=1 git@github.com:jborkowski/nebius-claude.git "$dir" 2>/dev/null || true
+  fi
+  [[ -x "$bin" ]] && path=("$dir" $path)
+}
 
 # ESP32
 export LIBCLANG_PATH="$HOME/.espressif/tools/xtensa-esp32-elf-clang/esp-15.0.0-20221014-aarch64-apple-darwin/esp-clang/lib/"
