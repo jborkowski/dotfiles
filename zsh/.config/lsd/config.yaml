@@ -1,0 +1,51 @@
+# lsd (LSDeluxe) configuration
+# Location: ~/.config/lsd/config.yaml
+
+# Icon configuration
+icons:
+  when: auto        # Options: always, auto, never
+  theme: fancy       # Options: fancy, unicode
+  separator: " "
+
+# Color configuration
+color:
+  when: auto        # Options: always, auto, never
+  theme: default
+
+# Sorting configuration
+sorting:
+  column: name      # Options: name, time, size, version, extension
+  reverse: false
+  dir-first: true
+
+# Metadata blocks shown in long listing (-l)
+# Available blocks: permission, user, group, context, size, date, name, inode, links, git
+blocks:
+  - permission
+  - user
+  - group
+  - size
+  - date
+  - name
+
+# Date formatting
+date: "+%Y-%m-%d %H:%M"
+
+# Size display format
+size: default       # Options: default, short, bytes
+
+# Display permissions format
+permission: rwx     # Options: rwx, octal, attributes, disable
+
+# General display options
+classic: false
+dereference: false
+total-size: false
+no-symlink: false
+hyperlink: auto     # Options: always, auto, never
+layout: grid        # Options: grid, tree, oneline
+
+# Tree / recursive depth configuration
+recursion:
+  enabled: false
+  depth: 2

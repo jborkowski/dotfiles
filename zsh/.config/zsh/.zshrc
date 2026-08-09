@@ -2,13 +2,14 @@
 [ -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ] && source "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh"
 plug "zsh-users/zsh-autosuggestions"
 plug "zap-zsh/supercharge"
+plug "wintermi/zsh-lsd"
 plug "zap-zsh/zap-prompt"
 plug "zsh-users/zsh-syntax-highlighting"
 plug "zsh-users/zsh-history-substring-search"
 plug "marlonrichert/zsh-edit"
 plug "hlissner/zsh-autopair"
-plug "chisui/zsh-nix-shell"
 plug "wintermi/zsh-mise"
+plug "wintermi/zsh-gcloud"
 
 # Prompt: show host name instead of the lightning icon.
 # Example: (Solmigo) ➜ the-ai-research-log (! main)
@@ -77,26 +78,6 @@ if command -v bat > /dev/null; then
   export BAT_THEME=$theme
   alias cap='cat -p'
 fi
-
-if command -v lsd > /dev/null; then
-  alias ls='lsd'
-  alias l='lsd -l'
-  alias ll='lsd -la'
-elif command -v eza > /dev/null; then
-  alias eza='eza --group-directories-first'
-  alias ls='eza'
-  alias l='eza -a'
-  alias la='eza -laF'
-  alias ll='eza -lF'
-  alias tree='eza --tree'
-else
-  alias ls='ls -G'
-  alias l='ls -A'
-  alias la='ls -lAF'
-  alias ll='ls -lF'
-fi
-
-alias tree='tree -a -C'
 
 # ── Source ─────────────────────────────────────────────
 command -v direnv > /dev/null && eval "$(direnv hook zsh)"
