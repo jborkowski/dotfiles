@@ -1,18 +1,18 @@
 {
-  "lastChangelogVersion": "0.78.0",
+  "lastChangelogVersion": "0.82.0",
   "defaultModel": "default",
   "defaultThinkingLevel": "high",
   "packages": [
     "npm:@ff-labs/pi-fff",
-    "npm:@ff-labs/pi-fff",
-    "git:github.com/jborkowski/zai-search-pi",
     "git:github.com/jborkowski/pi-sec",
-    "git:github.com/thearyanag/pi-gemini-oauth-extension",
     "git:github.com/jborkowski/pi-themesync",
-    "git:github.com/jborkowski/pi-cursor",
     "npm:pi-subagents",
     "npm:@capyup/pi-goal",
-    "git:github.com/jborkowski/px-cli"
+    "git:github.com/jborkowski/px-cli",
+    "npm:@narumitw/pi-goal",
+    "npm:pi-antigravity",
+    "npm:pi-mermaid",
+    "npm:@bigboss2063/pi-clip"
   ],
   "showHardwareCursor": false,
   "collapseChangelog": true,
@@ -21,12 +21,12 @@
   "treeFilterMode": "default",
   "hideThinkingBlock": false,
   "piSec": {
-    "oauthProviders": [
-    ],
+    "oauthProviders": [],
     "providers": [
       "zai",
       "deepseek",
       "cursor"
     ]
-  }
+  },
+  "theme": "dark"
 }
