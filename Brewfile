@@ -67,6 +67,7 @@ brew "direnv"
 # brew "djvulibre"
 # Lightweight DNS forwarder and DHCP server
 brew "dnsmasq"
+brew "lsd"
 
 
 # Pack, ship and run any application as a lightweight container
@@ -329,7 +330,6 @@ cask "container"
 # cask "cord"
 # Tool to write Fedora images to portable media files
 cask "fedora-media-writer"
-cask "font-iosevka-nerd-font"
 cask "font-jetbrains-mono"
 cask "font-jetbrains-mono-nerd-font"
 # Terminal emulator that uses platform-native UI and GPU acceleration
@@ -373,4 +373,6 @@ cask "winbox"
 
 
 cask "orbstack"
-cask "orbstack"
+cask "gcloud-cli"
+cask "font-fontawesome"
+cask "font-symbols-only-nerd-font"
