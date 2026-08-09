@@ -1,4 +1,5 @@
 font-family = "Liga SFMono Nerd Font"
+font-family = "Symbols Nerd Font Mono"
 font-size = 14
 
 # app-notifications = no-clipboard-copy
@@ -15,13 +16,57 @@ cursor-style = block
 window-decoration = true
 # macos-titlebar-style = tabs
 
+# Hide native tab bar (herdr handles tab UI)
+window-show-tab-bar = never
+
 shell-integration-features = no-cursor
 keybind = ctrl+insert=copy_to_clipboard
 keybind = shift+insert=paste_from_clipboard
 
-keybind = shift+ctrl+right=next_tab
-keybind = shift+ctrl+left=previous_tab
-keybind = cmd+enter=new_split:right
+# Disable all native Ghostty split shortcuts so herdr manages splits
+keybind = super+d=unbind
+keybind = super+shift+d=unbind
+keybind = super+enter=unbind
+keybind = super+shift+enter=unbind
+keybind = cmd+d=unbind
+keybind = cmd+shift+d=unbind
+keybind = cmd+enter=unbind
+keybind = super+[=unbind
+keybind = super+]=unbind
+keybind = super+alt+up=unbind
+keybind = super+alt+down=unbind
+keybind = super+alt+left=unbind
+keybind = super+alt+right=unbind
+keybind = super+ctrl+up=unbind
+keybind = super+ctrl+down=unbind
+keybind = super+ctrl+left=unbind
+keybind = super+ctrl+right=unbind
+
+# Disable all native Ghostty tab and window shortcuts
+keybind = super+n=unbind
+keybind = super+t=unbind
+keybind = super+w=unbind
+keybind = super+alt+w=unbind
+keybind = super+shift+w=unbind
+keybind = super+shift+alt+w=unbind
+keybind = super+shift+[=unbind
+keybind = super+shift+]=unbind
+keybind = ctrl+tab=unbind
+keybind = ctrl+shift+tab=unbind
+keybind = shift+ctrl+left=unbind
+keybind = shift+ctrl+right=unbind
+keybind = super+1=unbind
+keybind = super+2=unbind
+keybind = super+3=unbind
+keybind = super+4=unbind
+keybind = super+5=unbind
+keybind = super+6=unbind
+keybind = super+7=unbind
+keybind = super+8=unbind
+keybind = super+9=unbind
+keybind = cmd+n=unbind
+keybind = cmd+t=unbind
+keybind = cmd+w=unbind
 
 window-theme = auto
 
