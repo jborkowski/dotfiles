@@ -13,16 +13,22 @@ export VISUAL="nvim"
 export HOMEBREW_NO_ENV_HINTS=y
 
 # Path
-export PATH=$HOME/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:$HOME/.local/bin:$HOME/.ghcup/bin:$PATH
-export PATH=/opt/homebrew/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbinu:$PATH
-export PATH="$HOME/.emacs.d/.cache/lsp/lua-language-server/bin/":$PATH
-export PATH="$HOME/.espressif/tools/xtensa-esp32-elf-gcc/8_4_0-esp-2021r2-patch3-aarch64-apple-darwin/bin/:$HOME/.espressif/tools/xtensa-esp32s2-elf-gcc/8_4_0-esp-2021r2-patch3-aarch64-apple-darwin/bin/:$HOME/.espressif/tools/xtensa-esp32s3-elf-gcc/8_4_0-esp-2021r2-patch3-aarch64-apple-darwin/bin/:$PATH"
-export PATH="/Library/TeX/texbin:/Library/TeX/texbin:$HOME/.espressif/tools/xtensa-esp32-elf-gcc/8_4_0-esp-2021r2-patch3-aarch64-apple-darwin/bin/:$HOME/.espressif/tools/xtensa-esp32s2-elf-gcc/8_4_0-esp-2021r2-patch3-aarch64-apple-darwin/bin/:$HOME/.espressif/tools/xtensa-esp32s3-elf-gcc/8_4_0-esp-2021r2-patch3-aarch64-apple-darwin/bin/:/opt/homebrew/opt/mysql-client/bin:/opt/homebrew/opt/llvm/bin:/opt/homebrew/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbinu:$HOME/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:$HOME/.local/bin:$HOME/.ghcup/bin:/Applications/kitty.app/Contents/MacOS:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.cabal/bin:$PATH"
-export PATH=$HOME/.orbstack/bin:$PATH
-export PATH=$HOME/.config/local/bin:$PATH
-export PATH=$HOME/.scripts/:$PATH
-export PATH="/opt/homebrew/opt/sphinx-doc/bin:$PATH"
-export PATH="$(bun pm bin -g):$PATH"
+export PATH="/Library/TeX/texbin:$PATH"                                             
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/usr/local/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.ghcup/bin:$PATH"
+export PATH="/Applications/kitty.app/Contents/MacOS:$PATH"
+export PATH="$HOME/.cabal/bin:$PATH"
+
+if BUN_GLOBAL_BIN=$(bun pm bin -g 2>/dev/null) && [ -d "$BUN_GLOBAL_BIN" ]; then                                        
+  export PATH="$HOME/.bun/bin:$BUN_GLOBAL_BIN:$PATH"                                                                    
+else                                                                                                                    
+  export PATH="$HOME/.bun/bin:$PATH"                                                                                    
+fi 
 
 # nebius-claude — ~/sources checkout on PATH; best-effort clone if missing
 () {
@@ -62,4 +68,3 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
-

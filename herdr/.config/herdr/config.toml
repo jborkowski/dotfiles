@@ -1,4 +1,4 @@
-# Herdr keybindings, aligned with ~/.config/tmux/tmux.conf.
+# Herdr keybindings.
 # Press Ctrl-a, release it, then press the action key.
 
 onboarding = false
@@ -14,7 +14,7 @@ prefix = "ctrl+a"
 detach = "prefix+d"
 reload_config = "prefix+shift+r"
 
-# Tabs (tmux windows)
+# Tabs
 new_tab = ["prefix+c", "prefix+n"]
 previous_tab = "prefix+p"
 next_tab = "prefix+shift+n"

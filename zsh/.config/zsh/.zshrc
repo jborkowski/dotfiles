@@ -19,17 +19,16 @@ PROMPT+="\$vcs_info_msg_0_ "
 autoload -Uz compinit
 compinit
 
-# Auto-launch tmux (skip if `main` is already attached elsewhere)
+# Auto-launch Herdr outside editor-integrated terminals.
 if [[ -o interactive ]] \
-  && [[ -z "$TMUX" ]] \
+  && [[ -z "$HERDR_PANE_ID" ]] \
   && [[ -z "$VSCODE_RESOLVING_ENVIRONMENT" ]] \
   && [[ "$TERM_PROGRAM" != "vscode" ]] \
   && [[ "$TERM_PROGRAM" != "cursor" ]] \
   && [[ "$TERM" != "dumb" ]] \
   && [[ -t 0 && -t 1 ]] \
-  && command -v tmux >/dev/null \
-  && ! tmux list-clients -t main 2>/dev/null | grep -q .; then
-  exec tmux new-session -A -s main
+  && command -v herdr >/dev/null; then
+  exec herdr
 fi
 
 # ── Options ────────────────────────────────────────────
