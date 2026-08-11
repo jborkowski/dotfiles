@@ -3,7 +3,6 @@
 
 # --- Default Account: iCloud ---
 [accounts.icloud]
-default = true
 email = "jonatan.borkowski@icloud.com"
 
 [accounts.icloud.mailbox]
@@ -26,6 +25,7 @@ passwd.cmd = "security find-generic-password -s himalaya-icloud -w"
 
 # --- Additional Account: Custom Domain (thebo.me) ---
 [accounts.thebo]
+default = true
 email = "jonatan@thebo.me"
 
 [accounts.thebo.mailbox]
@@ -45,3 +45,60 @@ starttls = true
 [accounts.thebo.smtp.sasl.plain]
 username = "jonatan.borkowski@icloud.com"
 passwd.cmd = "security find-generic-password -s himalaya-icloud -w"
+
+# --- Additional Account: Custom Domain (thereasoningtrace.dev) ---
+[accounts.reasoningtrace]
+email = "jonatan@thereasoningtrace.dev"
+
+[accounts.reasoningtrace.mailbox]
+alias.inbox = "INBOX"
+
+[accounts.reasoningtrace.imap]
+server = "imap.mail.me.com:993"
+
+[accounts.reasoningtrace.imap.sasl.plain]
+username = "jonatan.borkowski@icloud.com"
+passwd.cmd = "security find-generic-password -s himalaya-icloud -w"
+
+[accounts.reasoningtrace.smtp]
+server = "smtp://smtp.mail.me.com:587"
+starttls = true
+
+[accounts.reasoningtrace.smtp.sasl.plain]
+username = "jonatan.borkowski@icloud.com"
+passwd.cmd = "security find-generic-password -s himalaya-icloud -w"
+
+# --- Additional Account: Custom Domain (j14i.me) ---
+[accounts.j14i]
+email = "mail@j14i.me"
+
+[accounts.j14i.mailbox]
+alias.inbox = "INBOX"
+
+[accounts.j14i.imap]
+server = "imap.mail.me.com:993"
+
+[accounts.j14i.imap.sasl.plain]
+username = "jonatan.borkowski@icloud.com"
+passwd.cmd = "security find-generic-password -s himalaya-icloud -w"
+
+[accounts.j14i.smtp]
+server = "smtp://smtp.mail.me.com:587"
+starttls = true
+
+[accounts.j14i.smtp.sasl.plain]
+username = "jonatan.borkowski@icloud.com"
+passwd.cmd = "security find-generic-password -s himalaya-icloud -w"
+
+# --- Setup on a new Mac ---
+# 1. Generate an Apple app-specific password:
+#    https://account.apple.com/account/manage
+#    Sign-In and Security > App-Specific Passwords > Generate Password.
+#    Two-factor authentication must be enabled on the Apple Account.
+# 2. Add the generated password to this Mac's local Keychain:
+#    security add-generic-password -a jonatan.borkowski@icloud.com -s himalaya-icloud -U -w
+#    Enter the app-specific password when prompted. Do not put it in this file.
+# 3. Verify the account and list email:
+#    himalaya account list
+#    himalaya envelope list
+# Apple documentation: https://support.apple.com/en-us/102654
