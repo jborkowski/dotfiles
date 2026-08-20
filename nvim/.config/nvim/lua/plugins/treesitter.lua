@@ -1,38 +1,26 @@
+local parsers = {
+  "bash", "c", "cpp", "dockerfile", "go", "html", "javascript", "json", "haskell",
+  "lua", "markdown", "markdown_inline", "purescript", "python", "query", "regex",
+  "rust", "ruby", "sql", "swift", "toml", "tsx", "typescript", "vim", "vimdoc", "yaml", "zig",
+}
+
+if vim.fn.executable("sbcl") == 1 then
+  table.insert(parsers, "commonlisp")
+end
+
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    branch = "master",
-    build = ":TSUpdate",
+    branch = "main",
+    lazy = false,
+    build = function()
+      local treesitter = require("nvim-treesitter")
+      treesitter.install(parsers, { force = true }):wait(300000)
+    end,
     config = function()
-      local parsers = {
-        "bash", "c", "cpp", "dockerfile", "html", "javascript", "json", "haskell",
-        "lua", "markdown", "markdown_inline", "python", "query", "regex",
-        "rust", "ruby", "sql", "swift", "toml", "tsx", "typescript", "vim", "vimdoc", "yaml", "zig"
-      }
+      require("nvim-treesitter").setup()
 
-      if vim.fn.executable("sbcl") == 1 then
-        table.insert(parsers, "commonlisp")
-      end
-
-      vim.api.nvim_create_autocmd("VimEnter", {
-        callback = function()
-          vim.defer_fn(function()
-            local ok, config = pcall(require, "nvim-treesitter.config")
-            if not ok then return end
-            local installed = config.get_installed()
-            local to_install = vim.tbl_filter(function(p)
-              return not vim.tbl_contains(installed, p)
-            end, parsers)
-            if #to_install > 0 then
-              vim.notify("Installing " .. #to_install .. " treesitter parsers...", vim.log.levels.INFO)
-              require("nvim-treesitter.install").install(to_install)
-            end
-          end, 100)
-        end,
-        once = true,
-      })
-
-      -- Enable treesitter highlighting and indentation
+      -- Neovim 0.12 owns highlighting; nvim-treesitter supplies queries and indentation.
       vim.api.nvim_create_autocmd("FileType", {
         callback = function()
           if pcall(vim.treesitter.start) then

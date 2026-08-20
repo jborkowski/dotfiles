@@ -46,8 +46,6 @@ return {
 
     cmp.setup.filetype("gitcommit", {
       sources = cmp.config.sources({
-        { name = "fugitive" },
-      }, {
         { name = "buffer" },
         { name = "spell" },
       }),
@@ -72,7 +70,7 @@ return {
     -- --------------------------------------------------------------------- }}}
     -- {{{ Has words before
 
-    -- Proper has_words_before for Copilot (handles empty lines correctly)
+    -- Detect whether completion should start after the cursor.
     local has_words_before = function()
       if vim.api.nvim_get_option_value("buftype", { buf = 0 }) == "prompt" then return false end
       local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -92,7 +90,6 @@ return {
       Constant = " ",
       Constructor = "",
       Control = "",
-      Copilot = " ",
       Enum = "",
       EnumMember = "",
       Event = "",
@@ -172,6 +169,9 @@ return {
       ["<CR>"] = cmp.mapping.confirm { select = true },
 
       ["<Tab>"] = vim.schedule_wrap(function(fallback)
+        if vim.lsp.inline_completion.get() then
+          return
+        end
         if cmp.visible() and has_words_before() then
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
         else
@@ -195,7 +195,6 @@ return {
       spell         = "[Spell]",
       buffer        = "[Buffer]",
       nvim_lsp      = "[LSP]",
-      nvim_lua      = "[Lua]",
       path          = "[Path]",
       calc          = "[calc]",
       nvlime        = "[nvlime]",
@@ -220,7 +219,6 @@ return {
 
     local sources = {
       { name = "nvim_lsp",      group_index = 1, keyword_length = 1, max_item_count = 10 },
-      { name = "nvim_lua",      group_index = 1, keyword_length = 1, max_item_count = 10 },
       { name = "path",          group_index = 1, keyword_length = 3, max_item_count = 10 },
       { name = "buffer",        group_index = 2, keyword_length = 3, max_item_count = 5 },
       { name = "spell",         group_index = 2, keyword_length = 3, max_item_count = 5 },

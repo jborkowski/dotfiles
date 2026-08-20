@@ -1,11 +1,15 @@
 return {
   'rmagatti/auto-session',
   lazy = false,
+  init = function()
+    vim.opt.sessionoptions:append("localoptions")
+  end,
 
   keys = function()
     return {
       { "<leader>ss", ":SessionSave<CR>",    desc = "Save Session" },
       { "<leader>sr", ":SessionRestore<CR>", desc = "Restore Session" },
+      { "<leader>sl", ":AutoSession search<CR>", desc = "Search sessions" },
     }
   end,
 
@@ -15,14 +19,13 @@ return {
   opts = {
     suppressed_dirs = { '~/', '~/Downloads', '/' },
     root_dir = '~/.local/state/nvim/sessions/',
-    auto_restore_enabled = false,
-    auto_session_enabled = true,
+    auto_restore = false,
+    enabled = true,
     purge_after_minutes = 14400,
 
     session_lens = {
-      load_on_setup = true,
-      theme_conf = {
-      },
+      load_on_setup = false,
+      picker_opts = {},
       previewer = false,
 
       mappings = {

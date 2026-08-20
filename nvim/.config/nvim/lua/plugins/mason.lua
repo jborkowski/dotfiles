@@ -1,6 +1,7 @@
 return {
   {
     "williamboman/mason.nvim",
+      cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUpdate", "MasonLog" },
       opts = function(_, opts)
         opts.ui = {
           border = "rounded",
@@ -9,5 +10,5 @@ return {
         }
       end,
   },
-  "williamboman/mason-lspconfig.nvim"
+  { "williamboman/mason-lspconfig.nvim", lazy = true },
 }

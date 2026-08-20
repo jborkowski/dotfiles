@@ -1,33 +1,10 @@
 return {
   'https://codeberg.org/esensar/nvim-dev-container',
+  enabled = function()
+    return vim.fn.executable("docker") == 1 or vim.fn.executable("podman") == 1
+  end,
   config = function()
     require("devcontainer").setup {
-      config_search_start = function()
-        -- By default this function uses vim.loop.cwd()
-        -- This is used to find a starting point for .devcontainer.json file search
-        -- Since by default, it is searched for recursively
-        -- That behavior can also be disabled
-      end,
-      workspace_folder_provider = function()
-        -- By default this function uses first workspace folder for integrated lsp if available and vim.loop.cwd() as a fallback
-        -- This is used to replace `${localWorkspaceFolder}` in devcontainer.json
-        -- Also used for creating default .devcontainer.json file
-      end,
-      terminal_handler = function(command)
-        -- By default this function creates a terminal in a new tab using :terminal command
-        -- It also removes statusline when that tab is active, to prevent double statusline
-        -- It can be overridden to provide custom terminal handling
-      end,
-      nvim_installation_commands_provider = function(path_binaries, version_string)
-        -- Returns table - list of commands to run when adding neovim to container
-        -- Each command can either be a string or a table (list of command parts)
-        -- Takes binaries available in path on current container and version_string passed to the command or current version of neovim
-      end,
-      devcontainer_json_template = function()
-        -- Returns table - list of lines to set when creating new devcontainer.json files
-        -- As a template
-        -- Used only when using functions from commands module or created commands
-      end,
       -- Can be set to false to prevent generating default commands
       -- Default commands are listed below
       generate_commands = true,

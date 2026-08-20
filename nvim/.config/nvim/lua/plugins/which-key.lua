@@ -1,11 +1,15 @@
 return {
   "folke/which-key.nvim",
   enabled = true,
-  keys = { "<leader>", "<c-r>", "<c-w>", '"', "`", "c", "v", "g" },
-  event = { "InsertEnter" },
+  event = "VeryLazy",
 
+  -- Restrict the popup to configured leader namespaces. The previous broad
+  -- triggers for g/c/v/registers/windows exposed a large amount of builtin noise.
   opts = {
-    plugins = { spelling = true }
+    triggers = {
+      { "<leader>", mode = { "n", "v" } },
+      { "<localleader>", mode = { "n", "v" } },
+    },
   },
 
   config = function(_, opts)
@@ -13,14 +17,18 @@ return {
     wk.setup(opts)
 
     wk.add({
-      { "<leader>a",  group = "Avante" },
-      { "<leader>c",  group = "Actions" },
-      { "<leader>g",  group = "Git" },
-      { "<leader>h",  group = "Harpoon" },
-      { "<leader>t",  group = "Toggle..." },
-      { "<leader>h",  group = "Harpoon" },
-      { "<leader>p",  group = "Project" },
-      { "<leader>f",  group = "Files" },
+      { "<localleader>", group = "Local leader (,)" },
+      { "<leader>b", group = "Buffers" },
+      { "<leader>c", group = "Code / LSP" },
+      { "<leader>f", group = "Files" },
+      { "<leader>g", group = "Git" },
+      { "<leader>gL", group = "GitHub lists" },
+      { "<leader>h", group = "Harpoon" },
+      { "<leader>o", group = "Open" },
+      { "<leader>p", group = "Project" },
+      { "<leader>s", group = "Sessions" },
+      { "<leader>t", group = "Toggle" },
+      { "<leader>x", group = "Diagnostics" },
     })
   end,
 }

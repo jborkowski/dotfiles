@@ -16,6 +16,10 @@ return {
       end
     end
 
+    local function show_progress()
+      return vim.ui.progress_status() or ""
+    end
+
     vim.api.nvim_create_autocmd("RecordingEnter", {
       callback = function()
         require("lualine").refresh({
@@ -26,7 +30,7 @@ return {
 
     vim.api.nvim_create_autocmd("RecordingLeave", {
       callback = function()
-        local timer = vim.loop.new_timer()
+        local timer = vim.uv.new_timer()
         timer:start(
           50,
           0,
@@ -78,7 +82,8 @@ return {
       },
       lualine_c = { "filename" },
       lualine_x = {
-        { show_macro_recording, },
+        { show_progress },
+        { show_macro_recording },
         { "progress",           separator = " ",                  padding = { left = 1, right = 0 } },
         { "location",           padding = { left = 0, right = 1 } },
       },

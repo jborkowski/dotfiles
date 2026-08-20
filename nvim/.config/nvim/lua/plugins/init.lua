@@ -11,7 +11,6 @@ return {
     priority = 1000,
     lazy = false,
     keys = {
-      { "<leader>ot", function() require("snacks.terminal").toggle() end, desc = "Toggle Terminal" },
       {
         '<leader>gB',
         function()
@@ -25,7 +24,7 @@ return {
     opts = {
       bigfile = { enabled = true },
       indent = { enabled = true },
-      image = { enabled = false },
+      image = { enabled = true },
       input = { enabled = true },
       picker = { enabled = false },
       git = {
@@ -64,7 +63,7 @@ return {
             term_normal = {
               '<esc>',
               function(self)
-                self.esc_timer = self.esc_timer or (vim.uv or vim.loop).new_timer()
+                self.esc_timer = self.esc_timer or vim.uv.new_timer()
                 if self.esc_timer:is_active() then
                   self.esc_timer:stop()
                   vim.cmd 'stopinsert'
@@ -88,7 +87,5 @@ return {
   },
 
   { "nvim-tree/nvim-web-devicons", lazy = true },
-
-  { "stevearc/dressing.nvim",      event = "VeryLazy" },
 
 }

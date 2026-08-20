@@ -32,7 +32,7 @@ return {
 
     ts_config = {
       lua = {"string", "source"},
-      javascript = {"string", "tempalte_string"},
+      javascript = {"string", "template_string"},
       java = false,
       rust = true,
     },

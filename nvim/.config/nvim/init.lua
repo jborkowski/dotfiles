@@ -27,12 +27,11 @@ vim.o.expandtab = true
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
 
-vim.g.autowrite = true
-vim.g.autoread = true
-vim.g.incsearch = true
-vim.g.nobackup = true
-vim.g.noswapfile = true
-vim.opt.swapfile = false
+vim.o.autowrite = true
+vim.o.autoread = true
+vim.o.incsearch = true
+vim.o.backup = false
+vim.o.swapfile = false
 
 
 vim.opt.conceallevel = 2
@@ -43,7 +42,7 @@ vim.opt.spelllang = 'en_us'
 vim.opt.spell = true
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",
@@ -55,18 +54,14 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("plugins")
-
--- Auto-install LSP servers from Mason
--- require("auto-install-lsp").setup()
+require("lazy").setup("plugins", {
+  rocks = { enabled = false },
+})
 
 -- exit from terminal mode
-vim.api.nvim_set_keymap('n', '<Leader>w', ':w<cr>', { noremap = true })
+vim.keymap.set('n', '<leader>w', '<cmd>write<cr>', { desc = 'Write buffer' })
 
 require('cursor_colemak')
-
--- quick access to newrt
-vim.keymap.set('n', '<leader>.', ':Explore<CR>', { noremap = true, silent = true })
 
 vim.cmd('autocmd BufRead,BufNewFile *.hbs set filetype=html')
 

@@ -1,6 +1,6 @@
 return {
   'neovim/nvim-lspconfig',
-  lazy = false,
+  event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     'williamboman/mason.nvim',
     'hrsh7th/cmp-nvim-lsp',
@@ -13,7 +13,6 @@ return {
   config = function()
     local cmp_lsp = require 'cmp_nvim_lsp'
     local common = require('plugins.lspconfig.common')
-    local navic = require("nvim-navic")
 
     local function safe_enable(server, cmd)
       if cmd and vim.fn.executable(cmd) == 0 then
@@ -22,9 +21,50 @@ return {
       pcall(vim.lsp.enable, server)
     end
 
+    local function enable_with_mason(server)
+      local registry = require("mason-registry")
+      local mappings = require("mason-lspconfig.mappings").get_mason_map()
+      local package_name = mappings.lspconfig_to_package[server]
+
+      if not package_name then
+        vim.notify("No Mason package mapped for LSP config '" .. server .. "'", vim.log.levels.WARN)
+        vim.lsp.enable(server)
+        return
+      end
+
+      local package = registry.get_package(package_name)
+      if package:is_installed() then
+        vim.lsp.enable(server)
+        vim.notify("Enabled LSP " .. server, vim.log.levels.INFO)
+        return
+      end
+
+      vim.notify(string.format("Installing %s for LSP %s...", package_name, server), vim.log.levels.INFO)
+      package:install():once("closed", vim.schedule_wrap(function()
+        if not package:is_installed() then
+          vim.notify("Failed to install " .. package_name, vim.log.levels.ERROR)
+          return
+        end
+
+        -- Toggle so a config that previously failed to spawn is retried now.
+        vim.lsp.enable(server, false)
+        vim.lsp.enable(server)
+        vim.notify(string.format("Installed %s and enabled LSP %s", package_name, server), vim.log.levels.INFO)
+      end))
+    end
+
+    vim.api.nvim_create_user_command("LspEnable", function(opts)
+      enable_with_mason(opts.args)
+    end, {
+      nargs = 1,
+      desc = "Install an LSP with Mason when needed, then enable it",
+      complete = function()
+        return require("mason-lspconfig").get_available_servers()
+      end,
+    })
+
     local on_attach = function(client, bufnr)
       common.set_mappings(client, bufnr)
-      navic.attach(client, bufnr)
     end
 
     local capabilities = vim.tbl_deep_extend(
@@ -44,7 +84,7 @@ return {
     vim.lsp.config('lua_ls', vim.tbl_extend('force', default_config, {
       on_init = function(client)
         local path = client.workspace_folders[1].name
-        if not vim.loop.fs_stat(path .. '/.luarc.json') and not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
+        if not vim.uv.fs_stat(path .. '/.luarc.json') and not vim.uv.fs_stat(path .. '/.luarc.jsonc') then
           client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
             Lua = {
               diagnostics = {
@@ -140,6 +180,9 @@ return {
     vim.lsp.config('ts_ls', default_config)
     safe_enable('ts_ls', 'typescript-language-server')
 
+    -- oxfmt is both a formatter and an LSP server for web filetypes.
+    safe_enable('oxfmt', 'oxfmt')
+
     vim.lsp.config('svelte', default_config)
     safe_enable('svelte', 'svelteserver')
 
@@ -175,7 +218,7 @@ return {
     safe_enable('pylsp', 'pylsp')
 
     vim.lsp.config('ty', default_config)
-    vim.lsp.enable('ty')
+    safe_enable('ty', 'ty')
 
     vim.lsp.config('yamlls', default_config)
     safe_enable('yamlls', 'yaml-language-server')
@@ -213,6 +256,10 @@ return {
     vim.lsp.config('solargraph', default_config)
     safe_enable('solargraph', 'solargraph')
 
+    -- Neovim 0.12 provides native LSP inline completion for Copilot.
+    -- Keep nvim-lspconfig's Copilot on_attach so its sign-in commands remain available.
+    safe_enable('copilot', 'copilot-language-server')
+
     vim.lsp.config('sourcekit', vim.tbl_extend('force', default_config, {
       cmd = { "sourcekit-lsp" },
       filetypes = { "swift", "objc", "objcpp" },
@@ -223,22 +270,25 @@ return {
     safe_enable('sourcekit', 'sourcekit-lsp')
 
     vim.api.nvim_create_autocmd('LspAttach', {
-      group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+      group = vim.api.nvim_create_augroup('UserLspConfig', { clear = true }),
       callback = function(ev)
-        -- Enable completion triggered by <c-x><c-o>
-        vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        if not client then return end
+
+        if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlineCompletion, ev.buf) then
+          vim.lsp.inline_completion.enable(true, { bufnr = ev.buf })
+          vim.keymap.set('i', '<M-]>', function()
+            vim.lsp.inline_completion.select({ bufnr = ev.buf, count = 1 })
+          end, { buffer = ev.buf, desc = 'Next inline completion' })
+          vim.keymap.set('i', '<M-[>', function()
+            vim.lsp.inline_completion.select({ bufnr = ev.buf, count = -1 })
+          end, { buffer = ev.buf, desc = 'Previous inline completion' })
+        end
       end,
     })
 
-    require('mason').setup()
     require('mason-lspconfig').setup({
-      automatic_enable = {
-        exclude = {
-          "rust_analyzer",
-          "hls",
-          "purescript"
-        }
-      }
+      automatic_enable = false,
     })
   end,
 }

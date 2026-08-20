@@ -14,7 +14,7 @@ return {
     }
   end,
 
-  config = {
+  opts = {
     disable_hint = false,
     prompt_force_push = false,
     filewatcher = {

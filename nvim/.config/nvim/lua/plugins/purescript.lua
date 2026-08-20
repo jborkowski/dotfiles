@@ -1,6 +1,7 @@
 return {
   {
     "srghma/nvimmer-ps",
+    ft = "purescript",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim",

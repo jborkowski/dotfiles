@@ -22,7 +22,7 @@ return {
   },
 
   enabled = true,
-  lazy = false,
+  cmd = "Telescope",
 
   keys = function()
     return {
@@ -33,15 +33,11 @@ return {
         desc = 'Browse files',
       },
 
-      { "<leader>i",   builtin('diagnostics', { severity = "ERROR" }),      desc = "Telescope diagnostics" },
       { "<leader>/",   builtin('live_grep'),                     desc = "Live grep (ripgrep)" },
       { "<Leader>fm",  builtin('marks'),                                    desc = 'Search marks' },
-      { "<leader>hm",  extension('harpoon', 'marks'),                       desc = "Harpoon marks" },
       { "<Leader>fo",  builtin('oldfiles'),                                 desc = "Search recent files" },
       { "<Leader>fs",  builtin('grep_string'),                              desc = "Search from word under cursor" },
       { "<leader>pp",  extension('project', 'project'),                     desc = "Telescope Project" },
-      { "<Leader>fls", builtin('lsp_document_symbols'),                     desc = "List lsp symbols for current buffer" },
-      { "<leader>sl",  extension('session-lens', 'search_session'),         desc = 'Search list' },
       { "<leader>gLa", extension('gh', 'pull_request', { state = "open" }), desc = 'List PRs' },
       {
         "<leader>gLu",
@@ -164,7 +160,6 @@ return {
     telescope.load_extension('fzf')
     telescope.load_extension('file_browser')
     telescope.load_extension('project')
-    telescope.load_extension('harpoon')
     telescope.load_extension('gh')
 
 
