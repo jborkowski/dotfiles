@@ -25,7 +25,7 @@ return {
     opts = {
       bigfile = { enabled = true },
       indent = { enabled = true },
-      image = { enabled = true },
+      image = { enabled = false },
       input = { enabled = true },
       picker = { enabled = false },
       git = {
