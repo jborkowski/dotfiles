@@ -23,6 +23,7 @@ compinit
 # Auto-launch Herdr outside editor-integrated terminals.
 if [[ -o interactive ]] \
   && [[ -z "$HERDR_PANE_ID" ]] \
+  && [[ -z "$ORCA_TERMINAL_HANDLE" ]] \
   && [[ -z "$VSCODE_RESOLVING_ENVIRONMENT" ]] \
   && [[ "$TERM_PROGRAM" != "vscode" ]] \
   && [[ "$TERM_PROGRAM" != "cursor" ]] \
