@@ -1,0 +1,20 @@
+# dji-mic — device + destination config
+# Sourced by ~/.local/bin/dji-mic. Override any value here or via env.
+
+DEST_ROOT="${DEST_ROOT:-$HOME/Library/Mobile Documents/com~apple~CloudDocs/VoiceNotes}"
+DATE_FMT="${DATE_FMT:-%Y-%m-%d-%H-%M}"
+DELETE_AFTER="${DELETE_AFTER:-1}"
+NOTIFY="${NOTIFY:-1}"
+
+# Match if ANY of these hit. USB serial on this transmitter is generic
+# (0123456798AB) so we do not use it.
+MEDIA_NAME="${MEDIA_NAME:-WIRELESS MIC TX2}"
+VOLUME_UUID="${VOLUME_UUID:-E0A935FA-012A-35B8-91E9-799C8510DE42}"
+USB_VENDOR="${USB_VENDOR:-4310}"    # 0x10D6 Actions
+USB_PRODUCT="${USB_PRODUCT:-45067}" # 0xB00B MSC-Sample
+
+# Confirm it is a DJI recorder, not some other "NO NAME" FAT stick.
+AUDIO_DIR_GLOB="${AUDIO_DIR_GLOB:-DJI_Audio_*}"
+
+# How long the mount watcher waits for the volume to appear after USB attach.
+MOUNT_WAIT_SECS="${MOUNT_WAIT_SECS:-20}"

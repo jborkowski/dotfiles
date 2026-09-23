@@ -30,7 +30,7 @@ brew bundle
 
 Deploy dotfiles:
 ```bash
-stow alacritty ghostty git nvim zsh hammerspoon raycast karabiner
+stow alacritty ghostty git nvim zsh hammerspoon raycast karabiner dji-mic
 ```
 
 ### Dev Container
@@ -59,6 +59,7 @@ Dotfiles are organized by tool/application, each containing config files to be s
 - `zsh/` - Shell configuration
 - `git/` - Git configuration
 - `scripts/` - Custom utilities
+- `dji-mic/` - DJI Wireless Mic pull + mount watcher (`dji-mic detect|pull|watch`)
 - `re/` - Dev container customizations (encrypted)
 
 ## Notes

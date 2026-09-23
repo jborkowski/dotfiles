@@ -1,0 +1,500 @@
+#!/usr/bin/env bash
+# dji-mic — pull recordings off a DJI Wireless Mic and watch for it on mount.
+#
+# Device match (any one is enough; USB serial on this TX is not unique):
+#   media name  WIRELESS MIC TX2
+#   volume UUID E0A935FA-012A-35B8-91E9-799C8510DE42
+#   USB         vendor 4310 / product 45067 (Actions MSC-Sample)
+#
+# Usage:
+#   dji-mic pull [--keep|--delete|--dry-run|--if-present]
+#   dji-mic detect
+#   dji-mic watch enable|disable|status
+
+set -euo pipefail
+
+CONFIG_DIR="${DJI_MIC_CONFIG_DIR:-$HOME/.config/dji-mic}"
+CONFIG_FILE="$CONFIG_DIR/config"
+STATE_DIR="${DJI_MIC_STATE_DIR:-$HOME/.local/state/dji-mic}"
+LOG_FILE="${DJI_MIC_LOG:-$HOME/Library/Logs/dji-mic.log}"
+LOCK_DIR="$STATE_DIR/pull.lock"
+AGENT_LABEL="com.jonatan.dji-mic"
+AGENT_PLIST="$HOME/Library/LaunchAgents/${AGENT_LABEL}.plist"
+
+DEST_ROOT="${DEST_ROOT:-$HOME/Library/Mobile Documents/com~apple~CloudDocs/VoiceNotes}"
+DATE_FMT="%Y-%m-%d-%H-%M"
+DELETE_AFTER=1
+NOTIFY=1
+MEDIA_NAME="WIRELESS MIC TX2"
+VOLUME_UUID="E0A935FA-012A-35B8-91E9-799C8510DE42"
+USB_VENDOR="4310"
+USB_PRODUCT="45067"
+AUDIO_DIR_GLOB="DJI_Audio_*"
+MOUNT_WAIT_SECS=20
+
+SOURCE=""
+DRY_RUN=0
+IF_PRESENT=0
+QUIET=0
+STAMP=""
+CMD=""
+
+usage() {
+  cat <<'EOF'
+Usage: dji-mic <command> [options]
+
+Commands:
+  pull      Copy audio from the mounted transmitter into DEST_ROOT/<date>/
+  detect    Print the matched volume and fingerprints (exit 1 if absent)
+  watch     enable | disable | status   — launchd StartOnMount watcher
+
+pull options:
+  --keep          Keep files on the device (copy only)
+  --delete        Delete from the device after a verified copy (default)
+  --dry-run       Print actions without copying or deleting
+  --if-present    Exit 0 when the device is not mounted (for the watcher)
+  --source PATH   Use this volume instead of auto-detect
+  --dest PATH     Destination root
+  --stamp STAMP   Folder name instead of current YYYY-MM-DD-HH-MM
+  --quiet         Less stdout (still logs)
+
+Config: ~/.config/dji-mic/config
+Logs:   ~/Library/Logs/dji-mic.log
+EOF
+}
+
+die() {
+  echo "error: $*" >&2
+  exit 1
+}
+
+log() {
+  local line
+  line="$(date '+%Y-%m-%d %H:%M:%S') $*"
+  mkdir -p "$(dirname "$LOG_FILE")"
+  printf '%s\n' "$line" >>"$LOG_FILE"
+  if [ "$QUIET" -eq 0 ]; then
+    printf '%s\n' "$*"
+  fi
+}
+
+notify() {
+  [ "$NOTIFY" -eq 1 ] || return 0
+  command -v osascript >/dev/null 2>&1 || return 0
+  local msg="$1"
+  osascript -e "display notification $(printf '%s' "$msg" | python3 -c 'import json,sys; print(json.dumps(sys.stdin.read()))') with title \"dji-mic\"" >/dev/null 2>&1 || true
+}
+
+load_config() {
+  if [ -f "$CONFIG_FILE" ]; then
+    # shellcheck disable=SC1090
+    source "$CONFIG_FILE"
+  fi
+}
+
+volume_has_dji_audio() {
+  local vol="$1"
+  /usr/bin/find "$vol" -maxdepth 1 -type d -name "$AUDIO_DIR_GLOB" -print -quit 2>/dev/null | grep -q .
+}
+
+media_name_for_volume() {
+  local vol="$1"
+  local parent
+  parent="$(diskutil info "$vol" 2>/dev/null | awk -F: '/Part of Whole/{gsub(/ /,"",$2); print $2}')"
+  [ -n "$parent" ] || return 1
+  diskutil info "$parent" 2>/dev/null | awk -F: '/Device \/ Media Name/{gsub(/^ +/,"",$2); print $2}'
+}
+
+volume_uuid_for_volume() {
+  diskutil info "$1" 2>/dev/null | awk -F: '/Volume UUID/{gsub(/^ +/,"",$2); print $2}'
+}
+
+usb_device_present() {
+  python3 - "$USB_VENDOR" "$USB_PRODUCT" <<'PY'
+import re, subprocess, sys
+vendor, product = sys.argv[1], sys.argv[2]
+out = subprocess.check_output(["ioreg", "-p", "IOUSB", "-l", "-w", "0"], text=True, errors="replace")
+blocks = re.split(r"\+-o ", out)
+for block in blocks:
+    vend = re.search(r'"idVendor"\s*=\s*(\d+)', block)
+    prod = re.search(r'"idProduct"\s*=\s*(\d+)', block)
+    if vend and prod and vend.group(1) == vendor and prod.group(1) == product:
+        sys.exit(0)
+sys.exit(1)
+PY
+}
+
+find_dji_volume() {
+  local vol media uuid
+
+  for vol in /Volumes/*; do
+    [ -d "$vol" ] || continue
+    media="$(media_name_for_volume "$vol" || true)"
+    if [ -n "$MEDIA_NAME" ] && [ "$media" = "$MEDIA_NAME" ]; then
+      printf '%s\n' "$vol"
+      return 0
+    fi
+  done
+
+  for vol in /Volumes/*; do
+    [ -d "$vol" ] || continue
+    uuid="$(volume_uuid_for_volume "$vol" || true)"
+    if [ -n "$VOLUME_UUID" ] && [ "$uuid" = "$VOLUME_UUID" ]; then
+      printf '%s\n' "$vol"
+      return 0
+    fi
+  done
+
+  # USB id is unique enough together with DJI_Audio_* folders.
+  if usb_device_present; then
+    for vol in /Volumes/*; do
+      [ -d "$vol" ] || continue
+      if volume_has_dji_audio "$vol"; then
+        printf '%s\n' "$vol"
+        return 0
+      fi
+    done
+  fi
+
+  return 1
+}
+
+wait_for_volume() {
+  local tries=0
+  local vol=""
+  while [ "$tries" -lt "$MOUNT_WAIT_SECS" ]; do
+    if vol="$(find_dji_volume)"; then
+      printf '%s\n' "$vol"
+      return 0
+    fi
+    sleep 1
+    tries=$((tries + 1))
+  done
+  return 1
+}
+
+list_audio_files() {
+  local root="$1"
+  /usr/bin/find "$root" \
+    \( -name '.Spotlight-V100' -o -name '.fseventsd' -o -name '.Trashes' -o -name '._*' \) -prune -o \
+    -type f \( \
+      -iname '*.wav' -o -iname '*.mp3' -o -iname '*.m4a' -o \
+      -iname '*.aac' -o -iname '*.flac' -o -iname '*.ogg' \
+    \) -print | LC_ALL=C sort
+}
+
+relative_path() {
+  local root="$1"
+  local path="$2"
+  local prefix="${root%/}/"
+  printf '%s\n' "${path#$prefix}"
+}
+
+verify_copy() {
+  local src="$1"
+  local dest="$2"
+  [ -f "$dest" ] || return 1
+  [ "$(stat -f '%z' "$src")" = "$(stat -f '%z' "$dest")" ]
+}
+
+acquire_lock() {
+  mkdir -p "$STATE_DIR"
+  if ! mkdir "$LOCK_DIR" 2>/dev/null; then
+    return 1
+  fi
+  echo "$$" >"$LOCK_DIR/pid"
+  trap 'rm -rf "$LOCK_DIR"' EXIT INT TERM
+}
+
+cmd_detect() {
+  local vol media uuid usb="no"
+  if usb_device_present; then
+    usb="yes (vendor=$USB_VENDOR product=$USB_PRODUCT)"
+  fi
+
+  if ! vol="$(find_dji_volume)"; then
+    echo "mounted:     no"
+    echo "usb present: $usb"
+    echo "media name:  $MEDIA_NAME"
+    echo "volume uuid: $VOLUME_UUID"
+    return 1
+  fi
+
+  media="$(media_name_for_volume "$vol" || true)"
+  uuid="$(volume_uuid_for_volume "$vol" || true)"
+  echo "mounted:     yes"
+  echo "volume:      $vol"
+  echo "media name:  ${media:-unknown}"
+  echo "volume uuid: ${uuid:-unknown}"
+  echo "usb present: $usb"
+  echo "audio dirs:  $(/usr/bin/find "$vol" -maxdepth 1 -type d -name "$AUDIO_DIR_GLOB" -print | tr '\n' ' ')"
+}
+
+cmd_pull() {
+  local vol media uuid dest_dir
+  local -a files failed
+  local src rel dest copied deleted total_bytes
+
+  if [ -z "$SOURCE" ]; then
+    if [ "$IF_PRESENT" -eq 1 ]; then
+      vol="$(wait_for_volume || true)"
+    else
+      vol="$(find_dji_volume || true)"
+    fi
+    SOURCE="$vol"
+  fi
+
+  if [ -z "$SOURCE" ] || [ ! -d "$SOURCE" ]; then
+    if [ "$IF_PRESENT" -eq 1 ]; then
+      log "no DJI Mic mounted; nothing to do"
+      return 0
+    fi
+    die "DJI Mic is not mounted (looked for media '$MEDIA_NAME', uuid $VOLUME_UUID, USB $USB_VENDOR:$USB_PRODUCT)"
+  fi
+
+  volume_has_dji_audio "$SOURCE" || die "no $AUDIO_DIR_GLOB folders on $SOURCE"
+
+  if ! acquire_lock; then
+    log "another dji-mic pull is already running"
+    return 0
+  fi
+
+  if [ -z "$STAMP" ]; then
+    STAMP="$(date +"$DATE_FMT")"
+  fi
+
+  dest_dir="${DEST_ROOT%/}/$STAMP"
+  media="$(media_name_for_volume "$SOURCE" || true)"
+  uuid="$(volume_uuid_for_volume "$SOURCE" || true)"
+
+  log "source:      $SOURCE"
+  log "media name:  ${media:-unknown}"
+  log "volume uuid: ${uuid:-unknown}"
+  log "destination: $dest_dir"
+  if [ "$DELETE_AFTER" -eq 1 ]; then
+    log "after copy:  delete verified files from the device"
+  else
+    log "after copy:  keep files on the device"
+  fi
+
+  files=()
+  while IFS= read -r src; do
+    [ -n "$src" ] || continue
+    files+=("$src")
+  done < <(list_audio_files "$SOURCE")
+
+  if [ "${#files[@]}" -eq 0 ]; then
+    log "no audio files found on the device"
+    return 0
+  fi
+
+  total_bytes=0
+  for src in "${files[@]}"; do
+    total_bytes=$((total_bytes + $(stat -f '%z' "$src")))
+  done
+  log "files:       ${#files[@]} ($(numfmt --to=iec --suffix=B "$total_bytes" 2>/dev/null || echo "${total_bytes} bytes"))"
+
+  if [ "$DRY_RUN" -eq 1 ]; then
+    for src in "${files[@]}"; do
+      rel="$(relative_path "$SOURCE" "$src")"
+      log "would copy  $rel"
+      if [ "$DELETE_AFTER" -eq 1 ]; then
+        log "would delete $rel from device"
+      fi
+    done
+    return 0
+  fi
+
+  mkdir -p "$dest_dir"
+  copied=0
+  deleted=0
+  failed=()
+
+  for src in "${files[@]}"; do
+    rel="$(relative_path "$SOURCE" "$src")"
+    dest="$dest_dir/$rel"
+    mkdir -p "$(dirname "$dest")"
+
+    log "copying $rel"
+    if ! rsync -a -- "$src" "$dest"; then
+      failed+=("$rel")
+      log "  failed to copy $rel"
+      continue
+    fi
+    if ! verify_copy "$src" "$dest"; then
+      failed+=("$rel")
+      log "  size mismatch after copy: $rel"
+      continue
+    fi
+    copied=$((copied + 1))
+    if [ "$DELETE_AFTER" -eq 1 ]; then
+      if rm -f -- "$src"; then
+        deleted=$((deleted + 1))
+      else
+        log "  copied but could not delete from device: $rel"
+      fi
+    fi
+  done
+
+  if [ "$DELETE_AFTER" -eq 1 ]; then
+    /usr/bin/find "$SOURCE" -mindepth 1 -maxdepth 1 -type d -name "$AUDIO_DIR_GLOB" -empty -delete 2>/dev/null || true
+  fi
+
+  log "done. copied $copied / ${#files[@]} files into $dest_dir"
+  if [ "$DELETE_AFTER" -eq 1 ]; then
+    log "deleted $deleted files from the device"
+  fi
+
+  if [ "${#failed[@]}" -gt 0 ]; then
+    log "failed:"
+    for rel in "${failed[@]}"; do
+      log "  $rel"
+    done
+    notify "Pull finished with ${#failed[@]} failed files"
+    return 1
+  fi
+
+  notify "Pulled $copied files into $STAMP"
+}
+
+write_agent_plist() {
+  local bash_bin self
+  bash_bin="$(command -v bash)"
+  self="$(cd "$(dirname "$0")" && pwd)/$(basename "$0")"
+  mkdir -p "$(dirname "$AGENT_PLIST")"
+  cat >"$AGENT_PLIST" <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>${AGENT_LABEL}</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>${bash_bin}</string>
+    <string>${self}</string>
+    <string>pull</string>
+    <string>--if-present</string>
+    <string>--quiet</string>
+  </array>
+  <key>StartOnMount</key>
+  <true/>
+  <key>RunAtLoad</key>
+  <false/>
+  <key>ProcessType</key>
+  <string>Background</string>
+  <key>Nice</key>
+  <integer>10</integer>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    <key>HOME</key>
+    <string>${HOME}</string>
+  </dict>
+  <key>StandardOutPath</key>
+  <string>${LOG_FILE}</string>
+  <key>StandardErrorPath</key>
+  <string>${LOG_FILE}</string>
+</dict>
+</plist>
+EOF
+}
+
+uid_domain() {
+  printf 'gui/%s\n' "$(id -u)"
+}
+
+cmd_watch() {
+  local action="${1:-}"
+  case "$action" in
+    enable)
+      write_agent_plist
+      launchctl bootout "$(uid_domain)/${AGENT_LABEL}" >/dev/null 2>&1 || true
+      launchctl bootstrap "$(uid_domain)" "$AGENT_PLIST"
+      log "watch enabled: StartOnMount → $AGENT_PLIST"
+      echo "Watcher is armed. It runs on the next volume mount, not while the mic is already plugged in."
+      ;;
+    disable)
+      launchctl bootout "$(uid_domain)/${AGENT_LABEL}" >/dev/null 2>&1 || true
+      log "watch disabled"
+      ;;
+    status)
+      if launchctl print "$(uid_domain)/${AGENT_LABEL}" >/dev/null 2>&1; then
+        echo "watch: enabled"
+        launchctl print "$(uid_domain)/${AGENT_LABEL}" | awk '/state =|path =|runs =|last exit/'
+      else
+        echo "watch: disabled"
+      fi
+      echo "plist: $AGENT_PLIST"
+      echo "log:   $LOG_FILE"
+      ;;
+    *)
+      die "watch needs enable, disable, or status"
+      ;;
+  esac
+}
+
+parse_pull_args() {
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      --keep) DELETE_AFTER=0 ;;
+      --delete) DELETE_AFTER=1 ;;
+      --dry-run) DRY_RUN=1 ;;
+      --if-present) IF_PRESENT=1 ;;
+      --quiet) QUIET=1 ;;
+      --source)
+        [ $# -ge 2 ] || die "--source needs a path"
+        SOURCE="$2"
+        shift
+        ;;
+      --dest)
+        [ $# -ge 2 ] || die "--dest needs a path"
+        DEST_ROOT="$2"
+        shift
+        ;;
+      --stamp)
+        [ $# -ge 2 ] || die "--stamp needs a folder name"
+        STAMP="$2"
+        shift
+        ;;
+      -h|--help)
+        usage
+        exit 0
+        ;;
+      *)
+        die "unknown option: $1"
+        ;;
+    esac
+    shift
+  done
+}
+
+load_config
+
+if [ $# -eq 0 ]; then
+  usage
+  exit 1
+fi
+
+CMD="$1"
+shift
+
+case "$CMD" in
+  pull)
+    parse_pull_args "$@"
+    cmd_pull
+    ;;
+  detect)
+    cmd_detect
+    ;;
+  watch)
+    cmd_watch "$@"
+    ;;
+  -h|--help|help)
+    usage
+    ;;
+  *)
+    die "unknown command: $CMD"
+    ;;
+esac
