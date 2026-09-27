@@ -1,6 +1,6 @@
 {
-  "lastChangelogVersion": "0.82.0",
-  "defaultModel": "default",
+  "lastChangelogVersion": "0.87.1",
+  "defaultModel": "glm-5.3",
   "defaultThinkingLevel": "high",
   "packages": [
     "npm:@ff-labs/pi-fff",
@@ -9,17 +9,18 @@
     "npm:pi-subagents",
     "npm:@capyup/pi-goal",
     "git:github.com/jborkowski/px-cli",
-    "npm:@narumitw/pi-goal",
     "npm:pi-antigravity",
-    "npm:pi-mermaid",
-    "npm:@bigboss2063/pi-clip"
+    "npm:@bigboss2063/pi-clip",
+    "git:github.com/jborkowski/pi-cursor",
+    "npm:@earendil-works/pi-ai",
+    "ssh://git@github.com/earendil-works/pi-voice"
   ],
   "showHardwareCursor": false,
   "collapseChangelog": true,
   "quietStartup": true,
   "enableInstallTelemetry": false,
   "treeFilterMode": "default",
-  "hideThinkingBlock": false,
+  "hideThinkingBlock": true,
   "piSec": {
     "oauthProviders": [],
     "providers": [
@@ -28,5 +29,7 @@
       "cursor"
     ]
   },
-  "theme": "dark"
+  "theme": "dark",
+  "defaultProvider": "zai",
+  "tuiMode": "regular"
 }
