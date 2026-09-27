@@ -122,3 +122,9 @@ use-forwarded-agent() {
 claude () {
   command claude --allow-dangerously-skip-permissions "$@";
 }
+
+# Pin project toolchains (Node 24 for denisurf-wp-playground / Playground JSPI).
+# wintermi/zsh-mise alone was not winning over Homebrew Node 26 on PATH.
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh)"
+fi
