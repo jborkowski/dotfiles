@@ -20,9 +20,12 @@ PROMPT+="\$vcs_info_msg_0_ "
 autoload -Uz compinit
 compinit
 
-# Auto-launch Herdr outside editor-integrated terminals.
+# Auto-launch Herdr only for local interactive terminals.
 if [[ -o interactive ]] \
   && [[ -z "$HERDR_PANE_ID" ]] \
+  && [[ -z "$SSH_CONNECTION" ]] \
+  && [[ -z "$SSH_CLIENT" ]] \
+  && [[ -z "$SSH_TTY" ]] \
   && [[ -z "$ORCA_TERMINAL_HANDLE" ]] \
   && [[ -z "$VSCODE_RESOLVING_ENVIRONMENT" ]] \
   && [[ "$TERM_PROGRAM" != "vscode" ]] \
