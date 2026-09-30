@@ -24,6 +24,7 @@ AGENT_PLIST="$HOME/Library/LaunchAgents/${AGENT_LABEL}.plist"
 DEST_ROOT="${DEST_ROOT:-$HOME/Library/Mobile Documents/com~apple~CloudDocs/VoiceNotes}"
 DATE_FMT="%Y-%m-%d-%H-%M"
 DELETE_AFTER=1
+EJECT_AFTER=1
 NOTIFY=1
 MEDIA_NAME="WIRELESS MIC TX2"
 VOLUME_UUID="E0A935FA-012A-35B8-91E9-799C8510DE42"
@@ -46,11 +47,14 @@ Usage: dji-mic <command> [options]
 Commands:
   pull      Copy audio from the mounted transmitter into DEST_ROOT/<date>/
   detect    Print the matched volume and fingerprints (exit 1 if absent)
-  watch     enable | disable | status   — launchd StartOnMount watcher
+  eject     Safely eject the transmitter so it can be unplugged
+  watch     enable | disable | status   — launchd WatchPaths watcher
 
 pull options:
   --keep          Keep files on the device (copy only)
   --delete        Delete from the device after a verified copy (default)
+  --eject         After a successful copy, eject so it is safe to unplug (default)
+  --no-eject      Leave the volume mounted even after a successful copy
   --dry-run       Print actions without copying or deleting
   --if-present    Exit 0 when the device is not mounted (for the watcher)
   --source PATH   Use this volume instead of auto-detect
@@ -206,6 +210,41 @@ acquire_lock() {
   trap 'rm -rf "$LOCK_DIR"' EXIT INT TERM
 }
 
+eject_volume() {
+  local vol="$1"
+  local parent target
+  [ -n "$vol" ] || return 1
+  parent="$(diskutil info "$vol" 2>/dev/null | awk -F: '/Part of Whole/{gsub(/ /,"",$2); print $2}')"
+  target="${parent:-$vol}"
+  sync || true
+  diskutil unmountDisk force "$target" >/dev/null 2>&1 || true
+  if diskutil eject "$target"; then
+    log "ejected $target — safe to unplug"
+    notify "Safe to unplug the DJI Mic"
+    return 0
+  fi
+  log "could not eject $target"
+  return 1
+}
+
+# Remember: eject is optional and not "every time the mic appears".
+# Default is ejectable only after a successful copy. Empty remounts,
+# no-audio ticks, and failed pulls stay mounted. --no-eject / EJECT_AFTER=0.
+maybe_eject_after_copy() {
+  local copied_count="${1:-0}"
+  [ "$DRY_RUN" -eq 0 ] || return 0
+  [ "$EJECT_AFTER" -eq 1 ] || return 0
+  [ "$copied_count" -gt 0 ] || return 0
+  eject_volume "$SOURCE"
+}
+
+cmd_eject() {
+  local vol
+  vol="$(find_dji_volume)" || die "DJI Mic is not mounted"
+  SOURCE="$vol"
+  eject_volume "$vol"
+}
+
 cmd_detect() {
   local vol media uuid usb="no"
   if usb_device_present; then
@@ -235,9 +274,18 @@ cmd_pull() {
   local -a files failed
   local src rel dest copied deleted total_bytes
 
+  if [ "$IF_PRESENT" -eq 1 ]; then
+    log "watch tick"
+  fi
+
   if [ -z "$SOURCE" ]; then
     if [ "$IF_PRESENT" -eq 1 ]; then
-      vol="$(wait_for_volume || true)"
+      # Unmounts and other volumes also fire WatchPaths; only wait if the TX is on USB.
+      if usb_device_present; then
+        vol="$(wait_for_volume || true)"
+      else
+        vol="$(find_dji_volume || true)"
+      fi
     else
       vol="$(find_dji_volume || true)"
     fi
@@ -252,7 +300,10 @@ cmd_pull() {
     die "DJI Mic is not mounted (looked for media '$MEDIA_NAME', uuid $VOLUME_UUID, USB $USB_VENDOR:$USB_PRODUCT)"
   fi
 
-  volume_has_dji_audio "$SOURCE" || die "no $AUDIO_DIR_GLOB folders on $SOURCE"
+  if ! volume_has_dji_audio "$SOURCE"; then
+    log "no $AUDIO_DIR_GLOB folders on $SOURCE (empty card; leaving mounted)"
+    return 0
+  fi
 
   if ! acquire_lock; then
     log "another dji-mic pull is already running"
@@ -276,6 +327,11 @@ cmd_pull() {
   else
     log "after copy:  keep files on the device"
   fi
+  if [ "$EJECT_AFTER" -eq 1 ]; then
+    log "after copy:  eject the disk (safe to unplug)"
+  else
+    log "after copy:  leave the volume mounted"
+  fi
 
   files=()
   while IFS= read -r src; do
@@ -284,7 +340,7 @@ cmd_pull() {
   done < <(list_audio_files "$SOURCE")
 
   if [ "${#files[@]}" -eq 0 ]; then
-    log "no audio files found on the device"
+    log "no audio files found on the device (leaving mounted)"
     return 0
   fi
 
@@ -302,6 +358,9 @@ cmd_pull() {
         log "would delete $rel from device"
       fi
     done
+    if [ "$EJECT_AFTER" -eq 1 ]; then
+      log "would eject the disk after a successful copy"
+    fi
     return 0
   fi
 
@@ -355,6 +414,7 @@ cmd_pull() {
   fi
 
   notify "Pulled $copied files into $STAMP"
+  maybe_eject_after_copy "$copied" || true
 }
 
 write_agent_plist() {
@@ -377,14 +437,16 @@ write_agent_plist() {
     <string>--if-present</string>
     <string>--quiet</string>
   </array>
-  <key>StartOnMount</key>
-  <true/>
+  <key>WatchPaths</key>
+  <array>
+    <string>/Volumes</string>
+  </array>
+  <key>ThrottleInterval</key>
+  <integer>3</integer>
   <key>RunAtLoad</key>
   <false/>
-  <key>ProcessType</key>
-  <string>Background</string>
   <key>Nice</key>
-  <integer>10</integer>
+  <integer>5</integer>
   <key>EnvironmentVariables</key>
   <dict>
     <key>PATH</key>
@@ -412,8 +474,8 @@ cmd_watch() {
       write_agent_plist
       launchctl bootout "$(uid_domain)/${AGENT_LABEL}" >/dev/null 2>&1 || true
       launchctl bootstrap "$(uid_domain)" "$AGENT_PLIST"
-      log "watch enabled: StartOnMount → $AGENT_PLIST"
-      echo "Watcher is armed. It runs on the next volume mount, not while the mic is already plugged in."
+      log "watch enabled: WatchPaths /Volumes → $AGENT_PLIST"
+      echo "Watcher is armed. It runs when /Volumes changes (plug/unplug)."
       ;;
     disable)
       launchctl bootout "$(uid_domain)/${AGENT_LABEL}" >/dev/null 2>&1 || true
@@ -440,6 +502,8 @@ parse_pull_args() {
     case "$1" in
       --keep) DELETE_AFTER=0 ;;
       --delete) DELETE_AFTER=1 ;;
+      --eject) EJECT_AFTER=1 ;;
+      --no-eject) EJECT_AFTER=0 ;;
       --dry-run) DRY_RUN=1 ;;
       --if-present) IF_PRESENT=1 ;;
       --quiet) QUIET=1 ;;
@@ -487,6 +551,9 @@ case "$CMD" in
     ;;
   detect)
     cmd_detect
+    ;;
+  eject)
+    cmd_eject
     ;;
   watch)
     cmd_watch "$@"

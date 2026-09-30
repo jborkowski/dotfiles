@@ -4,6 +4,10 @@
 DEST_ROOT="${DEST_ROOT:-$HOME/Library/Mobile Documents/com~apple~CloudDocs/VoiceNotes}"
 DATE_FMT="${DATE_FMT:-%Y-%m-%d-%H-%M}"
 DELETE_AFTER="${DELETE_AFTER:-1}"
+# Remember: do NOT eject on every plug-in. Default is ejectable after a
+# successful copy only. Empty remounts / no new audio stay mounted.
+# Set to 0, or pass --no-eject, to leave the disk mounted after a pull.
+EJECT_AFTER="${EJECT_AFTER:-1}"
 NOTIFY="${NOTIFY:-1}"
 
 # Match if ANY of these hit. USB serial on this transmitter is generic

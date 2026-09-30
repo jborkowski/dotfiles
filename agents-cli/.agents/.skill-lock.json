@@ -449,6 +449,42 @@
       "skillFolderHash": "31af0156520819c15d19358a8e0bd36f82e67ad3",
       "installedAt": "2026-08-07T15:10:41.878Z",
       "updatedAt": "2026-08-07T15:10:41.878Z"
+    },
+    "skillify": {
+      "source": "garrytan/gbrain",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/garrytan/gbrain.git",
+      "skillPath": "skills/skillify/SKILL.md",
+      "skillFolderHash": "8028547634d6b70d718a5afc0d08cadb1c329668",
+      "installedAt": "2026-08-10T11:48:46.432Z",
+      "updatedAt": "2026-08-10T11:48:46.432Z"
+    },
+    "skill-creator": {
+      "source": "garrytan/gbrain",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/garrytan/gbrain.git",
+      "skillPath": "skills/skill-creator/SKILL.md",
+      "skillFolderHash": "193e03ddc070ea15e421750e86db0ee6f3f1f9d8",
+      "installedAt": "2026-08-10T12:02:40.794Z",
+      "updatedAt": "2026-08-10T12:02:40.794Z"
+    },
+    "orca-cli": {
+      "source": "stablyai/orca",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/stablyai/orca.git",
+      "skillPath": "skills/orca-cli/SKILL.md",
+      "skillFolderHash": "572f7952ac451a30a9c2451b472a639b125ee584",
+      "installedAt": "2026-09-27T11:31:30.637Z",
+      "updatedAt": "2026-09-27T11:31:30.637Z"
+    },
+    "orca-per-workspace-env": {
+      "source": "stablyai/orca",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/stablyai/orca.git",
+      "skillPath": "skills/orca-per-workspace-env/SKILL.md",
+      "skillFolderHash": "58dfb5dc3ad287a6a42625f9d15c7c0c3dfd02ec",
+      "installedAt": "2026-09-27T11:31:30.638Z",
+      "updatedAt": "2026-09-27T11:31:30.638Z"
     }
   },
   "dismissed": {
@@ -456,21 +492,17 @@
   },
   "lastSelectedAgents": [
     "amp",
-    "antigravity",
-    "antigravity-cli",
     "cline",
     "codex",
     "cursor",
-    "deepagents",
+    "droid",
     "gemini-cli",
     "github-copilot",
+    "kilo",
     "kimi-code-cli",
     "opencode",
     "warp",
     "zed",
-    "pi",
-    "claude-code",
-    "grok",
-    "zcode"
+    "pi"
   ]
 }

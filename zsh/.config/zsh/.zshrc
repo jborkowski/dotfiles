@@ -103,28 +103,5 @@ for f in "$HOME/.config/zsh/functions/"*.zsh; do
   [ -f "$f" ] && source "$f"
 done
 
-# ── Shell functions ────────────────────────────────────
-use-forwarded-agent() {
-    if [ -n "$SSH_CONNECTION" ]; then
-        local forwarded_sock=$(find /tmp/ssh-* -name "agent.*" 2>/dev/null | head -1)
-        if [ -n "$forwarded_sock" ]; then
-            export SSH_AUTH_SOCK="$forwarded_sock"
-            echo "Using forwarded agent: $SSH_AUTH_SOCK"
-            ssh-add -l
-        else
-            echo "No forwarded agent socket found. Did you connect with 'ssh -A'?"
-        fi
-    else
-        echo "Not in an SSH session"
-    fi
-}
-
-claude () {
-  command claude --allow-dangerously-skip-permissions "$@";
-}
-
-# Pin project toolchains (Node 24 for denisurf-wp-playground / Playground JSPI).
-# wintermi/zsh-mise alone was not winning over Homebrew Node 26 on PATH.
-if command -v mise >/dev/null 2>&1; then
-  eval "$(mise activate zsh)"
-fi
+# Pi
+export PATH="/opt/homebrew/bin:$PATH"

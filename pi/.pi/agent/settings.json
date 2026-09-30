@@ -9,7 +9,6 @@
     "npm:@capyup/pi-goal",
     "git:github.com/jborkowski/px-cli",
     "npm:pi-antigravity",
-    "npm:@bigboss2063/pi-clip",
     "git:github.com/jborkowski/pi-cursor",
     "npm:@earendil-works/pi-ai",
     "ssh://git@github.com/earendil-works/pi-voice"
@@ -28,9 +27,7 @@
       "cursor"
     ]
   },
-  "theme": "dark",
-  "defaultProvider": "zai",
-  "tuiMode": "fullscreen",
+  "theme": "system",
   "terminal": {
     "showTerminalProgress": false
   },
@@ -44,6 +41,8 @@
   "compaction": {
     "enabled": false
   },
-  "deviceId": "9bf3e143-2ae7-4e99-b5d3-dfc908acba6a",
-  "fullscreenExitOutput": "resume-hint"
+  "fullscreenExitOutput": "resume-hint",
+  "defaultProvider": "openai-codex",
+  "tuiMode": "fullscreen",
+  "deviceId": "40a8d568-eb4e-4d75-b4ca-b3b0f2b71e24"
 }
