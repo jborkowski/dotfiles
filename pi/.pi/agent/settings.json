@@ -1,6 +1,7 @@
 {
   "lastChangelogVersion": "0.99.2",
   "defaultModel": "glm-5.3",
+  "defaultTools": ["+codemode"],
   "defaultThinkingLevel": "low",
   "packages": [
     "npm:@ff-labs/pi-fff",

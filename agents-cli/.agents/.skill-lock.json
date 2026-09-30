@@ -121,14 +121,13 @@
       "updatedAt": "2026-08-07T15:10:41.846Z"
     },
     "code-review": {
-      "source": "mattpocock/skills",
+      "source": "jborkowski/wikiskill",
       "sourceType": "github",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/engineering/code-review/SKILL.md",
-      "skillFolderHash": "7a2057dcc514dc024d4e6bf8ad78021b97f229ae",
-      "pluginName": "mattpocock-skills",
+      "sourceUrl": "https://github.com/jborkowski/wikiskill.git",
+      "skillPath": "skills/code-review/SKILL.md",
+      "skillFolderHash": "1a6ba6ae95ae7a635a6e5736dccb3c00c1a3164d",
       "installedAt": "2026-08-07T15:10:41.852Z",
-      "updatedAt": "2026-08-07T15:10:41.852Z"
+      "updatedAt": "2026-09-30T21:48:25.483Z"
     },
     "codebase-design": {
       "source": "mattpocock/skills",
