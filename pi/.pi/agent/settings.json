@@ -1,11 +1,10 @@
 {
-  "lastChangelogVersion": "0.87.1",
+  "lastChangelogVersion": "0.99.2",
   "defaultModel": "glm-5.3",
-  "defaultThinkingLevel": "high",
+  "defaultThinkingLevel": "low",
   "packages": [
     "npm:@ff-labs/pi-fff",
     "git:github.com/jborkowski/pi-sec",
-    "git:github.com/jborkowski/pi-themesync",
     "npm:pi-subagents",
     "npm:@capyup/pi-goal",
     "git:github.com/jborkowski/px-cli",
@@ -31,5 +30,20 @@
   },
   "theme": "dark",
   "defaultProvider": "zai",
-  "tuiMode": "regular"
+  "tuiMode": "fullscreen",
+  "terminal": {
+    "showTerminalProgress": false
+  },
+  "fullscreenScrollbar": "hidden",
+  "steeringMode": "one-at-a-time",
+  "followUpMode": "all",
+  "modelThinkingLevels": {
+    "zai/glm-5.3": "low",
+    "zai/glm-5.3-flash": "low"
+  },
+  "compaction": {
+    "enabled": false
+  },
+  "deviceId": "9bf3e143-2ae7-4e99-b5d3-dfc908acba6a",
+  "fullscreenExitOutput": "resume-hint"
 }
