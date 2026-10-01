@@ -13,3 +13,10 @@ Read the file completely before changing it (aim for 1500+ lines / the whole fil
 - NEVER modify `.env` / `.env.local` — they contain secrets.
 - The api, worker, and app components auto-reload in docker-compose — no restart needed after changes.
 </important>
+
+## Codemode usage
+   - Prefer the codemode tool over sequences of individual tool calls: one script can chain reads, greps, and edits with full JS control flow (loops, Promise.all).
+   - Batch independent calls in a single script using await Promise.allSettled([...]); only fan out to multiple codemode calls when steps depend on earlier results.
+   - When tool output may be large, filter or aggregate it inside the script (map/filter/reduce) and return only the distilled result — this keeps tokens out of your context.
+   - Use store()/load() to carry state between scripts in this session.
+   - Do NOT use codemode for single trivial calls (one read/grep) — direct tools are cheaper. Use it when there are ≥3 calls, repetition, or large-output filtering.
