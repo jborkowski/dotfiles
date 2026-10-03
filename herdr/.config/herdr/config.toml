@@ -45,4 +45,7 @@ enabled = false
 
 [theme]
 name = "kanagawa-lotus"
-auto_switch = false
+# Follow the host terminal's appearance (set the terminal to follow macOS).
+auto_switch = true
+light_name = "kanagawa-lotus"
+dark_name = "kanagawa"

@@ -20,21 +20,7 @@ PROMPT+="\$vcs_info_msg_0_ "
 autoload -Uz compinit
 compinit
 
-# Auto-launch Herdr only for local interactive terminals.
-if [[ -o interactive ]] \
-  && [[ -z "$HERDR_PANE_ID" ]] \
-  && [[ -z "$SSH_CONNECTION" ]] \
-  && [[ -z "$SSH_CLIENT" ]] \
-  && [[ -z "$SSH_TTY" ]] \
-  && [[ -z "$ORCA_TERMINAL_HANDLE" ]] \
-  && [[ -z "$VSCODE_RESOLVING_ENVIRONMENT" ]] \
-  && [[ "$TERM_PROGRAM" != "vscode" ]] \
-  && [[ "$TERM_PROGRAM" != "cursor" ]] \
-  && [[ "$TERM" != "dumb" ]] \
-  && [[ -t 0 && -t 1 ]] \
-  && command -v herdr >/dev/null; then
-  exec herdr
-fi
+# Herdr is opt-in: run `herdr` to launch or attach to a session.
 
 # ── Options ────────────────────────────────────────────
 setopt HIST_SAVE_NO_DUPS
@@ -68,18 +54,28 @@ if command -v btm > /dev/null; then
 fi
 
 if command -v bat > /dev/null; then
-  light_theme="OneHalfLight"
-  dark_theme="OneHalfDark"
-  theme=$light_theme
-  if uname -a | grep -q "Darwin"; then
-    theme=$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo $dark_theme || echo $light_theme)
-  elif [[ $(dconf read /org/gnome/desktop/interface/color-scheme) == "'prefer-dark'" ]]; then
-    theme=$dark_theme
-  else
-    theme=ansi-light
-  fi
-  alias cat="COLORTERM=24bit bat --theme=$theme --style=changes,numbers -p"
-  export BAT_THEME=$theme
+  # Refresh before each prompt so existing shells follow appearance changes.
+  _sync_bat_theme() {
+    local appearance
+    if [[ "$OSTYPE" == darwin* ]]; then
+      appearance=$(defaults read -globalDomain AppleInterfaceStyle 2>/dev/null)
+      if [[ "$appearance" == Dark ]]; then
+        export BAT_THEME=OneHalfDark
+      else
+        export BAT_THEME=OneHalfLight
+      fi
+    elif command -v dconf >/dev/null \
+      && [[ $(dconf read /org/gnome/desktop/interface/color-scheme 2>/dev/null) == "'prefer-dark'" ]]; then
+      export BAT_THEME=OneHalfDark
+    else
+      export BAT_THEME=ansi-light
+    fi
+  }
+  autoload -Uz add-zsh-hook
+  add-zsh-hook precmd _sync_bat_theme
+  _sync_bat_theme
+  # Let bat read BAT_THEME rather than freezing a --theme value in the alias.
+  alias cat='COLORTERM=24bit bat --style=changes,numbers -p'
   alias cap='cat -p'
 fi
 
