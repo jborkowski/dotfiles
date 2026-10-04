@@ -1,0 +1,17 @@
+{
+  "name": "projectdb",
+  "description": "Query the local projects database. Search, list, or get info about projects in /Users/jonatan/sources.",
+  "type": "shell",
+  "command": "pj",
+  "arguments": {
+    "type": "string",
+    "description": "Command and arguments: 'recent [N]', 'search <term>', 'lang', 'list', 'info <name>', 'large', or raw SQL with 'query <sql>'"
+  },
+  "examples": [
+    "recent 10",
+    "search voice",
+    "lang",
+    "info DenseFeed",
+    "query SELECT name, language FROM projects WHERE language='TypeScript' LIMIT 5"
+  ]
+}

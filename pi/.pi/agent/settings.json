@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "1.0.0",
+  "lastChangelogVersion": "1.0.1",
   "defaultModel": "gpt-6-astra",
   "defaultTools": [
     "+codemode"
@@ -9,7 +9,6 @@
     "npm:@ff-labs/pi-fff",
     "git:github.com/jborkowski/pi-sec",
     "npm:pi-subagents",
-    "npm:@capyup/pi-goal",
     "git:github.com/jborkowski/px-cli",
     "npm:pi-antigravity",
     "npm:@rahularya01/pi-cursor",
@@ -31,7 +30,7 @@
       "cursor"
     ]
   },
-  "theme": "light",
+  "theme": "system/system",
   "terminal": {
     "showTerminalProgress": false
   },
@@ -40,13 +39,13 @@
   "followUpMode": "all",
   "modelThinkingLevels": {
     "zai/glm-5.3": "low",
-    "zai/glm-5.3-flash": "low"
+    "zai/glm-5.3-flash": "low",
+    "antigravity/gemini-3.8-flash": "medium"
   },
   "compaction": {
     "enabled": false
   },
   "fullscreenExitOutput": "resume-hint",
   "defaultProvider": "openai",
-  "tuiMode": "fullscreen",
-  "deviceId": "40a8d568-eb4e-4d75-b4ca-b3b0f2b71e24"
+  "tuiMode": "fullscreen"
 }

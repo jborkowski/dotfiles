@@ -72,3 +72,13 @@ agents-cli/.gemini/antigravity-ide
 agents-cli/.gemini/antigravity-ide/brain/*
 pi/.pi/agent/skills/shannon-adhd
 agents-cli/.claude/settings.json.bak.*
+/agents-cli/.*/agents/
+/agents-cli/.claude/hooks/
+/pi/.pi/agent/antigravity-accounts.json
+/pi/.pi/agent/crashes.json
+/pi/.pi/agent/extensions/herdr-agent-state.ts
+/pi/.pi/agent/extensions/orca-*.ts
+/pi/.pi/agent/missions/
+/pi/.pi/agent/pi-subagents/
+/pi/.pi/agent/pi-voice.*
+/pi/.pi/agent/trust.json
