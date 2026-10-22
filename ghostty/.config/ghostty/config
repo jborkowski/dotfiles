@@ -75,7 +75,6 @@ background-blur = true
 # Bell configuration
 
 unfocused-split-opacity = 0.95
-keybind = shift+enter=text:\x1b\r
 
 desktop-notifications = true
 
