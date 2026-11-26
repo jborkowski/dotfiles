@@ -20,8 +20,6 @@
 	excludesfile = /Users/jonatan/.gitignore_global
 [merge]
 	conflictstyle = diff3
-[url "git@github.com:restaumatic"]
-	insteadof = https://github.com/restaumatic
 [gpg]
 	format = ssh
 [gpg "ssh"]

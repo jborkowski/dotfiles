@@ -1,5 +1,5 @@
 [core]
-	sshCommand = /opt/jbrew/bin/ssh
+	sshCommand = env -u SSH_SK_PROVIDER /opt/jbrew/bin/ssh
 [gpg]
 	format = ssh
 [gpg "ssh"]
