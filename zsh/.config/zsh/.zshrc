@@ -99,5 +99,12 @@ for f in "$HOME/.config/zsh/functions/"*.zsh; do
   [ -f "$f" ] && source "$f"
 done
 
-# Pi
-export PATH="/opt/homebrew/bin:$PATH"
+# Homebrew (prefer isolated /opt/jbrew when present, else /opt/homebrew)
+if [[ -x /opt/jbrew/bin/brew ]]; then
+  eval "$(/opt/jbrew/bin/brew shellenv)"
+  export HOMEBREW_CASK_OPTS="--appdir=$HOME/Applications"
+  export GPG_TTY=$(tty)
+  unset SSH_SK_PROVIDER
+elif [[ -d /opt/homebrew/bin ]]; then
+  export PATH="/opt/homebrew/bin:$PATH"
+fi

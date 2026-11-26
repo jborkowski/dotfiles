@@ -1,0 +1,19 @@
+[core]
+	sshCommand = /opt/jbrew/bin/ssh
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /opt/jbrew/bin/ssh-keygen
+	allowedSignersFile = ~/.ssh/allowed_signers
+[user]
+	signingkey = ~/.ssh/id_ecdsa_sk_rk_macbook.pub
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true
+[credential "https://github.com"]
+	helper =
+	helper = !/opt/jbrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/opt/jbrew/bin/gh auth git-credential
