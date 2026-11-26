@@ -8,9 +8,9 @@
 [user]
 	signingkey = ~/.ssh/id_ecdsa_sk_rk_macbook.pub
 [commit]
-	gpgsign = true
+	gpgsign = false
 [tag]
-	gpgsign = true
+	gpgsign = false
 [credential "https://github.com"]
 	helper =
 	helper = !/opt/jbrew/bin/gh auth git-credential
