@@ -99,12 +99,7 @@ for f in "$HOME/.config/zsh/functions/"*.zsh; do
   [ -f "$f" ] && source "$f"
 done
 
-# Homebrew (prefer isolated /opt/jbrew when present, else /opt/homebrew)
-if [[ -x /opt/jbrew/bin/brew ]]; then
-  eval "$(/opt/jbrew/bin/brew shellenv)"
-  export HOMEBREW_CASK_OPTS="--appdir=$HOME/Applications"
+# GPG TTY for interactive shells (Homebrew detection & env live in .zshenv)
+if [[ -t 0 ]] && command -v gpg >/dev/null; then
   export GPG_TTY=$(tty)
-  unset SSH_SK_PROVIDER
-elif [[ -d /opt/homebrew/bin ]]; then
-  export PATH="/opt/homebrew/bin:$PATH"
 fi

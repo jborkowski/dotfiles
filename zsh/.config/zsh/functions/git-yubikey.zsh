@@ -43,7 +43,7 @@ git() {
             return
           fi
         fi
-        if [[ -x /opt/jbrew/bin/ssh-keygen ]] && _yubikey_present; then
+        if [[ -n "$HOMEBREW_PREFIX" && -x "$HOMEBREW_PREFIX/bin/ssh-keygen" ]] && _yubikey_present; then
           command git -c commit.gpgsign=true -c tag.gpgsign=true "$@"
           return
         fi
